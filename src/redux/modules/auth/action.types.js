@@ -1,0 +1,7 @@
+const ACTION_TYPES = 
+{
+    IS_AUTHENTICATED: 'IS_AUTHENTICATED',
+    SIGN_IN: 'SIGN_IN'
+};
+
+export default ACTION_TYPES;

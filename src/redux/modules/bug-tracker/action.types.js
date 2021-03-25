@@ -1,0 +1,9 @@
+const ACTIONS =
+{
+    CREATE: 'CREATE_BUG',
+    DESTROY: 'DELETE_BUG',
+    MARK_AS_RESOLVED: 'MARK_BUG_AS_RESOLVED',
+};
+
+
+export default ACTIONS;
