@@ -1,10 +1,13 @@
 import { all } from 'redux-saga/effects'
-import postSaga from '../redux/modules/posts/saga'
+
+/** Module sagas */
+import authSaga from '../redux/modules/auth/saga'
+
 
 export default function* () 
 {
     yield all([
-        postSaga()
+        authSaga()
     ]);
 }
 

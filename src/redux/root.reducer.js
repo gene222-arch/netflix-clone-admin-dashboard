@@ -1,17 +1,21 @@
+/** Libraries */
 import { combineReducers } from 'redux';
+import { connectRouter } from 'connected-react-router'
 
-/** Reducers */
-import authenticatedUserReducer from './modules/auth/reducer'
-import bugTrackerReducer from './modules/bug-tracker/reducer';
-import postReducer from './modules/posts/reducer'
-import userReducer from './modules/users/reducer'
+/** Module Reducers */
+import alertReducer from './modules/alert/reducer'
+import authReducer from './modules/auth/reducer'
+import mainLayoutReducer from './modules/main-layout/reducer'
 
 
-const rootReducer = combineReducers({
-    bug: bugTrackerReducer,
-    post: postReducer,
-    user: authenticatedUserReducer,
-    users: userReducer,
+const rootReducer = (history) => combineReducers({
+    /** Global reducers */
+    router: connectRouter(history),
+    alert: alertReducer,
+
+    /** reducers */
+    auth: authReducer,
+    mainLayout: mainLayoutReducer
 });
 
 export default rootReducer;
