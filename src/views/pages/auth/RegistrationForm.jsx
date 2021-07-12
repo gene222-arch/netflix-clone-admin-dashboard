@@ -34,12 +34,9 @@ import { selectAuth } from './../../../redux/modules/auth/selector';
 import { selectAlert } from './../../../redux/modules/alert/selector';
 
 
-
-
-
 const CREDENTIALS_PROPS = {
-    firstName: '',
-    lastName: '',
+    first_name: '',
+    last_name: '',
     email: '',
     password: '',
     password_confirmation: ''
@@ -88,31 +85,31 @@ const RegistrationForm = ({ alert, auth }) =>
                     <Grid container spacing={2}>
                         <Grid item xs={12} sm={6}>
                             <TextField
-                                error={Boolean(error.firstName)}
-                                helperText={error.firstName}
-                                autoComplete='firstName'
-                                name='firstName'
+                                error={Boolean(error.first_name)}
+                                helperText={error.first_name}
+                                autoComplete='first_name'
+                                name='first_name'
                                 variant='outlined'
                                 required
                                 fullWidth
                                 label='First Name'
                                 autoFocus
-                                value={credentials.firstName}
+                                value={credentials.first_name}
                                 onChange={handleChangeCredentials}
                             />
                         </Grid>
                         <Grid item xs={12} sm={6}>
                             <TextField
-                                error={Boolean(error.lastName)}
-                                helperText={error.lastName}
-                                autoComplete='lastName'
-                                name='lastName'
+                                error={Boolean(error.last_name)}
+                                helperText={error.last_name}
+                                autoComplete='last_name'
+                                name='last_name'
                                 variant='outlined'
                                 required
                                 fullWidth
                                 label='Last Name'
                                 autoFocus
-                                value={credentials.lastName}
+                                value={credentials.last_name}
                                 onChange={handleChangeCredentials}
                             />
                         </Grid>

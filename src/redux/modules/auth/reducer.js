@@ -30,8 +30,8 @@ const {
 
 
 const ERROR_DEFAULT = {
-    firstName: '',
-    lastName: '',
+    first_name: '',
+    last_name: '',
     email: '',
     password: ''
 };
