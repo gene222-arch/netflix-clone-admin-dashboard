@@ -13,7 +13,7 @@ export const history = createBrowserHistory();
 
 const sagaMiddleware = createSagaMiddleware();
 
-export default function configureStore(preloadedState) 
+export const configureStore = (preloadedState) =>
 {
 	const store = createStore(
 		rootReducer(history), 
@@ -27,8 +27,8 @@ export default function configureStore(preloadedState)
 			window.devToolsExtension ? window.devToolsExtension() : f => f
 		)
 	);
-	
-	sagaMiddleware.run(rootSaga);
-	
+
 	return store;
 }
+
+sagaMiddleware.run(rootSaga);

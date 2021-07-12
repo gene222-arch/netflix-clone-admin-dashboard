@@ -10,7 +10,7 @@ import App from './App.jsx';
 import PageLoader from './components/PageLoader'
 
 /** Redux */
-import configureStore, { history } from './redux'
+import { configureStore, history } from './redux'
 
 
 ReactDOM.render(
