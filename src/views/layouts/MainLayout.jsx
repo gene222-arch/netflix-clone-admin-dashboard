@@ -1,16 +1,17 @@
-import React, { useState, useEffect } from 'react';
-import { useHistory, NavLink } from 'react-router-dom'
+import React, { useEffect } from 'react';
 import clsx from 'clsx';
 import { connect, useDispatch } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
 /** Material styles */
 import { useTheme } from '@material-ui/core/styles';
+import mainLayoutUseStyles from './../../assets/js/material-ui/mainLayoutUseStyles';
+
 /** Material UI Components */
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import List from '@material-ui/core/List';
+import { List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
@@ -18,7 +19,8 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import { mainLayoutUseStyles } from '../../assets/js/material-ui/materialUIStyles'
+
+import DashboardIcon from '@material-ui/icons/Dashboard';
 
 /** Actions */
 import * as AUTH from '../../redux/modules/auth/actions'
@@ -30,7 +32,6 @@ import { selectMainLayout } from '../../redux/modules/main-layout/selector';
 import Dropdown from './main-layout-drawer-list/Dropdown';
 import SecondListItem from './main-layout-drawer-list/SecondListItem';
 import Header from './main-layout-header/Header';
-
 
 
 
@@ -56,7 +57,7 @@ const MainLayout = ({ auth, children, mainLayout }) =>
         dispatch(AUTH.authUser());
     }, []);
 
-    return auth.user && (
+    return (
         <div className={classes.root}>
             <CssBaseline />
 
@@ -110,6 +111,12 @@ const MainLayout = ({ auth, children, mainLayout }) =>
                 <Divider />
 
                 <List>
+                    <ListItem button>
+                        <ListItemIcon>
+                            <DashboardIcon />
+                        </ListItemIcon>
+                        <ListItemText primary='Dashboard' />
+                    </ListItem>
                     {/* List item 1 */}
                     <Dropdown 
                         open={ mainLayout.dropdown } 

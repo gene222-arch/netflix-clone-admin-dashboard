@@ -8,7 +8,7 @@ const initialState = {
     message: '',
 };
 
-export default (state = initialState, { type, payload }) => 
+export default (state = initialState, { type, payload }) =>
 {
     switch (type) 
     {

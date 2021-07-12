@@ -11,18 +11,26 @@ import MainLayout from './views/layouts/MainLayout';
 
 /** Components */
 import NotFound from './views/pages/errors/NotFound';
+import { MuiThemeProvider } from '@material-ui/core/styles';
+import { createTheme } from '@material-ui/core/styles'
 
+const THEME = createTheme({
+	palette: {
+		type: 'dark',
+	},
+});
 
 const App = ({ history }) => 
 {
 	return (
-		<>
+		<MuiThemeProvider theme={ THEME } >
 			<Switch>
 				<Route path='/auth/:path?'>
 					<AuthLayout>
 						<RenderRoutes routes={ PUBLIC_ROUTES } />
 					</AuthLayout>
 				</Route>
+				
 
 				<Route path='/:path?' exact>
 					<MainLayout>
@@ -32,7 +40,7 @@ const App = ({ history }) =>
 
 				<Route component={ NotFound } />
 			</Switch>
-		</>
+		</MuiThemeProvider>
 	)
 }
 

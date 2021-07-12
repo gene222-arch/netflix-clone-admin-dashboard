@@ -27,8 +27,9 @@ export const configureStore = (preloadedState) =>
 			window.devToolsExtension ? window.devToolsExtension() : f => f
 		)
 	);
+	
+	sagaMiddleware.run(rootSaga);
 
 	return store;
 }
 
-sagaMiddleware.run(rootSaga);

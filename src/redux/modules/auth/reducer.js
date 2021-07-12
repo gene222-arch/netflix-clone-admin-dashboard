@@ -1,6 +1,4 @@
 import ACTION_TYPES from './action.types';
-import * as Cookies from './../../../utils/cookies';
-
 
 const { 
     

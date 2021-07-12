@@ -23,7 +23,7 @@ import AlertPopUp from './../../../components/AlertPopUp';
 import Error from './../../../components/Error';
 
 /** Custom material ui styling */
-import { registrationFormUseStlyes } from '../../../assets/js/material-ui/materialUIStyles';
+import registrationFormUseStlyes from '../../../assets/js/material-ui/registrationFormUseStyles';
 
 /** Actions */
 import * as AUTH from '../../../redux/modules/auth/actions'
@@ -135,7 +135,6 @@ const RegistrationForm = ({ alert, auth }) =>
                             <TextField
                                 error={Boolean(error.password)}
                                 helperText={error.password}
-                                autoComplete='password'
                                 name='password'
                                 variant='outlined'
                                 required
@@ -143,14 +142,13 @@ const RegistrationForm = ({ alert, auth }) =>
                                 label='Password'
                                 type='password'
                                 autoFocus
-                                autoComplete='current-password'
+                                autoComplete='password'
                                 value={credentials.password}
                                 onChange={handleChangeCredentials}
                             />
                         </Grid>
                         <Grid item xs={12}>
                             <TextField
-                                autoComplete='password_confirmation'
                                 name='password_confirmation'
                                 variant='outlined'
                                 required
@@ -158,7 +156,7 @@ const RegistrationForm = ({ alert, auth }) =>
                                 label='Confirm Password'
                                 type='password'
                                 autoFocus
-                                autoComplete='confirm-password'
+                                autoComplete='password_confirmation'
                                 value={credentials.password_confirmation}
                                 onChange={handleChangeCredentials}
                             />

@@ -1,5 +1,5 @@
 /** Libraries */
-import { all, call, put, select, take } from 'redux-saga/effects'
+import { all, call, put, take } from 'redux-saga/effects'
 import { push } from 'connected-react-router';
 
 /** Async functions */
@@ -25,9 +25,6 @@ import {
     resetPasswordFailed
 } from './actions';
 import * as ALERT from './../alert/actions';
-
-/** Auth selectors */
-import { getAuth } from './selector';
 
 /** Utils */
 import * as Cookies from '../../../utils/cookies'
@@ -149,7 +146,7 @@ function* loginSaga (payload)
         yield put(logoutSuccess());
 
         yield put(ALERT.showAlert({
-            status: 'success',
+            status,
             message
         }));
 
@@ -176,7 +173,7 @@ function* registerSaga (payload)
         const { status, data } = yield call(registerAsync, payload);
         const data_ = data;
 
-        if (status === 'Success')
+        if (status === 'success')
         {
             const { access_token, expires_at, data } = data_;
 
@@ -214,7 +211,7 @@ function* resetPasswordSaga (payload)
         yield put(resetPasswordSuccess());
 
         yield put(ALERT.showAlert({
-            status: 'success',
+            status,
             message
         }));
         

@@ -11,7 +11,7 @@ export default () =>
     }
 
     const axiosInstance = Axios.create({
-        baseURL: process.env.REACT_APP_API_BASE_URL,
+        baseURL: 'http://127.0.0.1:8000/api' || process.env.REACT_APP_API_BASE_URL,
         headers
     });
 

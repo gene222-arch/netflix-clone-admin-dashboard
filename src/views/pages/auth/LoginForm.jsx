@@ -23,7 +23,7 @@ import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 
 /** Material UI Styling */
-import { loginFormUseStyles } from '../../../assets/js/material-ui/materialUIStyles';
+import loginFormUseStyles from '../../../assets/js/material-ui/loginFormUseStyles';
 
 /** Async */
 
@@ -37,6 +37,7 @@ import { selectAlert } from './../../../redux/modules/alert/selector';
 
 /** Routes */
 import PATH from './../../../routes/path';
+import Skeleton from '@material-ui/lab/Skeleton';
 
 
 
