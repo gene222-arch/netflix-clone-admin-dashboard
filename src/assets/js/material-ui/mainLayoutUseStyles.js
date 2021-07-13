@@ -1,14 +1,14 @@
 import { makeStyles } from '@material-ui/core/styles';
 import Colors from './../../../constants/Colors';
 
-const drawerWidth = 240;
+const drawerWidth = 300;
 
 const mainLayoutUseStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
     },
     appBar: {
-        zIndex: theme.zIndex.drawer + 99,
+        zIndex: theme.zIndex.drawer + 1,
         transition: theme.transitions.create(['width', 'margin'], {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.leavingScreen,
@@ -23,6 +23,23 @@ const mainLayoutUseStyles = makeStyles((theme) => ({
             duration: theme.transitions.duration.enteringScreen,
         }),
         background: Colors.darkMode
+    },
+    authenticatedUserInfo: {
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        padding: theme.spacing(0, 1, 0, 2),
+        // necessary for content to be below app bar
+        ...theme.mixins.toolbar,
+    },
+    authenticatedUserName: {
+        fontSize: '.9rem',
+        color: theme.palette.text.disabled,
+        fontWeight: 'bold'
+    },
+    authenticatedUserEmail: {
+        fontSize: '.9rem',
+        color: theme.palette.text.disabled
     },
     menuButton: {
         marginRight: 36,
@@ -43,6 +60,7 @@ const mainLayoutUseStyles = makeStyles((theme) => ({
         }),
     },
     drawerClose: {
+        zIndex: 0,
         transition: theme.transitions.create('width', {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.leavingScreen,
@@ -56,8 +74,8 @@ const mainLayoutUseStyles = makeStyles((theme) => ({
     toolbar: {
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'flex-end',
-        padding: theme.spacing(0, 1),
+        justifyContent: 'space-between',
+        padding: theme.spacing(0, 1, 0, 2),
         // necessary for content to be below app bar
         ...theme.mixins.toolbar,
     },
@@ -66,7 +84,7 @@ const mainLayoutUseStyles = makeStyles((theme) => ({
         padding: theme.spacing(3),
     },
     collapseChildren: {
-        marginLeft: theme.spacing(7)
+        marginLeft: theme.spacing(3)
     },
     header: {
         flexGrow: 1

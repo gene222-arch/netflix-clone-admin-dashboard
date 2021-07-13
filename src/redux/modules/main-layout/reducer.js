@@ -4,26 +4,31 @@ import ACTION_TYPES from './action.types';
 const { 
     TOGGLE_DRAWER, 
 
-    TOGGLE_DROPDOWN, 
-    DROPDOWN_OPEN_ITEM_ONE,
-    DROPDOWN_OPEN_ITEM_TWO,
-
-    TOGGLE_SECOND_LIST_ITEM 
+    TOGGLE_VIDEO_MANAGEMENT, 
+    SELECT_VIDEO_MANAGEMENT_GENRES,
+    SELECT_VIDEO_MANAGEMENT_CASTS,
+    SELECT_VIDEO_MANAGEMENT_VIDEOS,
+    TOGGLE_SECOND_LIST_ITEM,
+    SELECT_DASHBOARD
 } = ACTION_TYPES;
 
 const DEFAULT_STATE = {
+    dashboard: false,
     drawer: true,
-    dropdown: false,
-    dropdownItemOne: false,
-    dropdownItemTwo: false,
+    videoManagement: false,
+    videoManagementGenres: false,
+    videoManagementCasts: false,
+    videoManagementVideos: false,
     secondListItem: false,
 };
 
 const initialState = {
+    dashboard: false,
     drawer: false,
-    dropdown: false,
-    dropdownItemOne: false,
-    dropdownItemTwo: false,
+    videoManagement: false,
+    videoManagementGenres: false,
+    videoManagementCasts: false,
+    videoManagementVideos: false,
     secondListItem: false,
 
     currentSelectedItem: 'Dashboard',
@@ -37,10 +42,12 @@ export default (state = initialState, { type, payload }) =>
         currentSelectedItem, 
         currentSelectedDropdown, 
         currentSelectedDropdownItem, 
+        dashboard,
         drawer, 
-        dropdown, 
-        dropdownItemOne,
-        dropdownItemTwo, 
+        videoManagement, 
+        videoManagementGenres,
+        videoManagementCasts, 
+        videoManagementVideos,
         secondListItem } = state;
 
     switch (type) 
@@ -51,42 +58,52 @@ export default (state = initialState, { type, payload }) =>
                 ...DEFAULT_STATE, 
                 drawer: !drawer,
                 /** History */
-                currentSelectedItem, 
                 [currentSelectedDropdown]: !drawer,
                 [currentSelectedDropdownItem]: !drawer,
             };
 
-        case TOGGLE_DROPDOWN: 
+        case TOGGLE_VIDEO_MANAGEMENT: 
             return { 
                 ...DEFAULT_STATE,
-                dropdown: !dropdown,
+                videoManagement: !videoManagement,
                 /** History */
-                [currentSelectedDropdownItem]: !dropdown,
+                [currentSelectedDropdownItem]: !videoManagement,
                 currentSelectedItem,  
                 currentSelectedDropdownItem,
-                currentSelectedDropdown: 'dropdown'
+                currentSelectedDropdown: 'videoManagement'
             };
 
-        case DROPDOWN_OPEN_ITEM_ONE: 
+        case SELECT_VIDEO_MANAGEMENT_GENRES: 
             return { 
                 ...DEFAULT_STATE, 
-                dropdown: true,
-                dropdownItemOne: !dropdownItemOne, 
+                videoManagement: true,
+                videoManagementGenres: !videoManagementGenres, 
                 /** History */
-                currentSelectedItem: 'Dropdown item one',
-                currentSelectedDropdownItem: 'dropdownItemOne',
-                currentSelectedDropdown: 'dropdown',
+                currentSelectedItem: 'Genres',
+                currentSelectedDropdownItem: 'videoManagementGenres',
+                currentSelectedDropdown: 'videoManagement',
             };
 
-        case DROPDOWN_OPEN_ITEM_TWO: 
+        case SELECT_VIDEO_MANAGEMENT_CASTS: 
             return { 
                 ...DEFAULT_STATE, 
-                dropdown: true,
-                dropdownItemTwo: !dropdownItemTwo, 
+                videoManagement: true,
+                videoManagementCasts: !videoManagementCasts, 
                 /** History */
-                currentSelectedItem: 'Dropdown item two',
-                currentSelectedDropdownItem: 'dropdownItemTwo',
-                currentSelectedDropdown: 'dropdown',
+                currentSelectedItem: 'Casts',
+                currentSelectedDropdownItem: 'videoManagementCasts',
+                currentSelectedDropdown: 'videoManagement',
+            };
+
+        case SELECT_VIDEO_MANAGEMENT_VIDEOS: 
+            return { 
+                ...DEFAULT_STATE, 
+                videoManagement: true,
+                videoManagementVideos: !videoManagementVideos, 
+                /** History */
+                currentSelectedItem: 'Videos',
+                currentSelectedDropdownItem: 'videoManagementVideos',
+                currentSelectedDropdown: 'videoManagement',
             };
 
         case TOGGLE_SECOND_LIST_ITEM: 
@@ -98,6 +115,13 @@ export default (state = initialState, { type, payload }) =>
                 currentSelectedDropdown: 'secondListItem'
             };
         
+        case SELECT_DASHBOARD: 
+            return {
+                ...DEFAULT_STATE, 
+                dashboard: true,
+                currentSelectedItem: 'dashboard',
+            }
+
         default:
             return state;
     }

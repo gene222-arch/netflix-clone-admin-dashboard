@@ -3,28 +3,45 @@ import ACTION_TYPES from './action.types';
 
 const { 
     TOGGLE_DRAWER, 
-    TOGGLE_DROPDOWN, 
-    DROPDOWN_OPEN_ITEM_ONE, 
-    DROPDOWN_OPEN_ITEM_TWO,
-    TOGGLE_SECOND_LIST_ITEM } = ACTION_TYPES;
+    TOGGLE_VIDEO_MANAGEMENT, 
+    SELECT_VIDEO_MANAGEMENT_GENRES, 
+    SELECT_VIDEO_MANAGEMENT_CASTS,
+    SELECT_VIDEO_MANAGEMENT_VIDEOS,
+    TOGGLE_SECOND_LIST_ITEM,
+    SELECT_DASHBOARD } = ACTION_TYPES;
 
 
 export const toggleDrawer = () => ({
     type: TOGGLE_DRAWER
 });
 
-export const toggleDropdown = () => ({
-    type: TOGGLE_DROPDOWN
+/**
+ * Video Management
+ */
+export const toggleVideoManagement = () => ({
+    type: TOGGLE_VIDEO_MANAGEMENT
 });
 
-export const openDropdownItemOne = () => ({
-    type: DROPDOWN_OPEN_ITEM_ONE
+export const selectVideoManagementGenres = () => ({
+    type: SELECT_VIDEO_MANAGEMENT_GENRES
 });
 
-export const openDropdownItemTwo = () => ({
-    type: DROPDOWN_OPEN_ITEM_TWO
+export const selectVideoManagementCasts = () => ({
+    type: SELECT_VIDEO_MANAGEMENT_CASTS
 });
 
+export const selectVideoManagementVideos = () => ({
+    type: SELECT_VIDEO_MANAGEMENT_VIDEOS
+});
+
+
+/**
+ * 
+ */
 export const toggleSecondListItem = () => ({
     type: TOGGLE_SECOND_LIST_ITEM
+});
+
+export const selectDashboard = () => ({
+    type: SELECT_DASHBOARD
 });
