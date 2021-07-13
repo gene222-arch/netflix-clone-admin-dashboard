@@ -107,7 +107,7 @@ function* loginSaga (payload)
         const { status, data } = yield call(loginAsync, payload);
         const data_ = data;
 
-        if (status === 'Success')
+        if (status === 'success')
         {
             const { access_token, expires_at, data } = data_;
 

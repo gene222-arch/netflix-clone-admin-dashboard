@@ -1,6 +1,6 @@
 /** Libraries */
 import React, { useState, useEffect } from 'react';
-import { useDispatch, connect } from 'react-redux'
+import { useDispatch, connect, batch } from 'react-redux'
 import { createStructuredSelector } from 'reselect';
 
 /** Custom Components */
@@ -37,7 +37,7 @@ import { selectAlert } from './../../../redux/modules/alert/selector';
 
 /** Routes */
 import PATH from './../../../routes/path';
-import Skeleton from '@material-ui/lab/Skeleton';
+import { persistor } from './../../../redux'
 
 
 
@@ -72,6 +72,16 @@ const LoginForm = ({ alert, auth }) =>
         dispatch(AUTH.login(credentials));
     }
 
+    const handleCloseAlertMessage = () => 
+    {
+        window.addEventListener('load', async () => {
+            await persistor.purge();
+            await persistor.flush();
+        });
+        
+        dispatch(ALERT.hideAlert());
+    }
+
     useEffect(() => {
         return () => {
             setCredentials(CREDENTIALS_DEFAULT);
@@ -84,7 +94,7 @@ const LoginForm = ({ alert, auth }) =>
                 status={ alert.status }
                 message={ alert.message }
                 open={ alert.isOpen }
-                handleClickCloseAlert={ () => dispatch(ALERT.hideAlert()) }
+                handleClickCloseAlert={ handleCloseAlertMessage }
             />
             <CssBaseline />
             <div className={classes.paper}>

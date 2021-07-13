@@ -6,18 +6,17 @@ import * as Cookie from '../utils/cookies'
 import { createStructuredSelector } from 'reselect';
 import { selectAuth } from './../redux/modules/auth/selector';
 import { connect } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 const PrivateRoute = ({ AUTH, Component, ...props }) => 
 {
-    return (
-        <>
-            {
-                (!AUTH.isAuthenticated && !AUTH.isLoading)
-                    ? <Forbidden />
-                    : <Component { ...props } />
-            }
-        </>
-    )
+    const history = useHistory();
+
+    if (!AUTH.isAuthenticated) {
+        history.goBack();
+    }
+    
+    return <Component { ...props } />
 }
 
 const mapStateToProps = createStructuredSelector({

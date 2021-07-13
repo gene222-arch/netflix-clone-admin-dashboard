@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
+import * as AUTH_ACTION from '../../../redux/modules/auth/actions'
+
 /** Material UI Components */
 import Button from '@material-ui/core/Button';
 import { MenuItem, Typography, makeStyles } from '@material-ui/core';
@@ -10,6 +12,9 @@ import { Skeleton } from '@material-ui/lab';
 
 /** Components */
 import Menu from './../../../components/Menu';
+import { createStructuredSelector } from 'reselect';
+import { selectAuth } from './../../../redux/modules/auth/selector';
+import { useDispatch, connect } from 'react-redux';
 
 const useStyles = makeStyles((theme) => ({
     userAvatar: {
@@ -18,9 +23,10 @@ const useStyles = makeStyles((theme) => ({
     },
 }))
 
-const Header = ({ user, handleClickLogout }) => 
+const Header = ({ AUTH }) => 
 {
     const classes = useStyles();
+    const dispatch = useDispatch();
 
     const [anchorEl, setAnchorEl] = useState(null);
 
@@ -28,10 +34,10 @@ const Header = ({ user, handleClickLogout }) =>
 
     const handleClose = () => setAnchorEl(null);
 
-    const logout = () => {
+    const handleClickLogout = () => {
         handleClose();
-        handleClickLogout();
-    };
+        dispatch(AUTH_ACTION.logoutStart());
+    }
 
     useEffect(() => {
         return () => {
@@ -46,13 +52,13 @@ const Header = ({ user, handleClickLogout }) =>
                 aria-haspopup='true' 
                 style={{ backgroundColor: 'transparent' }}
                 onClick={ handleClick }
-                disabled={ !user }
+                disabled={ !AUTH.user }
             >
                 <Typography variant='h6' color='initial'>
                     {
-                        !user
+                        !AUTH.user
                             ? <Skeleton variant='circle'><Avatar /></Skeleton> 
-                            : <Avatar className={ classes.userAvatar }>{ user.first_name.substr(0, 1) }</Avatar>
+                            : <Avatar className={ classes.userAvatar }>{ AUTH.user.first_name.substr(0, 1) }</Avatar>
                     }
                 </Typography>
             </Button>
@@ -63,11 +69,15 @@ const Header = ({ user, handleClickLogout }) =>
                 open={Boolean(anchorEl)}
                 onClose={ handleClose }
             >
-                <MenuItem onClick={ logout }>Logout</MenuItem>
+                <MenuItem onClick={ handleClickLogout }>Logout</MenuItem>
             </Menu>
         
         </>
     );
 }
 
-export default Header;
+const mapStateToProps = createStructuredSelector({
+    AUTH: selectAuth
+});
+
+export default connect(mapStateToProps)(Header);

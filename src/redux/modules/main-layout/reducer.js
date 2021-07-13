@@ -119,7 +119,7 @@ export default (state = initialState, { type, payload }) =>
             return {
                 ...DEFAULT_STATE, 
                 dashboard: true,
-                currentSelectedItem: 'dashboard',
+                currentSelectedItem: 'Dashboard',
             }
 
         default:

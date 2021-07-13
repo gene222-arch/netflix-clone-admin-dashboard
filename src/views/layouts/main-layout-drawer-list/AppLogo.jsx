@@ -10,9 +10,10 @@ import Typography from '@material-ui/core/Typography';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import CancelIcon from '@material-ui/icons/Cancel';
 import { Skeleton } from '@material-ui/lab';
+import { selectMainLayout } from '../../../redux/modules/main-layout/selector';
 
 
-const Avatar = ({ AUTH }) => 
+const Avatar = ({ AUTH, MAIN_LAYOUT }) => 
 {
     const theme = useTheme();
     const classes = mainLayoutUseStyles();
@@ -30,33 +31,36 @@ const Avatar = ({ AUTH }) =>
                     {theme.direction === 'rtl' ? <ChevronRightIcon /> : <CancelIcon />}
                 </IconButton>
             </div>
-            <div className={ classes.authenticatedUserInfo }>
-                {
-                    !AUTH.user
-                        ? (
-                            <>
-                                <Typography variant='subtitle1'><Skeleton /></Typography>
-                                <Typography variant='subtitle2'><Skeleton /></Typography>
-                            </>
-                        )
-                        : (
-                            <>
-                                <Typography variant='subtitle1' color="initial" className={ classes.authenticatedUserName }>
-                                    { `${ AUTH.user.first_name } ${ AUTH.user.last_name }` }
-                                </Typography>
-                                <Typography variant='subtitle2' color="initial" className={ classes.authenticatedUserEmail } >
-                                    { AUTH.user.email }
-                                </Typography>
-                            </>
-                        )
-                }
-            </div>
+            {
+                MAIN_LAYOUT.drawer && <div className={ classes.authenticatedUserInfo }>
+                    {
+                        !AUTH.user
+                            ? (
+                                <>
+                                    <Typography variant='subtitle1'><Skeleton /></Typography>
+                                    <Typography variant='subtitle2'><Skeleton /></Typography>
+                                </>
+                            )
+                            : (
+                                <>
+                                    <Typography variant='subtitle1' color="initial" className={ classes.authenticatedUserName }>
+                                        { `${ AUTH.user.first_name } ${ AUTH.user.last_name }` }
+                                    </Typography>
+                                    <Typography variant='subtitle2' color="initial" className={ classes.authenticatedUserEmail } >
+                                        { AUTH.user.email }
+                                    </Typography>
+                                </>
+                            )
+                    }
+                </div>
+            }
         </>
     )
 }
 
 const mapStateToProps = createStructuredSelector({
-    AUTH: selectAuth
+    AUTH: selectAuth,
+    MAIN_LAYOUT: selectMainLayout
 });
 
 export default connect(mapStateToProps)(Avatar)

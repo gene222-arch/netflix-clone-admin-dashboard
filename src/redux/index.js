@@ -3,33 +3,32 @@ import { createStore, compose, applyMiddleware } from 'redux';
 import createSagaMiddleware from 'redux-saga'
 import { createBrowserHistory } from 'history'
 import { routerMiddleware } from 'connected-react-router'
+import { persistStore } from 'redux-persist'
 
 /** Root sagas, reducers */
 import rootReducer from './root.reducer'
 import rootSaga from './rootSaga'
 
 
-export const history = createBrowserHistory();
-
 const sagaMiddleware = createSagaMiddleware();
 
-export const configureStore = (preloadedState) =>
-{
-	const store = createStore(
-		rootReducer(history), 
-		preloadedState,
-		compose(
-			applyMiddleware(
-				routerMiddleware(history),
-				sagaMiddleware,
-				/** ...other middlewares */
-			),
-			window.devToolsExtension ? window.devToolsExtension() : f => f
-		)
-	);
-	
-	sagaMiddleware.run(rootSaga);
+const history = createBrowserHistory();
 
-	return store;
-}
+const store = createStore(
+	rootReducer, 
+	{},
+	compose(
+		applyMiddleware(
+			routerMiddleware(history),
+			sagaMiddleware,
+			/** ...other middlewares */
+		),
+		window.devToolsExtension ? window.devToolsExtension() : f => f
+	)
+);
 
+sagaMiddleware.run(rootSaga);
+
+const persistor = persistStore(store);
+
+export { history, store, persistor }

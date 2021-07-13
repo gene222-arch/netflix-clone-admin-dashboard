@@ -24,6 +24,12 @@ const mainLayoutUseStyles = makeStyles((theme) => ({
         }),
         background: Colors.darkMode
     },
+    appBarContent: {
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        flex: 1,
+    },
     authenticatedUserInfo: {
         display: 'flex',
         flexDirection: 'column',
@@ -42,7 +48,7 @@ const mainLayoutUseStyles = makeStyles((theme) => ({
         color: theme.palette.text.disabled
     },
     menuButton: {
-        marginRight: 36,
+        marginRight: '.9rem',
     },
     hide: {
         display: 'none',
@@ -71,6 +77,9 @@ const mainLayoutUseStyles = makeStyles((theme) => ({
             width: theme.spacing(9) + 1,
         },
     },
+    searchField: {
+        backgroundColor: Colors.darkMode
+    },
     toolbar: {
         display: 'flex',
         alignItems: 'center',
@@ -87,7 +96,7 @@ const mainLayoutUseStyles = makeStyles((theme) => ({
         marginLeft: theme.spacing(3)
     },
     header: {
-        flexGrow: 1
+        marginRight: '2rem'
     },
 }));
 
