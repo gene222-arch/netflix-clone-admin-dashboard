@@ -17,6 +17,7 @@ import { connect, useDispatch } from 'react-redux';
 import mainLayoutUseStyles from '../../../assets/js/material-ui/mainLayoutUseStyles';
 import * as MAIN_LAYOUT_ACTION from '../../../redux/modules/main-layout/actions'
 import StyledNavLink from '../../../components/styled-components/StyledNavLink';
+import PATH from './../../../routes/path';
 
 
 const VideoManagement = ({ MAIN_LAYOUT }) => 
@@ -49,20 +50,9 @@ const VideoManagement = ({ MAIN_LAYOUT }) =>
                 className={ classes.collapseChildren  }
             >
                 <List component='div' disablePadding>
-                    {/* Genres */}
-                    <StyledNavLink 
-                        to=''
-                        text={
-                            <ListItem button selected={ MAIN_LAYOUT.videoManagementGenres } onClick={ selectVideoManagementGenres }>
-                                <ListItemText primary='Genres'/>
-                                <EmojiEmotionsIcon />
-                            </ListItem>
-                        }
-                    />
-
                     {/* Casts */}
                     <StyledNavLink 
-                        to=''
+                        to={ PATH.VIDEO_MANAGEMENT_CAST }
                         text={
                             <ListItem button selected={ MAIN_LAYOUT.videoManagementCasts } onClick={ selectVideoManagementCasts }>
                                 <ListItemText primary='Casts'/>
@@ -71,9 +61,20 @@ const VideoManagement = ({ MAIN_LAYOUT }) =>
                         }
                     />
 
+                    {/* Genres */}
+                    <StyledNavLink 
+                        to={ PATH.VIDEO_MANAGEMENT_GENRE }
+                        text={
+                            <ListItem button selected={ MAIN_LAYOUT.videoManagementGenres } onClick={ selectVideoManagementGenres }>
+                                <ListItemText primary='Genres'/>
+                                <EmojiEmotionsIcon />
+                            </ListItem>
+                        }
+                    />
+
                     {/* Videos */}
                     <StyledNavLink 
-                        to=''
+                        to={ PATH.VIDEO_MANAGEMENT_VIDEO }
                         text={
                             <ListItem button selected={ MAIN_LAYOUT.videoManagementVideos } onClick={ selectVideoManagementVideos }>
                                 <ListItemText primary='Videos'/>

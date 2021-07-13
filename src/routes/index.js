@@ -13,7 +13,9 @@ const PublicRoute = lazy(() => import('./PublicRoute'));
 const PrivateRoute = lazy(() => import('./PrivateRoute'));
 const RegistrationForm = lazy(() => import('../views/pages/auth/RegistrationForm'))
 const ResetPasswordForm = lazy(() => import('../views/pages/auth/ResetPasswordForm'))
-
+const VideoManagementCast = lazy(() => import('../views/pages/video-management/cast'))
+const VideoManagementGenre = lazy(() => import('../views/pages/video-management/genre'))
+const VideoManagementVideo = lazy(() => import('../views/pages/video-management/video'))
 
 export const PUBLIC_ROUTES = [
     {
@@ -65,6 +67,33 @@ export const PRIVATE_ROUTES = [
         access: 'View Dashboard',
         restricted: true
     },
+    {
+        path: PATH.VIDEO_MANAGEMENT_CAST,
+        key: 'VideoManagementCast',
+        icon: '',
+        exact: true,
+        component: VideoManagementCast,
+        access: 'View Casts',
+        restricted: true
+    },
+    {
+        path: PATH.VIDEO_MANAGEMENT_GENRE,
+        key: 'VideoManagementGenre',
+        icon: '',
+        exact: true,
+        component: VideoManagementGenre,
+        access: 'View Genres',
+        restricted: true
+    },
+    {
+        path: PATH.VIDEO_MANAGEMENT_VIDEO,
+        key: 'VideoManagementVideo',
+        icon: '',
+        exact: true,
+        component: VideoManagementVideo,
+        access: 'View Videos',
+        restricted: true
+    },
 ];
 
 
@@ -73,7 +102,7 @@ export const RenderRoutes = ({ routes }) =>
     return (
         <Switch>
             {
-                routes.map(({ key, path, strict, exact, restricted, component: Component }) => (
+                routes.map(({ key, path, strict, exact, restricted, component }) => (
                     <Route
                         key={ key }
                         path={ path }
@@ -81,8 +110,8 @@ export const RenderRoutes = ({ routes }) =>
                         exact={ exact }
                         render={ props => {
                             return restricted 
-                                ? <PrivateRoute Component={ Component } { ...props }/>
-                                : <PublicRoute Component={ Component } { ...props } />
+                                ? <PrivateRoute Component={ component } { ...props }/>
+                                : <PublicRoute Component={ component } { ...props } />
                         }}
                     />
                 ))

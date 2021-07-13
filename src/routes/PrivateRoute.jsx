@@ -3,13 +3,16 @@ import Forbidden from './../views/pages/errors/Forbidden';
 
 /** Utils */
 import * as Cookie from '../utils/cookies'
+import { createStructuredSelector } from 'reselect';
+import { selectAuth } from './../redux/modules/auth/selector';
+import { connect } from 'react-redux';
 
-const PrivateRoute = ({ Component, ...props }) => 
+const PrivateRoute = ({ AUTH, Component, ...props }) => 
 {
     return (
         <>
             {
-                !Cookie.has('access_token') 
+                (!AUTH.isAuthenticated && !AUTH.isLoading)
                     ? <Forbidden />
                     : <Component { ...props } />
             }
@@ -17,4 +20,8 @@ const PrivateRoute = ({ Component, ...props }) =>
     )
 }
 
-export default PrivateRoute
+const mapStateToProps = createStructuredSelector({
+    AUTH: selectAuth
+});
+
+export default connect(mapStateToProps)(PrivateRoute)

@@ -5,6 +5,8 @@ import { useDispatch, connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { selectMainLayout } from '../../../redux/modules/main-layout/selector';
 import { ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
+import StyledNavLink from '../../../components/styled-components/StyledNavLink';
+import PATH from './../../../routes/path';
 
 const Dashboard = ({ MAIN_LAYOUT }) => 
 {
@@ -13,16 +15,21 @@ const Dashboard = ({ MAIN_LAYOUT }) =>
     const handleClickDashboard = () => dispatch(MAIN_LAYOUT_ACTION.selectDashboard());
 
     return (
-        <ListItem 
-            button 
-            onClick={ handleClickDashboard }
-            selected={ MAIN_LAYOUT.dashboard }
-        >
-            <ListItemIcon>
-                <DashboardIcon />
-            </ListItemIcon>
-            <ListItemText primary='Dashboard' />
-        </ListItem>
+        <StyledNavLink 
+            to={ PATH.DASHBOARD }
+            text={
+                <ListItem 
+                    button 
+                    onClick={ handleClickDashboard }
+                    selected={ MAIN_LAYOUT.dashboard }
+                >
+                    <ListItemIcon>
+                        <DashboardIcon />
+                    </ListItemIcon>
+                    <ListItemText primary='Dashboard' />
+                </ListItem>
+            }
+        />
     )
 }
 

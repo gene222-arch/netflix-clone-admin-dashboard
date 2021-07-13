@@ -25,14 +25,14 @@ const App = ({ history }) =>
 	return (
 		<MuiThemeProvider theme={ THEME } >
 			<Switch>
-				<Route path='/auth/:path?'>
+				<Route path='/auth/:path?' exact>
 					<AuthLayout>
 						<RenderRoutes routes={ PUBLIC_ROUTES } />
 					</AuthLayout>
 				</Route>
 				
 
-				<Route path='/:path?' exact>
+				<Route path='/:path?'>
 					<MainLayout>
 						<RenderRoutes routes={ PRIVATE_ROUTES } />
 					</MainLayout>
