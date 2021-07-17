@@ -5,9 +5,11 @@ const {
     TOGGLE_DRAWER, 
 
     TOGGLE_VIDEO_MANAGEMENT, 
-    SELECT_VIDEO_MANAGEMENT_GENRES,
+    SELECT_VIDEO_MANAGEMENT_AUTHORS,
     SELECT_VIDEO_MANAGEMENT_CASTS,
-    SELECT_VIDEO_MANAGEMENT_VIDEOS,
+    SELECT_VIDEO_MANAGEMENT_DIRECTORS,
+    SELECT_VIDEO_MANAGEMENT_GENRES, 
+    SELECT_VIDEO_MANAGEMENT_VIDEOS, 
     TOGGLE_SECOND_LIST_ITEM,
     SELECT_DASHBOARD
 } = ACTION_TYPES;
@@ -16,8 +18,10 @@ const DEFAULT_STATE = {
     dashboard: false,
     drawer: true,
     videoManagement: false,
-    videoManagementGenres: false,
+    videoManagementAuthors: false,
     videoManagementCasts: false,
+    videoManagementDirectors: false,
+    videoManagementGenres: false,
     videoManagementVideos: false,
     secondListItem: false,
 };
@@ -26,8 +30,10 @@ const initialState = {
     dashboard: false,
     drawer: false,
     videoManagement: false,
-    videoManagementGenres: false,
+    videoManagementAuthors: false,
     videoManagementCasts: false,
+    videoManagementDirectors: false,
+    videoManagementGenres: false,
     videoManagementVideos: false,
     secondListItem: false,
 
@@ -45,8 +51,10 @@ export default (state = initialState, { type, payload }) =>
         dashboard,
         drawer, 
         videoManagement, 
-        videoManagementGenres,
+        videoManagementAuthors,
         videoManagementCasts, 
+        videoManagementDirectors,
+        videoManagementGenres,
         videoManagementVideos,
         secondListItem } = state;
 
@@ -57,7 +65,6 @@ export default (state = initialState, { type, payload }) =>
                 ...state,
                 ...DEFAULT_STATE, 
                 drawer: !drawer,
-                /** History */
                 [currentSelectedDropdown]: !drawer,
                 [currentSelectedDropdownItem]: !drawer,
             };
@@ -66,21 +73,19 @@ export default (state = initialState, { type, payload }) =>
             return { 
                 ...DEFAULT_STATE,
                 videoManagement: !videoManagement,
-                /** History */
                 [currentSelectedDropdownItem]: !videoManagement,
                 currentSelectedItem,  
                 currentSelectedDropdownItem,
                 currentSelectedDropdown: 'videoManagement'
             };
 
-        case SELECT_VIDEO_MANAGEMENT_GENRES: 
+        case SELECT_VIDEO_MANAGEMENT_AUTHORS: 
             return { 
                 ...DEFAULT_STATE, 
                 videoManagement: true,
-                videoManagementGenres: !videoManagementGenres, 
-                /** History */
-                currentSelectedItem: 'Genres',
-                currentSelectedDropdownItem: 'videoManagementGenres',
+                videoManagementAuthors: !videoManagementAuthors, 
+                currentSelectedItem: 'Authors',
+                currentSelectedDropdownItem: 'videoManagementAuthors',
                 currentSelectedDropdown: 'videoManagement',
             };
 
@@ -92,6 +97,27 @@ export default (state = initialState, { type, payload }) =>
                 /** History */
                 currentSelectedItem: 'Casts',
                 currentSelectedDropdownItem: 'videoManagementCasts',
+                currentSelectedDropdown: 'videoManagement',
+            };
+
+        case SELECT_VIDEO_MANAGEMENT_DIRECTORS: 
+            return { 
+                ...DEFAULT_STATE, 
+                videoManagement: true,
+                videoManagementDirectors: !videoManagementDirectors, 
+                currentSelectedItem: 'Directors',
+                currentSelectedDropdownItem: 'videoManagementDirectors',
+                currentSelectedDropdown: 'videoManagement',
+            };
+
+        case SELECT_VIDEO_MANAGEMENT_GENRES: 
+            return { 
+                ...DEFAULT_STATE, 
+                videoManagement: true,
+                videoManagementGenres: !videoManagementGenres, 
+                /** History */
+                currentSelectedItem: 'Genres',
+                currentSelectedDropdownItem: 'videoManagementGenres',
                 currentSelectedDropdown: 'videoManagement',
             };
 

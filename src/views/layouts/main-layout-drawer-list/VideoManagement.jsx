@@ -11,6 +11,7 @@ import SportsKabaddiIcon from '@material-ui/icons/SportsKabaddi';
 import DropdownIcon from '../../../components/DropdownIcon';
 import MovieIcon from '@material-ui/icons/Movie';
 import VideoLibraryIcon from '@material-ui/icons/VideoLibrary';
+import CastIcon from '@material-ui/icons/RecentActors';
 import { createStructuredSelector } from 'reselect';
 import { selectMainLayout } from '../../../redux/modules/main-layout/selector';
 import { connect, useDispatch } from 'react-redux';
@@ -27,9 +28,13 @@ const VideoManagement = ({ MAIN_LAYOUT }) =>
 
     const handleToggleVideoMngmt = () => dispatch(MAIN_LAYOUT_ACTION.toggleVideoManagement());
 
-    const selectVideoManagementGenres = () => dispatch(MAIN_LAYOUT_ACTION.selectVideoManagementGenres());
+    const selectVideoManagementAuthors = () => dispatch(MAIN_LAYOUT_ACTION.selectVideoManagementAuthors());
 
     const selectVideoManagementCasts = () => dispatch(MAIN_LAYOUT_ACTION.selectVideoManagementCasts());
+    
+    const selectVideoManagementDirectors = () => dispatch(MAIN_LAYOUT_ACTION.selectVideoManagementDirectors());
+
+    const selectVideoManagementGenres = () => dispatch(MAIN_LAYOUT_ACTION.selectVideoManagementGenres());
 
     const selectVideoManagementVideos = () => dispatch(MAIN_LAYOUT_ACTION.selectVideoManagementVideos());
 
@@ -50,12 +55,34 @@ const VideoManagement = ({ MAIN_LAYOUT }) =>
                 className={ classes.collapseChildren  }
             >
                 <List component='div' disablePadding>
+                    {/* Authors */}
+                    <StyledNavLink 
+                        to={ PATH.VIDEO_MANAGEMENT_AUTHOR }
+                        text={
+                            <ListItem button selected={ MAIN_LAYOUT.videoManagementAuthors } onClick={ selectVideoManagementAuthors }>
+                                <ListItemText primary='Authors'/>
+                                <SportsKabaddiIcon />
+                            </ListItem>
+                        }
+                    />
+
                     {/* Casts */}
                     <StyledNavLink 
                         to={ PATH.VIDEO_MANAGEMENT_CAST }
                         text={
                             <ListItem button selected={ MAIN_LAYOUT.videoManagementCasts } onClick={ selectVideoManagementCasts }>
                                 <ListItemText primary='Casts'/>
+                                <CastIcon />
+                            </ListItem>
+                        }
+                    />
+
+                    {/* Directors */}
+                    <StyledNavLink 
+                        to={ PATH.VIDEO_MANAGEMENT_DIRECTOR }
+                        text={
+                            <ListItem button selected={ MAIN_LAYOUT.videoManagementDirectors } onClick={ selectVideoManagementDirectors }>
+                                <ListItemText primary='Directors'/>
                                 <SportsKabaddiIcon />
                             </ListItem>
                         }

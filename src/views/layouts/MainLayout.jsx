@@ -82,4 +82,4 @@ const mapStateToProps = createStructuredSelector({
     MAIN_LAYOUT: selectMainLayout
 });
 
-export default connect(mapStateToProps, null)(MainLayout);
+export default connect(mapStateToProps)(MainLayout);

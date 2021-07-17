@@ -13,7 +13,11 @@ const PublicRoute = lazy(() => import('./PublicRoute'));
 const PrivateRoute = lazy(() => import('./PrivateRoute'));
 const RegistrationForm = lazy(() => import('../views/pages/auth/RegistrationForm'))
 const ResetPasswordForm = lazy(() => import('../views/pages/auth/ResetPasswordForm'))
+const VideoManagementAuthor = lazy(() => import('../views/pages/video-management/author'))
+const CreateAuthor = lazy(() => import('../views/pages/video-management/author/CreateAuthor'))
+const UpdateAuthor = lazy(() => import('../views/pages/video-management/author/UpdateAuthor'))
 const VideoManagementCast = lazy(() => import('../views/pages/video-management/cast'))
+const VideoManagementDirector = lazy(() => import('../views/pages/video-management/director'))
 const VideoManagementGenre = lazy(() => import('../views/pages/video-management/genre'))
 const VideoManagementVideo = lazy(() => import('../views/pages/video-management/video'))
 
@@ -68,12 +72,48 @@ export const PRIVATE_ROUTES = [
         restricted: true
     },
     {
+        path: PATH.VIDEO_MANAGEMENT_AUTHOR,
+        key: 'VideoManagementAuthor',
+        icon: '',
+        exact: true,
+        component: VideoManagementAuthor,
+        access: 'View Authors',
+        restricted: true
+    },
+    {
+        path: PATH.CREATE_AUTHOR,
+        key: 'CreateAuthor',
+        icon: '',
+        exact: true,
+        component: CreateAuthor,
+        access: 'Manage Authors',
+        restricted: true
+    },
+    {
+        path: PATH.UPDATE_AUTHOR,
+        key: 'UpdateAuthor',
+        icon: '',
+        exact: true,
+        component: UpdateAuthor,
+        access: 'Manage Authors',
+        restricted: true
+    },
+    {
         path: PATH.VIDEO_MANAGEMENT_CAST,
         key: 'VideoManagementCast',
         icon: '',
         exact: true,
         component: VideoManagementCast,
         access: 'View Casts',
+        restricted: true
+    },
+    {
+        path: PATH.VIDEO_MANAGEMENT_DIRECTOR,
+        key: 'VideoManagementDirector',
+        icon: '',
+        exact: true,
+        component: VideoManagementDirector,
+        access: 'View Directors',
         restricted: true
     },
     {
