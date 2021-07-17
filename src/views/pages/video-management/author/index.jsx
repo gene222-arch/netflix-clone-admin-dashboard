@@ -30,6 +30,7 @@ const Author = ({ AUTHOR }) =>
 
     const [ ids, setIDs ] = useState([]);
 
+    
     const handleClickDeleteAuthor = () => {
         dispatch(AUTHOR_ACTION.deleteAuthorsStart({ ids }));
     }
@@ -39,6 +40,7 @@ const Author = ({ AUTHOR }) =>
             dispatch(AUTHOR_ACTION.fetchAllAuthorsStart());
         }
     }, []);
+
 
     return (
         <>
