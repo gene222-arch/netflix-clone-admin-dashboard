@@ -13,7 +13,6 @@ const mainLayoutUseStyles = makeStyles((theme) => ({
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.leavingScreen,
         }),
-        background: Colors.darkGrey
     },
     appBarShift: {
         marginLeft: drawerWidth,
@@ -22,7 +21,6 @@ const mainLayoutUseStyles = makeStyles((theme) => ({
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.enteringScreen,
         }),
-        background: Colors.darkMode
     },
     appBarContent: {
         display: 'flex',

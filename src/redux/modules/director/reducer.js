@@ -13,6 +13,9 @@ const {
     UPDATE_DIRECTOR_START,
     UPDATE_DIRECTOR_SUCCESS,
     UPDATE_DIRECTOR_FAILED,
+    TOGGLE_DIRECTOR_ENABLED_START,
+    TOGGLE_DIRECTOR_ENABLED_SUCCESS,
+    TOGGLE_DIRECTOR_ENABLED_FAILED,
     DELETE_DIRECTORS_START,
     DELETE_DIRECTORS_SUCCESS,
     DELETE_DIRECTORS_FAILED
@@ -26,10 +29,10 @@ const DIRECTOR_DEFAULT_PROPS = {
     height_in_cm: '',
     biographical_information: '',
     birth_details: '',
-    date_of_birth: '',
+    date_of_birth: null,
     place_of_birth: '',
     death_details: '',
-    date_of_death: '',
+    date_of_death: null,
     enabled: false,
 };
 
@@ -57,6 +60,7 @@ export default (state = initialState, { type, payload }) =>
         case FIND_DIRECTOR_BY_ID_START:
         case CREATE_DIRECTOR_START:
         case UPDATE_DIRECTOR_START:
+        case TOGGLE_DIRECTOR_ENABLED_START:
         case DELETE_DIRECTORS_START:
             return {
                 ...state,
@@ -81,15 +85,15 @@ export default (state = initialState, { type, payload }) =>
 
         case CREATE_DIRECTOR_SUCCESS:
 
-            const newAuthor = { 
+            const newDirector = { 
                 ...DIRECTOR_DEFAULT_PROPS,
+                ...payload.director,
                 id: (directors[directors.length - 1].id + 1), 
-                ...payload.director 
             };
 
             return {
                 ...state,
-                directors: [ ...directors, newAuthor ],
+                directors: [ ...directors, newDirector ],
                 isLoading,
                 error
             }
@@ -99,6 +103,21 @@ export default (state = initialState, { type, payload }) =>
             UPDATED_DIRECTORS = directors.map(director => {
                 return director.id === payload.director.id 
                     ? payload.director
+                    : director;
+            });
+
+            return {
+                ...state,
+                directors: UPDATED_DIRECTORS,
+                isLoading,
+                error
+            }
+
+        case TOGGLE_DIRECTOR_ENABLED_SUCCESS:
+
+            UPDATED_DIRECTORS = directors.map(director => {
+                return director.id === payload.id 
+                    ? { ...director, enabled: !director.enabled }
                     : director;
             });
 
@@ -124,6 +143,7 @@ export default (state = initialState, { type, payload }) =>
         case FIND_DIRECTOR_BY_ID_FAILED:
         case CREATE_DIRECTOR_FAILED:
         case UPDATE_DIRECTOR_FAILED:
+        case TOGGLE_DIRECTOR_ENABLED_FAILED:
         case DELETE_DIRECTORS_FAILED:
             return {
                 ...state,

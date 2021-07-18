@@ -109,7 +109,6 @@ const InputFields = ({ data, setData, saveButtonCallback, cancelButtonCallback, 
                                 variant='inline'
                                 inputVariant='filled'
                                 fullWidth
-                                views={['year', 'month', 'date']}
                                 format='yyyy-MM-dd'
                                 disableToolbar
                                 autoOk
@@ -117,7 +116,7 @@ const InputFields = ({ data, setData, saveButtonCallback, cancelButtonCallback, 
                                 KeyboardButtonProps={{
                                     'aria-label': 'change date',
                                 }}
-                                value={ data.date_of_birth ?? null }
+                                value={ data.date_of_birth }
                                 onChange={ handleChangeBirthDate }
                             />
                         </Grid>
@@ -153,7 +152,6 @@ const InputFields = ({ data, setData, saveButtonCallback, cancelButtonCallback, 
                                 variant='inline'
                                 inputVariant='filled'
                                 fullWidth
-                                views={['year', 'month', 'date']}
                                 format='yyyy-MM-dd'
                                 disableToolbar
                                 autoOk
@@ -161,7 +159,7 @@ const InputFields = ({ data, setData, saveButtonCallback, cancelButtonCallback, 
                                 KeyboardButtonProps={{
                                     'aria-label': 'change date',
                                 }}
-                                value={ data.date_of_death ?? null }
+                                value={ data.date_of_death }
                                 onChange={ handleChangeDateOfDeath }
                             />
                         </Grid>

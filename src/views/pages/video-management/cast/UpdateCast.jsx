@@ -24,7 +24,6 @@ const UpdateCast = ({ CAST, match }) =>
 
     const fetchCastByID = () => {
         const findCast = CAST.casts.find(cast => cast.id === parseInt(id));
-        console.log(findCast);
         setCast(findCast);
     }
 

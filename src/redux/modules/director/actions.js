@@ -13,6 +13,9 @@ const {
     UPDATE_DIRECTOR_START,
     UPDATE_DIRECTOR_SUCCESS,
     UPDATE_DIRECTOR_FAILED,
+    TOGGLE_DIRECTOR_ENABLED_START,
+    TOGGLE_DIRECTOR_ENABLED_SUCCESS,
+    TOGGLE_DIRECTOR_ENABLED_FAILED,
     DELETE_DIRECTORS_START,
     DELETE_DIRECTORS_SUCCESS,
     DELETE_DIRECTORS_FAILED
@@ -82,6 +85,22 @@ export const updateDirectorSuccess = (payload) => ({
 
 export const updateDirectorFailed = (payload) => ({
     type: UPDATE_DIRECTOR_FAILED,
+    payload
+});
+
+/** Toggle enabled action */
+export const toggleDirectorEnabledStart = (payload) => ({
+    type: TOGGLE_DIRECTOR_ENABLED_START,
+    payload
+});
+
+export const toggleDirectorEnabledSuccess = (payload) => ({
+    type: TOGGLE_DIRECTOR_ENABLED_SUCCESS,
+    payload
+});
+
+export const toggleDirectorEnabledFailed = (payload) => ({
+    type: TOGGLE_DIRECTOR_ENABLED_FAILED,
     payload
 });
 

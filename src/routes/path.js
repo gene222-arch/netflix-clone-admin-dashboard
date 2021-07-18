@@ -18,6 +18,9 @@ const PATH =
 
     CREATE_CAST: '/casts/create-new-cast',
     UPDATE_CAST: '/casts/:id/update-cast',
+
+    CREATE_DIRECTOR: '/directors/create-new-director',
+    UPDATE_DIRECTOR: '/directors/:id/update-director',
 };
 
 

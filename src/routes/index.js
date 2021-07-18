@@ -20,6 +20,8 @@ const VideoManagementCast = lazy(() => import('../views/pages/video-management/c
 const CreateCast = lazy(() => import('../views/pages/video-management/cast/CreateCast'))
 const UpdateCast = lazy(() => import('../views/pages/video-management/cast/UpdateCast'))
 const VideoManagementDirector = lazy(() => import('../views/pages/video-management/director'))
+const CreateDirector = lazy(() => import('../views/pages/video-management/director/CreateDirector'))
+const UpdateDirector = lazy(() => import('../views/pages/video-management/director/UpdateDirector'))
 const VideoManagementGenre = lazy(() => import('../views/pages/video-management/genre'))
 const VideoManagementVideo = lazy(() => import('../views/pages/video-management/video'))
 
@@ -134,6 +136,24 @@ export const PRIVATE_ROUTES = [
         exact: true,
         component: VideoManagementDirector,
         access: 'View Directors',
+        restricted: true
+    },
+    {
+        path: PATH.CREATE_DIRECTOR,
+        key: 'CreateDirector',
+        icon: '',
+        exact: true,
+        component: CreateDirector,
+        access: 'Manage Directors',
+        restricted: true
+    },
+    {
+        path: PATH.UPDATE_DIRECTOR,
+        key: 'UpdateDirector',
+        icon: '',
+        exact: true,
+        component: UpdateDirector,
+        access: 'Manage Directors',
         restricted: true
     },
     {

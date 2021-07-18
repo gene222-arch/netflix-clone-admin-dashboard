@@ -85,7 +85,7 @@ export default (state = initialState, { type, payload }) =>
 
         case CREATE_CAST_SUCCESS:
 
-            const newAuthor = { 
+            const newCast = { 
                 ...CAST_DEFAULT_PROPS,
                 ...payload.cast,
                 id: (casts[casts.length - 1].id + 1), 
@@ -93,7 +93,7 @@ export default (state = initialState, { type, payload }) =>
 
             return {
                 ...state,
-                casts: [ ...casts, newAuthor ],
+                casts: [ ...casts, newCast ],
                 isLoading,
                 error
             }

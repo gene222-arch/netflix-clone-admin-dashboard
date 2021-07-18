@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) =>
 const AlertPopUp = ({ 
     status, 
     message, 
-    autoHideDuration = 4000, 
+    autoHideDuration = 2000, 
     vertical='bottom',
     horizontal='left',
     open = false, 

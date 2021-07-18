@@ -1,11 +1,76 @@
-import Typography from '@material-ui/core/Typography'
+import React,{ useState, useEffect } from 'react'
+import { useDispatch, connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 
-const Director = () => {
+/** Actions */
+import * as DIRECTOR_ACTION from './../../../../redux/modules/director/actions'; 
+import { selectDirector } from './../../../../redux/modules/director/selector';
+import StyledNavLink from './../../../../components/styled-components/StyledNavLink';
+import PATH from './../../../../routes/path';
+import MaterialTable from './../../../../components/styled-components/MaterialTable';
+import MaterialTableActionButton from './../../../../components/MaterialTableActionButton';
+import { useHistory } from 'react-router-dom';
+import Switch from '@material-ui/core/Switch';
+
+
+const Director = ({ DIRECTOR }) => 
+{
+    const dispatch = useDispatch();
+    const history = useHistory();
+    const columns = [
+        { title: 'id', field: 'id', hidden: true },
+        { 
+            title: 'Birth Name', 
+            field: 'birth_name',
+            render: ({ id, birth_name }) => <StyledNavLink to={ PATH.UPDATE_DIRECTOR.replace(':id', id) } text={ birth_name } /> 
+        },
+        { title: 'Pseudonym', field: 'pseudonym' },
+        {
+            title: 'Enabled',
+            field: 'enabled',
+            render: ({ id, enabled }) => (
+                <Switch checked={ Boolean(enabled) } onChange={ () => handleClickEnabled(id) } name='enabled' />
+            )
+        }
+    ];
+
+    const [ ids, setIDs ] = useState([]);
+
+    const handleClickDeleteDirector = () => {
+        dispatch(DIRECTOR_ACTION.deleteDirectorsStart({ ids }));
+    }
+
+    const handleClickEnabled = (id) => {
+        dispatch(DIRECTOR_ACTION.toggleDirectorEnabledStart({ id }));
+    }
+
+    useEffect(() => {
+        if (!DIRECTOR.directors.length) {
+            dispatch(DIRECTOR_ACTION.fetchAllDirectorsStart());
+        }
+    }, []);
+
     return (
-        <Typography variant="h4" color="initial">
-            Directors Page
-        </Typography>
+        <>
+            <MaterialTable 
+                columns={ columns }      
+                data={ DIRECTOR.directors }  
+                title={ 
+                    <MaterialTableActionButton
+                        ids={ ids } 
+                        addButtonCallback = { () => history.push(PATH.CREATE_DIRECTOR) }
+                        deleteButtonCallback={ handleClickDeleteDirector }
+                    /> 
+                }
+                isLoading={ DIRECTOR.isLoading }
+                onSelectionChange={ rows => setIDs(rows.map(({ id }) => id)) }
+            />
+        </>
     )
 }
 
-export default Director
+const mapStateToProps = createStructuredSelector({
+    DIRECTOR: selectDirector
+});
+
+export default connect(mapStateToProps)(Director)
