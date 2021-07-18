@@ -15,7 +15,7 @@ const history = createBrowserHistory();
 const persistConfig = {
     key: 'root',
     storage,
-    blacklist: ['alert', 'mainLayout', 'router', 'author']
+    blacklist: ['alert', 'mainLayout', 'router']    
 };
 
 const rootReducer = {

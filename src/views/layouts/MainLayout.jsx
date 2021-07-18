@@ -35,7 +35,7 @@ const MainLayout = ({ children, AUTH, MAIN_LAYOUT }) =>
         <div className={classes.root}>
             <CssBaseline />
             <AppBar
-                position="fixed"
+                position='fixed'
                 className={clsx(classes.appBar, {
                     [classes.appBarShift]: MAIN_LAYOUT.drawer,
                 })}
@@ -43,7 +43,7 @@ const MainLayout = ({ children, AUTH, MAIN_LAYOUT }) =>
                 <AppBarContent />
             </AppBar>
             <Drawer
-                variant="permanent"
+                variant='permanent'
                 className={clsx(classes.drawer, {
                     [classes.drawerOpen]: MAIN_LAYOUT.drawer,
                     [classes.drawerClose]: !MAIN_LAYOUT.drawer,

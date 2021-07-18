@@ -12,18 +12,11 @@ import { makeStyles } from '@material-ui/core/styles';
 import UpdateIcon from '@material-ui/icons/Update';
 import LockIcon from '@material-ui/icons/Lock';
 
-/** Components */
-import AlertPopUp from '../../../components/AlertPopUp';
-
 /** Actions */
 import * as AUTH from '../../../redux/modules/auth/actions'
-import * as ALERT from '../../../redux/modules/alert/actions'
 
 /** Auth selectors */
 import { selectAuth } from '../../../redux/modules/auth/selector';
-
-/** Alert selector */
-import { selectAlert } from '../../../redux/modules/alert/selector';
 
 /** Utils */
 import * as QueryParam from '../../../utils/queryParams'
@@ -45,7 +38,7 @@ const resetPasswordUseStyles = makeStyles((theme) => ({
     }
 }))
 
-const ResetPasswordForm = ({ alert, auth }) => 
+const ResetPasswordForm = ({ auth }) => 
 {
     const classes = resetPasswordUseStyles();
     const { error } = auth;
@@ -60,12 +53,6 @@ const ResetPasswordForm = ({ alert, auth }) =>
     return (
         <>
             <Container maxWidth="sm">
-                <AlertPopUp 
-                    status={ alert.status }
-                    message={ alert.message }
-                    open={ alert.isOpen }
-                    handleClickCloseAlert={ () => dispatch(ALERT.hideAlert()) }
-                />
                 <Grid container spacing={3}>
                     <Grid item xs={12} sm={12} md={12} lg={12}>
                         <Typography variant="h4" color="initial" align="center">
@@ -135,7 +122,6 @@ const ResetPasswordForm = ({ alert, auth }) =>
 }
 
 const mapStateToProps = createStructuredSelector({
-    alert: selectAlert,
     auth: selectAuth
 });
 

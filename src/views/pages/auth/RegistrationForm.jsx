@@ -27,11 +27,9 @@ import registrationFormUseStlyes from '../../../assets/js/material-ui/registrati
 
 /** Actions */
 import * as AUTH from '../../../redux/modules/auth/actions'
-import * as ALERT from '../../../redux/modules/alert/actions';
 
 /** selectors */
 import { selectAuth } from './../../../redux/modules/auth/selector';
-import { selectAlert } from './../../../redux/modules/alert/selector';
 
 
 const CREDENTIALS_PROPS = {
@@ -42,7 +40,7 @@ const CREDENTIALS_PROPS = {
     password_confirmation: ''
 }
 
-const RegistrationForm = ({ alert, auth }) => 
+const RegistrationForm = ({ auth }) => 
 {
     const { error } = auth;
     const dispatch = useDispatch();
@@ -66,12 +64,6 @@ const RegistrationForm = ({ alert, auth }) =>
 
     return (
         <Container component="main" maxWidth="sm">
-            <AlertPopUp 
-                status={ alert.status }
-                message={ alert.message }
-                open={ alert.isOpen }
-                handleClickCloseAlert={ () => dispatch(ALERT.hideAlert()) }
-            />
             <CssBaseline />
             <div className={classes.paper}>
                 <Avatar className={classes.avatar}>
@@ -192,7 +184,6 @@ const RegistrationForm = ({ alert, auth }) =>
 }
 
 const mapStateToProps = createStructuredSelector({
-    alert: selectAlert,
     auth: selectAuth
 });
 

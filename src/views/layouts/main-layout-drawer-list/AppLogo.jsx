@@ -1,4 +1,5 @@
 import React from 'react'
+import Skeleton from 'react-loading-skeleton';
 import { useTheme } from '@material-ui/core/styles';
 import { createStructuredSelector } from 'reselect';
 import { selectAuth } from './../../../redux/modules/auth/selector';
@@ -9,8 +10,8 @@ import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import CancelIcon from '@material-ui/icons/Cancel';
-import { Skeleton } from '@material-ui/lab';
 import { selectMainLayout } from '../../../redux/modules/main-layout/selector';
+import TextContentLoader from '../../../components/content-loader/TextContentLoader';
 
 
 const Avatar = ({ AUTH, MAIN_LAYOUT }) => 
@@ -37,8 +38,8 @@ const Avatar = ({ AUTH, MAIN_LAYOUT }) =>
                         !AUTH.user
                             ? (
                                 <>
-                                    <Typography variant='subtitle1'><Skeleton /></Typography>
-                                    <Typography variant='subtitle2'><Skeleton /></Typography>
+                                    <TextContentLoader variant='subtitle1' />
+                                    <TextContentLoader variant='subtitle2' height={ 10 } />
                                 </>
                             )
                             : (

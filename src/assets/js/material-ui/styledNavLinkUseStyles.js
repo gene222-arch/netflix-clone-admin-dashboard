@@ -1,5 +1,4 @@
 import { makeStyles } from '@material-ui/core';
-import { blue } from '@material-ui/core/colors';
 import Colors from './../../../constants/Colors';
 
 const styledNavLinkUseStyles = makeStyles((theme) => ({
@@ -7,7 +6,7 @@ const styledNavLinkUseStyles = makeStyles((theme) => ({
         textDecoration: 'none',
         color: '#FFFFFF',
         '&:hover': {
-            color: Colors.netflixRed
+            color: Colors.tomato
         }
     }
 }));

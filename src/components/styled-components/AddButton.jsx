@@ -10,7 +10,7 @@ const AddButton = ({ actionName = null, onClickEventCallback }) =>
 
     return (
         <Button 
-            variant='text' 
+            variant='outlined' 
             className={ classes.addBtn }
             onClick={ onClickEventCallback }
         > 

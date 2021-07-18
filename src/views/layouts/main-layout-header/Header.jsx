@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-
 import * as AUTH_ACTION from '../../../redux/modules/auth/actions'
 
 /** Material UI Components */
@@ -8,13 +7,13 @@ import { MenuItem, Typography, makeStyles } from '@material-ui/core';
 
 /** Material UI Icons */
 import Avatar from '@material-ui/core/Avatar';
-import { Skeleton } from '@material-ui/lab';
 
 /** Components */
 import Menu from './../../../components/Menu';
 import { createStructuredSelector } from 'reselect';
 import { selectAuth } from './../../../redux/modules/auth/selector';
 import { useDispatch, connect } from 'react-redux';
+import CircleContentLoader from '../../../components/content-loader/CircleContentLoader';
 
 const useStyles = makeStyles((theme) => ({
     userAvatar: {
@@ -54,13 +53,11 @@ const Header = ({ AUTH }) =>
                 onClick={ handleClick }
                 disabled={ !AUTH.user }
             >
-                <Typography variant='h6' color='initial'>
-                    {
-                        !AUTH.user
-                            ? <Skeleton variant='circle'><Avatar /></Skeleton> 
-                            : <Avatar className={ classes.userAvatar }>{ AUTH.user.first_name.substr(0, 1) }</Avatar>
-                    }
-                </Typography>
+                {
+                    !AUTH.user
+                        ? <CircleContentLoader />
+                        : <Avatar className={ classes.userAvatar }>{ AUTH.user.first_name.substr(0, 1) }</Avatar>
+                }
             </Button>
             <Menu
                 id='header'

@@ -11,8 +11,8 @@ import Typography from '@material-ui/core/Typography';
 import Header from './Header';
 import MenuIcon from '@material-ui/icons/Menu';
 import { selectAuth } from './../../../redux/modules/auth/selector';
-import Skeleton from '@material-ui/lab/Skeleton';
 import SearchField from '../../../components/styled-components/SearchField';
+import TextContentLoader from '../../../components/content-loader/TextContentLoader';
 
 const AppBarContent = ({ AUTH, MAIN_LAYOUT }) => 
 {
@@ -39,7 +39,7 @@ const AppBarContent = ({ AUTH, MAIN_LAYOUT }) =>
                     {/* { MAIN_LAYOUT.currentSelectedItem } */}
                     {
                         !AUTH.user 
-                            ? <Skeleton width={ 300 } />
+                            ? <TextContentLoader width={ 350 } />
                             : (
                                 (MAIN_LAYOUT.currentSelectedItem === 'Dashboard')
                                     ? `Greetings ${ AUTH.user.first_name }!`

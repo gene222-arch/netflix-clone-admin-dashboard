@@ -8,7 +8,7 @@ const MaterialTableActionButton = ({ ids, addButtonCallback, deleteButtonCallbac
         return <AddButton onClickEventCallback={ addButtonCallback } />
     }
 
-    return <DeleteButton onClickEventCallback={ deleteButtonCallback } />
+    return <DeleteButton variant='outlined' onClickEventCallback={ deleteButtonCallback } />
 }
 
 export default MaterialTableActionButton

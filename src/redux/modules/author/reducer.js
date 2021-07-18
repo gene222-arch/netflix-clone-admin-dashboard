@@ -26,10 +26,10 @@ const AUTHOR_DEFAULT_PROPS = {
     height_in_cm: '',
     biographical_information: '',
     birth_details: '',
-    date_of_birth: '',
+    date_of_birth: null,
     place_of_birth: '',
     death_details: '',
-    date_of_death: '',
+    date_of_death: null,
     enabled: false,
 };
 
@@ -83,8 +83,8 @@ export default (state = initialState, { type, payload }) =>
 
             const newAuthor = { 
                 ...AUTHOR_DEFAULT_PROPS,
+                ...payload.author,
                 id: (authors[authors.length - 1].id + 1), 
-                ...payload.author 
             };
 
             return {

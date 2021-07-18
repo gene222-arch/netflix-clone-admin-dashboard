@@ -4,30 +4,26 @@ import { connect, useDispatch } from 'react-redux';
 
 import * as AUTHOR_ACTION from '../../../../redux/modules/author/actions'; 
 import { selectAuthor } from '../../../../redux/modules/author/selector';
-import Button from '@material-ui/core/Button'
+import InputFields from '../../../../components/InputFields';
+import { useHistory } from 'react-router-dom';
+import PATH from './../../../../routes/path';
 
 
 const UpdateAuthor = ({ AUTHOR, match }) => 
 {
     const { id } = match.params; 
     const dispatch = useDispatch();
+    const history = useHistory();
 
     const [ author, setAuthor ] = useState(AUTHOR.author);
 
     const handleClickUpdateAuthor = () => {
-        dispatch(AUTHOR_ACTION.updateAuthorStart({
-            pseudonym: 'None',
-            birth_name: 'Birth name',
-            gender: 'Male',
-            height_in_cm: 100.5,
-            biographical_information: 'Bio not applicable',
-            date_of_birth: '2021-12-22',
-            enabled: false,
-        }));
+        delete author.tableData
+        dispatch(AUTHOR_ACTION.updateAuthorStart(author));
     }
 
     const fetchAuthorByID = () => {
-        const findAuthor = AUTHOR.authors.find(author => author.id === id);
+        const findAuthor = AUTHOR.authors.find(author => author.id === parseInt(id));
         setAuthor(findAuthor);
     }
 
@@ -39,11 +35,14 @@ const UpdateAuthor = ({ AUTHOR, match }) =>
     }, []);
 
     return (
-        <>
-            <Button variant="text" color="default" onClick={ handleClickUpdateAuthor }>
-                Save
-            </Button>
-        </>
+        <InputFields 
+            data={ author }
+            cardHeaderTitle='Edit Author'
+            setData={ setAuthor }
+            saveButtonCallback={ handleClickUpdateAuthor }
+            cancelButtonCallback={ () => history.push(PATH.VIDEO_MANAGEMENT_AUTHOR) }
+            isLoading={ AUTHOR.isLoading }
+        />
     )
 }
 

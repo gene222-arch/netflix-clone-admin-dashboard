@@ -1,11 +1,10 @@
 /** Libraries */
 import React, { useState, useEffect } from 'react';
-import { useDispatch, connect, batch } from 'react-redux'
+import { useDispatch, connect } from 'react-redux'
 import { createStructuredSelector } from 'reselect';
 
 /** Custom Components */
 import Copyright from './../../../components/Copyright';
-import AlertPopUp from './../../../components/AlertPopUp'
 import Error from './../../../components/Error';
 
 /** Material UI Components */
@@ -29,11 +28,9 @@ import loginFormUseStyles from '../../../assets/js/material-ui/loginFormUseStyle
 
 /** Actions */
 import * as AUTH from '../../../redux/modules/auth/actions'
-import * as ALERT from '../../../redux/modules/alert/actions';
 
 /** Reselect */
 import { selectAuth } from './../../../redux/modules/auth/selector';
-import { selectAlert } from './../../../redux/modules/alert/selector';
 
 /** Routes */
 import PATH from './../../../routes/path';
@@ -72,16 +69,6 @@ const LoginForm = ({ alert, auth }) =>
         dispatch(AUTH.login(credentials));
     }
 
-    const handleCloseAlertMessage = () => 
-    {
-        window.addEventListener('load', async () => {
-            await persistor.purge();
-            await persistor.flush();
-        });
-        
-        dispatch(ALERT.hideAlert());
-    }
-
     useEffect(() => {
         return () => {
             setCredentials(CREDENTIALS_DEFAULT);
@@ -90,12 +77,6 @@ const LoginForm = ({ alert, auth }) =>
 
     return (
         <Container component="main" maxWidth="xs">
-            <AlertPopUp 
-                status={ alert.status }
-                message={ alert.message }
-                open={ alert.isOpen }
-                handleClickCloseAlert={ handleCloseAlertMessage }
-            />
             <CssBaseline />
             <div className={classes.paper}>
                 <Avatar className={classes.avatar}>
@@ -177,7 +158,6 @@ const LoginForm = ({ alert, auth }) =>
 }
 
 const mapStateToProps = createStructuredSelector({
-    alert: selectAlert,
     auth: selectAuth
 });
 

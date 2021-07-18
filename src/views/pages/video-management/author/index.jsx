@@ -41,12 +41,8 @@ const Author = ({ AUTHOR }) =>
         }
     }, []);
 
-
     return (
         <>
-            <Typography variant="h4" color="initial">
-                Authors Page
-            </Typography>
             <MaterialTable 
                 columns={ columns }      
                 data={ AUTHOR.authors }  

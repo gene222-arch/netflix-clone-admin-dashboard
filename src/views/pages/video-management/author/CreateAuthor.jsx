@@ -4,25 +4,20 @@ import { connect, useDispatch } from 'react-redux';
 
 import * as AUTHOR_ACTION from './../../../../redux/modules/author/actions'; 
 import { selectAuthor } from './../../../../redux/modules/author/selector';
-import Button from '@material-ui/core/Button'
+import InputFields from '../../../../components/InputFields';
+import { useHistory } from 'react-router-dom';
+import PATH from './../../../../routes/path';
 
 
 const CreateAuthor = ({ AUTHOR }) => 
 {
     const dispatch = useDispatch();
+    const history = useHistory();
 
     const [ author, setAuthor ] = useState(AUTHOR.author);
 
     const handleClickCreateAuthor = () => {
-        dispatch(AUTHOR_ACTION.createAuthorStart({
-            pseudonym: 'None',
-            birth_name: 'YEPS',
-            gender: 'Male',
-            height_in_cm: 159.5,
-            biographical_information: 'Bio not applicable',
-            date_of_birth: '1998-12-22',
-            enabled: false,
-        }));
+        dispatch(AUTHOR_ACTION.createAuthorStart(author));
     }
 
     useEffect(() => {
@@ -32,16 +27,14 @@ const CreateAuthor = ({ AUTHOR }) =>
     }, []);
 
     return (
-        <>
-            <Button 
-                variant="contained" 
-                color="primary" 
-                onClick={ handleClickCreateAuthor }
-                disabled={ AUTHOR.isLoading }
-            >
-                Save
-            </Button>
-        </>
+        <InputFields 
+            data={ author }
+            cardHeaderTitle='Add Author'
+            setData={ setAuthor }
+            saveButtonCallback={ handleClickCreateAuthor }
+            cancelButtonCallback={ () => history.push(PATH.VIDEO_MANAGEMENT_AUTHOR) }
+            isLoading={ AUTHOR.isLoading }
+        />
     )
 }
 

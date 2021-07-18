@@ -63,7 +63,7 @@ function* createAuthorSaga(payload)
         yield put(showAlert({ status, message }));
         yield put(push(PATH.VIDEO_MANAGEMENT_AUTHOR));
     } catch ({ message }) {
-        yield put(createAuthorFailed());
+        yield put(createAuthorFailed({ message }));
         yield put(showAlert({ status: 'error', message }));
     }
 }
