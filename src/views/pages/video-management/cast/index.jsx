@@ -40,11 +40,10 @@ const Cast = ({ CAST }) =>
     }
 
     const handleClickEnabled = (id) => {
-        dispatch(CAST_ACTION.toggleEnabledStart({ id }));
+        dispatch(CAST_ACTION.toggleCastEnabledStart({ id }));
     }
 
     useEffect(() => {
-        dispatch(CAST_ACTION.fetchAllCastsStart());
         if (!CAST.casts.length) {
             dispatch(CAST_ACTION.fetchAllCastsStart());
         }

@@ -12,6 +12,9 @@ const {
     CREATE_AUTHOR_FAILED,
     UPDATE_AUTHOR_START,
     UPDATE_AUTHOR_SUCCESS,
+    TOGGLE_AUTHOR_ENABLED_START,
+    TOGGLE_AUTHOR_ENABLED_SUCCESS,
+    TOGGLE_AUTHOR_ENABLED_FAILED,
     UPDATE_AUTHOR_FAILED,
     DELETE_AUTHORS_START,
     DELETE_AUTHORS_SUCCESS,
@@ -82,6 +85,22 @@ export const updateAuthorSuccess = (payload) => ({
 
 export const updateAuthorFailed = (payload) => ({
     type: UPDATE_AUTHOR_FAILED,
+    payload
+});
+
+/** Toggle enabled action */
+export const toggleAuthorEnabledStart = (payload) => ({
+    type: TOGGLE_AUTHOR_ENABLED_START,
+    payload
+});
+
+export const toggleAuthorEnabledSuccess = (payload) => ({
+    type: TOGGLE_AUTHOR_ENABLED_SUCCESS,
+    payload
+});
+
+export const toggleAuthorEnabledFailed = (payload) => ({
+    type: TOGGLE_AUTHOR_ENABLED_FAILED,
     payload
 });
 

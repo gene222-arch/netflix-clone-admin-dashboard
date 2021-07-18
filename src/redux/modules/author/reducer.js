@@ -13,6 +13,9 @@ const {
     UPDATE_AUTHOR_START,
     UPDATE_AUTHOR_SUCCESS,
     UPDATE_AUTHOR_FAILED,
+    TOGGLE_AUTHOR_ENABLED_START,
+    TOGGLE_AUTHOR_ENABLED_SUCCESS,
+    TOGGLE_AUTHOR_ENABLED_FAILED,
     DELETE_AUTHORS_START,
     DELETE_AUTHORS_SUCCESS,
     DELETE_AUTHORS_FAILED
@@ -57,6 +60,7 @@ export default (state = initialState, { type, payload }) =>
         case FIND_AUTHOR_BY_ID_START:
         case CREATE_AUTHOR_START:
         case UPDATE_AUTHOR_START:
+        case TOGGLE_AUTHOR_ENABLED_START:
         case DELETE_AUTHORS_START:
             return {
                 ...state,
@@ -109,6 +113,21 @@ export default (state = initialState, { type, payload }) =>
                 error
             }
 
+        case TOGGLE_AUTHOR_ENABLED_SUCCESS:
+
+            UPDATED_AUTHORS = authors.map(author => {
+                return author.id === payload.id 
+                    ? { ...author, enabled: !author.enabled }
+                    : author;
+            });
+
+            return {
+                ...state,
+                authors: UPDATED_AUTHORS,
+                isLoading,
+                error
+            }
+
         case DELETE_AUTHORS_SUCCESS:
 
             UPDATED_AUTHORS = authors.filter(({ id }) => !payload.ids.includes(id));
@@ -124,6 +143,7 @@ export default (state = initialState, { type, payload }) =>
         case FIND_AUTHOR_BY_ID_FAILED:
         case CREATE_AUTHOR_FAILED:
         case UPDATE_AUTHOR_FAILED:
+        case TOGGLE_AUTHOR_ENABLED_FAILED:
         case DELETE_AUTHORS_FAILED:
             return {
                 ...state,

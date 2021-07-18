@@ -13,9 +13,9 @@ const {
     UPDATE_CAST_START,
     UPDATE_CAST_SUCCESS,
     UPDATE_CAST_FAILED,
-    TOGGLE_ENABLED_START,
-    TOGGLE_ENABLED_SUCCESS,
-    TOGGLE_ENABLED_FAILED,
+    TOGGLE_CAST_ENABLED_START,
+    TOGGLE_CAST_ENABLED_SUCCESS,
+    TOGGLE_CAST_ENABLED_FAILED,
     DELETE_CASTS_START,
     DELETE_CASTS_SUCCESS,
     DELETE_CASTS_FAILED
@@ -60,7 +60,7 @@ export default (state = initialState, { type, payload }) =>
         case FIND_CAST_BY_ID_START:
         case CREATE_CAST_START:
         case UPDATE_CAST_START:
-        case TOGGLE_ENABLED_START:
+        case TOGGLE_CAST_ENABLED_START:
         case DELETE_CASTS_START:
             return {
                 ...state,
@@ -113,7 +113,7 @@ export default (state = initialState, { type, payload }) =>
                 error
             }
 
-        case TOGGLE_ENABLED_SUCCESS:
+        case TOGGLE_CAST_ENABLED_SUCCESS:
 
             UPDATED_CASTS = casts.map(cast => {
                 return cast.id === payload.id 
@@ -143,7 +143,7 @@ export default (state = initialState, { type, payload }) =>
         case FIND_CAST_BY_ID_FAILED:
         case CREATE_CAST_FAILED:
         case UPDATE_CAST_FAILED:
-        case TOGGLE_ENABLED_FAILED:
+        case TOGGLE_CAST_ENABLED_FAILED:
         case DELETE_CASTS_FAILED:
             return {
                 ...state,

@@ -15,8 +15,8 @@ import {
     createCastFailed,
     updateCastSuccess,
     updateCastFailed,
-    toggleEnabledSuccess,
-    toggleEnabledFailed,
+    toggleCastEnabledSuccess,
+    toggleCastEnabledFailed,
     deleteCastsSuccess,
     deleteCastsFailed
 } from './actions';
@@ -28,7 +28,7 @@ const {
     FIND_CAST_BY_ID_START,
     CREATE_CAST_START,
     UPDATE_CAST_START,
-    TOGGLE_ENABLED_START,
+    TOGGLE_CAST_ENABLED_START,
     DELETE_CASTS_START
 }  = ACTION_TYPES;
 
@@ -85,17 +85,16 @@ function* updateCastSaga(payload)
     }
 }
 
-function* toggleEnabledSaga(payload)
+function* toggleCastEnabledSaga(payload)
 {
     try {
         const { id } = payload;
         const { message, status } = yield call(API.updateEnabledStatusAsync, id);
 
-        yield put(toggleEnabledSuccess({ id }));
+        yield put(toggleCastEnabledSuccess({ id }));
         yield put(showAlert({ status, message }));
-        yield put(push(PATH.VIDEO_MANAGEMENT_CAST));
     } catch ({ message }) {
-        yield put(updateCastFailed({ message }));
+        yield put(toggleCastEnabledFailed({ message }));
         yield put(showAlert({ status: 'error', message }));
     }
 }
@@ -150,11 +149,11 @@ function* updateCastWatcher()
     }
 }
 
-function* toggleEnabledWatcher()
+function* toggleCastEnabledWatcher()
 {
     while (true) {
-        const { payload } = yield take(TOGGLE_ENABLED_START);
-        yield call(toggleEnabledSaga, payload);
+        const { payload } = yield take(TOGGLE_CAST_ENABLED_START);
+        yield call(toggleCastEnabledSaga, payload);
     }
 }
 
@@ -176,7 +175,7 @@ export default function*()
         findCastByIDWatcher(),
         createCastWatcher(),
         updateCastWatcher(),
-        toggleEnabledWatcher(),
+        toggleCastEnabledWatcher(),
         deleteCastsWatcher()
     ]);
 }

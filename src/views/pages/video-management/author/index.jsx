@@ -10,28 +10,38 @@ import PATH from './../../../../routes/path';
 import MaterialTable from './../../../../components/styled-components/MaterialTable';
 import MaterialTableActionButton from './../../../../components/MaterialTableActionButton';
 import { useHistory } from 'react-router-dom';
-
-
-const columns = [
-    { title: 'id', field: 'id', hidden: true },
-    { 
-        title: 'Birth Name', 
-        field: 'birth_name',
-        render: ({ id, birth_name }) => <StyledNavLink to={ PATH.UPDATE_AUTHOR.replace(':id', id) } text={ birth_name } /> 
-    },
-    { title: 'Pseudonym', field: 'pseudonym' },
-];
+import Switch from '@material-ui/core/Switch';
 
 const Author = ({ AUTHOR }) => 
 {
     const dispatch = useDispatch();
     const history = useHistory();
+    const columns = [
+        { title: 'id', field: 'id', hidden: true },
+        { 
+            title: 'Birth Name', 
+            field: 'birth_name',
+            render: ({ id, birth_name }) => <StyledNavLink to={ PATH.UPDATE_AUTHOR.replace(':id', id) } text={ birth_name } /> 
+        },
+        { title: 'Pseudonym', field: 'pseudonym' },
+        {
+            title: 'Enabled',
+            field: 'enabled',
+            render: ({ id, enabled }) => (
+                <Switch checked={ Boolean(enabled) } onChange={ () => handleClickEnabled(id) } name='enabled' />
+            )
+        }
+    ];
 
     const [ ids, setIDs ] = useState([]);
 
     
     const handleClickDeleteAuthor = () => {
         dispatch(AUTHOR_ACTION.deleteAuthorsStart({ ids }));
+    }
+
+    const handleClickEnabled = (id) => {
+        dispatch(AUTHOR_ACTION.toggleAuthorEnabledStart({ id }));
     }
 
     useEffect(() => {

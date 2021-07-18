@@ -15,6 +15,8 @@ import {
     createAuthorFailed,
     updateAuthorSuccess,
     updateAuthorFailed,
+    toggleAuthorEnabledFailed, 
+    toggleAuthorEnabledSuccess,
     deleteAuthorsSuccess,
     deleteAuthorsFailed
 } from './actions';
@@ -26,6 +28,7 @@ const {
     FIND_AUTHOR_BY_ID_START,
     CREATE_AUTHOR_START,
     UPDATE_AUTHOR_START,
+    TOGGLE_AUTHOR_ENABLED_START,
     DELETE_AUTHORS_START
 }  = ACTION_TYPES;
 
@@ -82,6 +85,20 @@ function* updateAuthorSaga(payload)
     }
 }
 
+function* toggleAuthorEnabledSaga(payload)
+{
+    try {
+        const { id } = payload;
+        const { message, status } = yield call(API.updateEnabledStatusAsync, id);
+
+        yield put(toggleAuthorEnabledSuccess({ id }));
+        yield put(showAlert({ status, message }));
+    } catch ({ message }) {
+        yield put(toggleAuthorEnabledFailed({ message }));
+        yield put(showAlert({ status: 'error', message }));
+    }
+}
+
 function* deleteAuthorsSaga(payload)
 {
     try {
@@ -132,6 +149,14 @@ function* updateAuthorWatcher()
     }
 }
 
+function* toggleAuthorEnabledWatcher()
+{
+    while (true) {
+        const { payload } = yield take(TOGGLE_AUTHOR_ENABLED_START);
+        yield call(toggleAuthorEnabledSaga, payload);
+    }
+}
+
 function* deleteAuthorsWatcher()
 {
     while (true) {
@@ -150,6 +175,7 @@ export default function*()
         findAuthorByIDWatcher(),
         createAuthorWatcher(),
         updateAuthorWatcher(),
+        toggleAuthorEnabledWatcher(),
         deleteAuthorsWatcher()
     ]);
 }
