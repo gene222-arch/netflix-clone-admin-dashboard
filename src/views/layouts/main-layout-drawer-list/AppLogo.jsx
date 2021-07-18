@@ -1,5 +1,4 @@
 import React from 'react'
-import Skeleton from 'react-loading-skeleton';
 import { useTheme } from '@material-ui/core/styles';
 import { createStructuredSelector } from 'reselect';
 import { selectAuth } from './../../../redux/modules/auth/selector';

@@ -109,10 +109,10 @@ const InputFields = ({ data, setData, saveButtonCallback, cancelButtonCallback, 
                                 variant='inline'
                                 inputVariant='filled'
                                 fullWidth
+                                views={['year', 'month', 'date']}
                                 format='yyyy-MM-dd'
                                 disableToolbar
                                 autoOk
-                                format='MM/dd/yyyy'
                                 margin='normal'
                                 KeyboardButtonProps={{
                                     'aria-label': 'change date',
@@ -141,10 +141,10 @@ const InputFields = ({ data, setData, saveButtonCallback, cancelButtonCallback, 
                                 variant='inline'
                                 inputVariant='filled'
                                 fullWidth
+                                views={['year', 'month', 'date']}
                                 format='yyyy-MM-dd'
                                 disableToolbar
                                 autoOk
-                                format='MM/dd/yyyy'
                                 margin='normal'
                                 KeyboardButtonProps={{
                                     'aria-label': 'change date',

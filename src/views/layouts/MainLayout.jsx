@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import clsx from 'clsx';
-import { connect, useDispatch } from 'react-redux';
+import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
 /** Material styles */
@@ -12,12 +12,9 @@ import AppBar from '@material-ui/core/AppBar';
 import { List } from '@material-ui/core';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
-/** Actions */
-import * as AUTH_ACTION from '../../redux/modules/auth/actions'
-
 /** Selectors */
-import { selectAuth } from './../../redux/modules/auth/selector';
 import { selectMainLayout } from '../../redux/modules/main-layout/selector';
+
 import VideoManagement from './main-layout-drawer-list/VideoManagement';
 import SecondListItem from './main-layout-drawer-list/SecondListItem';
 import AppLogo from './main-layout-drawer-list/AppLogo';
@@ -26,9 +23,8 @@ import AppBarContent from './main-layout-header/AppBarContent';
 
 
 
-const MainLayout = ({ children, AUTH, MAIN_LAYOUT }) => 
+const MainLayout = ({ children, MAIN_LAYOUT }) => 
 {
-    const dispatch = useDispatch();
     const classes = mainLayoutUseStyles();
 
     return (
@@ -78,7 +74,6 @@ const MainLayout = ({ children, AUTH, MAIN_LAYOUT }) =>
 
 
 const mapStateToProps = createStructuredSelector({
-    AUTH: selectAuth,
     MAIN_LAYOUT: selectMainLayout
 });
 

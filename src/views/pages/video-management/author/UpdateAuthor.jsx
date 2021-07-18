@@ -36,8 +36,8 @@ const UpdateAuthor = ({ AUTHOR, match }) =>
 
     return (
         <InputFields 
-            data={ author }
             cardHeaderTitle='Edit Author'
+            data={ author }
             setData={ setAuthor }
             saveButtonCallback={ handleClickUpdateAuthor }
             cancelButtonCallback={ () => history.push(PATH.VIDEO_MANAGEMENT_AUTHOR) }
