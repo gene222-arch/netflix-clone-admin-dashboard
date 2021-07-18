@@ -1,5 +1,4 @@
 /** Libraries */
-import { combineReducers } from 'redux';
 import { connectRouter } from 'connected-react-router'
 import { persistCombineReducers } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
@@ -8,6 +7,7 @@ import { createBrowserHistory } from 'history'
 import alertReducer from './modules/alert/reducer'
 import authReducer from './modules/auth/reducer'
 import authorReducer from './modules/author/reducer'
+import castReducer from './modules/cast/reducer'
 import mainLayoutReducer from './modules/main-layout/reducer'
 
 const history = createBrowserHistory();
@@ -26,6 +26,7 @@ const rootReducer = {
     /** reducers */
     auth: authReducer,
     author: authorReducer,
+    cast: castReducer,
     mainLayout: mainLayoutReducer
 };
 

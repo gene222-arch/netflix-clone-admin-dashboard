@@ -15,6 +15,9 @@ const PATH =
 
     CREATE_AUTHOR: '/authors/create-new-author',
     UPDATE_AUTHOR: '/authors/:id/update-author',
+
+    CREATE_CAST: '/casts/create-new-cast',
+    UPDATE_CAST: '/casts/:id/update-cast',
 };
 
 

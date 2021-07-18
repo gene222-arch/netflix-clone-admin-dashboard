@@ -2,7 +2,7 @@ import { all, call, take, put } from 'redux-saga/effects'
 import { push } from 'connected-react-router';
 
 /** Async functions */
-import * as API from './../../../services/movies/author';
+import * as API from './../../../services/movies/cast';
 
 /** Actions and types */
 import ACTION_TYPES from './action.types'
@@ -15,6 +15,8 @@ import {
     createCastFailed,
     updateCastSuccess,
     updateCastFailed,
+    toggleEnabledSuccess,
+    toggleEnabledFailed,
     deleteCastsSuccess,
     deleteCastsFailed
 } from './actions';
@@ -26,6 +28,7 @@ const {
     FIND_CAST_BY_ID_START,
     CREATE_CAST_START,
     UPDATE_CAST_START,
+    TOGGLE_ENABLED_START,
     DELETE_CASTS_START
 }  = ACTION_TYPES;
 
@@ -35,8 +38,8 @@ const {
 function* fetchAllCastsSaga()
 {
     try {
-        const { data: authors } = yield call(API.fetchAllAsync);
-        yield put(fetchAllCastsSuccess({ authors }));
+        const { data: casts } = yield call(API.fetchAllAsync);
+        yield put(fetchAllCastsSuccess({ casts }));
     } catch ({ message }) {
         yield put(fetchAllCastsFailed({ message }));
     }
@@ -46,9 +49,9 @@ function* findCastByIDSaga(payload)
 {
     try {
         const { id } = payload;
-        const { data: author } = yield call(API.findByIDAsync, id);
+        const { data: cast } = yield call(API.findByIDAsync, id);
 
-        yield put(findCastByIDSuccess({ author }));
+        yield put(findCastByIDSuccess({ cast }));
     } catch ({ message }) {
         yield put(findCastByIDFailed({ message }));
     }
@@ -59,11 +62,11 @@ function* createCastSaga(payload)
     try {
         const { message, status } = yield call(API.createAsync, payload);
 
-        yield put(createCastSuccess({ author: payload }));
+        yield put(createCastSuccess({ cast: payload }));
         yield put(showAlert({ status, message }));
         yield put(push(PATH.VIDEO_MANAGEMENT_CAST));
     } catch ({ message }) {
-        yield put(createCastFailed());
+        yield put(createCastFailed({ message }));
         yield put(showAlert({ status: 'error', message }));
     }
 }
@@ -73,11 +76,26 @@ function* updateCastSaga(payload)
     try {
         const { message, status } = yield call(API.updateAsync, payload);
 
-        yield put(updateCastSuccess({ author: payload }));
+        yield put(updateCastSuccess({ cast: payload }));
         yield put(showAlert({ status, message }));
         yield put(push(PATH.VIDEO_MANAGEMENT_CAST));
     } catch ({ message }) {
-        yield put(updateCastFailed());
+        yield put(updateCastFailed({ message }));
+        yield put(showAlert({ status: 'error', message }));
+    }
+}
+
+function* toggleEnabledSaga(payload)
+{
+    try {
+        const { id } = payload;
+        const { message, status } = yield call(API.updateEnabledStatusAsync, id);
+
+        yield put(toggleEnabledSuccess({ id }));
+        yield put(showAlert({ status, message }));
+        yield put(push(PATH.VIDEO_MANAGEMENT_CAST));
+    } catch ({ message }) {
+        yield put(updateCastFailed({ message }));
         yield put(showAlert({ status: 'error', message }));
     }
 }
@@ -132,6 +150,14 @@ function* updateCastWatcher()
     }
 }
 
+function* toggleEnabledWatcher()
+{
+    while (true) {
+        const { payload } = yield take(TOGGLE_ENABLED_START);
+        yield call(toggleEnabledSaga, payload);
+    }
+}
+
 function* deleteCastsWatcher()
 {
     while (true) {
@@ -150,6 +176,7 @@ export default function*()
         findCastByIDWatcher(),
         createCastWatcher(),
         updateCastWatcher(),
+        toggleEnabledWatcher(),
         deleteCastsWatcher()
     ]);
 }

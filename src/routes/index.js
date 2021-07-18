@@ -17,6 +17,8 @@ const VideoManagementAuthor = lazy(() => import('../views/pages/video-management
 const CreateAuthor = lazy(() => import('../views/pages/video-management/author/CreateAuthor'))
 const UpdateAuthor = lazy(() => import('../views/pages/video-management/author/UpdateAuthor'))
 const VideoManagementCast = lazy(() => import('../views/pages/video-management/cast'))
+const CreateCast = lazy(() => import('../views/pages/video-management/cast/CreateCast'))
+const UpdateCast = lazy(() => import('../views/pages/video-management/cast/UpdateCast'))
 const VideoManagementDirector = lazy(() => import('../views/pages/video-management/director'))
 const VideoManagementGenre = lazy(() => import('../views/pages/video-management/genre'))
 const VideoManagementVideo = lazy(() => import('../views/pages/video-management/video'))
@@ -105,6 +107,24 @@ export const PRIVATE_ROUTES = [
         exact: true,
         component: VideoManagementCast,
         access: 'View Casts',
+        restricted: true
+    },
+    {
+        path: PATH.CREATE_CAST,
+        key: 'CreateCast',
+        icon: '',
+        exact: true,
+        component: CreateCast,
+        access: 'Manage Casts',
+        restricted: true
+    },
+    {
+        path: PATH.UPDATE_CAST,
+        key: 'UpdateCast',
+        icon: '',
+        exact: true,
+        component: UpdateCast,
+        access: 'Manage Casts',
         restricted: true
     },
     {

@@ -13,6 +13,9 @@ const {
     UPDATE_CAST_START,
     UPDATE_CAST_SUCCESS,
     UPDATE_CAST_FAILED,
+    TOGGLE_ENABLED_START,
+    TOGGLE_ENABLED_SUCCESS,
+    TOGGLE_ENABLED_FAILED,
     DELETE_CASTS_START,
     DELETE_CASTS_SUCCESS,
     DELETE_CASTS_FAILED
@@ -26,10 +29,10 @@ const CAST_DEFAULT_PROPS = {
     height_in_cm: '',
     biographical_information: '',
     birth_details: '',
-    date_of_birth: '',
+    date_of_birth: null,
     place_of_birth: '',
     death_details: '',
-    date_of_death: '',
+    date_of_death: null,
     enabled: false,
 };
 
@@ -57,6 +60,7 @@ export default (state = initialState, { type, payload }) =>
         case FIND_CAST_BY_ID_START:
         case CREATE_CAST_START:
         case UPDATE_CAST_START:
+        case TOGGLE_ENABLED_START:
         case DELETE_CASTS_START:
             return {
                 ...state,
@@ -83,8 +87,8 @@ export default (state = initialState, { type, payload }) =>
 
             const newAuthor = { 
                 ...CAST_DEFAULT_PROPS,
+                ...payload.cast,
                 id: (casts[casts.length - 1].id + 1), 
-                ...payload.cast 
             };
 
             return {
@@ -99,6 +103,21 @@ export default (state = initialState, { type, payload }) =>
             UPDATED_CASTS = casts.map(cast => {
                 return cast.id === payload.cast.id 
                     ? payload.cast
+                    : cast;
+            });
+
+            return {
+                ...state,
+                casts: UPDATED_CASTS,
+                isLoading,
+                error
+            }
+
+        case TOGGLE_ENABLED_SUCCESS:
+
+            UPDATED_CASTS = casts.map(cast => {
+                return cast.id === payload.id 
+                    ? { ...cast, enabled: !cast.enabled }
                     : cast;
             });
 
@@ -124,6 +143,7 @@ export default (state = initialState, { type, payload }) =>
         case FIND_CAST_BY_ID_FAILED:
         case CREATE_CAST_FAILED:
         case UPDATE_CAST_FAILED:
+        case TOGGLE_ENABLED_FAILED:
         case DELETE_CASTS_FAILED:
             return {
                 ...state,

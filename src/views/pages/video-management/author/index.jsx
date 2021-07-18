@@ -5,7 +5,6 @@ import { createStructuredSelector } from 'reselect';
 /** Actions */
 import * as AUTHOR_ACTION from './../../../../redux/modules/author/actions'; 
 import { selectAuthor } from './../../../../redux/modules/author/selector';
-import Typography from '@material-ui/core/Typography'
 import StyledNavLink from './../../../../components/styled-components/StyledNavLink';
 import PATH from './../../../../routes/path';
 import MaterialTable from './../../../../components/styled-components/MaterialTable';

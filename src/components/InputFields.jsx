@@ -64,14 +64,14 @@ const InputFields = ({ data, setData, saveButtonCallback, cancelButtonCallback, 
                                 label='Birth Name'
                                 variant='filled'
                                 fullWidth
-                                value={ data.birth_name }
+                                value={ data.birth_name ?? '' }
                                 onChange={ handleChange }
                             />
                         </Grid>
                         <Grid item xs={ 12 } sm={ 12 } lg={ 12 } xl={ 12 }>
                             <FormControl component='fieldset'>
                                 <FormLabel component='legend'>Gender</FormLabel>
-                                <RadioGroup aria-label='gender' name='gender' value={ data.gender } onChange={ handleChange }>
+                                <RadioGroup aria-label='gender' name='gender' value={ data.gender ?? '' } onChange={ handleChange }>
                                     <FormControlLabel value='Female' control={<Radio />} label='Female' />
                                     <FormControlLabel value='Male' control={<Radio />} label='Male' />
                                     <FormControlLabel value='other' control={<Radio />} label='Other' />
@@ -85,7 +85,7 @@ const InputFields = ({ data, setData, saveButtonCallback, cancelButtonCallback, 
                                 label='Height (cm)'
                                 variant='filled'
                                 fullWidth
-                                value={ data.height_in_cm }
+                                value={ data.height_in_cm ?? '' }
                                 onChange={ handleChange }
                             />
                         </Grid>
@@ -104,7 +104,7 @@ const InputFields = ({ data, setData, saveButtonCallback, cancelButtonCallback, 
                         </Grid>
                         <Grid item xs={ 12 } sm={ 12 } lg={ 12 } xl={ 12 }>
                             <KeyboardDatePicker
-                                id='date-picker-inline'
+                                id='date-of-birth'
                                 label='Date of Birth'
                                 variant='inline'
                                 inputVariant='filled'
@@ -117,8 +117,20 @@ const InputFields = ({ data, setData, saveButtonCallback, cancelButtonCallback, 
                                 KeyboardButtonProps={{
                                     'aria-label': 'change date',
                                 }}
-                                value={ data.date_of_birth }
+                                value={ data.date_of_birth ?? null }
                                 onChange={ handleChangeBirthDate }
+                            />
+                        </Grid>
+                        <Grid item xs={ 12 } sm={ 12 } lg={ 12 } xl={ 12 }>
+                            <TextField
+                                id='place_of_birth'
+                                name='place_of_birth'
+                                label='Place of Birth'
+                                variant='outlined'
+                                fullWidth
+                                multiline
+                                value={ data.place_of_birth ?? '' }
+                                onChange={ handleChange }
                             />
                         </Grid>
                         <Grid item xs={ 12 } sm={ 12 } lg={ 12 } xl={ 12 }>
@@ -136,7 +148,7 @@ const InputFields = ({ data, setData, saveButtonCallback, cancelButtonCallback, 
                         </Grid>
                         <Grid item xs={ 12 } sm={ 12 } lg={ 12 } xl={ 12 }>
                             <KeyboardDatePicker
-                                id='date-picker-inline'
+                                id='date-of-death'
                                 label='Date of Death'
                                 variant='inline'
                                 inputVariant='filled'
@@ -149,7 +161,7 @@ const InputFields = ({ data, setData, saveButtonCallback, cancelButtonCallback, 
                                 KeyboardButtonProps={{
                                     'aria-label': 'change date',
                                 }}
-                                value={ data.date_of_death }
+                                value={ data.date_of_death ?? null }
                                 onChange={ handleChangeDateOfDeath }
                             />
                         </Grid>

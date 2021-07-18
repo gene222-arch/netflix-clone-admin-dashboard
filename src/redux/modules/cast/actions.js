@@ -13,6 +13,9 @@ const {
     UPDATE_CAST_START,
     UPDATE_CAST_SUCCESS,
     UPDATE_CAST_FAILED,
+    TOGGLE_ENABLED_START,
+    TOGGLE_ENABLED_SUCCESS,
+    TOGGLE_ENABLED_FAILED,
     DELETE_CASTS_START,
     DELETE_CASTS_SUCCESS,
     DELETE_CASTS_FAILED
@@ -82,6 +85,22 @@ export const updateCastSuccess = (payload) => ({
 
 export const updateCastFailed = (payload) => ({
     type: UPDATE_CAST_FAILED,
+    payload
+});
+
+/** Toggle enabled action */
+export const toggleEnabledStart = (payload) => ({
+    type: TOGGLE_ENABLED_START,
+    payload
+});
+
+export const toggleEnabledSuccess = (payload) => ({
+    type: TOGGLE_ENABLED_SUCCESS,
+    payload
+});
+
+export const toggleEnabledFailed = (payload) => ({
+    type: TOGGLE_ENABLED_FAILED,
     payload
 });
 
