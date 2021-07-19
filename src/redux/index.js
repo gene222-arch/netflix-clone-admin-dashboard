@@ -14,15 +14,17 @@ const sagaMiddleware = createSagaMiddleware();
 
 const history = createBrowserHistory();
 
+const middlewares = applyMiddleware(
+	routerMiddleware(history),
+	sagaMiddleware,
+	/** ...other middlewares */
+);
+
 const store = createStore(
 	rootReducer, 
 	{},
 	compose(
-		applyMiddleware(
-			routerMiddleware(history),
-			sagaMiddleware,
-			/** ...other middlewares */
-		),
+		middlewares,
 		window.devToolsExtension ? window.devToolsExtension() : f => f
 	)
 );

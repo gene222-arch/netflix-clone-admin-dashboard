@@ -6,16 +6,14 @@ import * as Cookie from '../utils/cookies'
 import { createStructuredSelector } from 'reselect';
 import { selectAuth } from './../redux/modules/auth/selector';
 import { connect } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import * as Cookies from './../utils/cookies'
 import PATH from './path';
 
 const PrivateRoute = ({ AUTH, Component, ...props }) => 
 {
-    const history = useHistory();
-
-    if (!AUTH.isAuthenticated && !Cookies.has('access_token')) {
-        history.push(PATH.LOGIN);
+    if (!AUTH.isAuthenticated || !Cookies.has('access_token')) {
+        return <Redirect to={ PATH.LOGIN } />
     }
     
     return <Component { ...props } />

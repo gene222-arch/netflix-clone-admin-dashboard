@@ -1,8 +1,8 @@
 import React from 'react'
-import { useHistory } from 'react-router-dom'
+import { Redirect, useHistory } from 'react-router-dom'
 
 /** Utils */
-import * as Cookie from '../utils/cookies'
+import * as Cookies from '../utils/cookies'
 import PATH from './path';
 import { createStructuredSelector } from 'reselect';
 import { selectAuth } from './../redux/modules/auth/selector';
@@ -12,19 +12,17 @@ import PageLoader from './../components/PageLoader';
 
 const PublicRoute = ({ AUTH, Component, ...props }) => 
 {
-    const history = useHistory();
-
     if (AUTH.isLoading) {
         return <PageLoader />
     }
 
     return (
         <>
-            {
-                !AUTH.isAuthenticated
-                    ? <Component { ...props } />
-                    : history.push(PATH.DASHBOARD)
-            }
+        {
+            !AUTH.isAuthenticated && !Cookies.has('access_token')
+                ? <Component { ...props } />
+                : <Redirect to={ PATH.DASHBOARD } />
+        }
         </>
     )
 }
