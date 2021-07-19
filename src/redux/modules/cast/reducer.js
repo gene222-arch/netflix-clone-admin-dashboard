@@ -140,6 +140,13 @@ export default (state = initialState, { type, payload }) =>
             }
 
         case FETCH_ALL_CASTS_FAILED:
+            return {
+                ...state,
+                casts: [],
+                isLoading,
+                error: payload.message
+            }
+
         case FIND_CAST_BY_ID_FAILED:
         case CREATE_CAST_FAILED:
         case UPDATE_CAST_FAILED:

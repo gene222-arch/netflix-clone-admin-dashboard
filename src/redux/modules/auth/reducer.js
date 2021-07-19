@@ -1,4 +1,5 @@
 import ACTION_TYPES from './action.types';
+import storage from 'redux-persist/lib/storage'
 
 const { 
     
@@ -130,6 +131,7 @@ export default (state = initialState, { type, payload }) =>
             };   
 
         case LOGOUT_SUCCESS: 
+
             return {
                 ...state,
                 isLoading: false,

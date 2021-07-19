@@ -3,7 +3,7 @@ import axiosInstance from '../../utils/axiosInstance'
 export const fetchAllAsync = async (payload) => 
 {
     return await axiosInstance()
-        .get('/casts', payload)
+        .get('/casts')
         .then(response => response.data)
         .catch(error => Promise.reject(error.response.data));
 }

@@ -19,12 +19,12 @@ const persistConfig = {
     blacklist: ['alert', 'mainLayout', 'router']    
 };
 
-const rootReducer = {
+const reducers = {
     /** Global reducers */
     router: connectRouter(history),
     alert: alertReducer,
 
-    /** reducers */
+    /** local reducers */
     auth: authReducer,
     author: authorReducer,
     cast: castReducer,
@@ -32,4 +32,16 @@ const rootReducer = {
     mainLayout: mainLayoutReducer
 };
 
-export default persistCombineReducers(persistConfig, rootReducer);
+const appReducer = persistCombineReducers(persistConfig, reducers);
+
+const rootReducer = (state, action) => 
+{
+    if (action.type === 'LOGOUT_SUCCESS') {
+        storage.removeItem('persist:root');
+        return appReducer(undefined, action);
+    }
+    
+    return appReducer(state, action);
+}
+
+export default rootReducer

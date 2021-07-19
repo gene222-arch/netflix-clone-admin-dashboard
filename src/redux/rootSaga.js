@@ -11,6 +11,7 @@ export default function* ()
     yield all([
         authSaga(),
         authorSaga(),
+        castSaga(),
         directorSaga()
     ]);
 }
