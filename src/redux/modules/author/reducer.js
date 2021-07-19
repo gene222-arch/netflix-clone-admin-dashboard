@@ -18,7 +18,8 @@ const {
     TOGGLE_AUTHOR_ENABLED_FAILED,
     DELETE_AUTHORS_START,
     DELETE_AUTHORS_SUCCESS,
-    DELETE_AUTHORS_FAILED
+    DELETE_AUTHORS_FAILED,
+    CLEAR_AUTHOR_ERRORS
 } = ACTION_TYPES;
 
 const AUTHOR_DEFAULT_PROPS = {
@@ -136,6 +137,12 @@ export default (state = initialState, { type, payload }) =>
                 ...state,
                 authors: UPDATED_AUTHORS,
                 isLoading,
+                error
+            }
+
+        case CLEAR_AUTHOR_ERRORS: 
+            return {
+                ...state,
                 error
             }
 

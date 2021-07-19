@@ -27,6 +27,11 @@ const UpdateCast = ({ CAST, match }) =>
         setCast(findCast);
     }
 
+    const handleClickCancel = () => {
+        dispatch(CAST_ACTION.clearCastErrors());
+        history.push(PATH.VIDEO_MANAGEMENT_CAST);
+    }
+
     useEffect(() => {
         onLoadFetchCastByID();
         return () => {
@@ -40,7 +45,7 @@ const UpdateCast = ({ CAST, match }) =>
             data={ cast }
             setData={ setCast }
             saveButtonCallback={ handleClickUpdateCast }
-            cancelButtonCallback={ () => history.push(PATH.VIDEO_MANAGEMENT_CAST) }
+            cancelButtonCallback={ handleClickCancel }
             isLoading={ CAST.isLoading }
         />
     )

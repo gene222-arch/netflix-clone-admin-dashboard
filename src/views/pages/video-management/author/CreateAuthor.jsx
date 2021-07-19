@@ -20,6 +20,11 @@ const CreateAuthor = ({ AUTHOR }) =>
         dispatch(AUTHOR_ACTION.createAuthorStart(author));
     }
 
+    const handleClickCancel = () => {
+        dispatch(AUTHOR_ACTION.clearAuthorErrors());
+        history.push(PATH.VIDEO_MANAGEMENT_AUTHOR);
+    }
+
     useEffect(() => {
         return () => {
             setAuthor(AUTHOR.author);
@@ -32,7 +37,7 @@ const CreateAuthor = ({ AUTHOR }) =>
             cardHeaderTitle='Add Author'
             setData={ setAuthor }
             saveButtonCallback={ handleClickCreateAuthor }
-            cancelButtonCallback={ () => history.push(PATH.VIDEO_MANAGEMENT_AUTHOR) }
+            cancelButtonCallback={ handleClickCancel }
             isLoading={ AUTHOR.isLoading }
         />
     )

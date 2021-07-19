@@ -90,9 +90,10 @@ function* toggleGenreEnabledSaga(payload)
 {
     try {
         const { id } = payload;
-        const { message, status } = yield call(API.updateEnabledStatusAsync, id);
-
+        
         yield put(toggleGenreEnabledSuccess({ id }));
+        const { message, status } = yield call(API.updateEnabledStatusAsync, id);
+        
         yield put(showAlert({ status, message }));
     } catch ({ message, status }) {
         yield put(toggleGenreEnabledFailed({ message }));

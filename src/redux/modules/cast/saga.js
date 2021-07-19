@@ -91,9 +91,10 @@ function* toggleCastEnabledSaga(payload)
 {
     try {
         const { id } = payload;
+        
+        yield put(toggleCastEnabledSuccess({ id }));
         const { message, status } = yield call(API.updateEnabledStatusAsync, id);
 
-        yield put(toggleCastEnabledSuccess({ id }));
         yield put(showAlert({ status, message }));
     } catch ({ message, status }) {
         yield put(toggleCastEnabledFailed({ message }));

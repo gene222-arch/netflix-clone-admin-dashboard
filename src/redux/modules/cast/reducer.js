@@ -18,7 +18,8 @@ const {
     TOGGLE_CAST_ENABLED_FAILED,
     DELETE_CASTS_START,
     DELETE_CASTS_SUCCESS,
-    DELETE_CASTS_FAILED
+    DELETE_CASTS_FAILED,
+    CLEAR_CAST_ERRORS
 } = ACTION_TYPES;
 
 const CAST_DEFAULT_PROPS = {
@@ -138,15 +139,14 @@ export default (state = initialState, { type, payload }) =>
                 isLoading,
                 error
             }
-
-        case FETCH_ALL_CASTS_FAILED:
+            
+        case CLEAR_CAST_ERRORS: 
             return {
-                ...state,
-                casts: [],
-                isLoading,
-                error: payload.message
+                ...state, 
+                error
             }
 
+        case FETCH_ALL_CASTS_FAILED:
         case FIND_CAST_BY_ID_FAILED:
         case CREATE_CAST_FAILED:
         case UPDATE_CAST_FAILED:

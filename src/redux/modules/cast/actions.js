@@ -18,7 +18,8 @@ const {
     TOGGLE_CAST_ENABLED_FAILED,
     DELETE_CASTS_START,
     DELETE_CASTS_SUCCESS,
-    DELETE_CASTS_FAILED
+    DELETE_CASTS_FAILED,
+    CLEAR_CAST_ERRORS
 } = ACTION_TYPES;
 
 
@@ -117,6 +118,12 @@ export const deleteCastsSuccess = (payload) => ({
 
 export const deleteCastsFailed = (payload) => ({
     type: DELETE_CASTS_FAILED,
+    payload
+});
+
+/** Clear Cast errors */
+export const clearCastErrors = (payload) => ({
+    type: CLEAR_CAST_ERRORS,
     payload
 });
 

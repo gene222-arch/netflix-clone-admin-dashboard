@@ -27,6 +27,11 @@ const UpdateDirector = ({ DIRECTOR, match }) =>
         setDirector(findDirector);
     }
 
+    const handleClickCancel = () => {
+        dispatch(DIRECTOR_ACTION.clearDirectorErrors());
+        history.push(PATH.VIDEO_MANAGEMENT_DIRECTOR);
+    }
+
     useEffect(() => {
         onLoadFetchDirectorByID();
         return () => {
@@ -40,7 +45,7 @@ const UpdateDirector = ({ DIRECTOR, match }) =>
             data={ director }
             setData={ setDirector }
             saveButtonCallback={ handleClickUpdateDirector }
-            cancelButtonCallback={ () => history.push(PATH.VIDEO_MANAGEMENT_DIRECTOR) }
+            cancelButtonCallback={ handleClickCancel }
             isLoading={ DIRECTOR.isLoading }
         />
     )

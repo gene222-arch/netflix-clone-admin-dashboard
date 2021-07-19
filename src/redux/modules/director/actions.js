@@ -18,7 +18,8 @@ const {
     TOGGLE_DIRECTOR_ENABLED_FAILED,
     DELETE_DIRECTORS_START,
     DELETE_DIRECTORS_SUCCESS,
-    DELETE_DIRECTORS_FAILED
+    DELETE_DIRECTORS_FAILED,
+    CLEAR_DIRECTOR_ERRORS
 } = ACTION_TYPES;
 
 
@@ -120,3 +121,9 @@ export const deleteDirectorsFailed = (payload) => ({
     payload
 });
 
+
+/** Clear Director errors */
+export const clearDirectorErrors = (payload) => ({
+    type: CLEAR_DIRECTOR_ERRORS,
+    payload
+});

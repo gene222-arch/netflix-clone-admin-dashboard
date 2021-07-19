@@ -18,7 +18,8 @@ const {
     UPDATE_AUTHOR_FAILED,
     DELETE_AUTHORS_START,
     DELETE_AUTHORS_SUCCESS,
-    DELETE_AUTHORS_FAILED
+    DELETE_AUTHORS_FAILED,
+    CLEAR_AUTHOR_ERRORS
 } = ACTION_TYPES;
 
 
@@ -120,3 +121,9 @@ export const deleteAuthorsFailed = (payload) => ({
     payload
 });
 
+/** Clear Author errors */
+
+export const clearAuthorErrors = (payload) => ({
+    type: CLEAR_AUTHOR_ERRORS,
+    payload
+});

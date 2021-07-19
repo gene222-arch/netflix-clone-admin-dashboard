@@ -90,9 +90,10 @@ function* toggleAuthorEnabledSaga(payload)
 {
     try {
         const { id } = payload;
+        
+        yield put(toggleAuthorEnabledSuccess({ id }));
         const { message, status } = yield call(API.updateEnabledStatusAsync, id);
 
-        yield put(toggleAuthorEnabledSuccess({ id }));
         yield put(showAlert({ status, message }));
     } catch ({ message, status }) {
         yield put(toggleAuthorEnabledFailed({ message }));

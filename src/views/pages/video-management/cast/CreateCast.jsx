@@ -20,6 +20,11 @@ const CreateCast = ({ CAST }) =>
         dispatch(CAST_ACTION.createCastStart(cast));
     }
 
+    const handleClickCancel = () => {
+        dispatch(CAST_ACTION.clearCastErrors());
+        history.push(PATH.VIDEO_MANAGEMENT_CAST);
+    }
+
     useEffect(() => {
         return () => {
             setCast(CAST.cast);
@@ -32,7 +37,7 @@ const CreateCast = ({ CAST }) =>
             cardHeaderTitle='Add Cast'
             setData={ setCast }
             saveButtonCallback={ handleClickCreateCast }
-            cancelButtonCallback={ () => history.push(PATH.VIDEO_MANAGEMENT_CAST) }
+            cancelButtonCallback={ handleClickCancel }
             isLoading={ CAST.isLoading }
         />
     )

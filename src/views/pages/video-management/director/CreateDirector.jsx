@@ -20,6 +20,11 @@ const CreateDirector = ({ DIRECTOR }) =>
         dispatch(DIRECTOR_ACTION.createDirectorStart(director));
     }
 
+    const handleClickCancel = () => {
+        dispatch(DIRECTOR_ACTION.clearDirectorErrors());
+        history.push(PATH.VIDEO_MANAGEMENT_DIRECTOR);
+    }
+
     useEffect(() => {
         return () => {
             setDirector(DIRECTOR.director);
@@ -32,7 +37,7 @@ const CreateDirector = ({ DIRECTOR }) =>
             cardHeaderTitle='Add Director'
             setData={ setDirector }
             saveButtonCallback={ handleClickCreateDirector }
-            cancelButtonCallback={ () => history.push(PATH.VIDEO_MANAGEMENT_DIRECTOR) }
+            cancelButtonCallback={ handleClickCancel }
             isLoading={ DIRECTOR.isLoading }
         />
     )

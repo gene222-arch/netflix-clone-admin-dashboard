@@ -18,7 +18,8 @@ const {
     TOGGLE_DIRECTOR_ENABLED_FAILED,
     DELETE_DIRECTORS_START,
     DELETE_DIRECTORS_SUCCESS,
-    DELETE_DIRECTORS_FAILED
+    DELETE_DIRECTORS_FAILED,
+    CLEAR_DIRECTOR_ERRORS
 } = ACTION_TYPES;
 
 const DIRECTOR_DEFAULT_PROPS = {
@@ -136,6 +137,12 @@ export default (state = initialState, { type, payload }) =>
                 ...state,
                 directors: UPDATED_DIRECTORS,
                 isLoading,
+                error
+            }
+
+        case CLEAR_DIRECTOR_ERRORS:
+            return {
+                ...state,
                 error
             }
 

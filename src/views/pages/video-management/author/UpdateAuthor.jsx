@@ -27,6 +27,11 @@ const UpdateAuthor = ({ AUTHOR, match }) =>
         setAuthor(findAuthor);
     }
 
+    const handleClickCancel = () => {
+        dispatch(AUTHOR_ACTION.clearAuthorErrors());
+        history.push(PATH.VIDEO_MANAGEMENT_AUTHOR);
+    }
+
     useEffect(() => {
         onLoadFetchAuthorByID();
         return () => {
@@ -40,7 +45,7 @@ const UpdateAuthor = ({ AUTHOR, match }) =>
             data={ author }
             setData={ setAuthor }
             saveButtonCallback={ handleClickUpdateAuthor }
-            cancelButtonCallback={ () => history.push(PATH.VIDEO_MANAGEMENT_AUTHOR) }
+            cancelButtonCallback={ handleClickCancel }
             isLoading={ AUTHOR.isLoading }
         />
     )

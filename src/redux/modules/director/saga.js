@@ -92,9 +92,10 @@ function* toggleDirectorEnabledSaga(payload)
 {
     try {
         const { id } = payload;
-        const { message, status } = yield call(API.updateEnabledStatusAsync, id);
 
         yield put(toggleDirectorEnabledSuccess({ id }));
+        const { message, status } = yield call(API.updateEnabledStatusAsync, id);
+
         yield put(showAlert({ status, message }));
     } catch ({ message, status }) {
         yield put(toggleDirectorEnabledFailed({ message }));
