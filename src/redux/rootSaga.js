@@ -5,6 +5,8 @@ import authSaga from '../redux/modules/auth/saga'
 import authorSaga from '../redux/modules/author/saga'
 import castSaga from '../redux/modules/cast/saga'
 import directorSaga from '../redux/modules/director/saga'
+import genreSaga from '../redux/modules/genre/saga'
+
 
 export default function* () 
 {
@@ -12,7 +14,8 @@ export default function* ()
         authSaga(),
         authorSaga(),
         castSaga(),
-        directorSaga()
+        directorSaga(),
+        genreSaga()
     ]);
 }
 

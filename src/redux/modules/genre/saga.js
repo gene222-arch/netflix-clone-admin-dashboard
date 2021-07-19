@@ -2,7 +2,7 @@ import { all, call, take, put } from 'redux-saga/effects'
 import { push } from 'connected-react-router';
 
 /** Async functions */
-import * as API from './../../../services/movies/author';
+import * as API from './../../../services/movies/genre';
 
 /** Actions and types */
 import ACTION_TYPES from './action.types'
@@ -15,17 +15,21 @@ import {
     createGenreFailed,
     updateGenreSuccess,
     updateGenreFailed,
+    toggleGenreEnabledSuccess,
+    toggleGenreEnabledFailed,
     deleteGenresSuccess,
     deleteGenresFailed
 } from './actions';
 import { showAlert } from './../alert/actions';
 import PATH from './../../../routes/path';
+import { ERROR_MESSAGE_ON_CREATE, ERROR_MESSAGE_ON_DELETE, ERROR_MESSAGE_ON_UPDATE } from './../../../config/alertMessages';
 
 const {
     FETCH_ALL_GENRES_START,
     FIND_GENRE_BY_ID_START,
     CREATE_GENRE_START,
     UPDATE_GENRE_START,
+    TOGGLE_GENRE_ENABLED_START,
     DELETE_GENRES_START
 }  = ACTION_TYPES;
 
@@ -35,8 +39,8 @@ const {
 function* fetchAllGenresSaga()
 {
     try {
-        const { data: authors } = yield call(API.fetchAllAsync);
-        yield put(fetchAllGenresSuccess({ authors }));
+        const { data: genres } = yield call(API.fetchAllAsync);
+        yield put(fetchAllGenresSuccess({ genres }));
     } catch ({ message }) {
         yield put(fetchAllGenresFailed({ message }));
     }
@@ -46,9 +50,9 @@ function* findGenreByIDSaga(payload)
 {
     try {
         const { id } = payload;
-        const { data: author } = yield call(API.findByIDAsync, id);
+        const { data: genre } = yield call(API.findByIDAsync, id);
 
-        yield put(findGenreByIDSuccess({ author }));
+        yield put(findGenreByIDSuccess({ genre }));
     } catch ({ message }) {
         yield put(findGenreByIDFailed({ message }));
     }
@@ -59,12 +63,12 @@ function* createGenreSaga(payload)
     try {
         const { message, status } = yield call(API.createAsync, payload);
 
-        yield put(createGenreSuccess({ author: payload }));
+        yield put(createGenreSuccess({ genre: payload }));
         yield put(showAlert({ status, message }));
         yield put(push(PATH.VIDEO_MANAGEMENT_GENRE));
-    } catch ({ message }) {
-        yield put(createGenreFailed());
-        yield put(showAlert({ status: 'error', message }));
+    } catch ({ status, message }) {
+        yield put(createGenreFailed({ message }));
+        yield put(showAlert({ status, message: ERROR_MESSAGE_ON_CREATE }));
     }
 }
 
@@ -73,12 +77,26 @@ function* updateGenreSaga(payload)
     try {
         const { message, status } = yield call(API.updateAsync, payload);
 
-        yield put(updateGenreSuccess({ author: payload }));
+        yield put(updateGenreSuccess({ genre: payload }));
         yield put(showAlert({ status, message }));
         yield put(push(PATH.VIDEO_MANAGEMENT_GENRE));
-    } catch ({ message }) {
-        yield put(updateGenreFailed());
-        yield put(showAlert({ status: 'error', message }));
+    } catch ({ message, status }) {
+        yield put(updateGenreFailed({ message }));
+        yield put(showAlert({ status, message: ERROR_MESSAGE_ON_UPDATE }));
+    }
+}
+
+function* toggleGenreEnabledSaga(payload)
+{
+    try {
+        const { id } = payload;
+        const { message, status } = yield call(API.updateEnabledStatusAsync, id);
+
+        yield put(toggleGenreEnabledSuccess({ id }));
+        yield put(showAlert({ status, message }));
+    } catch ({ message, status }) {
+        yield put(toggleGenreEnabledFailed({ message }));
+        yield put(showAlert({ status, message: ERROR_MESSAGE_ON_UPDATE }));
     }
 }
 
@@ -90,9 +108,9 @@ function* deleteGenresSaga(payload)
 
         yield put(deleteGenresSuccess({ ids }));
         yield put(showAlert({ status, message }));
-    } catch ({ message }) {
-        yield put(deleteGenresFailed());
-        yield put(showAlert({ status: 'error', message }));
+    } catch ({ message, status }) {
+        yield put(deleteGenresFailed({ message }));
+        yield put(showAlert({ status, message: ERROR_MESSAGE_ON_DELETE }));
     }
 }
 
@@ -132,6 +150,14 @@ function* updateGenreWatcher()
     }
 }
 
+function* toggleGenreEnabledWatcher()
+{
+    while (true) {
+        const { payload } = yield take(TOGGLE_GENRE_ENABLED_START);
+        yield call(toggleGenreEnabledSaga, payload);
+    }
+}
+
 function* deleteGenresWatcher()
 {
     while (true) {
@@ -150,6 +176,7 @@ export default function*()
         findGenreByIDWatcher(),
         createGenreWatcher(),
         updateGenreWatcher(),
+        toggleGenreEnabledWatcher(),
         deleteGenresWatcher()
     ]);
 }

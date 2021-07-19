@@ -22,6 +22,8 @@ import {
 } from './actions';
 import { showAlert } from './../alert/actions';
 import PATH from './../../../routes/path';
+import { ERROR_MESSAGE_ON_DELETE } from '../../../config/alertMessages';
+import { ERROR_MESSAGE_ON_UPDATE, ERROR_MESSAGE_ON_CREATE } from './../../../config/alertMessages';
 
 const {
     FETCH_ALL_DIRECTORS_START,
@@ -65,9 +67,9 @@ function* createDirectorSaga(payload)
         yield put(createDirectorSuccess({ director: payload }));
         yield put(showAlert({ status, message }));
         yield put(push(PATH.VIDEO_MANAGEMENT_DIRECTOR));
-    } catch ({ message }) {
-        yield put(createDirectorFailed());
-        yield put(showAlert({ status: 'error', message }));
+    } catch ({ message, status }) {
+        yield put(createDirectorFailed({ message }));
+        yield put(showAlert({ status, message: ERROR_MESSAGE_ON_CREATE }));
     }
 }
 
@@ -79,9 +81,9 @@ function* updateDirectorSaga(payload)
         yield put(updateDirectorSuccess({ director: payload }));
         yield put(showAlert({ status, message }));
         yield put(push(PATH.VIDEO_MANAGEMENT_DIRECTOR));
-    } catch ({ message }) {
-        yield put(updateDirectorFailed());
-        yield put(showAlert({ status: 'error', message }));
+    } catch ({ message, status }) {
+        yield put(updateDirectorFailed({ message }));
+        yield put(showAlert({ status, message: ERROR_MESSAGE_ON_UPDATE }));
     }
 }
 
@@ -94,9 +96,9 @@ function* toggleDirectorEnabledSaga(payload)
 
         yield put(toggleDirectorEnabledSuccess({ id }));
         yield put(showAlert({ status, message }));
-    } catch ({ message }) {
+    } catch ({ message, status }) {
         yield put(toggleDirectorEnabledFailed({ message }));
-        yield put(showAlert({ status: 'error', message }));
+        yield put(showAlert({ status, message: ERROR_MESSAGE_ON_UPDATE }));
     }
 }
 
@@ -108,9 +110,9 @@ function* deleteDirectorsSaga(payload)
 
         yield put(deleteDirectorsSuccess({ ids }));
         yield put(showAlert({ status, message }));
-    } catch ({ message }) {
-        yield put(deleteDirectorsFailed());
-        yield put(showAlert({ status: 'error', message }));
+    } catch ({ message, status }) {
+        yield put(deleteDirectorsFailed({ message }));
+        yield put(showAlert({ status, message: ERROR_MESSAGE_ON_DELETE }));
     }
 }
 

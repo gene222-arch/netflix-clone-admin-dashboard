@@ -107,27 +107,21 @@ function* loginSaga (payload)
         const { status, data } = yield call(loginAsync, payload);
         const data_ = data;
 
-        if (status === 'success')
-        {
+        if (status === 'success') {
             const { access_token, expires_at, data } = data_;
 
             Cookies.set('access_token', access_token, expires_at);
-
             yield put(loginSuccess(data));
-            
             yield put(push(PATH.DASHBOARD));
         }
 
-    } catch ({ message }) {
+    } catch ({ message, status }) {
 
         yield put(loginFailed({
             errorMessages: message
         }));
 
-        yield put(ALERT.showAlert({
-            status: 'error',
-            message: ERROR_MESSAGE_ON_LOGIN,
-        }));
+        yield put(ALERT.showAlert({ status, message: ERROR_MESSAGE_ON_LOGIN }));
 
     }
 }
@@ -144,12 +138,10 @@ function* loginSaga (payload)
         Cookies.remove('access_token');
 
         yield put(logoutSuccess());
-
         yield put(ALERT.showAlert({
             status,
             message
         }));
-
         yield put(push(PATH.LOGIN));
 
     } catch ({ message }) {
@@ -173,28 +165,21 @@ function* registerSaga (payload)
         const { status, data } = yield call(registerAsync, payload);
         const data_ = data;
 
-        if (status === 'success')
-        {
+        if (status === 'success') {
             const { access_token, expires_at, data } = data_;
 
             Cookies.set('access_token', access_token, expires_at);
-    
             yield put(registrationSuccess(data));
-    
             yield put(push(PATH.DASHBOARD));
         }
 
-    } catch ({ message }) {
+    } catch ({ message, status }) {
 
         yield put(registrationFailed({
             errorMessages: message
         }));
 
-        yield put(ALERT.showAlert({
-            status: 'error',
-            message: ERROR_MESSAGE_ON_REGISTER,
-        }));
-
+        yield put(ALERT.showAlert({ status, message: ERROR_MESSAGE_ON_REGISTER }));
     }
 }
 
@@ -217,17 +202,13 @@ function* resetPasswordSaga (payload)
         
         yield put(push(PATH.LOGIN));
 
-    } catch ({ message }) {
+    } catch ({ message, status }) {
         
         yield put(resetPasswordFailed({
             errorMessages: message 
         }));
 
-        yield put(ALERT.showAlert({
-            status: 'error',
-            message: message
-        }));
-
+        yield put(ALERT.showAlert({ status, message: message }));
     }
 }
 

@@ -22,6 +22,7 @@ import {
 } from './actions';
 import { showAlert } from './../alert/actions';
 import PATH from './../../../routes/path';
+import { ERROR_MESSAGE_ON_CREATE, ERROR_MESSAGE_ON_DELETE, ERROR_MESSAGE_ON_UPDATE } from './../../../config/alertMessages';
 
 const {
     FETCH_ALL_AUTHORS_START,
@@ -65,9 +66,9 @@ function* createAuthorSaga(payload)
         yield put(createAuthorSuccess({ author: payload }));
         yield put(showAlert({ status, message }));
         yield put(push(PATH.VIDEO_MANAGEMENT_AUTHOR));
-    } catch ({ message }) {
+    } catch ({ message, status }) {
         yield put(createAuthorFailed({ message }));
-        yield put(showAlert({ status: 'error', message }));
+        yield put(showAlert({ status, message: ERROR_MESSAGE_ON_CREATE }));
     }
 }
 
@@ -79,9 +80,9 @@ function* updateAuthorSaga(payload)
         yield put(updateAuthorSuccess({ author: payload }));
         yield put(showAlert({ status, message }));
         yield put(push(PATH.VIDEO_MANAGEMENT_AUTHOR));
-    } catch ({ message }) {
-        yield put(updateAuthorFailed());
-        yield put(showAlert({ status: 'error', message }));
+    } catch ({ message, status }) {
+        yield put(updateAuthorFailed({ message }));
+        yield put(showAlert({ status, message: ERROR_MESSAGE_ON_UPDATE }));
     }
 }
 
@@ -93,9 +94,9 @@ function* toggleAuthorEnabledSaga(payload)
 
         yield put(toggleAuthorEnabledSuccess({ id }));
         yield put(showAlert({ status, message }));
-    } catch ({ message }) {
+    } catch ({ message, status }) {
         yield put(toggleAuthorEnabledFailed({ message }));
-        yield put(showAlert({ status: 'error', message }));
+        yield put(showAlert({ status, message: ERROR_MESSAGE_ON_UPDATE }));
     }
 }
 
@@ -107,9 +108,9 @@ function* deleteAuthorsSaga(payload)
 
         yield put(deleteAuthorsSuccess({ ids }));
         yield put(showAlert({ status, message }));
-    } catch ({ message }) {
-        yield put(deleteAuthorsFailed());
-        yield put(showAlert({ status: 'error', message }));
+    } catch ({ message, status }) {
+        yield put(deleteAuthorsFailed({ message }));
+        yield put(showAlert({ status, message: ERROR_MESSAGE_ON_DELETE }));
     }
 }
 

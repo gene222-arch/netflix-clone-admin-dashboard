@@ -9,6 +9,7 @@ import authReducer from './modules/auth/reducer'
 import authorReducer from './modules/author/reducer'
 import castReducer from './modules/cast/reducer'
 import directorReducer from './modules/director/reducer'
+import genreReducer from './modules/genre/reducer'
 import mainLayoutReducer from './modules/main-layout/reducer'
 
 const history = createBrowserHistory();
@@ -29,6 +30,7 @@ const reducers = {
     author: authorReducer,
     cast: castReducer,
     director: directorReducer,
+    genre: genreReducer,
     mainLayout: mainLayoutReducer
 };
 

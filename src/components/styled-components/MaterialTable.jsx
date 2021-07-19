@@ -1,4 +1,4 @@
-  import { forwardRef } from 'react';
+import { forwardRef } from 'react';
 import MaterialTable_ from 'material-table'
 
 import AddBox from '@material-ui/icons/AddBox';
@@ -45,6 +45,7 @@ const MaterialTable = (props) =>
                 selection: true,
                 actionsColumnIndex: -1,
                 showTextRowsSelected: false,
+                loadingType: 'linear'
             }} 
             icons={ tableIcons } 
             { ...props }

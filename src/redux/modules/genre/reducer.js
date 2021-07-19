@@ -13,31 +13,27 @@ const {
     UPDATE_GENRE_START,
     UPDATE_GENRE_SUCCESS,
     UPDATE_GENRE_FAILED,
+    TOGGLE_GENRE_ENABLED_START,
+    TOGGLE_GENRE_ENABLED_SUCCESS,
+    TOGGLE_GENRE_ENABLED_FAILED,
     DELETE_GENRES_START,
     DELETE_GENRES_SUCCESS,
-    DELETE_GENRES_FAILED
+    DELETE_GENRES_FAILED,
+    CLEAR_GENRE_ERRORS
 } = ACTION_TYPES;
 
 const GENRE_DEFAULT_PROPS = {
     id: '',
-    pseudonym: '',
-    birth_name: '',
-    gender: '',
-    height_in_cm: '',
-    biographical_information: '',
-    birth_details: '',
-    date_of_birth: '',
-    place_of_birth: '',
-    death_details: '',
-    date_of_death: '',
-    enabled: false,
+    name: '',
+    description: '',
+    enabled: false
 };
 
 const initialState = {
     genre: GENRE_DEFAULT_PROPS,
     genres: [],
     isLoading: false,
-    error: null
+    error: GENRE_DEFAULT_PROPS
 };
 
 export default (state = initialState, { type, payload }) =>
@@ -47,7 +43,7 @@ export default (state = initialState, { type, payload }) =>
     } = state;
 
     const isLoading = false;
-    const error = null;
+    const error = GENRE_DEFAULT_PROPS;
     let UPDATED_GENRES = [];
     
     switch (type) 
@@ -57,6 +53,7 @@ export default (state = initialState, { type, payload }) =>
         case FIND_GENRE_BY_ID_START:
         case CREATE_GENRE_START:
         case UPDATE_GENRE_START:
+        case TOGGLE_GENRE_ENABLED_START:
         case DELETE_GENRES_START:
             return {
                 ...state,
@@ -81,15 +78,15 @@ export default (state = initialState, { type, payload }) =>
 
         case CREATE_GENRE_SUCCESS:
 
-            const newAuthor = { 
+            const newGenre = { 
                 ...GENRE_DEFAULT_PROPS,
+                ...payload.genre,
                 id: (genres[genres.length - 1].id + 1), 
-                ...payload.genre 
             };
 
             return {
                 ...state,
-                genres: [ ...genres, newAuthor ],
+                genres: [ ...genres, newGenre ],
                 isLoading,
                 error
             }
@@ -109,6 +106,21 @@ export default (state = initialState, { type, payload }) =>
                 error
             }
 
+        case TOGGLE_GENRE_ENABLED_SUCCESS:
+
+            UPDATED_GENRES = genres.map(genre => {
+                return genre.id === payload.id 
+                    ? { ...genre, enabled: !genre.enabled }
+                    : genre;
+            });
+
+            return {
+                ...state,
+                genres: UPDATED_GENRES,
+                isLoading,
+                error
+            }            
+
         case DELETE_GENRES_SUCCESS:
 
             UPDATED_GENRES = genres.filter(({ id }) => !payload.ids.includes(id));
@@ -120,10 +132,17 @@ export default (state = initialState, { type, payload }) =>
                 error
             }
 
+        case CLEAR_GENRE_ERRORS:
+            return {
+                ...state,
+                error
+            }
+            
         case FETCH_ALL_GENRES_FAILED:
         case FIND_GENRE_BY_ID_FAILED:
         case CREATE_GENRE_FAILED:
         case UPDATE_GENRE_FAILED:
+        case TOGGLE_GENRE_ENABLED_FAILED:
         case DELETE_GENRES_FAILED:
             return {
                 ...state,

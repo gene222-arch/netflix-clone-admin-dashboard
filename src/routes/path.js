@@ -21,6 +21,9 @@ const PATH =
 
     CREATE_DIRECTOR: '/directors/create-new-director',
     UPDATE_DIRECTOR: '/directors/:id/update-director',
+
+    CREATE_GENRE: '/genres/create-new-genre',
+    UPDATE_GENRE: '/genres/:id/update-genre',
 };
 
 

@@ -22,13 +22,13 @@ const UpdateAuthor = ({ AUTHOR, match }) =>
         dispatch(AUTHOR_ACTION.updateAuthorStart(author));
     }
 
-    const fetchAuthorByID = () => {
+    const onLoadFetchAuthorByID = () => {
         const findAuthor = AUTHOR.authors.find(author => author.id === parseInt(id));
         setAuthor(findAuthor);
     }
 
     useEffect(() => {
-        fetchAuthorByID();
+        onLoadFetchAuthorByID();
         return () => {
             setAuthor(AUTHOR.author);
         }

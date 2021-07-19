@@ -22,13 +22,13 @@ const UpdateDirector = ({ DIRECTOR, match }) =>
         dispatch(DIRECTOR_ACTION.updateDirectorStart(director));
     }
 
-    const fetchDirectorByID = () => {
+    const onLoadFetchDirectorByID = () => {
         const findDirector = DIRECTOR.directors.find(director => director.id === parseInt(id));
         setDirector(findDirector);
     }
 
     useEffect(() => {
-        fetchDirectorByID();
+        onLoadFetchDirectorByID();
         return () => {
             setDirector(DIRECTOR.director);
         }

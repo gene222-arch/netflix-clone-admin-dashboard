@@ -22,6 +22,8 @@ import {
 } from './actions';
 import { showAlert } from './../alert/actions';
 import PATH from './../../../routes/path';
+import { ERROR_MESSAGE_ON_DELETE } from '../../../config/alertMessages';
+import { ERROR_MESSAGE_ON_UPDATE, ERROR_MESSAGE_ON_CREATE } from './../../../config/alertMessages';
 
 const {
     FETCH_ALL_CASTS_START,
@@ -65,9 +67,9 @@ function* createCastSaga(payload)
         yield put(createCastSuccess({ cast: payload }));
         yield put(showAlert({ status, message }));
         yield put(push(PATH.VIDEO_MANAGEMENT_CAST));
-    } catch ({ message }) {
+    } catch ({ message, status }) {
         yield put(createCastFailed({ message }));
-        yield put(showAlert({ status: 'error', message }));
+        yield put(showAlert({ status, message: ERROR_MESSAGE_ON_CREATE }));
     }
 }
 
@@ -79,9 +81,9 @@ function* updateCastSaga(payload)
         yield put(updateCastSuccess({ cast: payload }));
         yield put(showAlert({ status, message }));
         yield put(push(PATH.VIDEO_MANAGEMENT_CAST));
-    } catch ({ message }) {
+    } catch ({ message, status }) {
         yield put(updateCastFailed({ message }));
-        yield put(showAlert({ status: 'error', message }));
+        yield put(showAlert({ status, message: ERROR_MESSAGE_ON_UPDATE }));
     }
 }
 
@@ -93,9 +95,9 @@ function* toggleCastEnabledSaga(payload)
 
         yield put(toggleCastEnabledSuccess({ id }));
         yield put(showAlert({ status, message }));
-    } catch ({ message }) {
+    } catch ({ message, status }) {
         yield put(toggleCastEnabledFailed({ message }));
-        yield put(showAlert({ status: 'error', message }));
+        yield put(showAlert({ status, message: ERROR_MESSAGE_ON_UPDATE }));
     }
 }
 
@@ -107,9 +109,9 @@ function* deleteCastsSaga(payload)
 
         yield put(deleteCastsSuccess({ ids }));
         yield put(showAlert({ status, message }));
-    } catch ({ message }) {
-        yield put(deleteCastsFailed());
-        yield put(showAlert({ status: 'error', message }));
+    } catch ({ message, status }) {
+        yield put(deleteCastsFailed({ message }));
+        yield put(showAlert({ status, message: ERROR_MESSAGE_ON_DELETE }));
     }
 }
 

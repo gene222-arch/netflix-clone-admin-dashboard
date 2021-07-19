@@ -22,13 +22,13 @@ const UpdateCast = ({ CAST, match }) =>
         dispatch(CAST_ACTION.updateCastStart(cast));
     }
 
-    const fetchCastByID = () => {
+    const onLoadFetchCastByID = () => {
         const findCast = CAST.casts.find(cast => cast.id === parseInt(id));
         setCast(findCast);
     }
 
     useEffect(() => {
-        fetchCastByID();
+        onLoadFetchCastByID();
         return () => {
             setCast(CAST.cast);
         }

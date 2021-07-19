@@ -23,6 +23,8 @@ const VideoManagementDirector = lazy(() => import('../views/pages/video-manageme
 const CreateDirector = lazy(() => import('../views/pages/video-management/director/CreateDirector'))
 const UpdateDirector = lazy(() => import('../views/pages/video-management/director/UpdateDirector'))
 const VideoManagementGenre = lazy(() => import('../views/pages/video-management/genre'))
+const CreateGenre = lazy(() => import('../views/pages/video-management/genre/CreateGenre'))
+const UpdateGenre = lazy(() => import('../views/pages/video-management/genre/UpdateGenre'))
 const VideoManagementVideo = lazy(() => import('../views/pages/video-management/video'))
 
 export const PUBLIC_ROUTES = [
@@ -163,6 +165,24 @@ export const PRIVATE_ROUTES = [
         exact: true,
         component: VideoManagementGenre,
         access: 'View Genres',
+        restricted: true
+    },
+    {
+        path: PATH.CREATE_GENRE,
+        key: 'CreateGenre',
+        icon: '',
+        exact: true,
+        component: CreateGenre,
+        access: 'Manage Genres',
+        restricted: true
+    },
+    {
+        path: PATH.UPDATE_GENRE,
+        key: 'UpdateGenre',
+        icon: '',
+        exact: true,
+        component: UpdateGenre,
+        access: 'Manage Genres',
         restricted: true
     },
     {

@@ -13,9 +13,13 @@ const {
     UPDATE_GENRE_START,
     UPDATE_GENRE_SUCCESS,
     UPDATE_GENRE_FAILED,
+    TOGGLE_GENRE_ENABLED_START,
+    TOGGLE_GENRE_ENABLED_SUCCESS,
+    TOGGLE_GENRE_ENABLED_FAILED,
     DELETE_GENRES_START,
     DELETE_GENRES_SUCCESS,
-    DELETE_GENRES_FAILED
+    DELETE_GENRES_FAILED,
+    CLEAR_GENRE_ERRORS,
 } = ACTION_TYPES;
 
 
@@ -85,6 +89,22 @@ export const updateGenreFailed = (payload) => ({
     payload
 });
 
+/** Toggle enabled action */
+export const toggleGenreEnabledStart = (payload) => ({
+    type: TOGGLE_GENRE_ENABLED_START,
+    payload
+});
+
+export const toggleGenreEnabledSuccess = (payload) => ({
+    type: TOGGLE_GENRE_ENABLED_SUCCESS,
+    payload
+});
+
+export const toggleGenreEnabledFailed = (payload) => ({
+    type: TOGGLE_GENRE_ENABLED_FAILED,
+    payload
+});
+
 /** Delete Genre action */
 export const deleteGenresStart = (payload) => ({
     type: DELETE_GENRES_START,
@@ -100,4 +120,13 @@ export const deleteGenresFailed = (payload) => ({
     type: DELETE_GENRES_FAILED,
     payload
 });
+
+
+/** Clear Genre error action */
+export const clearGenreErrors = (payload) => ({
+    type: CLEAR_GENRE_ERRORS,
+    payload
+});
+
+
 

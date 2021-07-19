@@ -32,6 +32,14 @@ export const updateAsync = async (payload) =>
         .catch(error => Promise.reject(error.response.data));
 }
 
+export const updateEnabledStatusAsync = async (id) => 
+{
+    return await axiosInstance()
+        .put(`/genres/${ id }/enabled`)
+        .then(response => response.data)
+        .catch(error => Promise.reject(error.response.data));
+}
+
 export const deleteAsync = async (ids) => 
 {
     return await axiosInstance()
