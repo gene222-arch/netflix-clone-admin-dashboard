@@ -13,17 +13,17 @@ const PATH =
     VIDEO_MANAGEMENT_GENRE: '/video-management/genres',
     VIDEO_MANAGEMENT_VIDEO: '/video-management/videos',
 
-    CREATE_AUTHOR: '/authors/create-new-author',
-    UPDATE_AUTHOR: '/authors/:id/update-author',
+    CREATE_AUTHOR: '/video-management/authors/create-new-author',
+    UPDATE_AUTHOR: '/video-management/authors/:id/update-author',
 
-    CREATE_CAST: '/casts/create-new-cast',
-    UPDATE_CAST: '/casts/:id/update-cast',
+    CREATE_CAST: '/video-management/casts/create-new-cast',
+    UPDATE_CAST: '/video-management/casts/:id/update-cast',
 
-    CREATE_DIRECTOR: '/directors/create-new-director',
-    UPDATE_DIRECTOR: '/directors/:id/update-director',
+    CREATE_DIRECTOR: '/video-management/directors/create-new-director',
+    UPDATE_DIRECTOR: '/video-management/directors/:id/update-director',
 
-    CREATE_GENRE: '/genres/create-new-genre',
-    UPDATE_GENRE: '/genres/:id/update-genre',
+    CREATE_GENRE: '/video-management/genres/create-new-genre',
+    UPDATE_GENRE: '/video-management/genres/:id/update-genre',
 };
 
 

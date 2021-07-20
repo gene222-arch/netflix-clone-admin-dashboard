@@ -5,43 +5,50 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import { createStructuredSelector } from 'reselect';
+import { selectConfirm } from './../redux/modules/confirm/selector';
+import * as CONFIRM_ACTION from './../redux/modules/confirm/actions';
+import { connect, useDispatch } from 'react-redux';
 
-const ConfirmationDialog = ({ 
-    confirmText = 'Confirm', 
-    cancelText = 'Cancel', 
-    mainText = 'Continue Action?', 
-    subText = '', 
-    open = false, 
-    setOpen, 
-    confirmCallback }) => 
+
+const ConfirmationDialog = ({ CONFIRM }) => 
 {
-    const handleClose = () => setOpen(false);
+    const dispatch = useDispatch();
+
+    const handleClose = () => {
+        CONFIRM.cancelCallback();
+        dispatch(CONFIRM_ACTION.hideConfirmationDialog());
+    }
 
     const handleClickConfirm = () => {
-        confirmCallback();
-        handleClose();
+        CONFIRM.confirmCallback();
+        dispatch(CONFIRM_ACTION.hideConfirmationDialog());
     }
 
     return (
         <div>
             <Dialog
-                open={ open }
+                open={ CONFIRM.isOpen }
                 onClose={ handleClose }
                 aria-labelledby='alert-dialog-title'
                 aria-describedby='alert-dialog-description'
                 fullWidth
             >
-                <DialogTitle id='alert-dialog-title'>{ mainText }</DialogTitle>
+                <DialogTitle id='alert-dialog-title'>{ CONFIRM.mainHeader }</DialogTitle>
                 <DialogContent>
-                    <DialogContentText id='alert-dialog-description'>{ subText }</DialogContentText>
+                    <DialogContentText id='alert-dialog-description'>{ CONFIRM.subHeader }</DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={ handleClose }>{ cancelText }</Button>
-                    <Button onClick={ handleClickConfirm } autoFocus>{ confirmText }</Button>
+                    <Button onClick={ handleClose }>{ CONFIRM.cancelText }</Button>
+                    <Button onClick={ handleClickConfirm } autoFocus>{ CONFIRM.confirmText }</Button>
                 </DialogActions>
             </Dialog>
         </div>
     );
 }
 
-export default ConfirmationDialog
+const mapStateToProps = createStructuredSelector({
+    CONFIRM: selectConfirm
+});
+
+export default connect(mapStateToProps)(ConfirmationDialog)

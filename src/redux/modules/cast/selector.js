@@ -7,14 +7,15 @@ export const selectCast = createSelector(getCast, cast => cast);
 
 export const selectCastErrorMessages = createSelector(getErrorMessages, error => error);  
 
-export const selectCastHasErrorMessages = createSelector(selectCastErrorMessages, error => 
+export const selectCastHasErrorMessages = createSelector(getErrorMessages, error => 
 {
     let hasErrorMessages = {};
 
-    for (const key in error) {
-        return {
-            ...hasErrorMessages,
-            [key]: Boolean(error[key])
-        };
-    }
+    const errors = Object
+        .entries(error)
+        .map(([ key, value ]) => ({ 
+            [key]: Boolean(value) 
+        }));
+
+    return errors.reduce((obj, item) => ({ ...obj, ...item }), hasErrorMessages);
 });  

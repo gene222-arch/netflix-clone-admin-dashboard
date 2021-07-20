@@ -41,7 +41,7 @@ const initialState = {
     cast: CAST_DEFAULT_PROPS,
     casts: [],
     isLoading: false,
-    error: null
+    error: CAST_DEFAULT_PROPS
 };
 
 export default (state = initialState, { type, payload }) =>
@@ -51,7 +51,7 @@ export default (state = initialState, { type, payload }) =>
     } = state;
 
     const isLoading = false;
-    const error = null;
+    const error = CAST_DEFAULT_PROPS;
     let UPDATED_CASTS = [];
     
     switch (type) 

@@ -1,7 +1,8 @@
 import React from 'react'
 import { format } from 'date-fns';
+import { useHistory } from 'react-router-dom'
 import { KeyboardDatePicker } from '@material-ui/pickers';
-import { Card, CardHeader, IconButton, CardActions, Typography, CardContent, TextField, Grid, Container } from '@material-ui/core';
+import { Card, CardHeader, IconButton, CardActions, Typography, CardContent, TextField, Grid, Container, FormHelperText } from '@material-ui/core';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormLabel from '@material-ui/core/FormLabel';
@@ -15,7 +16,7 @@ import Switch from '@material-ui/core/Switch';
 import SaveCancelButtons from './SaveCancelButtons';
 
 
-const InputFields = ({ data, setData, saveButtonCallback, cancelButtonCallback, isLoading = false, cardHeaderTitle = '', }) => 
+const InputFields = ({ data, setData, saveButtonCallback, cancelButtonCallback, isLoading = false, cardHeaderTitle = '', errors = null, errorMessages = null }) => 
 {
     const handleChange = (e) => {
         const { name, value, checked } = e.target;
@@ -28,6 +29,7 @@ const InputFields = ({ data, setData, saveButtonCallback, cancelButtonCallback, 
     const handleChangeBirthDate = (date) => setData({ ...data, date_of_birth: format(date, 'yyyy-MM-dd') });
     const handleChangeDateOfDeath = (date) => setData({ ...data, date_of_death: format(date, 'yyyy-MM-dd') })
 
+    
     return (
         <Container maxWidth='lg'>
             <Card>
@@ -53,6 +55,8 @@ const InputFields = ({ data, setData, saveButtonCallback, cancelButtonCallback, 
                                 label='Pseudonym'
                                 variant='filled'
                                 fullWidth
+                                error={ errors.pseudonym }
+                                helperText={ errorMessages?.pseudonym }
                                 value={ data.pseudonym ?? '' }
                                 onChange={ handleChange }
                             />
@@ -64,18 +68,21 @@ const InputFields = ({ data, setData, saveButtonCallback, cancelButtonCallback, 
                                 label='Birth Name'
                                 variant='filled'
                                 fullWidth
+                                error={ errors.birth_name }
+                                helperText={ errorMessages?.birth_name }
                                 value={ data.birth_name ?? '' }
                                 onChange={ handleChange }
                             />
                         </Grid>
                         <Grid item xs={ 12 } sm={ 12 } lg={ 12 } xl={ 12 }>
-                            <FormControl component='fieldset'>
+                            <FormControl component='fieldset' error={ errors.gender } >
                                 <FormLabel component='legend'>Gender</FormLabel>
                                 <RadioGroup aria-label='gender' name='gender' value={ data.gender ?? '' } onChange={ handleChange }>
                                     <FormControlLabel value='Female' control={<Radio />} label='Female' />
                                     <FormControlLabel value='Male' control={<Radio />} label='Male' />
                                     <FormControlLabel value='other' control={<Radio />} label='Other' />
                                 </RadioGroup>
+                                <FormHelperText>{ errorMessages?.gender } </FormHelperText>
                             </FormControl>
                         </Grid>
                         <Grid item xs={ 12 } sm={ 12 } lg={ 12 } xl={ 12 }>
@@ -85,6 +92,8 @@ const InputFields = ({ data, setData, saveButtonCallback, cancelButtonCallback, 
                                 label='Height (cm)'
                                 variant='filled'
                                 fullWidth
+                                error={ errors.height_in_cm }
+                                helperText={ errorMessages?.height_in_cm }
                                 value={ data.height_in_cm ?? '' }
                                 onChange={ handleChange }
                             />
@@ -98,6 +107,8 @@ const InputFields = ({ data, setData, saveButtonCallback, cancelButtonCallback, 
                                 fullWidth
                                 multiline
                                 rows={ 4 }
+                                error={ errors.biographical_information }
+                                helperText={ errorMessages?.biographical_information }
                                 value={ data.biographical_information ?? '' }
                                 onChange={ handleChange }
                             />
@@ -116,6 +127,8 @@ const InputFields = ({ data, setData, saveButtonCallback, cancelButtonCallback, 
                                 KeyboardButtonProps={{
                                     'aria-label': 'change date',
                                 }}
+                                error={ errors.date_of_birth }
+                                helperText={ errorMessages?.date_of_birth }
                                 value={ data.date_of_birth }
                                 onChange={ handleChangeBirthDate }
                             />
@@ -128,6 +141,8 @@ const InputFields = ({ data, setData, saveButtonCallback, cancelButtonCallback, 
                                 variant='outlined'
                                 fullWidth
                                 multiline
+                                error={ errors.place_of_birth }
+                                helperText={ errorMessages?.place_of_birth }
                                 value={ data.place_of_birth ?? '' }
                                 onChange={ handleChange }
                             />
@@ -141,6 +156,8 @@ const InputFields = ({ data, setData, saveButtonCallback, cancelButtonCallback, 
                                 fullWidth
                                 multiline
                                 rows={ 4 }
+                                error={ errors.birth_details }
+                                helperText={ errorMessages?.birth_details }
                                 value={ data.birth_details ?? '' }
                                 onChange={ handleChange }
                             />
@@ -159,6 +176,8 @@ const InputFields = ({ data, setData, saveButtonCallback, cancelButtonCallback, 
                                 KeyboardButtonProps={{
                                     'aria-label': 'change date',
                                 }}
+                                error={ errors.date_of_death }
+                                helperText={ errorMessages?.date_of_death }
                                 value={ data.date_of_death }
                                 onChange={ handleChangeDateOfDeath }
                             />
@@ -172,6 +191,8 @@ const InputFields = ({ data, setData, saveButtonCallback, cancelButtonCallback, 
                                 fullWidth
                                 multiline
                                 rows={ 4 }
+                                error={ errors.death_details }
+                                helperText={ errorMessages?.death_details }
                                 value={ data.death_details ?? '' }
                                 onChange={ handleChange }
                             />

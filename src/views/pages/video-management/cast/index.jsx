@@ -36,6 +36,7 @@ const Cast = ({ CAST }) =>
     const [ ids, setIDs ] = useState([]);
     
     const handleClickDeleteCast = () => {
+        setIDs([]);
         dispatch(CAST_ACTION.deleteCastsStart({ ids }));
     }
 

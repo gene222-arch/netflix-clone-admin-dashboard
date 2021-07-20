@@ -8,6 +8,7 @@ import alertReducer from './modules/alert/reducer'
 import authReducer from './modules/auth/reducer'
 import authorReducer from './modules/author/reducer'
 import castReducer from './modules/cast/reducer'
+import confirmReducer from './modules/confirm/reducer'
 import directorReducer from './modules/director/reducer'
 import genreReducer from './modules/genre/reducer'
 import mainLayoutReducer from './modules/main-layout/reducer'
@@ -17,13 +18,14 @@ const history = createBrowserHistory();
 const persistConfig = {
     key: 'root',
     storage,
-    blacklist: ['alert', 'mainLayout', 'router']    
+    blacklist: ['alert', 'mainLayout', 'router', 'confirm']    
 };
 
 const reducers = {
     /** Global reducers */
     router: connectRouter(history),
     alert: alertReducer,
+    confirm: confirmReducer,
 
     /** local reducers */
     auth: authReducer,

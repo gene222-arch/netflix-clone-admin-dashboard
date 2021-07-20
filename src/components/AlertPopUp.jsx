@@ -6,6 +6,10 @@ import { makeStyles } from '@material-ui/core/styles';
 
 /** Components */
 import MuiAlert from './MuiAlert'
+import { createStructuredSelector } from 'reselect';
+import { selectAlert } from '../redux/modules/alert/selector';
+import * as ALERT_ACTION from '../redux/modules/alert/actions';
+import { connect, useDispatch } from 'react-redux';
 
 const useStyles = makeStyles((theme) => 
 ({
@@ -17,32 +21,36 @@ const useStyles = makeStyles((theme) =>
 		},
 }));
 
-const AlertPopUp = ({ 
-    status, 
-    message, 
-    autoHideDuration = 2000, 
-    vertical='bottom',
-    horizontal='left',
-    open = false, 
-    handleClickCloseAlert}) => 
+const AlertPopUp = ({  ALERT }) => 
 {
     const classes = useStyles();
+    const dispatch = useDispatch();
+
     const DEFAULT_STATUS = 'success';
+
+    const handleClickCloseAlert = () => dispatch(ALERT_ACTION.hideAlert());
 
     return (
         <div className={classes.root}>
 			<Snackbar 
-                open={ open } 
-                autoHideDuration={ autoHideDuration } 
+                open={ ALERT.isOpen } 
+                autoHideDuration={ ALERT.autoHideDuration } 
                 onClose={ handleClickCloseAlert }
-                anchorOrigin={{ vertical, horizontal }}
+                anchorOrigin={{ 
+                    vertical: ALERT.vertical, 
+                    horizontal: ALERT.horizontal 
+                }}
             >
-				<MuiAlert onClose={ handleClickCloseAlert } severity={ status || DEFAULT_STATUS }>
-					{ message }
+				<MuiAlert onClose={ handleClickCloseAlert } severity={ ALERT.status || DEFAULT_STATUS }>
+					{ ALERT.message }
 				</MuiAlert>
 			</Snackbar>
         </div>
     );
 }
 
-export default AlertPopUp;
+const mapStateToProps = createStructuredSelector({
+    ALERT: selectAlert
+});
+
+export default connect(mapStateToProps)(AlertPopUp);

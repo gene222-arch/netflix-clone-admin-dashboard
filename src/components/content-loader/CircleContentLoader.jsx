@@ -8,8 +8,8 @@ const CircleContentLoader = ({ speed = 1.5, radius = 21 }) => {
         <Avatar>
             <ContentLoader 
                 speed={ speed }
-                backgroundColor={ Colors.darkMode }
-                foregroundColor={ Colors.grey }
+                backgroundColor={ Colors.darkGrey }
+                foregroundColor={ Colors.darkMode }
                 style={{ width: '100%', height: '100%' }}
             >
                 <circle cx="20" cy="20" r={ radius } style={{ width: '100%', height: '100%' }} />

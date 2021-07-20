@@ -37,6 +37,7 @@ const Director = ({ DIRECTOR }) =>
     const [ ids, setIDs ] = useState([]);
 
     const handleClickDeleteDirector = () => {
+        setIDs([]);
         dispatch(DIRECTOR_ACTION.deleteDirectorsStart({ ids }));
     }
 

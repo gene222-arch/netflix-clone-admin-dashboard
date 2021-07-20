@@ -10,8 +10,8 @@ const TextContentLoader = ({ variant = 'h1', speed = 1.5, height = 15 }) => {
                 speed={ speed }
                 height={ height }
                 viewBox={ `0 0 300 ${ height }` }
-                backgroundColor={ Colors.darkMode }
-                foregroundColor={ Colors.grey }
+                backgroundColor={ Colors.darkGrey }
+                foregroundColor={ Colors.darkMode }
                 style={{ width: '100%' }}
             >
                 <rect x='0' y='0' rx='2' ry='2' height={ height } style={{ width: '100%' }} />

@@ -38,6 +38,7 @@ const Author = ({ AUTHOR }) =>
 
     
     const handleClickDeleteAuthor = () => {
+        setIDs([]);
         dispatch(AUTHOR_ACTION.deleteAuthorsStart({ ids }));
     }
 

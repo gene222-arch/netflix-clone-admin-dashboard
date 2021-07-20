@@ -3,13 +3,13 @@ import { createStructuredSelector } from 'reselect';
 import { connect, useDispatch } from 'react-redux';
 
 import * as DIRECTOR_ACTION from './../../../../redux/modules/director/actions'; 
-import { selectDirector } from './../../../../redux/modules/director/selector';
+import { selectDirector, selectDirectorErrorMessages, selectDirectorHasErrorMessages } from './../../../../redux/modules/director/selector';
 import InputFields from '../../../../components/InputFields';
 import { useHistory } from 'react-router-dom';
 import PATH from './../../../../routes/path';
 
 
-const CreateDirector = ({ DIRECTOR }) => 
+const CreateDirector = ({ DIRECTOR, DIRECTOR_ERROR_MESSAGES, DIRECTOR_HAS_ERROR_MESSAGES }) => 
 {
     const dispatch = useDispatch();
     const history = useHistory();
@@ -28,6 +28,7 @@ const CreateDirector = ({ DIRECTOR }) =>
     useEffect(() => {
         return () => {
             setDirector(DIRECTOR.director);
+            dispatch(DIRECTOR_ACTION.clearDirectorErrors());
         }
     }, []);
 
@@ -38,13 +39,17 @@ const CreateDirector = ({ DIRECTOR }) =>
             setData={ setDirector }
             saveButtonCallback={ handleClickCreateDirector }
             cancelButtonCallback={ handleClickCancel }
+            errors={ DIRECTOR_HAS_ERROR_MESSAGES }
+            errorMessages={ DIRECTOR_ERROR_MESSAGES }
             isLoading={ DIRECTOR.isLoading }
         />
     )
 }
 
 const mapStateToProps = createStructuredSelector({
-    DIRECTOR: selectDirector
+    DIRECTOR: selectDirector,
+    DIRECTOR_ERROR_MESSAGES: selectDirectorErrorMessages,
+    DIRECTOR_HAS_ERROR_MESSAGES: selectDirectorHasErrorMessages
 });
 
 export default connect(mapStateToProps)(CreateDirector)

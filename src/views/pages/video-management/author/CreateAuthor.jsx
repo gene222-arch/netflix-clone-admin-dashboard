@@ -3,13 +3,13 @@ import { createStructuredSelector } from 'reselect';
 import { connect, useDispatch } from 'react-redux';
 
 import * as AUTHOR_ACTION from './../../../../redux/modules/author/actions'; 
-import { selectAuthor } from './../../../../redux/modules/author/selector';
+import { selectAuthor, selectAuthorErrorMessages, selectAuthorHasErrorMessages } from './../../../../redux/modules/author/selector';
 import InputFields from '../../../../components/InputFields';
 import { useHistory } from 'react-router-dom';
 import PATH from './../../../../routes/path';
 
 
-const CreateAuthor = ({ AUTHOR }) => 
+const CreateAuthor = ({ AUTHOR, AUTHOR_ERROR_MESSAGES, AUTHOR_HAS_ERROR_MESSAGES }) => 
 {
     const dispatch = useDispatch();
     const history = useHistory();
@@ -28,6 +28,7 @@ const CreateAuthor = ({ AUTHOR }) =>
     useEffect(() => {
         return () => {
             setAuthor(AUTHOR.author);
+            dispatch(AUTHOR_ACTION.clearAuthorErrors());
         }
     }, []);
 
@@ -38,13 +39,17 @@ const CreateAuthor = ({ AUTHOR }) =>
             setData={ setAuthor }
             saveButtonCallback={ handleClickCreateAuthor }
             cancelButtonCallback={ handleClickCancel }
+            errors={ AUTHOR_HAS_ERROR_MESSAGES }
+            errorMessages={ AUTHOR_ERROR_MESSAGES }
             isLoading={ AUTHOR.isLoading }
         />
     )
 }
 
 const mapStateToProps = createStructuredSelector({
-    AUTHOR: selectAuthor
+    AUTHOR: selectAuthor,
+    AUTHOR_ERROR_MESSAGES: selectAuthorErrorMessages,
+    AUTHOR_HAS_ERROR_MESSAGES: selectAuthorHasErrorMessages
 });
 
 export default connect(mapStateToProps)(CreateAuthor)

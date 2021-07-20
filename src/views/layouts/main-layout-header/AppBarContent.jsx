@@ -35,11 +35,11 @@ const AppBarContent = ({ AUTH, MAIN_LAYOUT }) =>
                 <MenuIcon />
             </IconButton>
             <div className={ classes.appBarContent }>
-                <Typography variant='h6' noWrap className={ classes.header }>
+                <Typography variant='subtitle1' noWrap className={ classes.header }>
                     {/* { MAIN_LAYOUT.currentSelectedItem } */}
                     {
                         !AUTH.user 
-                            ? <TextContentLoader width={ 350 } />
+                            ? <TextContentLoader variant='h5' width={ 350 } />
                             : (
                                 (MAIN_LAYOUT.currentSelectedItem === 'Dashboard')
                                     ? `Greetings ${ AUTH.user.first_name }!`

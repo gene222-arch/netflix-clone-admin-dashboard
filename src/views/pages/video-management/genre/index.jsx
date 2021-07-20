@@ -20,7 +20,7 @@ const Genre = ({ GENRE }) =>
     const columns = [
         { title: 'id', field: 'id', hidden: true },
         { 
-            title: 'Birth Name', 
+            title: 'Name', 
             field: 'name',
             render: ({ id, name }) => (
                 <StyledNavLink 
@@ -46,6 +46,7 @@ const Genre = ({ GENRE }) =>
     const [ ids, setIDs ] = useState([]);
 
     const handleClickDeleteGenre = () => {
+        setIDs([]);
         dispatch(GENRE_ACTION.deleteGenresStart({ ids }));
     }
 

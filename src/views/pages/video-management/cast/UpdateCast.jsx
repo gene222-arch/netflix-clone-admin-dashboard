@@ -3,13 +3,13 @@ import { createStructuredSelector } from 'reselect';
 import { connect, useDispatch } from 'react-redux';
 
 import * as CAST_ACTION from '../../../../redux/modules/cast/actions'; 
-import { selectCast } from '../../../../redux/modules/cast/selector';
+import { selectCast, selectCastErrorMessages, selectCastHasErrorMessages } from '../../../../redux/modules/cast/selector';
 import InputFields from '../../../../components/InputFields';
 import { useHistory } from 'react-router-dom';
 import PATH from './../../../../routes/path';
 
 
-const UpdateCast = ({ CAST, match }) => 
+const UpdateCast = ({ CAST, match, CAST_ERROR_MESSAGES, CAST_HAS_ERROR_MESSAGES }) => 
 {
     const { id } = match.params; 
     const dispatch = useDispatch();
@@ -36,6 +36,7 @@ const UpdateCast = ({ CAST, match }) =>
         onLoadFetchCastByID();
         return () => {
             setCast(CAST.cast);
+            dispatch(CAST_ACTION.clearCastErrors());
         }
     }, []);
 
@@ -46,13 +47,17 @@ const UpdateCast = ({ CAST, match }) =>
             setData={ setCast }
             saveButtonCallback={ handleClickUpdateCast }
             cancelButtonCallback={ handleClickCancel }
+            errors={ CAST_HAS_ERROR_MESSAGES }
+            errorMessages={ CAST_ERROR_MESSAGES }
             isLoading={ CAST.isLoading }
         />
     )
 }
 
 const mapStateToProps = createStructuredSelector({
-    CAST: selectCast
+    CAST: selectCast,
+    CAST_ERROR_MESSAGES: selectCastErrorMessages,
+    CAST_HAS_ERROR_MESSAGES: selectCastHasErrorMessages
 });
 
 export default connect(mapStateToProps)(UpdateCast)

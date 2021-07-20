@@ -7,14 +7,15 @@ export const selectAuthor = createSelector(getAuthor, author => author);
 
 export const selectAuthorErrorMessages = createSelector(getErrorMessages, error => error);  
 
-export const selectAuthorHasErrorMessages = createSelector(selectAuthorErrorMessages, error => 
+export const selectAuthorHasErrorMessages = createSelector(getErrorMessages, error => 
 {
     let hasErrorMessages = {};
 
-    for (const key in error) {
-        return {
-            ...hasErrorMessages,
-            [key]: Boolean(error[key])
-        };
-    }
+    const errors = Object
+        .entries(error)
+        .map(([ key, value ]) => ({ 
+            [key]: Boolean(value) 
+        }));
+
+    return errors.reduce((obj, item) => ({ ...obj, ...item }), hasErrorMessages);
 });  

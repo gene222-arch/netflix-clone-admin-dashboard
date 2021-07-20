@@ -7,14 +7,15 @@ export const selectDirector = createSelector(getDirector, director => director);
 
 export const selectDirectorErrorMessages = createSelector(getErrorMessages, error => error);  
 
-export const selectDirectorHasErrorMessages = createSelector(selectDirectorErrorMessages, error => 
+export const selectDirectorHasErrorMessages = createSelector(getErrorMessages, error => 
 {
     let hasErrorMessages = {};
 
-    for (const key in error) {
-        return {
-            ...hasErrorMessages,
-            [key]: Boolean(error[key])
-        };
-    }
+    const errors = Object
+        .entries(error)
+        .map(([ key, value ]) => ({ 
+            [key]: Boolean(value) 
+        }));
+
+    return errors.reduce((obj, item) => ({ ...obj, ...item }), hasErrorMessages);
 });  

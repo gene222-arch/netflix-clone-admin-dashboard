@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Card, CardHeader, IconButton, CardActions, Typography, CardContent, TextField, Grid, Container } from '@material-ui/core';
 import { MoreVert as MoreVertIcon } from '@material-ui/icons'
 import Divider from '@material-ui/core/Divider';
@@ -29,10 +29,9 @@ const GenreInputFields = ({ GENRE, GENRE_ERROR_MESSAGE, GENRE_HAS_ERROR_MESSAGE,
     }
 
     const handleClickCancel = () => {
-        dispatch(GENRE_ACTION.clearGenreErrors());
         history.push(PATH.VIDEO_MANAGEMENT_GENRE);
     }
-
+    
     return (
         <Container maxWidth='lg'>
             <Card>

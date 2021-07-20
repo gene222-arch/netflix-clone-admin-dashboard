@@ -41,7 +41,7 @@ const initialState = {
     author: AUTHOR_DEFAULT_PROPS,
     authors: [],
     isLoading: false,
-    error: null
+    error: AUTHOR_DEFAULT_PROPS
 };
 
 export default (state = initialState, { type, payload }) =>
@@ -51,7 +51,7 @@ export default (state = initialState, { type, payload }) =>
     } = state;
 
     const isLoading = false;
-    const error = null;
+    const error = AUTHOR_DEFAULT_PROPS;
     let UPDATED_AUTHORS = [];
     
     switch (type) 

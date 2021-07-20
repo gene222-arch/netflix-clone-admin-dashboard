@@ -1,37 +1,42 @@
 import React, { useState } from 'react'
-
+import * as CONFIRM_ACTION from './../../redux/modules/confirm/actions'
 /** Material UI Components */
 import Button from '@material-ui/core/Button'
 import DeleteIcon from '@material-ui/icons/Delete';
 import deleteButtonUseStyles from './../../assets/js/material-ui/deleteButtonUseStyles';
-import ConfirmationDialog from './../ConfirmationDialog';
+import { createStructuredSelector } from 'reselect';
+import { selectConfirm } from './../../redux/modules/confirm/selector';
+import { useDispatch, connect } from 'react-redux';
 
 
 const DeleteButton = ({ actionName = null, color = 'default', variant = 'text', onClickEventCallback }) => 
 {
+    const dispatch = useDispatch();
+
     const classes = deleteButtonUseStyles(); 
-    const [ openConfirmationDialog, setOpenConfirmationDialog ] = useState(false);
+
+    const handleClickConfirmation = () => {
+        dispatch(CONFIRM_ACTION.showConfirmationDialog({
+            mainHeader: 'Delete selected item',
+            subHeader: 'Once deleted, recovery of data is not possible',
+            confirmCallback: onClickEventCallback
+        }));
+    }
 
     return (
-        <>
-            <ConfirmationDialog 
-                mainText='Delete selected data?'
-                subText='Confirming the action will permanently delete the data and recovery is not possible.'
-                open={ openConfirmationDialog }
-                setOpen={ setOpenConfirmationDialog }
-                confirmCallback={ onClickEventCallback }
-            />
-
-            <Button 
-                variant={ variant } 
-                color={ color } 
-                className={ classes.deleteBtn }
-                onClick={ () => setOpenConfirmationDialog(true) }
-            > 
-                { actionName ?? <DeleteIcon /> } 
-            </Button>
-        </>
+        <Button 
+            variant={ variant } 
+            color={ color } 
+            className={ classes.deleteBtn }
+            onClick={ handleClickConfirmation }
+        > 
+            { actionName ?? <DeleteIcon /> } 
+        </Button>
     )
 }
 
-export default DeleteButton
+const mapStateToProps = createStructuredSelector({
+    CONFIRM: selectConfirm
+});
+
+export default connect(mapStateToProps)(DeleteButton)

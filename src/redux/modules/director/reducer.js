@@ -41,7 +41,7 @@ const initialState = {
     director: DIRECTOR_DEFAULT_PROPS,
     directors: [],
     isLoading: false,
-    error: null
+    error: DIRECTOR_DEFAULT_PROPS
 };
 
 export default (state = initialState, { type, payload }) =>
@@ -51,7 +51,7 @@ export default (state = initialState, { type, payload }) =>
     } = state;
 
     const isLoading = false;
-    const error = null;
+    const error = DIRECTOR_DEFAULT_PROPS;
     let UPDATED_DIRECTORS = [];
     
     switch (type) 
