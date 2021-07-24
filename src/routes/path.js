@@ -11,7 +11,7 @@ const PATH =
     VIDEO_MANAGEMENT_CAST: '/video-management/casts',
     VIDEO_MANAGEMENT_DIRECTOR: '/video-management/directors',
     VIDEO_MANAGEMENT_GENRE: '/video-management/genres',
-    VIDEO_MANAGEMENT_VIDEO: '/video-management/videos',
+    VIDEO_MANAGEMENT_MOVIES: '/video-management/movies',
 
     CREATE_AUTHOR: '/video-management/authors/create-new-author',
     UPDATE_AUTHOR: '/video-management/authors/:id/update-author',
@@ -24,6 +24,9 @@ const PATH =
 
     CREATE_GENRE: '/video-management/genres/create-new-genre',
     UPDATE_GENRE: '/video-management/genres/:id/update-genre',
+
+    CREATE_MOVIE: '/video-management/movies/create-new-movie',
+    UPDATE_MOVIE: '/video-management/movies/:id/update-movie',
 };
 
 

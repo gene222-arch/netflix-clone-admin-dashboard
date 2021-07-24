@@ -25,7 +25,9 @@ const UpdateDirector = lazy(() => import('../views/pages/video-management/direct
 const VideoManagementGenre = lazy(() => import('../views/pages/video-management/genre'))
 const CreateGenre = lazy(() => import('../views/pages/video-management/genre/CreateGenre'))
 const UpdateGenre = lazy(() => import('../views/pages/video-management/genre/UpdateGenre'))
-const VideoManagementVideo = lazy(() => import('../views/pages/video-management/video'))
+const VideoManagementMovies = lazy(() => import('../views/pages/video-management/movie'))
+const CreateMovie = lazy(() => import('../views/pages/video-management/movie/CreateMovie'))
+const UpdateMovie = lazy(() => import('../views/pages/video-management/movie/UpdateMovie'))
 
 export const PUBLIC_ROUTES = [
     {
@@ -186,12 +188,30 @@ export const PRIVATE_ROUTES = [
         restricted: true
     },
     {
-        path: PATH.VIDEO_MANAGEMENT_VIDEO,
-        key: 'VideoManagementVideo',
+        path: PATH.VIDEO_MANAGEMENT_MOVIES,
+        key: 'VideoManagementMovies',
         icon: '',
         exact: true,
-        component: VideoManagementVideo,
-        access: 'View Videos',
+        component: VideoManagementMovies,
+        access: 'View Movies',
+        restricted: true
+    },
+    {
+        path: PATH.CREATE_MOVIE,
+        key: 'CreateMovie',
+        icon: '',
+        exact: true,
+        component: CreateMovie,
+        access: 'Manage Movies',
+        restricted: true
+    },
+    {
+        path: PATH.UPDATE_MOVIE,
+        key: 'UpdateMovie',
+        icon: '',
+        exact: true,
+        component: UpdateMovie,
+        access: 'Manage Movies',
         restricted: true
     },
 ];

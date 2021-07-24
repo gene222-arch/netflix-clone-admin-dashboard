@@ -101,10 +101,10 @@ const VideoManagement = ({ MAIN_LAYOUT }) =>
 
                     {/* Videos */}
                     <StyledNavLink 
-                        to={ PATH.VIDEO_MANAGEMENT_VIDEO }
+                        to={ PATH.VIDEO_MANAGEMENT_MOVIES }
                         text={
                             <ListItem button selected={ MAIN_LAYOUT.videoManagementVideos } onClick={ selectVideoManagementVideos }>
-                                <ListItemText primary='Videos'/>
+                                <ListItemText primary='Movies'/>
                                 <VideoLibraryIcon />
                             </ListItem>
                         }

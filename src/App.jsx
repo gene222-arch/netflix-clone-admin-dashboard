@@ -1,6 +1,6 @@
 /** Libraries */
-import React, { useState, useEffect } from 'react'
-import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import React from 'react'
+import { Route, Switch } from 'react-router-dom'
 import DateFnsUtils from '@date-io/date-fns';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 
@@ -26,24 +26,22 @@ const App = ({ history }) =>
 			<ConfirmationDialog />
 			<AlertPopUp />
 			<MuiPickersUtilsProvider utils={DateFnsUtils}>
-				<BrowserRouter>
-					<Switch>
-						<Route path='/auth/:path?' exact>
-							<AuthLayout>
-								<RenderRoutes routes={ PUBLIC_ROUTES } />
-							</AuthLayout>
-						</Route>
-						
+				<Switch>
+					<Route path='/auth/:path?' exact>
+						<AuthLayout>
+							<RenderRoutes routes={ PUBLIC_ROUTES } />
+						</AuthLayout>
+					</Route>
+					
 
-						<Route path='/:path?'>
-							<MainLayout>
-								<RenderRoutes routes={ PRIVATE_ROUTES } />
-							</MainLayout>
-						</Route>
+					<Route path='/:path?'>
+						<MainLayout>
+							<RenderRoutes routes={ PRIVATE_ROUTES } />
+						</MainLayout>
+					</Route>
 
-						<Route component={ NotFound } />
-					</Switch>
-				</BrowserRouter>
+					<Route component={ NotFound } />
+				</Switch>
 			</MuiPickersUtilsProvider>
 		</MuiThemeProvider>
 	)

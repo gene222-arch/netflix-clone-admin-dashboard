@@ -127,7 +127,7 @@ export default (state = initialState, { type, payload }) =>
                 videoManagement: true,
                 videoManagementVideos: !videoManagementVideos, 
                 /** History */
-                currentSelectedItem: 'Videos',
+                currentSelectedItem: 'Movies',
                 currentSelectedDropdownItem: 'videoManagementVideos',
                 currentSelectedDropdown: 'videoManagement',
             };

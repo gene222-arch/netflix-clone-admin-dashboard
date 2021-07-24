@@ -12,7 +12,7 @@ import PATH from './path';
 
 const PrivateRoute = ({ AUTH, Component, ...props }) => 
 {
-    if (!AUTH.isAuthenticated || !Cookies.has('access_token')) {
+    if (!AUTH.isAuthenticated && !Cookies.has('access_token')) {
         return <Redirect to={ PATH.LOGIN } />
     }
     

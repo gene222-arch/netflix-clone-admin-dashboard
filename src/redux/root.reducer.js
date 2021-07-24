@@ -12,6 +12,8 @@ import confirmReducer from './modules/confirm/reducer'
 import directorReducer from './modules/director/reducer'
 import genreReducer from './modules/genre/reducer'
 import mainLayoutReducer from './modules/main-layout/reducer'
+import movieReducer from './modules/movie/reducer'
+
 
 const history = createBrowserHistory();
 
@@ -33,7 +35,8 @@ const reducers = {
     cast: castReducer,
     director: directorReducer,
     genre: genreReducer,
-    mainLayout: mainLayoutReducer
+    mainLayout: mainLayoutReducer,
+    movie: movieReducer
 };
 
 const appReducer = persistCombineReducers(persistConfig, reducers);
