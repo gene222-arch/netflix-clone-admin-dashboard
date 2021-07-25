@@ -79,6 +79,7 @@ const ImageWithPreview = ({
                         style={{ color: error ? Colors.tomato : Colors.white }} 
                         component='span' 
                         fullWidth
+                        disabled={ isUploading }
                     >
                         { 
                             !isUploading 

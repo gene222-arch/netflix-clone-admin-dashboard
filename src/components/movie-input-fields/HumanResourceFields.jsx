@@ -12,10 +12,8 @@ import SaveCancelButtons from './../SaveCancelButtons';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 
 
-const HumanResourceFields = ({ movie, MOVIE, AUTHOR_NAMES, CAST_NAMES, DIRECTOR_NAMES, GENRE_NAMES, MOVIE_ERROR_MESSAGES, MOVIE_HAS_ERROR_MESSAGES, handleSelectMultipleOptions, saveButtonCallback, handleClickCancel }) => {
-    
-    console.log(movie.defaultGenres)
-    
+const HumanResourceFields = ({ movie, MOVIE, AUTHOR_NAMES, CAST_NAMES, DIRECTOR_NAMES, GENRE_NAMES, MOVIE_ERROR_MESSAGES, MOVIE_HAS_ERROR_MESSAGES, handleSelectMultipleOptions, saveButtonCallback, handleClickCancel }) => 
+{
     return (
         <Card>
             <CardHeader

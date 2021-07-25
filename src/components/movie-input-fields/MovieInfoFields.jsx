@@ -139,7 +139,7 @@ const MovieInfoFields = ({
                     <Grid item xs={ 12 } sm={ 6 } lg={ 6 } md={ 6 }>
                         <StyledReactSelect 
                             data={ COUNTRIES }
-                            value={ movie.country }
+                            value={[ movie.country ]}
                             isMulti={ false }
                             placeholder='Select Country'
                             onChange={ selectedOption => handleSelectSingleOption(selectedOption, 'country') }
@@ -150,7 +150,7 @@ const MovieInfoFields = ({
                     <Grid item xs={ 12 } sm={ 6 } lg={ 6 } md={ 6 }>
                         <StyledReactSelect 
                             data={ LANGUAGES }
-                            value={ movie.language }
+                            value={[ movie.language ]}
                             isMulti={ false }
                             placeholder='Select Language'
                             onChange={ selectedOption => handleSelectSingleOption(selectedOption, 'language') }

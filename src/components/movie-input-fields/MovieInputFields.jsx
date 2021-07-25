@@ -45,7 +45,7 @@ const MovieInputFields = ({ movie, setMovie, cardHeaderTitle, saveButtonCallback
             return;
         
         const file = files[0];
-        const video_size_in_mb = files[0].size / 1000;
+        const video_size_in_mb = file.size / 1000;
         const reader = new FileReader();
 
         try {

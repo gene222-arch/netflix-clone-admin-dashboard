@@ -46,9 +46,7 @@ const Director = ({ DIRECTOR }) =>
     }
 
     useEffect(() => {
-        if (!DIRECTOR.directors.length) {
-            dispatch(DIRECTOR_ACTION.fetchAllDirectorsStart());
-        }
+        dispatch(DIRECTOR_ACTION.fetchAllDirectorsStart());
     }, []);
 
     return (

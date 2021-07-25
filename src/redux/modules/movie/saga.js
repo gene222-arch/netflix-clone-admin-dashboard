@@ -77,7 +77,7 @@ function* updateMovieSaga(payload)
 
         yield put(updateMovieSuccess({ movie: payload }));
         yield put(showAlert({ status, message }));
-        yield put(push(PATH.VIDEO_MANAGEMENT_MOVIE));
+        yield put(push(PATH.VIDEO_MANAGEMENT_MOVIES));
     } catch ({ message, status }) {
         yield put(updateMovieFailed({ message }));
         yield put(showAlert({ status, message: ERROR_MESSAGE_ON_UPDATE }));

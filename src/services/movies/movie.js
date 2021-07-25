@@ -26,7 +26,7 @@ export const findByIDAsync = async (id) =>
 export const createAsync = async (payload) => 
 {
     return await axiosInstance()
-        .post(`/movies`, FormDataHelper.prepareToFormData(payload, 'POST'), config)
+        .post(`/movies`, payload)
         .then(response => response.data)
         .catch(error => Promise.reject(error.response.data));
 }

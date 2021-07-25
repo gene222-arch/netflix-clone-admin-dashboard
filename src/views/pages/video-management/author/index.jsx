@@ -47,9 +47,7 @@ const Author = ({ AUTHOR }) =>
     }
 
     useEffect(() => {
-        if (!AUTHOR.authors.length) {
-            dispatch(AUTHOR_ACTION.fetchAllAuthorsStart());
-        }
+        dispatch(AUTHOR_ACTION.fetchAllAuthorsStart());
     }, []);
 
     return (

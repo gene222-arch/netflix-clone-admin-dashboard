@@ -55,9 +55,7 @@ const Genre = ({ GENRE }) =>
     }
 
     useEffect(() => {
-        if (!GENRE.genres.length) {
-            dispatch(GENRE_ACTION.fetchAllGenresStart());
-        }
+        dispatch(GENRE_ACTION.fetchAllGenresStart());
     }, []);
 
     return (

@@ -110,6 +110,7 @@ const VideoWithPreview = ({
                                 color='primary' 
                                 component="span"
                                 fullWidth
+                                disabled={ isUploading }
                             >
                                 <VideocamIcon />
                             </Button>

@@ -45,9 +45,7 @@ const Cast = ({ CAST }) =>
     }
 
     useEffect(() => {
-        if (!CAST.casts.length) {
-            dispatch(CAST_ACTION.fetchAllCastsStart());
-        }
+        dispatch(CAST_ACTION.fetchAllCastsStart());
     }, []);
 
     return (

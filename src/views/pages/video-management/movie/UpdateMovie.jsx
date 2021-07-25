@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import MovieInputFields from '../../../../components/movie-input-fields/MovieInputFields';
 import { useDispatch, connect } from 'react-redux';
 import { selectMovie } from './../../../../redux/modules/movie/selector';
@@ -21,44 +21,50 @@ const UpdateMovie = ({ MOVIE, AUTHOR_NAMES, CAST_NAMES, DIRECTOR_NAMES, GENRE_NA
     const handleClickUpdateMovie = () => 
     {
         const movieOrigData = movie;
-        const { authors, casts, directors, genres, country, language, ...rest } = movie;
-
+        const { authors, casts, directors, genres, country, language, video_size_in_mb, ...rest } = movie;
+        
         const movie_ = {
             ...movieOrigData, 
-            country: concatSelectedOptions(country),
-            language: concatSelectedOptions(language),
+            country: country.value,
+            language: language.value,
             authors: concatSelectedOptions(authors),
+            author_ids: getValuesFromOptions(authors, AUTHOR_NAMES),
             casts: concatSelectedOptions(casts),
+            cast_ids: getValuesFromOptions(casts, CAST_NAMES),
             directors: concatSelectedOptions(directors),
-            genres: concatSelectedOptions(genres)
+            director_ids: getValuesFromOptions(directors, DIRECTOR_NAMES),
+            genres: concatSelectedOptions(genres),
+            genre_ids: getValuesFromOptions(genres, GENRE_NAMES),
+            video_size_in_mb: parseFloat(video_size_in_mb)
         }
 
-        dispatch(MOVIE_ACTION.createMovieStart(movie_));
+        dispatch(MOVIE_ACTION.updateMovieStart(movie_));
     }
 
-    const concatSelectedOptions = (data) => !data ? '' : data.map(({ label }) => label).join(', ');
-
-    const onLoadFetchMovieByID = () => {
+    const onLoadFetchMovieByID = () => 
+    {
         const findMovie = MOVIE.movies.find(movie => movie.id === parseInt(id));
         const { authors, casts, directors, genres, language, country } = findMovie;
 
-        const joinedAuthors = authors.split(', ');
-        const joindCasts = casts.split(', ');
-        const joindDirectors = directors.split(', ');
-        const joindGenres = genres.split(', ');
-
         const movie_ = {
             ...findMovie,
-            language: [{ value: language, label: language }],
-            country: [{ value: country, label: country }],
-            authors: AUTHOR_NAMES.filter(name => joinedAuthors.includes(name.label)),
-            casts: CAST_NAMES.filter(name => joindCasts.includes(name.label)),
-            directors: DIRECTOR_NAMES.filter(name => joindDirectors.includes(name.label)),
-            genres: GENRE_NAMES.filter(name => joindGenres.includes(name.label))
+            id,
+            language: { value: language, label: language },
+            country: { value: country, label: country },
+            authors: getOptionsFromString(authors, AUTHOR_NAMES),
+            casts: getOptionsFromString(casts, CAST_NAMES),
+            directors:getOptionsFromString(directors, DIRECTOR_NAMES),
+            genres: getOptionsFromString(genres, GENRE_NAMES)
         }
 
         setMovie(movie_);
     }
+
+    const concatSelectedOptions = (data) => !data ? '' : data.map(({ label }) => label).join(', ');
+
+    const getOptionsFromString = (stringifiedSelectedOptions, options) => options.filter(({ label }) => stringifiedSelectedOptions.split(', ').includes(label));
+
+    const getValuesFromOptions = (selectedOptions) => selectedOptions.map(({ value }) => value);
 
     useEffect(() => {
         onLoadFetchMovieByID();
