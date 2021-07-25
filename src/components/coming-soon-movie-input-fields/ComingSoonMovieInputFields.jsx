@@ -48,11 +48,7 @@ const ComingSoonMovieInputFields = ({ comingSoonMovie, setComingSoonMovie, cardH
         const reader = new FileReader();
 
         try {
-            const { data, status } = await MOVIE_API.uploadVideoAsync({ 
-                video_trailer: file, 
-                title: comingSoonMovie.title, 
-                id: comingSoonMovie.id 
-            });
+            const { data, status } = await MOVIE_API.uploadVideoAsync({ video: file });
 
             setComingSoonMovie({ ...comingSoonMovie, video_trailer_path: data, video_size_in_mb });
 
@@ -69,9 +65,7 @@ const ComingSoonMovieInputFields = ({ comingSoonMovie, setComingSoonMovie, cardH
             }
             
         } catch ({ message }) {
-            dispatch(COMING_SOON_MOVIE_ACTION.updateComingSoonMovieErrorState({ 
-                video_trailer_path: message.video_trailer ?? TITLE_IS_REQUIRED_FOR_FILE_UPLOAD_MESSAGE 
-            }));
+            dispatch(COMING_SOON_MOVIE_ACTION.updateComingSoonMovieErrorState({ video_trailer_path: message.video }));
         }
 
         setFilePreviews({ ...filePreviews, isVideoTrailerUploading: false });
@@ -90,7 +84,7 @@ const ComingSoonMovieInputFields = ({ comingSoonMovie, setComingSoonMovie, cardH
         const reader = new FileReader();
 
         try {
-            const { data, status } = await MOVIE_API.uploadPosterAsync({ poster: file, title: comingSoonMovie.title, id: comingSoonMovie.id });
+            const { data, status } = await MOVIE_API.uploadPosterAsync({ poster: file });
             
             if (status === 'success') {
                 setComingSoonMovie({ ...comingSoonMovie, poster_path: data });
@@ -106,9 +100,7 @@ const ComingSoonMovieInputFields = ({ comingSoonMovie, setComingSoonMovie, cardH
                 }));
             }
         } catch ({ message }) {
-            dispatch(COMING_SOON_MOVIE_ACTION.updateComingSoonMovieErrorState({ 
-                poster_path: message.poster ?? TITLE_IS_REQUIRED_FOR_FILE_UPLOAD_MESSAGE 
-            }));
+            dispatch(COMING_SOON_MOVIE_ACTION.updateComingSoonMovieErrorState({ poster_path: message.poster  }));
         }
 
         setFilePreviews({ ...filePreviews, isPosterUploading: false });
@@ -127,7 +119,7 @@ const ComingSoonMovieInputFields = ({ comingSoonMovie, setComingSoonMovie, cardH
         const reader = new FileReader();
 
         try {
-            const { data, status } = await MOVIE_API.uploadWallpaperAsync({ wallpaper: file, title: comingSoonMovie.title, id: comingSoonMovie.id });
+            const { data, status } = await MOVIE_API.uploadWallpaperAsync({ wallpaper: file });
             setComingSoonMovie({ ...comingSoonMovie, wallpaper_path: data });
 
             if (status === 'success') {
@@ -142,9 +134,7 @@ const ComingSoonMovieInputFields = ({ comingSoonMovie, setComingSoonMovie, cardH
                 }));
             }
         } catch ({ message }) {
-            dispatch(COMING_SOON_MOVIE_ACTION.updateComingSoonMovieErrorState({ 
-                wallpaper_path: message.wallpaper ?? TITLE_IS_REQUIRED_FOR_FILE_UPLOAD_MESSAGE 
-            }));
+            dispatch(COMING_SOON_MOVIE_ACTION.updateComingSoonMovieErrorState({  wallpaper_path: message.wallpaper }));
         }
 
         setFilePreviews({ ...filePreviews, isWallpaperUploading: false });
@@ -163,7 +153,7 @@ const ComingSoonMovieInputFields = ({ comingSoonMovie, setComingSoonMovie, cardH
         const reader = new FileReader();
 
         try {
-            const { data, status } = await MOVIE_API.uploadTitleLogoAsync({ title_logo: file, title: comingSoonMovie.title, id: comingSoonMovie.id });
+            const { data, status } = await MOVIE_API.uploadTitleLogoAsync({ title_logo: file });
             setComingSoonMovie({ ...comingSoonMovie, title_logo_path: data });
 
             if (status === 'success') {
@@ -178,9 +168,7 @@ const ComingSoonMovieInputFields = ({ comingSoonMovie, setComingSoonMovie, cardH
                 }));
             }
         } catch ({ message }) {
-            dispatch(COMING_SOON_MOVIE_ACTION.updateComingSoonMovieErrorState({ 
-                title_logo_path: message.title_logo ?? TITLE_IS_REQUIRED_FOR_FILE_UPLOAD_MESSAGE
-            }));
+            dispatch(COMING_SOON_MOVIE_ACTION.updateComingSoonMovieErrorState({ title_logo_path: message.title_logo }));
         }
 
         setFilePreviews({ ...filePreviews, isTitleLogoUploading: false });

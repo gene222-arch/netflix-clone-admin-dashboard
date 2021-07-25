@@ -49,7 +49,7 @@ const MovieInputFields = ({ movie, setMovie, cardHeaderTitle, saveButtonCallback
         const reader = new FileReader();
 
         try {
-            const { data, status } = await MOVIE_API.uploadVideoAsync({ video: file, title: movie.title, id: movie.id });
+            const { data, status } = await MOVIE_API.uploadVideoAsync({ video: file });
             setMovie({ ...movie, video_path: data, video_size_in_mb });
 
             if (status === 'success') {
@@ -65,9 +65,7 @@ const MovieInputFields = ({ movie, setMovie, cardHeaderTitle, saveButtonCallback
             }
             
         } catch ({ message }) {
-            dispatch(MOVIE_ACTION.updateMovieErrorState({ 
-                video_path: message.video ?? TITLE_IS_REQUIRED_FOR_FILE_UPLOAD_MESSAGE 
-            }));
+            dispatch(MOVIE_ACTION.updateMovieErrorState({  video_path: message.video }));
         }
 
         setFilePreviews({ ...filePreviews, isVideoUploading: false });
@@ -86,7 +84,7 @@ const MovieInputFields = ({ movie, setMovie, cardHeaderTitle, saveButtonCallback
         const reader = new FileReader();
 
         try {
-            const { data, status } = await MOVIE_API.uploadPosterAsync({ poster: file, title: movie.title, id: movie.id });
+            const { data, status } = await MOVIE_API.uploadPosterAsync({ poster: file });
             
             if (status === 'success') {
                 setMovie({ ...movie, poster_path: data });
@@ -102,9 +100,7 @@ const MovieInputFields = ({ movie, setMovie, cardHeaderTitle, saveButtonCallback
                 }));
             }
         } catch ({ message }) {
-            dispatch(MOVIE_ACTION.updateMovieErrorState({ 
-                poster_path: message.poster ?? TITLE_IS_REQUIRED_FOR_FILE_UPLOAD_MESSAGE 
-            }));
+            dispatch(MOVIE_ACTION.updateMovieErrorState({ poster_path: message.poster }));
         }
 
         setFilePreviews({ ...filePreviews, isPosterUploading: false });
@@ -123,7 +119,7 @@ const MovieInputFields = ({ movie, setMovie, cardHeaderTitle, saveButtonCallback
         const reader = new FileReader();
 
         try {
-            const { data, status } = await MOVIE_API.uploadWallpaperAsync({ wallpaper: file, title: movie.title, id: movie.id });
+            const { data, status } = await MOVIE_API.uploadWallpaperAsync({ wallpaper: file });
             setMovie({ ...movie, wallpaper_path: data });
 
             if (status === 'success') {
@@ -138,9 +134,7 @@ const MovieInputFields = ({ movie, setMovie, cardHeaderTitle, saveButtonCallback
                 }));
             }
         } catch ({ message }) {
-            dispatch(MOVIE_ACTION.updateMovieErrorState({ 
-                wallpaper_path: message.wallpaper ?? TITLE_IS_REQUIRED_FOR_FILE_UPLOAD_MESSAGE 
-            }));
+            dispatch(MOVIE_ACTION.updateMovieErrorState({  wallpaper_path: message.wallpaper }));
         }
 
         setFilePreviews({ ...filePreviews, isWallpaperUploading: false });
@@ -159,7 +153,7 @@ const MovieInputFields = ({ movie, setMovie, cardHeaderTitle, saveButtonCallback
         const reader = new FileReader();
 
         try {
-            const { data, status } = await MOVIE_API.uploadTitleLogoAsync({ title_logo: file, title: movie.title, id: movie.id });
+            const { data, status } = await MOVIE_API.uploadTitleLogoAsync({ title_logo: file });
             setMovie({ ...movie, title_logo_path: data });
 
             if (status === 'success') {
@@ -169,13 +163,11 @@ const MovieInputFields = ({ movie, setMovie, cardHeaderTitle, saveButtonCallback
         
                 reader.readAsDataURL(file);
 
-                dispatch(MOVIE_ACTION.updateMovieErrorState({ 
-                    title_logo_path: ''
-                }));
+                dispatch(MOVIE_ACTION.updateMovieErrorState({ title_logo_path: '' }));
             }
         } catch ({ message }) {
             dispatch(MOVIE_ACTION.updateMovieErrorState({ 
-                title_logo_path: message.title_logo ?? TITLE_IS_REQUIRED_FOR_FILE_UPLOAD_MESSAGE
+                title_logo_path: message.title_logo
             }));
         }
 
