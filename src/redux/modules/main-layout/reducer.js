@@ -9,7 +9,8 @@ const {
     SELECT_VIDEO_MANAGEMENT_CASTS,
     SELECT_VIDEO_MANAGEMENT_DIRECTORS,
     SELECT_VIDEO_MANAGEMENT_GENRES, 
-    SELECT_VIDEO_MANAGEMENT_VIDEOS, 
+    SELECT_VIDEO_MANAGEMENT_MOVIES, 
+    SELECT_VIDEO_MANAGEMENT_COMING_SOON_MOVIES,
     TOGGLE_SECOND_LIST_ITEM,
     SELECT_DASHBOARD
 } = ACTION_TYPES;
@@ -22,7 +23,8 @@ const DEFAULT_STATE = {
     videoManagementCasts: false,
     videoManagementDirectors: false,
     videoManagementGenres: false,
-    videoManagementVideos: false,
+    videoManagementMovies: false,
+    videoManagementComingSoonMovies: false,
     secondListItem: false,
 };
 
@@ -34,7 +36,8 @@ const initialState = {
     videoManagementCasts: false,
     videoManagementDirectors: false,
     videoManagementGenres: false,
-    videoManagementVideos: false,
+    videoManagementMovies: false,
+    videoManagementComingSoonMovies: false,
     secondListItem: false,
 
     currentSelectedItem: 'Dashboard',
@@ -55,7 +58,8 @@ export default (state = initialState, { type, payload }) =>
         videoManagementCasts, 
         videoManagementDirectors,
         videoManagementGenres,
-        videoManagementVideos,
+        videoManagementMovies,
+        videoManagementComingSoonMovies,
         secondListItem } = state;
 
     switch (type) 
@@ -121,14 +125,25 @@ export default (state = initialState, { type, payload }) =>
                 currentSelectedDropdown: 'videoManagement',
             };
 
-        case SELECT_VIDEO_MANAGEMENT_VIDEOS: 
+        case SELECT_VIDEO_MANAGEMENT_MOVIES: 
             return { 
                 ...DEFAULT_STATE, 
                 videoManagement: true,
-                videoManagementVideos: !videoManagementVideos, 
+                videoManagementMovies: !videoManagementMovies, 
                 /** History */
                 currentSelectedItem: 'Movies',
-                currentSelectedDropdownItem: 'videoManagementVideos',
+                currentSelectedDropdownItem: 'videoManagementMovies',
+                currentSelectedDropdown: 'videoManagement',
+            };
+
+        case SELECT_VIDEO_MANAGEMENT_COMING_SOON_MOVIES: 
+            return { 
+                ...DEFAULT_STATE, 
+                videoManagement: true,
+                videoManagementComingSoonMovies: !videoManagementComingSoonMovies, 
+                /** History */
+                currentSelectedItem: 'Coming Soon Movies',
+                currentSelectedDropdownItem: 'videoManagementComingSoonMovies',
                 currentSelectedDropdown: 'videoManagement',
             };
 

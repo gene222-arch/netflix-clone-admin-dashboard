@@ -8,7 +8,8 @@ const {
     SELECT_VIDEO_MANAGEMENT_CASTS,
     SELECT_VIDEO_MANAGEMENT_DIRECTORS,
     SELECT_VIDEO_MANAGEMENT_GENRES, 
-    SELECT_VIDEO_MANAGEMENT_VIDEOS,
+    SELECT_VIDEO_MANAGEMENT_MOVIES,
+    SELECT_VIDEO_MANAGEMENT_COMING_SOON_MOVIES,
     TOGGLE_SECOND_LIST_ITEM,
     SELECT_DASHBOARD } = ACTION_TYPES;
 
@@ -40,10 +41,13 @@ export const selectVideoManagementGenres = () => ({
     type: SELECT_VIDEO_MANAGEMENT_GENRES
 });
 
-export const selectVideoManagementVideos = () => ({
-    type: SELECT_VIDEO_MANAGEMENT_VIDEOS
+export const selectVideoManagementMovies = () => ({
+    type: SELECT_VIDEO_MANAGEMENT_MOVIES
 });
 
+export const selectVideoManagementComingSoonMovies = () => ({
+    type: SELECT_VIDEO_MANAGEMENT_COMING_SOON_MOVIES
+});
 
 /**
  * 

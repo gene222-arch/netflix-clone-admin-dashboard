@@ -24,34 +24,22 @@ import Container from '@material-ui/core/Container';
 /** Material UI Styling */
 import loginFormUseStyles from '../../../assets/js/material-ui/loginFormUseStyles';
 
-/** Async */
-
 /** Actions */
-import * as AUTH from '../../../redux/modules/auth/actions'
+import * as AUTH_ACTION from '../../../redux/modules/auth/actions'
 
 /** Reselect */
 import { selectAuth } from './../../../redux/modules/auth/selector';
 
 /** Routes */
 import PATH from './../../../routes/path';
-import { persistor } from './../../../redux'
 
 
-
-const CREDENTIALS_DEFAULT = {
-    email: '',
-    password: '',
-    remember_me: false,
-};
-
-
-const LoginForm = ({ alert, auth }) => 
+const LoginForm = ({ AUTH }) => 
 {
     const dispatch = useDispatch();
     const classes = loginFormUseStyles();
 
-    const { error } = auth;
-    const [ credentials, setCredentials ] = useState(CREDENTIALS_DEFAULT);
+    const [ credentials, setCredentials ] = useState(AUTH.credentials);
 
     
     const handleChangeCredentials = (e) => 
@@ -66,12 +54,12 @@ const LoginForm = ({ alert, auth }) =>
     const onSubmitCredentails = (e) => 
     {
         e.preventDefault();
-        dispatch(AUTH.login(credentials));
+        dispatch(AUTH_ACTION.login(credentials));
     }
 
     useEffect(() => {
         return () => {
-            setCredentials(CREDENTIALS_DEFAULT);
+            setCredentials(AUTH.credentials);
         }
     }, [])
 
@@ -85,11 +73,11 @@ const LoginForm = ({ alert, auth }) =>
                 <Typography component="h1" variant="h5">
                     Sign in
                 </Typography>
-                <Error error={ error } />
+                <Error error={ AUTH.error } />
                 <form className={classes.form} noValidate onSubmit={onSubmitCredentails}>
                     <TextField
-                        error={Boolean(error.email)}
-                        helperText={error.email}
+                        error={Boolean(AUTH.error.email)}
+                        helperText={AUTH.error.email}
                         variant="outlined"
                         margin="normal"
                         required
@@ -103,8 +91,8 @@ const LoginForm = ({ alert, auth }) =>
                         onChange={handleChangeCredentials}
                     />
                     <TextField
-                        error={Boolean(error.password)}
-                        helperText={error.password}
+                        error={Boolean(AUTH.error.password)}
+                        helperText={AUTH.error.password}
                         variant="outlined"
                         margin="normal"
                         required
@@ -132,7 +120,7 @@ const LoginForm = ({ alert, auth }) =>
                         variant="contained"
                         color="primary"
                         className={classes.submit}
-                        disabled={ auth.isLoading }
+                        disabled={ AUTH.isLoading }
                     >
                         Sign In
                     </Button>
@@ -158,7 +146,7 @@ const LoginForm = ({ alert, auth }) =>
 }
 
 const mapStateToProps = createStructuredSelector({
-    auth: selectAuth
+    AUTH: selectAuth
 });
 
 

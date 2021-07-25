@@ -3,17 +3,16 @@ import * as AUTHOR_NAMES_ACTION from '../../redux/modules/author/actions'
 import * as CAST_ACTION from '../../redux/modules/cast/actions'
 import * as DIRECTOR_ACTION from '../../redux/modules/director/actions'
 import * as GENRE_ACTION from '../../redux/modules/genre/actions'
-import * as MOVIE_ACTION from '../../redux/modules/movie/actions'
-import * as MOVIE_API from './../../services/movies/movie'
+import * as COMING_SOON_MOVIE_ACTION from '../../redux/modules/coming-soon-movie/actions'
+import * as MOVIE_API from '../../services/movies/coming.soon.movie'
 import { useDispatch, batch } from 'react-redux';
 import { Container, Grid } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 import PATH from '../../routes/path';
 import { format } from 'date-fns';
 import HumanResourceFields from './HumanResourceFields';
-import MovieFile from './MovieImages';
-import MovieInfoFields from './MovieInfoFields';
-import { getFilePreview } from './../../utils/file';
+import MovieFile from './ComingSoonMovieImages';
+import ComingSoonMovieInfoFields from './ComingSoonMovieInfoFields';
 
 
 const DEFAULT_FILE_PREVIEW_PROPS = {
@@ -23,22 +22,22 @@ const DEFAULT_FILE_PREVIEW_PROPS = {
     isWallpaperUploading: false,
     title_logo: null,
     isTitleLogoUploading: false,
-    video: null,
-    isVideoUploading:false
+    video_trailer: null,
+    isVideoTrailerUploading:false
 };
 
 const TITLE_IS_REQUIRED_FOR_FILE_UPLOAD_MESSAGE = 'Title field is required before uploading a file';
 
-const MovieInputFields = ({ movie, setMovie, cardHeaderTitle, saveButtonCallback }) => 
+const ComingSoonMovieInputFields = ({ comingSoonMovie, setComingSoonMovie, cardHeaderTitle, saveButtonCallback }) => 
 {
     const dispatch = useDispatch();
     const history = useHistory();
 
     const [ filePreviews, setFilePreviews ] = useState(DEFAULT_FILE_PREVIEW_PROPS);
 
-    const handleChangeVideoFile = async (e) => 
+    const handleChangeVideoTrailerFile = async (e) => 
     {
-        setFilePreviews({ ...filePreviews, isVideoUploading: true });
+        setFilePreviews({ ...filePreviews, isVideoTrailerUploading: true });
 
         let files = e.target.files || e.dataTransfer.files;
         if (!files.length)
@@ -49,28 +48,33 @@ const MovieInputFields = ({ movie, setMovie, cardHeaderTitle, saveButtonCallback
         const reader = new FileReader();
 
         try {
-            const { data, status } = await MOVIE_API.uploadVideoAsync({ video: file, title: movie.title, id: movie.id });
-            setMovie({ ...movie, video_path: data, video_size_in_mb });
+            const { data, status } = await MOVIE_API.uploadVideoAsync({ 
+                video_trailer: file, 
+                title: comingSoonMovie.title, 
+                id: comingSoonMovie.id 
+            });
+
+            setComingSoonMovie({ ...comingSoonMovie, video_trailer_path: data, video_size_in_mb });
 
             if (status === 'success') {
                 reader.onload = (e) => {
-                    setFilePreviews({ ...filePreviews, video: e.target.result });
+                    setFilePreviews({ ...filePreviews, video_trailer: e.target.result });
                 };
     
                 reader.readAsDataURL(file);
 
-                dispatch(MOVIE_ACTION.updateMovieErrorState({ 
-                    video_path: ''
+                dispatch(COMING_SOON_MOVIE_ACTION.updateComingSoonMovieErrorState({ 
+                    video_trailer_path: ''
                 }));
             }
             
         } catch ({ message }) {
-            dispatch(MOVIE_ACTION.updateMovieErrorState({ 
-                video_path: message.video ?? TITLE_IS_REQUIRED_FOR_FILE_UPLOAD_MESSAGE 
+            dispatch(COMING_SOON_MOVIE_ACTION.updateComingSoonMovieErrorState({ 
+                video_trailer_path: message.video_trailer ?? TITLE_IS_REQUIRED_FOR_FILE_UPLOAD_MESSAGE 
             }));
         }
 
-        setFilePreviews({ ...filePreviews, isVideoUploading: false });
+        setFilePreviews({ ...filePreviews, isVideoTrailerUploading: false });
         e.target.value = null;
     }
 
@@ -86,10 +90,10 @@ const MovieInputFields = ({ movie, setMovie, cardHeaderTitle, saveButtonCallback
         const reader = new FileReader();
 
         try {
-            const { data, status } = await MOVIE_API.uploadPosterAsync({ poster: file, title: movie.title, id: movie.id });
+            const { data, status } = await MOVIE_API.uploadPosterAsync({ poster: file, title: comingSoonMovie.title, id: comingSoonMovie.id });
             
             if (status === 'success') {
-                setMovie({ ...movie, poster_path: data });
+                setComingSoonMovie({ ...comingSoonMovie, poster_path: data });
 
                 reader.onload = (e) => {
                     setFilePreviews({ ...filePreviews, poster: e.target.result });
@@ -97,12 +101,12 @@ const MovieInputFields = ({ movie, setMovie, cardHeaderTitle, saveButtonCallback
         
                 reader.readAsDataURL(file);
 
-                dispatch(MOVIE_ACTION.updateMovieErrorState({ 
+                dispatch(COMING_SOON_MOVIE_ACTION.updateComingSoonMovieErrorState({ 
                     poster_path: ''
                 }));
             }
         } catch ({ message }) {
-            dispatch(MOVIE_ACTION.updateMovieErrorState({ 
+            dispatch(COMING_SOON_MOVIE_ACTION.updateComingSoonMovieErrorState({ 
                 poster_path: message.poster ?? TITLE_IS_REQUIRED_FOR_FILE_UPLOAD_MESSAGE 
             }));
         }
@@ -123,8 +127,8 @@ const MovieInputFields = ({ movie, setMovie, cardHeaderTitle, saveButtonCallback
         const reader = new FileReader();
 
         try {
-            const { data, status } = await MOVIE_API.uploadWallpaperAsync({ wallpaper: file, title: movie.title, id: movie.id });
-            setMovie({ ...movie, wallpaper_path: data });
+            const { data, status } = await MOVIE_API.uploadWallpaperAsync({ wallpaper: file, title: comingSoonMovie.title, id: comingSoonMovie.id });
+            setComingSoonMovie({ ...comingSoonMovie, wallpaper_path: data });
 
             if (status === 'success') {
                 reader.onload = (e) => {
@@ -133,12 +137,12 @@ const MovieInputFields = ({ movie, setMovie, cardHeaderTitle, saveButtonCallback
         
                 reader.readAsDataURL(file);
 
-                dispatch(MOVIE_ACTION.updateMovieErrorState({ 
-                    wallpaper_path: '' 
+                dispatch(COMING_SOON_MOVIE_ACTION.updateComingSoonMovieErrorState({ 
+                    wallpaper_path: ''
                 }));
             }
         } catch ({ message }) {
-            dispatch(MOVIE_ACTION.updateMovieErrorState({ 
+            dispatch(COMING_SOON_MOVIE_ACTION.updateComingSoonMovieErrorState({ 
                 wallpaper_path: message.wallpaper ?? TITLE_IS_REQUIRED_FOR_FILE_UPLOAD_MESSAGE 
             }));
         }
@@ -159,8 +163,8 @@ const MovieInputFields = ({ movie, setMovie, cardHeaderTitle, saveButtonCallback
         const reader = new FileReader();
 
         try {
-            const { data, status } = await MOVIE_API.uploadTitleLogoAsync({ title_logo: file, title: movie.title, id: movie.id });
-            setMovie({ ...movie, title_logo_path: data });
+            const { data, status } = await MOVIE_API.uploadTitleLogoAsync({ title_logo: file, title: comingSoonMovie.title, id: comingSoonMovie.id });
+            setComingSoonMovie({ ...comingSoonMovie, title_logo_path: data });
 
             if (status === 'success') {
                 reader.onload = (e) => {
@@ -169,12 +173,12 @@ const MovieInputFields = ({ movie, setMovie, cardHeaderTitle, saveButtonCallback
         
                 reader.readAsDataURL(file);
 
-                dispatch(MOVIE_ACTION.updateMovieErrorState({ 
+                dispatch(COMING_SOON_MOVIE_ACTION.updateComingSoonMovieErrorState({ 
                     title_logo_path: ''
                 }));
             }
         } catch ({ message }) {
-            dispatch(MOVIE_ACTION.updateMovieErrorState({ 
+            dispatch(COMING_SOON_MOVIE_ACTION.updateComingSoonMovieErrorState({ 
                 title_logo_path: message.title_logo ?? TITLE_IS_REQUIRED_FOR_FILE_UPLOAD_MESSAGE
             }));
         }
@@ -183,26 +187,32 @@ const MovieInputFields = ({ movie, setMovie, cardHeaderTitle, saveButtonCallback
         e.target.value = null;
     }
 
-    const handleChange = (e) => setMovie({ ...movie, [e.target.name]: e.target.value });
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        
+        name !== 'status'
+            ? setComingSoonMovie({ ...comingSoonMovie, [name]: value })
+            : setComingSoonMovie({ ...comingSoonMovie, [name]: comingSoonMovie[name] === 'Release' ? 'Coming Soon' : 'Release' });
+    }
 
     const handleChangeReleaseDate = (date) => 
     {
         const date_of_release = format(date, 'yyyy-MM-dd');
         const year_of_release = format(date, 'yyyy');
 
-        setMovie({ ...movie, date_of_release, year_of_release });
+        setComingSoonMovie({ ...comingSoonMovie, date_of_release, year_of_release });
     }
 
-    const handleClickCancel = () => history.push(PATH.VIDEO_MANAGEMENT_MOVIES);
+    const handleClickCancel = () => history.push(PATH.VIDEO_MANAGEMENT_COMING_SOON_MOVIES);
 
     const handleSelectMultipleOptions = (selectedOptions, nameIDs, name) => 
     {
         const selectedIDs = selectedOptions.map(({ value }) => value);
         
-        setMovie({ ...movie, [nameIDs]: selectedIDs, [name]: selectedOptions });
+        setComingSoonMovie({ ...comingSoonMovie, [nameIDs]: selectedIDs, [name]: selectedOptions });
     }
 
-    const handleSelectSingleOption = (selectedOption, name) => setMovie({ ...movie, [name]: selectedOption });
+    const handleSelectSingleOption = (selectedOption, name) => setComingSoonMovie({ ...comingSoonMovie, [name]: selectedOption });
 
     useEffect(() => {
         batch(() => {
@@ -214,7 +224,7 @@ const MovieInputFields = ({ movie, setMovie, cardHeaderTitle, saveButtonCallback
 
         return () => {
             setFilePreviews(DEFAULT_FILE_PREVIEW_PROPS);
-            dispatch(MOVIE_ACTION.clearMovieErrors());
+            dispatch(COMING_SOON_MOVIE_ACTION.clearComingSoonMovieErrors());
         }
     }, []);
 
@@ -223,13 +233,13 @@ const MovieInputFields = ({ movie, setMovie, cardHeaderTitle, saveButtonCallback
             <Grid container spacing={1}>
                 {/* Movie Information */}
                 <Grid item xs={12} sm={12} md={12} lg={12}>
-                    <MovieInfoFields 
+                    <ComingSoonMovieInfoFields 
                         cardHeaderTitle={ cardHeaderTitle }
-                        movie={ movie }
+                        comingSoonMovie={ comingSoonMovie }
                         handleChange={ handleChange }
-                        handleChangeVideoFile={ handleChangeVideoFile }
-                        filePreview={ filePreviews.video }
-                        isUploading={ filePreviews.isVideoUploading }
+                        handleChangeVideoTrailerFile={ handleChangeVideoTrailerFile }
+                        filePreview={ filePreviews.video_trailer }
+                        isUploading={ filePreviews.isVideoTrailerUploading }
                         handleChangeReleaseDate={ handleChangeReleaseDate }
                         handleSelectSingleOption={ handleSelectSingleOption }
                     />
@@ -238,7 +248,7 @@ const MovieInputFields = ({ movie, setMovie, cardHeaderTitle, saveButtonCallback
                 {/* Displays */}
                 <Grid item xs={12} sm={12} md={12} lg={12}>
                     <MovieFile
-                        movie={ movie }
+                        comingSoonMovie={ comingSoonMovie }
                         handleChangePosterFile={ handleChangePosterFile }
                         handleChangeWallpaperFile={ handleChangeWallpaperFile }
                         handleChangeTitleLogoFile={ handleChangeTitleLogoFile }
@@ -249,7 +259,8 @@ const MovieInputFields = ({ movie, setMovie, cardHeaderTitle, saveButtonCallback
                 {/* Human Resources */}
                 <Grid item xs={12} sm={12} md={12} lg={12}>
                     <HumanResourceFields 
-                        movie={ movie }
+                        comingSoonMovie={ comingSoonMovie }
+                        handleChange={ handleChange }
                         handleSelectMultipleOptions={ handleSelectMultipleOptions }
                         saveButtonCallback={ saveButtonCallback }
                         handleClickCancel={ handleClickCancel }
@@ -260,4 +271,4 @@ const MovieInputFields = ({ movie, setMovie, cardHeaderTitle, saveButtonCallback
     )
 }
 
-export default MovieInputFields
+export default ComingSoonMovieInputFields

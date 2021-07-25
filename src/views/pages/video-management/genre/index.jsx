@@ -17,6 +17,7 @@ const Genre = ({ GENRE }) =>
 {
     const dispatch = useDispatch();
     const history = useHistory();
+    
     const columns = [
         { title: 'id', field: 'id', hidden: true },
         { 

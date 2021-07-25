@@ -12,6 +12,7 @@ const PATH =
     VIDEO_MANAGEMENT_DIRECTOR: '/video-management/directors',
     VIDEO_MANAGEMENT_GENRE: '/video-management/genres',
     VIDEO_MANAGEMENT_MOVIES: '/video-management/movies',
+    VIDEO_MANAGEMENT_COMING_SOON_MOVIES: '/video-management/coming-soon-movies',
 
     CREATE_AUTHOR: '/video-management/authors/create-new-author',
     UPDATE_AUTHOR: '/video-management/authors/:id/update-author',
@@ -27,6 +28,9 @@ const PATH =
 
     CREATE_MOVIE: '/video-management/movies/create-new-movie',
     UPDATE_MOVIE: '/video-management/movies/:id/update-movie',
+
+    CREATE_COMING_SOON_MOVIE: '/video-management/coming-soon-movies/create-new-movie',
+    UPDATE_COMING_SOON_MOVIE: '/video-management/coming-soon-movies/:id/update-movie',
 };
 
 

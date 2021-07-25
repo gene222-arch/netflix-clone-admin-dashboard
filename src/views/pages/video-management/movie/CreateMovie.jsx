@@ -19,8 +19,8 @@ const CreateMovie = ({ MOVIE }) =>
 
         const movie_ = {
             ...movieOrigData, 
-            country: concatSelectedOptions(country),
-            language: concatSelectedOptions(language),
+            country: country.value,
+            language: language.value,
             authors: concatSelectedOptions(authors),
             casts: concatSelectedOptions(casts),
             directors: concatSelectedOptions(directors),

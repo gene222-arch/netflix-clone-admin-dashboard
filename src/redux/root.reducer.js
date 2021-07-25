@@ -8,6 +8,7 @@ import alertReducer from './modules/alert/reducer'
 import authReducer from './modules/auth/reducer'
 import authorReducer from './modules/author/reducer'
 import castReducer from './modules/cast/reducer'
+import comingSoonMovieReducer from './modules/coming-soon-movie/reducer'
 import confirmReducer from './modules/confirm/reducer'
 import directorReducer from './modules/director/reducer'
 import genreReducer from './modules/genre/reducer'
@@ -33,6 +34,7 @@ const reducers = {
     auth: authReducer,
     author: authorReducer,
     cast: castReducer,
+    comingSoonMovie: comingSoonMovieReducer,
     director: directorReducer,
     genre: genreReducer,
     mainLayout: mainLayoutReducer,

@@ -36,7 +36,9 @@ const VideoManagement = ({ MAIN_LAYOUT }) =>
 
     const selectVideoManagementGenres = () => dispatch(MAIN_LAYOUT_ACTION.selectVideoManagementGenres());
 
-    const selectVideoManagementVideos = () => dispatch(MAIN_LAYOUT_ACTION.selectVideoManagementVideos());
+    const selectVideoManagementMovies = () => dispatch(MAIN_LAYOUT_ACTION.selectVideoManagementMovies());
+
+    const selectVideoManagementComingSoonMovies = () => dispatch(MAIN_LAYOUT_ACTION.selectVideoManagementComingSoonMovies());
 
     return (
         <>
@@ -99,12 +101,23 @@ const VideoManagement = ({ MAIN_LAYOUT }) =>
                         }
                     />
 
-                    {/* Videos */}
+                    {/* Movies */}
                     <StyledNavLink 
                         to={ PATH.VIDEO_MANAGEMENT_MOVIES }
                         text={
-                            <ListItem button selected={ MAIN_LAYOUT.videoManagementVideos } onClick={ selectVideoManagementVideos }>
+                            <ListItem button selected={ MAIN_LAYOUT.videoManagementMovies } onClick={ selectVideoManagementMovies }>
                                 <ListItemText primary='Movies'/>
+                                <VideoLibraryIcon />
+                            </ListItem>
+                        }
+                    />
+
+                     {/* Coming Soon Movies */}
+                     <StyledNavLink 
+                        to={ PATH.VIDEO_MANAGEMENT_COMING_SOON_MOVIES }
+                        text={
+                            <ListItem button selected={ MAIN_LAYOUT.videoManagementComingSoonMovies } onClick={ selectVideoManagementComingSoonMovies }>
+                                <ListItemText primary='Coming Soon Movies'/>
                                 <VideoLibraryIcon />
                             </ListItem>
                         }

@@ -1,4 +1,11 @@
 import axiosInstance from '../../utils/axiosInstance'
+import * as FormDataHelper from './../../utils/formData'
+
+const config = {
+    headers: {
+        'content-type': 'multipart/form-data'
+    }
+};
 
 export const fetchAllAsync = async (payload) => 
 {
@@ -40,10 +47,50 @@ export const updateAsync = async (payload) =>
         .catch(error => Promise.reject(error.response.data));
 }
 
+export const updateStatusAsync = async (id) => 
+{
+    return await axiosInstance()
+        .put(`/coming-soon-movies/${ id }/status`)
+        .then(response => response.data)
+        .catch(error => Promise.reject(error.response.data));
+}
+
 export const updateTrailerAsync = async (payload) => 
 {
     return await axiosInstance()
         .put(`/coming-soon-movies/${ payload.coming_soon_movie_id }/trailers/${ payload.trailer_id }`, payload)
+        .then(response => response.data)
+        .catch(error => Promise.reject(error.response.data));
+}
+
+export const uploadPosterAsync = async (payload) => 
+{
+    return await axiosInstance()
+        .post(`/coming-soon-movies/upload/poster`, FormDataHelper.prepareToFormData(payload, 'POST'), config)
+        .then(response => response.data)
+        .catch(error => Promise.reject(error.response.data));
+}
+
+export const uploadWallpaperAsync = async (payload) => 
+{
+    return await axiosInstance()
+        .post(`/coming-soon-movies/upload/wallpaper`, FormDataHelper.prepareToFormData(payload, 'POST'), config)
+        .then(response => response.data)
+        .catch(error => Promise.reject(error.response.data));
+}
+
+export const uploadTitleLogoAsync = async (payload) => 
+{
+    return await axiosInstance()
+        .post(`/coming-soon-movies/upload/title-logo`, FormDataHelper.prepareToFormData(payload, 'POST'), config)
+        .then(response => response.data)
+        .catch(error => Promise.reject(error.response.data));
+}
+
+export const uploadVideoAsync = async (payload) => 
+{
+    return await axiosInstance()
+        .post(`/coming-soon-movies/upload/video-trailer`, FormDataHelper.prepareToFormData(payload, 'POST'), config)
         .then(response => response.data)
         .catch(error => Promise.reject(error.response.data));
 }

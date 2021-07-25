@@ -30,6 +30,12 @@ const {
 } = ACTION_TYPES;
 
 
+const CREDENTIALS_DEFAULT = {
+    email: '',
+    password: '',
+    remember_me: false
+};
+
 const ERROR_DEFAULT = {
     first_name: '',
     last_name: '',
@@ -42,6 +48,7 @@ const initialState =
     isLoading: false,
     isAuthenticated: false,
     user: null,
+    credentials: CREDENTIALS_DEFAULT,
     permissions: null,
     error: ERROR_DEFAULT,
 };
