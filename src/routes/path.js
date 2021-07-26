@@ -31,6 +31,9 @@ const PATH =
 
     CREATE_COMING_SOON_MOVIE: '/video-management/coming-soon-movies/create-new-movie',
     UPDATE_COMING_SOON_MOVIE: '/video-management/coming-soon-movies/:id/update-movie',
+    VIEW_COMING_SOON_MOVIE: '/video-management/coming-soon-movies/:id',
+    CREATE_TRAILER: '/video-management/coming-soon-movies/:id/create-trailer',
+    UPDATE_TRAILER: '/video-management/coming-soon-movies/:id/trailers/:trailerID',
 };
 
 

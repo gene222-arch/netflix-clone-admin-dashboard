@@ -10,6 +10,7 @@ import StyledNavLink from '../../../../components/styled-components/StyledNavLin
 import PATH from '../../../../routes/path';
 import MaterialTable from '../../../../components/styled-components/MaterialTable';
 import MaterialTableActionButton from '../../../../components/MaterialTableActionButton';
+import Container from '@material-ui/core/Container'
 
 
 const Movie = ({ MOVIE }) => 
@@ -25,7 +26,10 @@ const Movie = ({ MOVIE }) =>
             field: 'title',
             render: ({ id, title }) => (
                 <StyledNavLink 
-                    to={ PATH.UPDATE_MOVIE.replace(':id', id) } 
+                    to={{
+                        pathname: PATH.UPDATE_MOVIE.replace(':id', id),
+                        actionName: 'Update Movie'
+                    }} 
                     text={ title } 
                 />
             ) 
@@ -49,19 +53,21 @@ const Movie = ({ MOVIE }) =>
     }, []);
 
     return (
-        <MaterialTable 
-            columns={ columns }      
-            data={ MOVIE.movies }  
-            title={ 
-                <MaterialTableActionButton
-                    ids={ ids } 
-                    addButtonCallback = { () => history.push(PATH.CREATE_MOVIE) }
-                    deleteButtonCallback={ handleClickDeleteMovie }
-                /> 
-            }
-            isLoading={ MOVIE.isLoading }
-            onSelectionChange={ rows => setIDs(rows.map(({ id }) => id)) }
-        />
+        <Container maxWidth="lg">
+            <MaterialTable 
+                columns={ columns }      
+                data={ MOVIE.movies }  
+                title={ 
+                    <MaterialTableActionButton
+                        ids={ ids } 
+                        addButtonCallback = { () => history.push(PATH.CREATE_MOVIE, { actionName: 'Create Movie' }) }
+                        deleteButtonCallback={ handleClickDeleteMovie }
+                    /> 
+                }
+                isLoading={ MOVIE.isLoading }
+                onSelectionChange={ rows => setIDs(rows.map(({ id }) => id)) }
+            />
+        </Container>
     )
 }
 

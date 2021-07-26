@@ -31,6 +31,9 @@ const UpdateMovie = lazy(() => import('../views/pages/video-management/movie/Upd
 const VideoManagementComingSoonMovies = lazy(() => import('../views/pages/video-management/coming-soon-movie'))
 const CreateComingSoonMovie = lazy(() => import('../views/pages/video-management/coming-soon-movie/CreateComingSoonMovie'))
 const UpdateComingSoonMovie = lazy(() => import('../views/pages/video-management/coming-soon-movie/UpdateComingSoonMovie'))
+const ViewComingSoonMovie = lazy(() => import('../views/pages/video-management/coming-soon-movie/ViewComingSoonMovie'))
+const CreateTrailer = lazy(() => import('../views/pages/video-management/coming-soon-movie/trailer/CreateTrailer'))
+const UpdateTrailer = lazy(() => import('../views/pages/video-management/coming-soon-movie/trailer/UpdateTrailer'))
 
 export const PUBLIC_ROUTES = [
     {
@@ -241,6 +244,33 @@ export const PRIVATE_ROUTES = [
         icon: '',
         exact: true,
         component: UpdateComingSoonMovie,
+        access: 'Manage Coming Soon Movie',
+        restricted: true
+    },
+    {
+        path: PATH.VIEW_COMING_SOON_MOVIE,
+        key: 'ViewComingSoonMovie',
+        icon: '',
+        exact: true,
+        component: ViewComingSoonMovie,
+        access: 'Manage Coming Soon Movie',
+        restricted: true
+    },
+    {
+        path: PATH.CREATE_TRAILER,
+        key: 'CreateTrailer',
+        icon: '',
+        exact: true,
+        component: CreateTrailer,
+        access: 'Manage Coming Soon Movie',
+        restricted: true
+    },
+    {
+        path: PATH.UPDATE_TRAILER,
+        key: 'UpdateTrailer',
+        icon: '',
+        exact: true,
+        component: UpdateTrailer,
         access: 'Manage Coming Soon Movie',
         restricted: true
     },

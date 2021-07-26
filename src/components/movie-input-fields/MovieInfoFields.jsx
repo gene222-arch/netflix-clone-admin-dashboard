@@ -6,10 +6,13 @@ import COUNTRIES from './../../constants/Countries';
 import LANGUAGES from './../../constants/Languages';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import VideoWithPreview from './../VideoWithPreview';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { createStructuredSelector } from 'reselect';
 import { selectMovieErrorMessages } from '../../redux/modules/movie/selector';
 import { selectMovieHasErrorMessages } from './../../redux/modules/movie/selector';
 import { connect } from 'react-redux';
+import { useHistory, useLocation } from 'react-router-dom';
+import CardBackButton from './../CardBackButton';
 
 
 const MovieInfoFields = ({ 
@@ -25,16 +28,17 @@ const MovieInfoFields = ({
     handleSelectSingleOption 
 }) => {
     
+    const history = useHistory();
+    const location = useLocation();
+
     return (
         <Card>
             <CardHeader
-                action={
-                    <IconButton aria-label=''>
-                        <MoreVertIcon />
-                    </IconButton>
-                }
                 title={
-                    <Typography variant='h5'>{ cardHeaderTitle }</Typography>
+                    <CardBackButton 
+                        actionName={ history.location.state?.actionName ?? location.actionName } 
+                        title='Movies' 
+                    />
                 }
             />
 

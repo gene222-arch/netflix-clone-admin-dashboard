@@ -23,6 +23,14 @@ export const findByIDAsync = async (id) =>
         .catch(error => Promise.reject(error.response.data));
 }
 
+export const findTrailerByIDAsync = async ({ id, trailerID }) => 
+{
+    return await axiosInstance()
+        .get(`/coming-soon-movies/${ id }/trailers/${ trailerID }`)
+        .then(response => response.data)
+        .catch(error => Promise.reject(error.response.data));
+}
+
 export const createAsync = async (payload) => 
 {
     return await axiosInstance()
@@ -34,7 +42,7 @@ export const createAsync = async (payload) =>
 export const createTrailerAsync = async (payload) => 
 {
     return await axiosInstance()
-        .post(`/coming-soon-movies/${ payload.coming_soon_movie_id }`, payload)
+        .post(`/coming-soon-movies/${ payload.coming_soon_movie_id }/trailers`, payload)
         .then(response => response.data)
         .catch(error => Promise.reject(error.response.data));
 }
@@ -58,7 +66,7 @@ export const updateStatusAsync = async (id) =>
 export const updateTrailerAsync = async (payload) => 
 {
     return await axiosInstance()
-        .put(`/coming-soon-movies/${ payload.coming_soon_movie_id }/trailers/${ payload.trailer_id }`, payload)
+        .put(`/coming-soon-movies/${ payload.coming_soon_movie_id }/trailers/${ payload.id }/update`, payload)
         .then(response => response.data)
         .catch(error => Promise.reject(error.response.data));
 }
@@ -71,10 +79,32 @@ export const uploadPosterAsync = async (payload) =>
         .catch(error => Promise.reject(error.response.data));
 }
 
+export const uploadTrailerPosterAsync = async (payload) => 
+{
+    const route = `/coming-soon-movies/${ payload.coming_soon_movie_id }/trailers/upload/poster`;
+    const data = FormDataHelper.prepareToFormData(payload, 'POST');
+
+    return await axiosInstance()
+        .post(route, data, config)
+        .then(response => response.data)
+        .catch(error => Promise.reject(error.response.data));
+}
+
 export const uploadWallpaperAsync = async (payload) => 
 {
     return await axiosInstance()
         .post(`/coming-soon-movies/upload/wallpaper`, FormDataHelper.prepareToFormData(payload, 'POST'), config)
+        .then(response => response.data)
+        .catch(error => Promise.reject(error.response.data));
+}
+
+export const uploadTrailerWallpaperAsync = async (payload) => 
+{
+    const route = `/coming-soon-movies/${ payload.coming_soon_movie_id }/trailers/upload/wallpaper`;
+    const data = FormDataHelper.prepareToFormData(payload, 'POST');
+
+    return await axiosInstance()
+        .post(route, data, config)
         .then(response => response.data)
         .catch(error => Promise.reject(error.response.data));
 }
@@ -87,10 +117,32 @@ export const uploadTitleLogoAsync = async (payload) =>
         .catch(error => Promise.reject(error.response.data));
 }
 
+export const uploadTrailerTitleLogoAsync = async (payload) => 
+{
+    const route = `/coming-soon-movies/${ payload.coming_soon_movie_id }/trailers/upload/title-logo`;
+    const data = FormDataHelper.prepareToFormData(payload, 'POST');
+
+    return await axiosInstance()
+        .post(route, data, config)
+        .then(response => response.data)
+        .catch(error => Promise.reject(error.response.data));
+}
+
 export const uploadVideoAsync = async (payload) => 
 {
     return await axiosInstance()
         .post(`/coming-soon-movies/upload/video-trailer`, FormDataHelper.prepareToFormData(payload, 'POST'), config)
+        .then(response => response.data)
+        .catch(error => Promise.reject(error.response.data));
+}
+
+export const uploadTrailerVideoAsync = async (payload) => 
+{
+    const route = `/coming-soon-movies/${ payload.coming_soon_movie_id }/trailers/upload/video`;
+    const data = FormDataHelper.prepareToFormData(payload, 'POST');
+
+    return await axiosInstance()
+        .post(route, data, config)
         .then(response => response.data)
         .catch(error => Promise.reject(error.response.data));
 }
@@ -105,11 +157,11 @@ export const deleteAsync = async (ids) =>
         .catch(error => Promise.reject(error.response.data));
 }
 
-export const deleteTrailersAsync = async (comingSoonMovieID, trailerIDs) => 
+export const deleteTrailersAsync = async ({ coming_soon_movie_id, ids }) => 
 {
     return await axiosInstance()
-        .delete(`/coming-soon-movies/${ comingSoonMovieID }`, {
-            data: { trailer_ids: trailerIDs }
+        .delete(`/coming-soon-movies/${ coming_soon_movie_id }/trailers`, {
+            data: { ids }
         })
         .then(response => response.data)
         .catch(error => Promise.reject(error.response.data));

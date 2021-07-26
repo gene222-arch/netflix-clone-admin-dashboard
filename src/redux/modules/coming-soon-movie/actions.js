@@ -10,17 +10,28 @@ const {
     CREATE_COMING_SOON_MOVIE_START,
     CREATE_COMING_SOON_MOVIE_SUCCESS,
     CREATE_COMING_SOON_MOVIE_FAILED,
+    CREATE_TRAILER_START,
+    CREATE_TRAILER_SUCCESS,
+    CREATE_TRAILER_FAILED,
     UPDATE_COMING_SOON_MOVIE_START,
     UPDATE_COMING_SOON_MOVIE_SUCCESS,
     UPDATE_COMING_SOON_MOVIE_FAILED,
+    UPDATE_TRAILER_START,
+    UPDATE_TRAILER_SUCCESS,
+    UPDATE_TRAILER_FAILED,
     DELETE_COMING_SOON_MOVIES_START,
     DELETE_COMING_SOON_MOVIES_SUCCESS,
     DELETE_COMING_SOON_MOVIES_FAILED,
+    DELETE_TRAILER_START,
+    DELETE_TRAILER_SUCCESS,
+    DELETE_TRAILER_FAILED,
     TOGGLE_COMING_SOON_MOVIE_RELEASE_START,
     TOGGLE_COMING_SOON_MOVIE_RELEASE_SUCCESS,
     TOGGLE_COMING_SOON_MOVIE_RELEASE_FAILED,
     CLEAR_COMING_SOON_MOVIE_ERRORS,
-    UPDATE_COMING_SOON_MOVIE_ERROR_STATE
+    UPDATE_COMING_SOON_MOVIE_ERROR_STATE,
+    CLEAR_TRAILER_ERRORS,
+    UPDATE_TRAILER_ERROR_STATE
 } = ACTION_TYPES;
 
 
@@ -123,6 +134,63 @@ export const toggleComingSoonMovieReleaseFailed = (payload) => ({
 });
 
 
+/**
+ * Trailer Create
+ */
+export const createTrailerStart = (payload) => ({
+    type: CREATE_TRAILER_START,
+    payload
+});
+
+export const createTrailerSuccess = (payload) => ({
+    type: CREATE_TRAILER_SUCCESS,
+    payload
+});
+
+export const createTrailerFailed = (payload) => ({
+    type: CREATE_TRAILER_FAILED,
+    payload
+});
+
+/**
+ * Trailer Update
+ */
+export const updateTrailerStart = (payload) => ({
+    type: UPDATE_TRAILER_START,
+    payload
+});
+
+export const updateTrailerSuccess = (payload) => ({
+    type: UPDATE_TRAILER_SUCCESS,
+    payload
+});
+
+export const updateTrailerFailed = (payload) => ({
+    type: UPDATE_TRAILER_FAILED,
+    payload
+});
+
+/** 
+ * Delete 
+ * 
+ * */
+
+export const deleteTrailerStart = (payload) => ({
+    type: DELETE_TRAILER_START,
+    payload
+});
+
+export const deleteTrailerSuccess = (payload) => ({
+    type: DELETE_TRAILER_SUCCESS,
+    payload
+});
+
+export const deleteTrailerFailed = (payload) => ({
+    type: DELETE_TRAILER_FAILED,
+    payload
+});
+
+
 /** Clear ComingSoonMovie error action */
 export const clearComingSoonMovieErrors = (payload) => ({
     type: CLEAR_COMING_SOON_MOVIE_ERRORS,
@@ -135,6 +203,17 @@ export const updateComingSoonMovieErrorState = (payload) => ({
     payload
 });
 
+/** Clear ComingSoonMovie Trailer error action */
+export const clearTrailerErrors = (payload) => ({
+    type: CLEAR_TRAILER_ERRORS,
+    payload
+});
+
+/** Update ComingSoonMovie Trailer state action */
+export const updateTrailerErrorState = (payload) => ({
+    type: UPDATE_TRAILER_ERROR_STATE,
+    payload
+});
 
 
 

@@ -11,6 +11,7 @@ import MaterialTable from './../../../../components/styled-components/MaterialTa
 import MaterialTableActionButton from './../../../../components/MaterialTableActionButton';
 import { useHistory } from 'react-router-dom';
 import Switch from '@material-ui/core/Switch';
+import Container from '@material-ui/core/Container'
 
 const Cast = ({ CAST }) => 
 {
@@ -49,19 +50,21 @@ const Cast = ({ CAST }) =>
     }, []);
 
     return (
-        <MaterialTable 
-            columns={ columns }      
-            data={ CAST.casts }  
-            title={ 
-                <MaterialTableActionButton
-                    ids={ ids } 
-                    addButtonCallback = { () => history.push(PATH.CREATE_CAST) }
-                    deleteButtonCallback={ handleClickDeleteCast }
-                /> 
-            }
-            isLoading={ CAST.isLoading }
-            onSelectionChange={ rows => setIDs(rows.map(({ id }) => id)) }
-        />
+        <Container maxWidth="lg">
+            <MaterialTable 
+                columns={ columns }      
+                data={ CAST.casts }  
+                title={ 
+                    <MaterialTableActionButton
+                        ids={ ids } 
+                        addButtonCallback = { () => history.push(PATH.CREATE_CAST) }
+                        deleteButtonCallback={ handleClickDeleteCast }
+                    /> 
+                }
+                isLoading={ CAST.isLoading }
+                onSelectionChange={ rows => setIDs(rows.map(({ id }) => id)) }
+            />
+        </Container>
     )
 }
 

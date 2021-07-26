@@ -27,8 +27,6 @@ const DEFAULT_FILE_PREVIEW_PROPS = {
     isVideoUploading:false
 };
 
-const TITLE_IS_REQUIRED_FOR_FILE_UPLOAD_MESSAGE = 'Title field is required before uploading a file';
-
 const MovieInputFields = ({ movie, setMovie, cardHeaderTitle, saveButtonCallback }) => 
 {
     const dispatch = useDispatch();

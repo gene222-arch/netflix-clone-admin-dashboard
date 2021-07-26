@@ -11,6 +11,7 @@ import PATH from './../../../../routes/path';
 import MaterialTable from './../../../../components/styled-components/MaterialTable';
 import MaterialTableActionButton from './../../../../components/MaterialTableActionButton';
 import Switch from '@material-ui/core/Switch';
+import Container from '@material-ui/core/Container'
 
 
 const Genre = ({ GENRE }) => 
@@ -60,19 +61,21 @@ const Genre = ({ GENRE }) =>
     }, []);
 
     return (
-        <MaterialTable 
-            columns={ columns }      
-            data={ GENRE.genres }  
-            title={ 
-                <MaterialTableActionButton
-                    ids={ ids } 
-                    addButtonCallback = { () => history.push(PATH.CREATE_GENRE) }
-                    deleteButtonCallback={ handleClickDeleteGenre }
-                /> 
-            }
-            isLoading={ GENRE.isLoading }
-            onSelectionChange={ rows => setIDs(rows.map(({ id }) => id)) }
-        />
+        <Container maxWidth="lg">
+            <MaterialTable 
+                columns={ columns }      
+                data={ GENRE.genres }  
+                title={ 
+                    <MaterialTableActionButton
+                        ids={ ids } 
+                        addButtonCallback = { () => history.push(PATH.CREATE_GENRE) }
+                        deleteButtonCallback={ handleClickDeleteGenre }
+                    /> 
+                }
+                isLoading={ GENRE.isLoading }
+                onSelectionChange={ rows => setIDs(rows.map(({ id }) => id)) }
+            />
+        </Container>
     )
 }
 

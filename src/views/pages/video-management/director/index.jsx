@@ -11,6 +11,7 @@ import MaterialTable from './../../../../components/styled-components/MaterialTa
 import MaterialTableActionButton from './../../../../components/MaterialTableActionButton';
 import { useHistory } from 'react-router-dom';
 import Switch from '@material-ui/core/Switch';
+import Container from '@material-ui/core/Container'
 
 
 const Director = ({ DIRECTOR }) => 
@@ -50,7 +51,7 @@ const Director = ({ DIRECTOR }) =>
     }, []);
 
     return (
-        <>
+        <Container maxWidth="lg">
             <MaterialTable 
                 columns={ columns }      
                 data={ DIRECTOR.directors }  
@@ -64,7 +65,7 @@ const Director = ({ DIRECTOR }) =>
                 isLoading={ DIRECTOR.isLoading }
                 onSelectionChange={ rows => setIDs(rows.map(({ id }) => id)) }
             />
-        </>
+        </Container>
     )
 }
 

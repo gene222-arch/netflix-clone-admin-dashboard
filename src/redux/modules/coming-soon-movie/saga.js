@@ -13,10 +13,16 @@ import {
     findComingSoonMovieByIDFailed,
     createComingSoonMovieSuccess,
     createComingSoonMovieFailed,
+    createTrailerSuccess,
+    createTrailerFailed,
     updateComingSoonMovieSuccess,
     updateComingSoonMovieFailed,
+    updateTrailerSuccess,
+    updateTrailerFailed,
     deleteComingSoonMoviesSuccess,
     deleteComingSoonMoviesFailed,
+    deleteTrailerSuccess,
+    deleteTrailerFailed,
     toggleComingSoonMovieReleaseSuccess,
     toggleComingSoonMovieReleaseFailed
 } from './actions';
@@ -28,9 +34,12 @@ const {
     FETCH_ALL_COMING_SOON_MOVIES_START,
     FIND_COMING_SOON_MOVIE_BY_ID_START,
     CREATE_COMING_SOON_MOVIE_START,
+    CREATE_TRAILER_START,
     UPDATE_COMING_SOON_MOVIE_START,
+    UPDATE_TRAILER_START,
     TOGGLE_COMING_SOON_MOVIE_RELEASE_START,
-    DELETE_COMING_SOON_MOVIES_START
+    DELETE_COMING_SOON_MOVIES_START,
+    DELETE_TRAILER_START
 }  = ACTION_TYPES;
 
 /**
@@ -115,6 +124,50 @@ function* toggleComingSoonMovieReleaseSaga(payload)
     }
 }
 
+
+function* createTrailerSaga(payload)
+{
+    try {
+        const { message, status } = yield call(API.createTrailerAsync, payload);
+
+        yield put(createTrailerSuccess({ trailer: payload }));
+        yield put(showAlert({ status, message }));
+        yield put(push(PATH.VIEW_COMING_SOON_MOVIE.replace(':id', payload.coming_soon_movie_id)));
+    } catch ({ status, message }) {
+        yield put(createTrailerFailed({ message }));
+        yield put(showAlert({ status, message: ERROR_MESSAGE_ON_CREATE }));
+    }
+}
+
+function* updateTrailerSaga(payload)
+{
+    try {
+        const { message, status } = yield call(API.updateTrailerAsync, payload);
+
+        yield put(updateTrailerSuccess({ trailer: payload }));
+        yield put(showAlert({ status, message }));
+        yield put(push(PATH.VIEW_COMING_SOON_MOVIE.replace(':id', payload.coming_soon_movie_id)));
+    } catch ({ status, message }) {
+        yield put(updateTrailerFailed({ message }));
+        yield put(showAlert({ status, message: ERROR_MESSAGE_ON_UPDATE }));
+    }
+}
+
+
+function* deleteTrailerSaga(payload)
+{
+    try {
+        const { message, status } = yield call(API.deleteTrailersAsync, payload);
+
+        yield put(deleteTrailerSuccess());
+        yield put(showAlert({ status, message }));
+    } catch ({ message, status }) {
+        yield put(deleteTrailerFailed({ message }));
+        yield put(showAlert({ status, message: ERROR_MESSAGE_ON_DELETE }));
+    }
+}
+
+
 /**
  * Watchers
  */
@@ -166,6 +219,30 @@ function* toggleComingSoonMovieReleaseWatcher()
     }
 }
 
+function* createTrailerWatcher()
+{
+    while (true) {
+        const { payload } = yield take(CREATE_TRAILER_START);
+        yield call(createTrailerSaga, payload);
+    }
+}
+
+
+function* updateTrailerWatcher()
+{
+    while (true) {
+        const { payload } = yield take(UPDATE_TRAILER_START);
+        yield call(updateTrailerSaga, payload);
+    }
+}
+
+function* deleteTrailerWatcher()
+{
+    while (true) {
+        const { payload } = yield take(DELETE_TRAILER_START);
+        yield call(deleteTrailerSaga, payload);
+    }
+}
 
 /**
  * 
@@ -177,7 +254,10 @@ export default function*()
         findComingSoonMovieByIDWatcher(),
         createComingSoonMovieWatcher(),
         updateComingSoonMovieWatcher(),
+        updateTrailerWatcher(),
         deleteComingSoonMoviesWatcher(),
-        toggleComingSoonMovieReleaseWatcher()
+        deleteTrailerWatcher(),
+        toggleComingSoonMovieReleaseWatcher(),
+        createTrailerWatcher()
     ]);
 }

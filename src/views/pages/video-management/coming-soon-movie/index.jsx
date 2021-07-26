@@ -1,4 +1,4 @@
-import React,{ useState, useEffect } from 'react'
+import React,{ useState, useEffect, useMemo } from 'react'
 import clsx from 'clsx'
 import { useHistory } from 'react-router-dom';
 import { useDispatch, connect } from 'react-redux';
@@ -11,8 +11,10 @@ import StyledNavLink from '../../../../components/styled-components/StyledNavLin
 import PATH from '../../../../routes/path';
 import MaterialTable from '../../../../components/styled-components/MaterialTable';
 import MaterialTableActionButton from '../../../../components/MaterialTableActionButton';
-import { Chip, Avatar } from '@material-ui/core';
+import { Chip, Avatar, IconButton, Container } from '@material-ui/core';
 import comingSoonMovieUseStyles from './../../../../assets/js/material-ui/comingSoonMovieUseStyles';
+import VisibilityIcon from '@material-ui/icons/Visibility';
+import Tooltip from '@material-ui/core/Tooltip';
 
 
 const ComingSoonMovie = ({ COMING_SOON_MOVIE }) => 
@@ -29,13 +31,15 @@ const ComingSoonMovie = ({ COMING_SOON_MOVIE }) =>
             field: 'title',
             render: ({ id, title }) => (
                 <StyledNavLink 
-                    to={ PATH.UPDATE_COMING_SOON_MOVIE.replace(':id', id) } 
+                    to={{
+                        pathname: PATH.UPDATE_COMING_SOON_MOVIE.replace(':id', id),
+                        actionName: 'Update Movie'
+                    }} 
                     text={ title } 
                 />
             ) 
         },
-        { title: 'Plot', field: 'plot' },
-        { title: 'Year of Release', field: 'year_of_release' },
+        { title: 'Plot', field: 'plot', width: '20%', cellStyle: { textAlign: 'justify' } },
         { title: 'Casts', field: 'casts' },
         { title: 'Country', field: 'country' },
         { title: 'Directed by', field: 'directors' },
@@ -43,23 +47,40 @@ const ComingSoonMovie = ({ COMING_SOON_MOVIE }) =>
             title: 'Status', 
             field: 'status',
             render: ({ id, status }) => (
-                <Chip 
-                    avatar={
-                        <Avatar
-                            className={clsx(classes.status, {
-                                [classes.statusComingSoon]: status === 'Coming Soon',
-                                [classes.statusRelease]: status === 'Released',
-                            })}
-                        >
-                            { status.substr(0, 1) }
-                        </Avatar>
-                    } 
-                    label={ status } 
-                    onClick={ () => handleClickUpdateStatus(id) } 
-                />
+                <Tooltip title='Update Status'>
+                    <Chip 
+                        avatar={
+                            <Avatar
+                                className={clsx(classes.status, {
+                                    [classes.statusComingSoon]: status === 'Coming Soon',
+                                    [classes.statusRelease]: status === 'Released',
+                                })}
+                            >
+                                { status.substr(0, 1) }
+                            </Avatar>
+                        } 
+                        label={ status } 
+                        onClick={ () => handleClickUpdateStatus(id) } 
+                    />
+                </Tooltip>
             )
         },
-        
+        { 
+            title: 'Action', 
+            field: 'action',
+            render: ({ id, title }) => (
+                <StyledNavLink 
+                    to={ PATH.VIEW_COMING_SOON_MOVIE.replace(':id', `${ id }?${ title }`) } 
+                    text={
+                        <Tooltip title="View">
+                            <IconButton>
+                                <VisibilityIcon />
+                            </IconButton>
+                        </Tooltip>
+                    } 
+                />
+            ) 
+        },
     ];
 
     const [ ids, setIDs ] = useState([]);
@@ -78,19 +99,21 @@ const ComingSoonMovie = ({ COMING_SOON_MOVIE }) =>
     }, []);
 
     return (
-        <MaterialTable 
-            columns={ columns }      
-            data={ COMING_SOON_MOVIE.comingSoonMovies }  
-            title={ 
-                <MaterialTableActionButton
-                    ids={ ids } 
-                    addButtonCallback = { () => history.push(PATH.CREATE_COMING_SOON_MOVIE) }
-                    deleteButtonCallback={ handleClickDeleteComingSoonMovie }
-                /> 
-            }
-            isLoading={ COMING_SOON_MOVIE.isLoading }
-            onSelectionChange={ rows => setIDs(rows.map(({ id }) => id)) }
-        />
+        <Container maxWidth="lg">
+            <MaterialTable 
+                columns={ columns }      
+                data={ COMING_SOON_MOVIE.comingSoonMovies }  
+                title={ 
+                    <MaterialTableActionButton
+                        ids={ ids } 
+                        addButtonCallback = { () => history.push(PATH.CREATE_COMING_SOON_MOVIE, { actionName: 'Create Movie' }) }
+                        deleteButtonCallback={ handleClickDeleteComingSoonMovie }
+                    /> 
+                }
+                isLoading={ COMING_SOON_MOVIE.isLoading }
+                onSelectionChange={ rows => setIDs(rows.map(({ id }) => id)) }
+            />
+        </Container>
     )
 }
 

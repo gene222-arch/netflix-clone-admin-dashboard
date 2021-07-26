@@ -5,6 +5,7 @@ import StyledReactSelect from '../styled-components/StyledReactSelect';
 import COUNTRIES from '../../constants/Countries';
 import LANGUAGES from '../../constants/Languages';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import VideoWithPreview from '../VideoWithPreview';
 import { createStructuredSelector } from 'reselect';
 import {
@@ -12,6 +13,8 @@ import {
     selectComingSoonMovieHasErrorMessages 
 } from '../../redux/modules/coming-soon-movie/selector';
 import { connect } from 'react-redux';
+import { useHistory, useLocation } from 'react-router-dom';
+import CardBackButton from './../CardBackButton';
 
 
 const ComingSoonMovieInfoFields = ({ 
@@ -26,17 +29,18 @@ const ComingSoonMovieInfoFields = ({
     handleChangeReleaseDate, 
     handleSelectSingleOption 
 }) => {
+
+    const history = useHistory();
+    const location = useLocation();
     
     return (
         <Card>
             <CardHeader
-                action={
-                    <IconButton aria-label=''>
-                        <MoreVertIcon />
-                    </IconButton>
-                }
-                title={
-                    <Typography variant='h5'>{ cardHeaderTitle }</Typography>
+                title={ 
+                    <CardBackButton 
+                        actionName={ history.location.state?.actionName ?? location.actionName } 
+                        title={ history.location.state?.routeName ?? 'Coming Soon Movies' } 
+                    /> 
                 }
             />
 

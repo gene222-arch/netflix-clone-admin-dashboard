@@ -10,17 +10,28 @@ const {
     CREATE_COMING_SOON_MOVIE_START,
     CREATE_COMING_SOON_MOVIE_SUCCESS,
     CREATE_COMING_SOON_MOVIE_FAILED,
+    CREATE_TRAILER_START,
+    CREATE_TRAILER_SUCCESS,
+    CREATE_TRAILER_FAILED,
     UPDATE_COMING_SOON_MOVIE_START,
     UPDATE_COMING_SOON_MOVIE_SUCCESS,
     UPDATE_COMING_SOON_MOVIE_FAILED,
+    UPDATE_TRAILER_START,
+    UPDATE_TRAILER_SUCCESS,
+    UPDATE_TRAILER_FAILED,
     DELETE_COMING_SOON_MOVIES_START,
     DELETE_COMING_SOON_MOVIES_SUCCESS,
     DELETE_COMING_SOON_MOVIES_FAILED,
+    DELETE_TRAILER_START,
+    DELETE_TRAILER_SUCCESS,
+    DELETE_TRAILER_FAILED,
     TOGGLE_COMING_SOON_MOVIE_RELEASE_START,
     TOGGLE_COMING_SOON_MOVIE_RELEASE_SUCCESS,
     TOGGLE_COMING_SOON_MOVIE_RELEASE_FAILED,
     CLEAR_COMING_SOON_MOVIE_ERRORS,
-    UPDATE_COMING_SOON_MOVIE_ERROR_STATE
+    UPDATE_COMING_SOON_MOVIE_ERROR_STATE,
+    CLEAR_TRAILER_ERRORS,
+    UPDATE_TRAILER_ERROR_STATE
 } = ACTION_TYPES;
 
 const COMING_SOON_MOVIE_DEFAULT_PROPS = {
@@ -49,11 +60,23 @@ const COMING_SOON_MOVIE_DEFAULT_PROPS = {
     status: 'Coming Soon'
 };
 
+const TRAILER_DEFAULT_PROPS = {
+    id: '',
+    title: '',
+    coming_soon_movie_id: '',
+    poster_path: '',
+    wallpaper_path: '',
+    video_path: '',
+    title_logo_path: '',
+};
+
 const initialState = {
     comingSoonMovie: COMING_SOON_MOVIE_DEFAULT_PROPS,
     comingSoonMovies: [],
+    trailer: TRAILER_DEFAULT_PROPS,
     isLoading: false,
-    error: COMING_SOON_MOVIE_DEFAULT_PROPS
+    error: COMING_SOON_MOVIE_DEFAULT_PROPS,
+    trailerError: TRAILER_DEFAULT_PROPS
 };
 
 export default (state = initialState, { type, payload }) =>
@@ -64,16 +87,20 @@ export default (state = initialState, { type, payload }) =>
 
     const isLoading = false;
     const error = COMING_SOON_MOVIE_DEFAULT_PROPS;
+    const trailerError = TRAILER_DEFAULT_PROPS;
+
     let updatedComingSoonMovies = [];
     
     switch (type) 
     {
-        
+        case UPDATE_TRAILER_START:
         case FETCH_ALL_COMING_SOON_MOVIES_START:
         case FIND_COMING_SOON_MOVIE_BY_ID_START:
         case CREATE_COMING_SOON_MOVIE_START:
+        case CREATE_TRAILER_START:
         case UPDATE_COMING_SOON_MOVIE_START:
         case DELETE_COMING_SOON_MOVIES_START:
+        case DELETE_TRAILER_START:
         case TOGGLE_COMING_SOON_MOVIE_RELEASE_START:
             return {
                 ...state,
@@ -152,9 +179,53 @@ export default (state = initialState, { type, payload }) =>
                 error
             }
 
+        case CREATE_TRAILER_SUCCESS: 
+            return {
+                ...state,
+                isLoading,
+                error,
+                trailerError
+            }
+        
+        case UPDATE_TRAILER_START: 
+            return {
+                ...state,
+                isLoading,
+                error,
+                trailerError 
+            }
+
+        case DELETE_TRAILER_SUCCESS: 
+            return {
+                ...state,
+                isLoading,
+                error,
+                trailerError 
+            }
+
+        case CLEAR_TRAILER_ERRORS:
+            return {
+                ...state,
+                isLoading,
+                error,
+                trailerError
+            }
+
+        case UPDATE_TRAILER_ERROR_STATE:
+            return {
+                ...state,
+                isLoading,
+                error,
+                trailerError: {
+                    ...state.trailerError,
+                    ...payload
+                }
+            }
+
         case CLEAR_COMING_SOON_MOVIE_ERRORS:
             return {
                 ...state,
+                isLoading,
                 error
             }
             
@@ -170,8 +241,12 @@ export default (state = initialState, { type, payload }) =>
         case FETCH_ALL_COMING_SOON_MOVIES_FAILED:
         case FIND_COMING_SOON_MOVIE_BY_ID_FAILED:
         case CREATE_COMING_SOON_MOVIE_FAILED:
+        case CREATE_TRAILER_FAILED:
         case UPDATE_COMING_SOON_MOVIE_FAILED:
+        case UPDATE_TRAILER_START:
         case DELETE_COMING_SOON_MOVIES_FAILED:
+        case DELETE_TRAILER_FAILED:
+        case TOGGLE_COMING_SOON_MOVIE_RELEASE_FAILED:
             return {
                 ...state,
                 isLoading,

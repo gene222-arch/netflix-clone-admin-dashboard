@@ -39,6 +39,7 @@ const tableIcons = {
 
 const MaterialTable = (props) => 
 {
+    console.log('MATERIAL TABLE RENDERS');
     return (
         <MaterialTable_ 
             options={{  
