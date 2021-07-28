@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const ViewComingSoonMovieHeader = ({ id }) => 
+const ViewComingSoonMovieHeader = ({ id, comingSoonMovie }) => 
 {
     const classes = useStyles();
     const history = useHistory();
@@ -45,7 +45,10 @@ const ViewComingSoonMovieHeader = ({ id }) =>
 
     const handleClickAddTrailer = () => {
         handleClickCloseMenu();
-        history.push(PATH.CREATE_TRAILER.replace(':id', id));
+        history.push(PATH.CREATE_TRAILER.replace(':id', id),
+        {
+            routeName: `Add Trailer for ${ comingSoonMovie.title }`
+        });
     }
 
     const handleClickEdit = () => {

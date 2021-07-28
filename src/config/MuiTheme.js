@@ -1,4 +1,4 @@
-import { createMuiTheme } from '@material-ui/core/styles'
+import { createMuiTheme, responsiveFontSizes } from '@material-ui/core/styles'
 import Colors from './../constants/Colors';
 
 const THEME = createMuiTheme({
@@ -42,4 +42,6 @@ const THEME = createMuiTheme({
     }
 });
 
-export default THEME
+const RESPONSIVE_THEME = responsiveFontSizes(THEME);
+
+export default RESPONSIVE_THEME

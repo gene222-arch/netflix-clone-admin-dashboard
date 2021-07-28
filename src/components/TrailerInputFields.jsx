@@ -7,7 +7,7 @@ import * as COMING_SOON_MOVIE_API from './../services/movies/coming.soon.movie'
 import { connect, useDispatch } from 'react-redux';
 import { selectTrailerErrorMessages, selectTrailerHasErrorMessages } from './../redux/modules/coming-soon-movie/selector';
 import VideoWithPreview from './VideoWithPreview';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import SaveCancelButtons from './SaveCancelButtons';
 import ImageWithPreview from './ImageWithPreview';
 import CardBackButton from './CardBackButton';
@@ -179,7 +179,7 @@ const TrailerInputFields = ({ id, trailer, setTrailer, COMING_SOON_MOVIE, handle
         <Card>
             <CardHeader
                 title={
-                    <CardBackButton title={ trailer?.title ?? ''  } />
+                    <CardBackButton title={ history.location.state?.routeName  } />
                 }
             />
             <Divider />

@@ -53,7 +53,10 @@ const ViewComingSoonMovie = ({ COMING_SOON_MOVIE }) =>
         const trailerID = trailers[carouselIndex].id;
 
         history.push(
-            PATH.UPDATE_TRAILER.replace(':id/trailers/:trailerID', `${ id }/trailers/${ trailerID }`)
+            PATH.UPDATE_TRAILER.replace(':id/trailers/:trailerID', `${ id }/trailers/${ trailerID }`),
+            {
+                routeName: `Add Trailer for ${ comingSoonMovie.title }`
+            }
         );
     }
 
@@ -67,7 +70,7 @@ const ViewComingSoonMovie = ({ COMING_SOON_MOVIE }) =>
     const trailers = useMemo(() => {
         return !(comingSoonMovie?.trailers.length) 
             ? []
-            : comingSoonMovie.trailers.map(({ id, video_path }) => ({ id, video_path }));
+            : comingSoonMovie.trailers.map(({ id, video_path, title }) => ({ id, video_path, title }));
     }, [comingSoonMovie]);
 
     useEffect(() => {
@@ -78,7 +81,7 @@ const ViewComingSoonMovie = ({ COMING_SOON_MOVIE }) =>
         <Container maxWidth="xl" >
             <Grid container spacing={1}>
                 <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
-                    <ViewComingSoonMovieHeader id={ id } />
+                    <ViewComingSoonMovieHeader id={ id } comingSoonMovie={ comingSoonMovie } />
                 </Grid>
                 <Grid item xs={ 12 } sm={ 12 } md={ 5 } lg={ 5 }>
                     {
