@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Carousel from 'react-material-ui-carousel'
 import EditIcon from '@material-ui/icons/Edit';
 import { Typography, IconButton, AppBar, Toolbar } from '@material-ui/core';
@@ -10,6 +10,12 @@ const TrailerCarousel = ({ id, trailers, handleClickEdit, handleClickDelete, ...
     const classes = trailerCarouselUseStyles();
     
     const [ carouselIndex, setCarouselIndex ] = useState(0);
+
+    useEffect(() => {
+        return () => {
+            setCarouselIndex(0);
+        }
+    }, []);
 
     return (
         <>

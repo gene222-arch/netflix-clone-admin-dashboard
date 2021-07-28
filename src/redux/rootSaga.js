@@ -6,6 +6,7 @@ import authorSaga from '../redux/modules/author/saga'
 import castSaga from '../redux/modules/cast/saga'
 import comingSoonMovieSaga from '../redux/modules/coming-soon-movie/saga'
 import directorSaga from '../redux/modules/director/saga'
+import dashboardSaga from '../redux/modules/dashboard/saga'
 import genreSaga from '../redux/modules/genre/saga'
 import movieSaga from '../redux/modules/movie/saga'
 
@@ -17,6 +18,7 @@ export default function* ()
         authorSaga(),
         castSaga(),
         comingSoonMovieSaga(),
+        dashboardSaga(),
         directorSaga(),
         genreSaga(),
         movieSaga()

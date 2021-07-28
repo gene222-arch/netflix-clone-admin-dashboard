@@ -5,7 +5,7 @@ import { Route, Switch } from 'react-router-dom'
 import PATH from './path'
 
 /** Lazy components */
-const Dashboard = lazy(() => import('../views/pages/Dashboard'))
+const Dashboard = lazy(() => import('../views/pages/dashboard/Dashboard'))
 const ForgotPasswordForm = lazy(() => import('../views/pages/auth/ForgotPasswordForm'))
 const LoginForm = lazy(() => import('../views/pages/auth/LoginForm'))
 const NotFound = lazy(() => import('../views/pages/errors/NotFound'))

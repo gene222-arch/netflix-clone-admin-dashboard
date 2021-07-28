@@ -1,6 +1,6 @@
 import axiosInstance from '../../utils/axiosInstance'
 
-export const dashboardAsync = async (payload) => 
+export const fetchDashboardDataAsync = async (payload) => 
 {
     return await axiosInstance()
         .get('/dashboard', payload)
