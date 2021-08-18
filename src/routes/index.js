@@ -11,7 +11,7 @@ const LoginForm = lazy(() => import('../views/pages/auth/LoginForm'))
 const NotFound = lazy(() => import('../views/pages/errors/NotFound'))
 const PublicRoute = lazy(() => import('./PublicRoute'));
 const PrivateRoute = lazy(() => import('./PrivateRoute'));
-const RegistrationForm = lazy(() => import('../views/pages/auth/RegistrationForm'))
+const RegistrationForm = lazy(() => import('../views/pages/auth/registration/RegistrationForm'))
 const ResetPasswordForm = lazy(() => import('../views/pages/auth/ResetPasswordForm'))
 const VideoManagementAuthor = lazy(() => import('../views/pages/video-management/author'))
 const CreateAuthor = lazy(() => import('../views/pages/video-management/author/CreateAuthor'))
