@@ -2,14 +2,11 @@ import React from 'react'
 import CustomAlert from './CustomAlert';
 
 const Error = ({ error }) => {
+
+    const isErrorString = typeof error === 'string' && error;
+
     return (
-        <>
-            {
-                (typeof error === 'string' && error.length > 0) && (
-                    <CustomAlert status={ 'error' } message={ error } />
-                ) 
-            }
-        </>
+        isErrorString && <CustomAlert status={ 'error' } message={ error } />
     )
 }
 

@@ -27,6 +27,7 @@ const {
     RESET_PASSWORD_SUCCESS,
     RESET_PASSWORD_FAILED,
 
+    CLEAR_ERRORS
 } = ACTION_TYPES;
 
 
@@ -45,17 +46,20 @@ const ERROR_DEFAULT = {
 
 const initialState = 
 {
-    isLoading: false,
     isAuthenticated: false,
-    user: null,
     credentials: CREDENTIALS_DEFAULT,
     permissions: null,
+    user: null,
+    isLoading: false,
     error: ERROR_DEFAULT,
 };
 
 
 export default (state = initialState, { type, payload }) => 
 {
+    const isLoading = false;
+    const error = ERROR_DEFAULT;
+
     switch (type) 
     {
         case AUTH_USER_START:
@@ -73,18 +77,18 @@ export default (state = initialState, { type, payload }) =>
         case LOGIN_SUCCESS: 
             return {
                 ...state,
-                isLoading: false,
+                isLoading,
                 isAuthenticated: true,
                 user: payload.user,
                 permissions: payload.permissions,
-                error: ERROR_DEFAULT,
+                error,
             };
             
         case AUTH_USER_FAILED:
         case LOGIN_FAILED: 
             return {
                 ...state,
-                isLoading: false,
+                isLoading,
                 isAuthenticated: false,
                 user: null,
                 error: payload.errorMessages,
@@ -93,31 +97,24 @@ export default (state = initialState, { type, payload }) =>
         case FORGOT_PASSWORD_SUCCESS:
             return {
                 ...state,
-                isLoading: false,
-                error: ERROR_DEFAULT,
-            };   
-
-        case FORGOT_PASSWORD_FAILED:
-            return {
-                ...state,
-                isLoading: false,
-                error: payload.errorMessages
+                isLoading,
+                error,
             };   
             
         case REGISTRATION_SUCCESS: 
             return {
                 ...state,
-                isLoading: false,
+                isLoading,
                 isAuthenticated: true,
                 user: payload.user,
                 permissions: payload.permissions,
-                error: ERROR_DEFAULT,
+                error,
             };
             
         case REGISTRATION_FAILED: 
             return {
                 ...state,
-                isLoading: false,
+                isLoading,
                 isAuthenticated: false,
                 user: ERROR_DEFAULT,
                 error: payload.errorMessages
@@ -126,33 +123,41 @@ export default (state = initialState, { type, payload }) =>
         case RESET_PASSWORD_SUCCESS:
             return {
                 ...state,
-                isLoading: false,
-                error: ERROR_DEFAULT,
+                isLoading,
+                error,
             };   
 
+        case FORGOT_PASSWORD_FAILED:
         case RESET_PASSWORD_FAILED:
             return {
                 ...state,
-                isLoading: false,
+                isLoading,
                 error: payload.errorMessages
             };   
 
         case LOGOUT_SUCCESS: 
-
             return {
                 ...state,
-                isLoading: false,
+                isLoading,
                 isAuthenticated: false,
                 user: null,
-                error: ERROR_DEFAULT
+                error
             };
             
         case LOGOUT_FAILED: 
             return {
                 ...state,
-                isLoading: false,
+                isLoading,
+                isAuthenticated: false,
                 error: payload.errorMessages
             };
+
+        case CLEAR_ERRORS:
+                return {
+                    ...state,
+                    isLoading,
+                    error
+                }
             
         default:
             return state;

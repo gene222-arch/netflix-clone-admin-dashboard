@@ -27,20 +27,17 @@ import loginFormUseStyles from '../../../assets/js/material-ui/loginFormUseStyle
 /** Actions */
 import * as AUTH_ACTION from '../../../redux/modules/auth/actions'
 
-/** Reselect */
-import { selectAuth } from './../../../redux/modules/auth/selector';
-
 /** Routes */
 import PATH from './../../../routes/path';
+import { selectAuth, selectAuthErrorMessages, selectAuthHasErrorMessages } from './../../../redux/modules/auth/selector';
 
 
-const LoginForm = ({ AUTH }) => 
+const LoginForm = ({ AUTH, ERROR_MESSAGE, HAS_ERROR_MESSAGE }) => 
 {
     const dispatch = useDispatch();
     const classes = loginFormUseStyles();
 
     const [ credentials, setCredentials ] = useState(AUTH.credentials);
-
     
     const handleChangeCredentials = (e) => 
     {
@@ -51,92 +48,90 @@ const LoginForm = ({ AUTH }) =>
             : setCredentials({...credentials, [name]: value});
     };
 
-    const onSubmitCredentails = (e) => 
-    {
-        e.preventDefault();
-        dispatch(AUTH_ACTION.login(credentials));
-    }
+    const onSubmitCredentails = (e) => dispatch(AUTH_ACTION.login(credentials));
 
     useEffect(() => {
         return () => {
             setCredentials(AUTH.credentials);
+            dispatch(AUTH_ACTION.clearErrors());
         }
     }, [])
 
     return (
-        <Container component="main" maxWidth="xs">
+        <Container component='main' maxWidth='xs'>
             <CssBaseline />
-            <div className={classes.paper}>
-                <Avatar className={classes.avatar}>
+            <div className={ classes.paper }>
+                <Avatar className={ classes.avatar }>
                     <LockOutlinedIcon />
                 </Avatar>
-                <Typography component="h1" variant="h5">
-                    Sign in
-                </Typography>
+                <Typography component='h1' variant='h5'>Sign in</Typography>
                 <Error error={ AUTH.error } />
-                <form className={classes.form} noValidate onSubmit={onSubmitCredentails}>
-                    <TextField
-                        error={Boolean(AUTH.error.email)}
-                        helperText={AUTH.error.email}
-                        variant="outlined"
-                        margin="normal"
-                        required
-                        fullWidth
-                        id="email"
-                        label="Email Address"
-                        name="email"
-                        autoComplete="email"
-                        autoFocus
-                        value={credentials.email}
-                        onChange={handleChangeCredentials}
-                    />
-                    <TextField
-                        error={Boolean(AUTH.error.password)}
-                        helperText={AUTH.error.password}
-                        variant="outlined"
-                        margin="normal"
-                        required
-                        fullWidth
-                        name="password"
-                        label="Password"
-                        type="password"
-                        id="password"
-                        autoComplete="current-password"
-                        value={credentials.password}
-                        onChange={handleChangeCredentials}
-                    />
-                    <FormControlLabel
-                        control={
-                            <Checkbox value="remember" 
-                            color="primary" 
-                            checked={credentials.remember_me}
-                            onChange={handleChangeCredentials}
+                <TextField
+                    id='email'
+                    variant='outlined'
+                    margin='normal'
+                    required
+                    fullWidth
+                    label='Email Address'
+                    name='email'
+                    autoComplete='email'
+                    autoFocus
+                    value={ credentials.email }
+                    onChange={ handleChangeCredentials }
+                    error={ HAS_ERROR_MESSAGE.email }
+                    helperText={ ERROR_MESSAGE.email }
+                />
+                <TextField
+                    variant='outlined'
+                    margin='normal'
+                    required
+                    fullWidth
+                    name='password'
+                    label='Password'
+                    type='password'
+                    id='password'
+                    autoComplete='current-password'
+                    value={ credentials.password }
+                    onChange={ handleChangeCredentials }
+                    error={ HAS_ERROR_MESSAGE.password }
+                    helperText={ ERROR_MESSAGE.password }
+                />
+                <FormControlLabel
+                    control={
+                        <Checkbox value='remember' 
+                            color='primary' 
+                            checked={ credentials.remember_me }
+                            onChange={ handleChangeCredentials }
                         />}
-                        label="Remember me"
-                    />
-                    <Button
-                        type="submit"
-                        fullWidth
-                        variant="contained"
-                        color="primary"
-                        className={classes.submit}
-                        disabled={ AUTH.isLoading }
-                    >
-                        Sign In
-                    </Button>
-                    <Grid container>
-                        <Grid item xs>
-                            <Link href={ PATH.FORGOT_PASSWORD } variant="body2">
+                    label='Remember me'
+                />
+                <Button
+                    type='submit'
+                    fullWidth
+                    variant='contained'
+                    color='primary'
+                    className={ classes.submit }
+                    disabled={ AUTH.isLoading }
+                    onClick={ onSubmitCredentails }
+                >
+                    { !AUTH.isLoading ? 'Sign In' : 'Signing in...' }
+                </Button>
+                <Grid container>
+                    <Grid item xs>
+                        <Typography variant="subtitle2" color="initial">
+                            <Link href={ PATH.FORGOT_PASSWORD } color='inherit' variant='body2'>
                                 Forgot password?
                             </Link>
-                        </Grid>
-                        <Grid item>
-                            <Link href="/auth/create-an-account" variant="body2">
-                                {"Don't have an account? Sign Up"}
-                            </Link>
-                        </Grid>
+                        </Typography>
                     </Grid>
-                </form>
+                    <Grid item>
+                    <Typography variant="subtitle2">
+                        <Link href='/auth/create-an-account' color='inherit' variant='body2'>
+                            Don't have an account? Sign Up
+                        </Link>
+                    </Typography>
+                    </Grid>
+                </Grid>
             </div>
             <Box mt={8}>
                 <Copyright />
@@ -146,7 +141,9 @@ const LoginForm = ({ AUTH }) =>
 }
 
 const mapStateToProps = createStructuredSelector({
-    AUTH: selectAuth
+    AUTH: selectAuth,
+    ERROR_MESSAGE: selectAuthErrorMessages,
+    HAS_ERROR_MESSAGE: selectAuthHasErrorMessages
 });
 
 

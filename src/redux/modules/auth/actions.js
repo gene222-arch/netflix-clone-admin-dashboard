@@ -26,6 +26,8 @@ const {
     RESET_PASSWORD_START,
     RESET_PASSWORD_SUCCESS,
     RESET_PASSWORD_FAILED,
+
+    CLEAR_ERRORS
 } = ACTION_TYPES;
 
 
@@ -140,5 +142,12 @@ export const resetPasswordSuccess = (payload) => ({
 
 export const resetPasswordFailed = (payload) => ({
     type: RESET_PASSWORD_FAILED,
+    payload
+});
+
+
+/** Clear Errors */
+export const clearErrors = (payload) => ({
+    type: CLEAR_ERRORS,
     payload
 });

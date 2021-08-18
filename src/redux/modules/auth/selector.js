@@ -15,9 +15,11 @@ export const selectAuthHasErrorMessages = createSelector(selectAuthErrorMessages
     let hasErrorMessages = {};
 
     for (const key in error) {
-        return {
+        hasErrorMessages = {
             ...hasErrorMessages,
             [key]: Boolean(error[key])
         };
     }
+
+    return hasErrorMessages;
 });  
