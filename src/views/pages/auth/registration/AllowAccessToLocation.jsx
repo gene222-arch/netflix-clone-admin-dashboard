@@ -6,6 +6,8 @@ import Button from '@material-ui/core/Button'
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid'
 import Colors from '../../../../constants/Colors';
+import { useHistory, useLocation } from 'react-router-dom'
+import PATH from '../../../../routes/path'
 
 const useStyles = makeStyles(theme => ({
     btn: {
@@ -25,18 +27,24 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
-const StepTwo = ({ setAllowAccessToLocation, setStepIndex }) => 
+const AllowAccessToLocation = () => 
 {
     const classes = useStyles();
-
+    const history = useHistory();
+    const { state } = useLocation();
+ 
     const handleClickNo = () => {
-        setAllowAccessToLocation(false);
-        setStepIndex(2);
+        history.push(PATH.REGISTER, {
+            ...state,
+            allow_access_to_location: false
+        });
     }
 
     const handleClickContinue = () => {
-        setAllowAccessToLocation(true);
-        setStepIndex(2);
+        history.push(PATH.REGISTER, {
+            ...state,
+            allow_access_to_location: true
+        });
     }
 
     return (
@@ -77,4 +85,4 @@ const StepTwo = ({ setAllowAccessToLocation, setStepIndex }) =>
     )
 }
 
-export default StepTwo
+export default AllowAccessToLocation

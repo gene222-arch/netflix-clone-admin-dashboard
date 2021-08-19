@@ -4,6 +4,8 @@ const PATH =
     FORGOT_PASSWORD: '/auth/forgot-password/email',
     LOGIN: '/auth/sign-in',
     LOGOUT: '/logout',
+    GET_STARTED: '/auth/get-started',
+    ALLOW_ACCESS_TO_LOCATION: '/auth/allow-access-to-location',
     REGISTER: '/auth/create-an-account',
     RESET_PASSWORD: '/auth/forgot-password/reset',
 

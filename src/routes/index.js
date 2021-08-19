@@ -11,6 +11,8 @@ const LoginForm = lazy(() => import('../views/pages/auth/LoginForm'))
 const NotFound = lazy(() => import('../views/pages/errors/NotFound'))
 const PublicRoute = lazy(() => import('./PublicRoute'));
 const PrivateRoute = lazy(() => import('./PrivateRoute'));
+const GetStarted = lazy(() => import('../views/pages/auth/registration/GetStarted'))
+const AllowAccessToLocation = lazy(() => import('../views/pages/auth/registration/AllowAccessToLocation'))
 const RegistrationForm = lazy(() => import('../views/pages/auth/registration/RegistrationForm'))
 const ResetPasswordForm = lazy(() => import('../views/pages/auth/ResetPasswordForm'))
 const VideoManagementAuthor = lazy(() => import('../views/pages/video-management/author'))
@@ -51,6 +53,24 @@ export const PUBLIC_ROUTES = [
         icon: '',
         exact: true,
         component: LoginForm,
+        access: '',
+        restricted: false
+    },
+    {
+        path: PATH.GET_STARTED,
+        key: 'GetStarted',
+        icon: '',
+        exact: true,
+        component: GetStarted,
+        access: '',
+        restricted: false
+    },
+    {
+        path: PATH.ALLOW_ACCESS_TO_LOCATION,
+        key: 'AllowAccessToLocation',
+        icon: '',
+        exact: true,
+        component: AllowAccessToLocation,
         access: '',
         restricted: false
     },
