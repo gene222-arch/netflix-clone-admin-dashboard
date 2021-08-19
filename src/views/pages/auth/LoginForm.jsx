@@ -130,7 +130,7 @@ const LoginForm = ({ AUTH, ERROR_MESSAGE, HAS_ERROR_MESSAGE }) =>
                     </Grid>
                     <Grid item>
                     <Typography variant="subtitle2">
-                        <Link href='/auth/create-an-account' color='inherit' variant='body2'>
+                        <Link href={ PATH.GET_STARTED } color='inherit' variant='body2'>
                             Don't have an account? Sign Up
                         </Link>
                     </Typography>

@@ -68,7 +68,7 @@ const RegistrationForm = ({ AUTH, AUTH_ERROR_MESSAGES, AUTH_HAS_ERROR_MESSAGES }
             <Header />
             <div className={classes.paper}>
                 <div className={ classes.description }>
-                    <Typography variant="subtitle2">Step 1 of 2</Typography>
+                    <Typography variant="subtitle2">Step 2 of 2</Typography>
                     <Typography component="h1" variant="h5">Joining Flicklify is Easy.</Typography>
                     <Typography variant="subtitle1" gutterBottom className={ classes.headerLabel}>
                         Enter your password and you'll be watching in no time.
