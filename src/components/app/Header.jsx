@@ -1,9 +1,10 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Container, Typography, Grid, Divider } from '@material-ui/core';
+import { Container, Typography, Grid } from '@material-ui/core';
 import APP_LOGO from './../../assets/images/app/LOGO.png'
 import { Link } from 'react-router-dom';
 import Colors from './../../constants/Colors';
+import PATH from './../../routes/path'
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -43,7 +44,7 @@ const Header = () =>
                 </Grid>
                 <Grid item>
                     <Link 
-                        href='/auth/sign-in' 
+                        href={ PATH.LOGIN } 
                         color='inherit' 
                         variant='body2'
                         className={ classes.link }
