@@ -11,6 +11,8 @@ import App from './App.jsx';
 /** Redux */
 import { store, history, persistor } from './redux'
 import { BrowserRouter } from 'react-router-dom';
+import { Suspense } from 'react';
+import PageLoader from './components/PageLoader';
 
 
 ReactDOM.render(
