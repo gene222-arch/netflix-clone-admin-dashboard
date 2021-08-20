@@ -20,7 +20,7 @@ const AuthLayoutHeader = () =>
                 </Grid>
                 <Grid item>
                     <Link 
-                        href={ PATH.LOGIN } 
+                        to={ PATH.LOGIN } 
                         color='inherit' 
                         variant='body2'
                         className={ classes.link }
