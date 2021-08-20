@@ -105,9 +105,6 @@ export default (state = initialState, { type, payload }) =>
             return {
                 ...state,
                 isLoading,
-                isAuthenticated: true,
-                user: payload.user,
-                permissions: payload.permissions,
                 error,
             };
             
@@ -115,8 +112,6 @@ export default (state = initialState, { type, payload }) =>
             return {
                 ...state,
                 isLoading,
-                isAuthenticated: false,
-                user: ERROR_DEFAULT,
                 error: payload.errorMessages
             };            
             
