@@ -17,31 +17,30 @@ import { MuiThemeProvider } from '@material-ui/core/styles';
 import AlertPopUp from './components/AlertPopUp';
 import THEME from './config/MuiTheme';
 import ConfirmationDialog from './components/ConfirmationDialog';
+import CssBaseline from '@material-ui/core/CssBaseline';
 
 const App = ({ history }) => 
 {
 
 	return (
 		<MuiThemeProvider theme={ THEME } >
+			<CssBaseline />
 			<ConfirmationDialog />
 			<AlertPopUp />
 			<MuiPickersUtilsProvider utils={DateFnsUtils}>
-				<Switch>
-					<Route path='/auth/:path?' exact>
-						<AuthLayout>
-							<RenderRoutes routes={ PUBLIC_ROUTES } />
-						</AuthLayout>
-					</Route>
-					
-
-					<Route path='/:path?'>
-						<MainLayout>
-							<RenderRoutes routes={ PRIVATE_ROUTES } />
-						</MainLayout>
-					</Route>
-
-					<Route component={ NotFound } />
-				</Switch>
+					<Switch>
+						<Route path='/auth/:path?'>
+							<AuthLayout>
+								<RenderRoutes routes={ PUBLIC_ROUTES } />
+							</AuthLayout>
+						</Route>
+						<Route path='/:path?'>
+							<MainLayout>
+								<RenderRoutes routes={ PRIVATE_ROUTES } />
+							</MainLayout>
+						</Route>
+						<Route component={ NotFound } />
+					</Switch>
 			</MuiPickersUtilsProvider>
 		</MuiThemeProvider>
 	)

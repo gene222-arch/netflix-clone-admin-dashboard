@@ -162,17 +162,11 @@ function* loginSaga (payload)
 function* registerSaga (payload)
 {
     try {
-        const { status, data } = yield call(registerAsync, payload);
-        const data_ = data;
+        const { status, message } = yield call(registerAsync, payload);
 
-        if (status === 'success') {
-            const { access_token, expires_at, data } = data_;
-
-            Cookies.set('access_token', access_token, expires_at);
-            yield put(registrationSuccess(data));
-            yield put(push(PATH.DASHBOARD));
-        }
-
+        yield put(registrationSuccess());
+        yield put(ALERT.showAlert({ status, message }));
+        yield put(push(PATH.LOGIN));
     } catch ({ message, status }) {
 
         yield put(registrationFailed({

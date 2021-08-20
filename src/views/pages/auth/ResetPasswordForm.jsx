@@ -22,6 +22,7 @@ import { selectAuth } from '../../../redux/modules/auth/selector';
 import * as QueryParam from '../../../utils/queryParams'
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
+import AuthLayoutHeader from '../../../components/app/AuthLayoutHeader';
 
 
 
@@ -33,7 +34,10 @@ const CREDENTIALS_DEFAULT = {
 };
 
 const resetPasswordUseStyles = makeStyles((theme) => ({
-    lockIcon: {
+    container: {
+        marginTop: theme.spacing(8)
+    },
+    updateIcon: {
         fontSize: '4rem'
     }
 }))
@@ -52,11 +56,12 @@ const ResetPasswordForm = ({ auth }) =>
 
     return (
         <>
-            <Container maxWidth="sm">
+            <AuthLayoutHeader />
+            <Container maxWidth="sm" component='main' className={ classes.container }>
                 <Grid container spacing={3}>
                     <Grid item xs={12} sm={12} md={12} lg={12}>
                         <Typography variant="h4" color="initial" align="center">
-                            <LockIcon className={ classes.lockIcon }/><UpdateIcon />
+                            <UpdateIcon className={ classes.updateIcon }/>
                         </Typography>
                     </Grid>
                     <Grid item xs={12} sm={12} md={12} lg={12}>

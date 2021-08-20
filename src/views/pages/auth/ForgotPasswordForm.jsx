@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useDispatch, connect } from 'react-redux'
 import { createStructuredSelector } from 'reselect';
 
@@ -11,43 +11,56 @@ import Key from '@material-ui/icons/VpnKey';
 import { makeStyles } from '@material-ui/core/styles';
 
 /** Actions */
-import * as AUTH from '../../../redux/modules/auth/actions'
+import * as AUTH_ACTION from '../../../redux/modules/auth/actions'
 
 /** Selector */
-import { selectAuth } from './../../../redux/modules/auth/selector';
+import { selectAuth, selectAuthErrorMessages, selectAuthHasErrorMessages } from './../../../redux/modules/auth/selector';
 
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
 
 /** Routes */
 import PATH from './../../../routes/path';
-
-
+import AuthLayoutHeader from '../../../components/app/AuthLayoutHeader';
 
 
 const forgotPasswordUseStyles = makeStyles((theme) => ({
+    container: {
+        marginTop: theme.spacing(8),
+    },
     forgotPasswordContainer: {
         marginTop: theme.spacing(3)
-    }
+    },
 }))
 
 
-const ForgotPasswordForm = ({ auth }) => 
+const ForgotPasswordForm = ({ AUTH, AUTH_HAS_ERROR_MESSAGE, AUTH_ERROR_MESSAGE }) => 
 {
     const classes = forgotPasswordUseStyles();
-    const { error } = auth;
     const dispatch = useDispatch();
 
     const [ email, setEmail ] = useState('');
 
     const handleChangeMail = (e) => setEmail(e.target.value);
     
-    const handleClickForgotPassword = () =>dispatch(AUTH.forgotPassword({ email }));
+    const handleClickForgotPassword = (e) => {
+        e.preventDefault();
+        dispatch(AUTH_ACTION.forgotPassword({ email }));
+    }
+
+
+    useEffect(() => {
+        window.addEventListener('load', () => dispatch(AUTH_ACTION.clearErrors()));
+        return () => {
+            dispatch(AUTH_ACTION.clearErrors());
+        }
+    }, []);
 
     return (
         <>
-            <Container maxWidth="sm">
-                <Grid container spacing={1} justify='center'>
+            <AuthLayoutHeader />
+            <Container component='main' maxWidth="sm" className={ classes.container }>
+                <Grid container spacing={1} direction='column' alignItems='center' justify='center'>
                     <Grid item xs={12} sm={12} md={12} lg={12}>
                         <Typography variant="h4" color="initial" align='center'>
                             <Key />
@@ -70,17 +83,17 @@ const ForgotPasswordForm = ({ auth }) =>
                 <Grid container spacing={3} className={ classes.forgotPasswordContainer }>
                     <Grid item xs={12} sm={12} md={12} lg={12}>
                         <TextField
-                            error={ Boolean(error.email) }
-                            helperText={ error.email }
                             label="Your email"
                             fullWidth
                             value={ email }
                             onChange={ handleChangeMail }
+                            error={ AUTH_HAS_ERROR_MESSAGE.email }
+                            helperText={ AUTH_ERROR_MESSAGE.email }
                         />
                     </Grid>
                     <Grid item xs={12} sm={12} md={12} lg={12}>
                         <Typography variant="subtitle2" color="inherit" align='center'>
-                            Remember password? <Link href={ PATH.LOGIN }>Login</Link>
+                            Remember password? <Link href={ PATH.LOGIN } color='inherit'>Login</Link>
                         </Typography>
                     </Grid>
                     <Grid item xs={12} sm={12} md={12} lg={12}>
@@ -88,7 +101,7 @@ const ForgotPasswordForm = ({ auth }) =>
                             variant="contained" 
                             color="primary"
                             onClick={ handleClickForgotPassword }
-                            disabled={ auth.isLoading }
+                            disabled={ AUTH.isLoading }
                             fullWidth
                         >
                             Send mail
@@ -101,7 +114,9 @@ const ForgotPasswordForm = ({ auth }) =>
 }
 
 const mapStateToProps = createStructuredSelector({
-    auth: selectAuth
+    AUTH: selectAuth,
+    AUTH_HAS_ERROR_MESSAGE: selectAuthHasErrorMessages,
+    AUTH_ERROR_MESSAGE: selectAuthErrorMessages
 });
 
 export default connect(mapStateToProps, null)(ForgotPasswordForm);
