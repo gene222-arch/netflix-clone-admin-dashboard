@@ -33,7 +33,6 @@ import { selectAuth, selectAuthErrorMessages, selectAuthHasErrorMessages } from 
 
 const LoginForm = ({ AUTH, ERROR_MESSAGE, HAS_ERROR_MESSAGE }) => 
 {
-    console.log('RENDER AUTH');
     const dispatch = useDispatch();
     const classes = loginFormUseStyles();
 
