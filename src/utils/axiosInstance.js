@@ -3,11 +3,22 @@ import * as Cookie from './cookies'
 
 export default () => 
 {
+    const headers = {};
+
+    if (Cookie.has('access_token')) {
+        headers.Authorization = `Bearer ${ Cookie.get('access_token') }`
+    }
+
     const axiosInstance = Axios.create({
+<<<<<<< HEAD
         baseURL: process.env.REACT_APP_API_BASE_URL,
         headers: {
             Authorization: `Bearer ${ Cookie.get('access_token') }`
         }
+=======
+        baseURL: 'http://192.168.18.34:8000/api', // process.env.REACT_APP_API_BASE_URL
+        headers
+>>>>>>> 098d50810c074dbdaa58bbb6f528d3ceb4abf31d
     });
 
     axiosInstance.interceptors.response.use(

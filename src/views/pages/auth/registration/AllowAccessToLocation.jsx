@@ -6,6 +6,8 @@ import Button from '@material-ui/core/Button'
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid'
 import Colors from '../../../../constants/Colors';
+import { useHistory, useLocation } from 'react-router-dom'
+import PATH from '../../../../routes/path'
 
 const useStyles = makeStyles(theme => ({
     btn: {
@@ -25,18 +27,24 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
-const StepTwo = ({ setAllowAccessToLocation, setStepIndex }) => 
+const AllowAccessToLocation = () => 
 {
     const classes = useStyles();
-
+    const history = useHistory();
+    const { state } = useLocation();
+ 
     const handleClickNo = () => {
-        setAllowAccessToLocation(false);
-        setStepIndex(2);
+        history.push(PATH.REGISTER, {
+            ...state,
+            allow_access_to_location: false
+        });
     }
 
     const handleClickContinue = () => {
-        setAllowAccessToLocation(true);
-        setStepIndex(2);
+        history.push(PATH.REGISTER, {
+            ...state,
+            allow_access_to_location: true
+        });
     }
 
     return (
@@ -44,6 +52,9 @@ const StepTwo = ({ setAllowAccessToLocation, setStepIndex }) =>
             <Header />
             <Container maxWidth="md" className={ classes.subContainer }>
                 <Grid container spacing={2} alignItems='center'>
+                    <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
+                        <Typography variant="subtitle2">Step 1 of 2</Typography>
+                    </Grid>
                     <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
                         <Typography variant="h4" color="initial" className={ classes.queryText }>
                             Allow Flicklify to access your location?
@@ -77,4 +88,4 @@ const StepTwo = ({ setAllowAccessToLocation, setStepIndex }) =>
     )
 }
 
-export default StepTwo
+export default AllowAccessToLocation

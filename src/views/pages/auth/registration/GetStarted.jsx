@@ -1,17 +1,17 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
 import TextField from '@material-ui/core/TextField'
 import { makeStyles } from '@material-ui/core/styles';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import Button from '@material-ui/core/Button'
-import Colors from './../../../../constants/Colors';
+import Colors from '../../../../constants/Colors';
 import { grey } from '@material-ui/core/colors';
 import BACKGROUND_IMG from './../../../../assets/images/app/Netflix-Background.jpg'
 import Header from '../../../../components/app/Header';
 import Container from '@material-ui/core/Container'
-
-
+import { useHistory } from 'react-router-dom';
+import PATH from './../../../../routes/path'
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -42,11 +42,18 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-const StepOne = ({ setStepIndex, email, setEmail }) => 
+const GetStarted = () => 
 {
     const classes = useStyles();
+    const history = useHistory();
 
-    const handleClickGetStarted = () => setStepIndex(1);
+    const [ email, setEmail ] = useState('');
+ 
+    const handleClickGetStarted = () => {
+        history.push(PATH.ALLOW_ACCESS_TO_LOCATION, {
+            email
+        });
+    }
 
     return (
        <Container maxWidth="xl" className={ classes.root }>
@@ -106,4 +113,4 @@ const StepOne = ({ setStepIndex, email, setEmail }) =>
     )
 }
 
-export default StepOne
+export default GetStarted

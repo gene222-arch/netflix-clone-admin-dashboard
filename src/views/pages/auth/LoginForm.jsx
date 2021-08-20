@@ -33,6 +33,7 @@ import { selectAuth, selectAuthErrorMessages, selectAuthHasErrorMessages } from 
 
 const LoginForm = ({ AUTH, ERROR_MESSAGE, HAS_ERROR_MESSAGE }) => 
 {
+    console.log('RENDER AUTH');
     const dispatch = useDispatch();
     const classes = loginFormUseStyles();
 
@@ -47,11 +48,14 @@ const LoginForm = ({ AUTH, ERROR_MESSAGE, HAS_ERROR_MESSAGE }) =>
             : setCredentials({...credentials, [name]: value});
     };
 
-    const onSubmitCredentails = (e) => dispatch(AUTH_ACTION.login(credentials));
+    const onClickLogin = (e) => {
+        e.preventDefault();
+        dispatch(AUTH_ACTION.login(credentials));
+    }
 
     useEffect(() => {
+        window.addEventListener('load', () => dispatch(AUTH_ACTION.clearErrors()));
         return () => {
-            setCredentials(AUTH.credentials);
             dispatch(AUTH_ACTION.clearErrors());
         }
     }, [])
@@ -102,17 +106,17 @@ const LoginForm = ({ AUTH, ERROR_MESSAGE, HAS_ERROR_MESSAGE }) =>
                             onChange={ handleChangeCredentials }
                         />}
                     label='Remember me'
+                    className={ classes.rememberMe }
                 />
                 <Button
-                    type='submit'
                     fullWidth
                     variant='contained'
                     color='primary'
                     className={ classes.submit }
                     disabled={ AUTH.isLoading }
-                    onClick={ onSubmitCredentails }
+                    onClick={ onClickLogin }
                 >
-                    { !AUTH.isLoading ? 'Sign In' : 'Signing in...' }
+                    { !AUTH.isLoading ? 'Sign In' : 'Signing In...' }
                 </Button>
                 <Grid container>
                     <Grid item xs>
@@ -124,7 +128,7 @@ const LoginForm = ({ AUTH, ERROR_MESSAGE, HAS_ERROR_MESSAGE }) =>
                     </Grid>
                     <Grid item>
                     <Typography variant="subtitle2">
-                        <Link href='/auth/create-an-account' color='inherit' variant='body2'>
+                        <Link href={ PATH.GET_STARTED } color='inherit' variant='body2'>
                             Don't have an account? Sign Up
                         </Link>
                     </Typography>
@@ -145,4 +149,4 @@ const mapStateToProps = createStructuredSelector({
 });
 
 
-export default connect(mapStateToProps, null)(LoginForm);
+export default connect(mapStateToProps)(LoginForm);
