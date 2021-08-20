@@ -8,6 +8,7 @@ const PATH =
     ALLOW_ACCESS_TO_LOCATION: '/auth/allow-access-to-location',
     REGISTER: '/auth/create-an-account',
     RESET_PASSWORD: '/auth/forgot-password/reset',
+    VERIFIY_EMAIL: '/auth/email/verify-email/:id/:hash',
 
     VIDEO_MANAGEMENT_AUTHOR: '/video-management/authors',
     VIDEO_MANAGEMENT_CAST: '/video-management/casts',

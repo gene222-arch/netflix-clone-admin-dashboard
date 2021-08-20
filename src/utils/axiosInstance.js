@@ -9,6 +9,10 @@ export default () =>
         headers.Authorization = `Bearer ${ Cookie.get('access_token') }`
     }
 
+    if (Cookie.has('email_verification_token')) {
+        headers.Authorization = `Bearer ${ Cookie.get('email_verification_token') }`
+    }
+
     const axiosInstance = Axios.create({
         baseURL: 'http://192.168.18.34:8000/api', // process.env.REACT_APP_API_BASE_URL
         headers

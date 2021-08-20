@@ -27,6 +27,10 @@ const {
     RESET_PASSWORD_SUCCESS,
     RESET_PASSWORD_FAILED,
 
+    VERIFIY_EMAIL_START,
+    VERIFIY_EMAIL_SUCCESS,
+    VERIFY_EMAIL_FAILED,
+
     CLEAR_ERRORS
 } = ACTION_TYPES;
 
@@ -68,6 +72,7 @@ export default (state = initialState, { type, payload }) =>
         case REGISTER_START:
         case FORGOT_PASSWORD_START:
         case RESET_PASSWORD_START:
+        case VERIFIY_EMAIL_START:
             return {
                 ...state,
                 isLoading: true,
@@ -95,35 +100,19 @@ export default (state = initialState, { type, payload }) =>
             };
             
         case FORGOT_PASSWORD_SUCCESS:
-            return {
-                ...state,
-                isLoading,
-                error,
-            };   
-            
+        case RESET_PASSWORD_SUCCESS:
         case REGISTRATION_SUCCESS: 
+        case VERIFIY_EMAIL_SUCCESS:
             return {
                 ...state,
                 isLoading,
                 error,
             };
             
-        case REGISTRATION_FAILED: 
-            return {
-                ...state,
-                isLoading,
-                error: payload.errorMessages
-            };            
-            
-        case RESET_PASSWORD_SUCCESS:
-            return {
-                ...state,
-                isLoading,
-                error,
-            };   
-
+        case REGISTRATION_FAILED:         
         case FORGOT_PASSWORD_FAILED:
         case RESET_PASSWORD_FAILED:
+        case VERIFY_EMAIL_FAILED:
             return {
                 ...state,
                 isLoading,

@@ -8,6 +8,7 @@ import { registerAsync } from './../../../services/auth/register';
 import { fetchAuthAsync } from './../../../services/auth/auth';
 import { forgotPasswordAsync } from './../../../services/auth/forgot.password';
 import { resetPasswordAsync } from './../../../services/auth/reset.password';
+import { verifyEmailAsync } from './../../../services/auth/verify.email';
 
 /** Actions and types */
 import ACTION_TYPES from './action.types'
@@ -22,7 +23,10 @@ import {
     registrationFailed, 
     logoutSuccess,
     logoutFailed,
-    resetPasswordFailed
+    resetPasswordSuccess,
+    resetPasswordFailed,
+    verifyEmailSuccess,
+    verifyEmailFailed
 } from './actions';
 import * as ALERT from './../alert/actions';
 
@@ -32,7 +36,6 @@ import PATH from './../../../routes/path';
 
 /** Error messages */
 import { ERROR_MESSAGE_ON_LOGIN, ERROR_MESSAGE_ON_REGISTER } from './../../../config/alertMessages';
-import { resetPasswordSuccess } from './actions';
 
 
 
@@ -43,7 +46,8 @@ const {
     LOGIN_START,
     LOGOUT_START,
     REGISTER_START,
-    RESET_PASSWORD_START
+    RESET_PASSWORD_START,
+    VERIFIY_EMAIL_START
 } = ACTION_TYPES;
 
 
@@ -162,8 +166,9 @@ function* loginSaga (payload)
 function* registerSaga (payload)
 {
     try {
-        const { status, message } = yield call(registerAsync, payload);
+        const { data:{ access_token, expires_at },status, message } = yield call(registerAsync, payload);
 
+        Cookies.set('email_verification_token', access_token, expires_at);
         yield put(registrationSuccess());
         yield put(ALERT.showAlert({ status, message }));
         yield put(push(PATH.LOGIN));
@@ -202,6 +207,19 @@ function* resetPasswordSaga (payload)
             errorMessages: message 
         }));
 
+        yield put(ALERT.showAlert({ status, message: message }));
+    }
+}
+
+function* verifyEmailSaga (payload)
+{
+    try {
+        yield call(verifyEmailAsync, payload);
+        yield put(verifyEmailSuccess());
+    } catch ({ message, status }) {
+        yield put(resetPasswordFailed({
+            errorMessages: message 
+        }));
         yield put(ALERT.showAlert({ status, message: message }));
     }
 }
@@ -270,7 +288,15 @@ function* resetPasswordWatcher ()
     }
 }
 
+function* verifyEmailWatcher ()
+{
+    while (true) 
+    {
+        const { payload } = yield take(VERIFIY_EMAIL_START);
 
+        yield call(verifyEmailSaga, payload);
+    }
+}
 
 
 /**
@@ -286,5 +312,6 @@ export default function* ()
         logoutWatcher(),
         registerWatcher(),
         resetPasswordWatcher(),
+        verifyEmailWatcher()
     ]);
 }

@@ -15,6 +15,7 @@ const GetStarted = lazy(() => import('../views/pages/auth/registration/GetStarte
 const AllowAccessToLocation = lazy(() => import('../views/pages/auth/registration/AllowAccessToLocation'))
 const RegistrationForm = lazy(() => import('../views/pages/auth/registration/RegistrationForm'))
 const ResetPasswordForm = lazy(() => import('../views/pages/auth/ResetPasswordForm'))
+const EmailVerifiedMessage = lazy(() => import('../views/pages/auth/EmailVerifiedMessage'))
 const VideoManagementAuthor = lazy(() => import('../views/pages/video-management/author'))
 const CreateAuthor = lazy(() => import('../views/pages/video-management/author/CreateAuthor'))
 const UpdateAuthor = lazy(() => import('../views/pages/video-management/author/UpdateAuthor'))
@@ -89,6 +90,15 @@ export const PUBLIC_ROUTES = [
         icon: '',
         exact: true,
         component: ResetPasswordForm,
+        access: '',
+        restricted: false
+    },
+    {
+        path: PATH.VERIFIY_EMAIL,
+        key: 'EmailVerifiedMessage',
+        icon: '',
+        exact: true,
+        component: EmailVerifiedMessage,
         access: '',
         restricted: false
     },

@@ -27,6 +27,10 @@ const {
     RESET_PASSWORD_SUCCESS,
     RESET_PASSWORD_FAILED,
 
+    VERIFIY_EMAIL_START,
+    VERIFIY_EMAIL_SUCCESS,
+    VERIFY_EMAIL_FAILED,
+
     CLEAR_ERRORS
 } = ACTION_TYPES;
 
@@ -145,6 +149,24 @@ export const resetPasswordFailed = (payload) => ({
     payload
 });
 
+
+/**
+ * Reset password
+ */
+
+export const verifyEmailStart = (payload) => ({
+    type: VERIFIY_EMAIL_START,
+    payload
+});
+
+export const verifyEmailSuccess = (payload) => ({
+    type: VERIFIY_EMAIL_SUCCESS
+});
+
+export const verifyEmailFailed = (payload) => ({
+    type: VERIFY_EMAIL_FAILED,
+    payload
+});
 
 /** Clear Errors */
 export const clearErrors = (payload) => ({
