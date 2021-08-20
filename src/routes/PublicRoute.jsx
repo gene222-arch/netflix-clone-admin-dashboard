@@ -12,10 +12,6 @@ import PageLoader from './../components/PageLoader';
 
 const PublicRoute = ({ AUTH, Component, ...props }) => 
 {
-    if (AUTH.isLoading) {
-        return <PageLoader />
-    }
-
     return (
         <>
         {

@@ -11,17 +11,20 @@ import PageLoader from './components/PageLoader'
 
 /** Redux */
 import { store, history, persistor } from './redux'
+import { BrowserRouter } from 'react-router-dom';
 
 
 ReactDOM.render(
 	<Provider store={ store }>
-		<Suspense fallback={ <PageLoader /> }>
-			<ConnectedRouter history={ history }>
-				<PersistGate persistor={ persistor } >
-					<App history={ history }/> 
-				</PersistGate>
-			</ConnectedRouter>
-		</Suspense>
+		<BrowserRouter>
+			<Suspense fallback={ <PageLoader /> }>
+				<ConnectedRouter history={ history }>
+					<PersistGate persistor={ persistor } >
+						<App history={ history }/> 
+					</PersistGate>
+				</ConnectedRouter>
+			</Suspense>
+		</BrowserRouter>
 	</Provider>,
   document.getElementById('root')
 );
