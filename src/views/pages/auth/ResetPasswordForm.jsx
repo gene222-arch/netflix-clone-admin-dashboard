@@ -22,7 +22,7 @@ import { selectAuth } from '../../../redux/modules/auth/selector';
 import * as QueryParam from '../../../utils/queryParams'
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
-import Header from './../../../components/app/Header';
+import AuthLayoutHeader from '../../../components/app/AuthLayoutHeader';
 
 
 
@@ -56,7 +56,7 @@ const ResetPasswordForm = ({ auth }) =>
 
     return (
         <>
-            <Header />
+            <AuthLayoutHeader />
             <Container maxWidth="sm" component='main' className={ classes.container }>
                 <Grid container spacing={3}>
                     <Grid item xs={12} sm={12} md={12} lg={12}>

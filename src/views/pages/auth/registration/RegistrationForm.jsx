@@ -24,7 +24,7 @@ import * as AUTH_ACTION from '../../../../redux/modules/auth/actions'
 
 /** selectors */
 import { selectAuth, selectAuthErrorMessages, selectAuthHasErrorMessages } from '../../../../redux/modules/auth/selector';
-import Header from '../../../../components/app/Header';
+import AuthLayoutHeader from '../../../../components/app/AuthLayoutHeader';
 import { useLocation } from 'react-router-dom';
 
 
@@ -65,7 +65,7 @@ const RegistrationForm = ({ AUTH, AUTH_ERROR_MESSAGES, AUTH_HAS_ERROR_MESSAGES }
     return (
         <Container component="main" maxWidth="xl">
             <CssBaseline />
-            <Header />
+            <AuthLayoutHeader />
             <div className={classes.paper}>
                 <div className={ classes.description }>
                     <Typography variant="subtitle2">Step 2 of 2</Typography>

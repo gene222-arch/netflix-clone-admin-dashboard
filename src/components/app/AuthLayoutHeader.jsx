@@ -1,37 +1,13 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import { Container, Typography, Grid } from '@material-ui/core';
 import APP_LOGO from './../../assets/images/app/LOGO.png'
 import { Link } from 'react-router-dom';
-import Colors from './../../constants/Colors';
-import PATH from './../../routes/path'
+import PATH from '../../routes/path'
+import authLayoutHeaderUseStyles from '../../assets/js/material-ui/authLayoutHeaderUseStyles';
 
-const useStyles = makeStyles((theme) => ({
-    container: {
-        height: '10vh',
-    },
-    link: {
-        textDecoration: 'none',
-        '&:hover': {
-            textDecoration: 'underline'
-        }
-    },
-    linkText: {
-        fontSize: '1rem',
-        color: Colors.white,
-        backgroundColor: Colors.netflixRed,
-        padding: theme.spacing(.8, 2),
-        borderRadius: 4
-    },
-    logo: {
-        width: '12rem',
-        height: 'auto'
-    }
-}));
-
-const Header = () => 
+const AuthLayoutHeader = () => 
 {
-    const classes = useStyles();
+    const classes = authLayoutHeaderUseStyles();
 
     return (
         <Container maxWidth='xl'>
@@ -57,4 +33,4 @@ const Header = () =>
     );
 }
 
-export default Header
+export default AuthLayoutHeader

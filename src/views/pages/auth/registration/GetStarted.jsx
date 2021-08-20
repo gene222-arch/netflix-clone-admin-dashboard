@@ -8,7 +8,7 @@ import Button from '@material-ui/core/Button'
 import Colors from '../../../../constants/Colors';
 import { grey } from '@material-ui/core/colors';
 import BACKGROUND_IMG from './../../../../assets/images/app/Netflix-Background.jpg'
-import Header from '../../../../components/app/Header';
+import AuthLayoutHeader from '../../../../components/app/AuthLayoutHeader';
 import Container from '@material-ui/core/Container'
 import { useHistory } from 'react-router-dom';
 import PATH from './../../../../routes/path'
@@ -57,7 +57,7 @@ const GetStarted = () =>
 
     return (
        <Container maxWidth="xl" className={ classes.root }>
-            <Header />
+            <AuthLayoutHeader />
             <Grid container alignItems='center' className={ classes.container }>
                 <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
                     <Typography variant="h2" color="initial" className={ classes.text }>

@@ -21,7 +21,7 @@ import Typography from '@material-ui/core/Typography'
 
 /** Routes */
 import PATH from './../../../routes/path';
-import Header from '../../../components/app/Header';
+import AuthLayoutHeader from '../../../components/app/AuthLayoutHeader';
 
 
 const forgotPasswordUseStyles = makeStyles((theme) => ({
@@ -48,7 +48,7 @@ const ForgotPasswordForm = ({ auth }) =>
 
     return (
         <>
-            <Header />
+            <AuthLayoutHeader />
             <Container component='main' maxWidth="sm" className={ classes.container }>
                 <Grid container spacing={1} direction='column' alignItems='center' justify='center'>
                     <Grid item xs={12} sm={12} md={12} lg={12}>
