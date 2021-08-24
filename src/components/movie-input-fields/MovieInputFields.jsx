@@ -39,8 +39,7 @@ const MovieInputFields = ({ movie, setMovie, cardHeaderTitle, saveButtonCallback
         setFilePreviews({ ...filePreviews, isVideoUploading: true });
 
         let files = e.target.files || e.dataTransfer.files;
-        if (!files.length)
-            return;
+        if (!files.length) return;
         
         const file = files[0];
         const video_size_in_mb = file.size / 1000;
@@ -48,9 +47,11 @@ const MovieInputFields = ({ movie, setMovie, cardHeaderTitle, saveButtonCallback
 
         try {
             const { data, status } = await MOVIE_API.uploadVideoAsync({ video: file });
-            setMovie({ ...movie, video_path: data, video_size_in_mb });
 
-            if (status === 'success') {
+            if (status === 'success') 
+            {
+                setMovie({ ...movie, video_path: data, video_size_in_mb });
+
                 reader.onload = (e) => {
                     setFilePreviews({ ...filePreviews, video: e.target.result });
                 };
@@ -84,7 +85,8 @@ const MovieInputFields = ({ movie, setMovie, cardHeaderTitle, saveButtonCallback
         try {
             const { data, status } = await MOVIE_API.uploadPosterAsync({ poster: file });
             
-            if (status === 'success') {
+            if (status === 'success') 
+            {
                 setMovie({ ...movie, poster_path: data });
 
                 reader.onload = (e) => {

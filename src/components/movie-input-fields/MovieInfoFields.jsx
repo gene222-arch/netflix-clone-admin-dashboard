@@ -15,8 +15,7 @@ import { useHistory, useLocation } from 'react-router-dom';
 import CardBackButton from './../CardBackButton';
 
 
-const MovieInfoFields = ({ 
-    cardHeaderTitle, 
+const MovieInfoFields = ({
     movie, 
     MOVIE_ERROR_MESSAGES,
     MOVIE_HAS_ERROR_MESSAGES,

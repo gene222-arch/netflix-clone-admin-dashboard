@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
 const VideoWithPreview = ({
     inputID, 
     inputName,
-    apiSource = '',
+    apiSource = null,
     filePreview = null,
     isUploading = false,
     handleChangeVideoFile,
@@ -51,21 +51,24 @@ const VideoWithPreview = ({
 
     const classes = useStyles();
 
-    const showVideo = () => {
-        if (apiSource) {
+    const showVideo = () => 
+    {
+        if (filePreview) {
             return (
-                <video className={ classes.video } controls >
-                    <source src={ apiSource } type='video/mp4'/>
-                </video>
+                <React.Fragment key={ filePreview }>
+                    <video className={ classes.video } controls>
+                        <source src={ filePreview } type='video/mp4'/>
+                    </video>
+                </React.Fragment>
             )
         }
 
         return (
-            filePreview && (
-                <video className={ classes.video } controls >
-                    <source src={ filePreview } type='video/mp4'/>
+            <React.Fragment key={ apiSource }>
+                <video className={ classes.video } controls>
+                    <source src={ apiSource } type='video/mp4'/>
                 </video>
-            )
+            </React.Fragment>
         )
     }
 
@@ -102,21 +105,17 @@ const VideoWithPreview = ({
                         </label>
                     )
                 }
-                {
-                    (apiSource && !filePreview) && (
-                        <label htmlFor={ inputID }>
-                            <Button 
-                                variant="contained" 
-                                color='primary' 
-                                component="span"
-                                fullWidth
-                                disabled={ isUploading }
-                            >
-                                <VideocamIcon />
-                            </Button>
-                        </label>
-                    )
-                } 
+                <label htmlFor={ inputID }>
+                    <Button 
+                        variant="contained" 
+                        color='primary' 
+                        component="span"
+                        fullWidth
+                        disabled={ isUploading }
+                    >
+                        <VideocamIcon />
+                    </Button>
+                </label>
             </Grid>
         </Grid>
     )
