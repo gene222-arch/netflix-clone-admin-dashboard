@@ -20,16 +20,6 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const defaultEmptyImgStyle = {
-    width: '100%',
-    height: '20rem'
-};
-
-const defaultWithImgStyle = {
-    width: '100%',
-    backgroundSize: 'contain'
-};
-
 const ImageWithPreview = ({ 
     inputID, 
     inputName, 
@@ -37,8 +27,8 @@ const ImageWithPreview = ({
     accept = 'image/*',
     name,
     filePreview = null, 
-    styleOnEmptyImg = defaultEmptyImgStyle, 
-    styleWithImg = defaultWithImgStyle, 
+    emptyImgClass, 
+    imgClass, 
     handleChangeFile,
     error = false,
     helperText = '',
@@ -50,13 +40,22 @@ const ImageWithPreview = ({
     const showPreview = () => {
 
         if (apiSource && !filePreview) {
-            return <img src={ apiSource } style={ styleWithImg } />
+            return <img src={ apiSource } className={ imgClass } style={{
+                width: '100%',
+                backgroundSize: 'contain'
+            }} />
         }
 
         return (
             !filePreview 
-                ? <img src={ filePreview }  style={ styleOnEmptyImg } />
-                : <img src={ filePreview } style={ styleWithImg } />
+                ? <img src={ filePreview } className={ emptyImgClass }  style={{
+                    width: '100%',
+                    height: '20rem'
+                }} />
+                : <img src={ filePreview } className={ imgClass }  style={{
+                    width: '100%',
+                    backgroundSize: 'contain'
+                }} />
         )
     }
 

@@ -23,6 +23,7 @@ const useStyles = makeStyles((theme) => ({
     },
     video: {
         width: '100%',
+        height: '100%',
         backgroundSize: 'contain'
     },
     videoContainer: {
@@ -53,17 +54,15 @@ const VideoWithPreview = ({
 
     const showVideo = () => 
     {
-        if (filePreview) {
-            return (
-                <React.Fragment key={ filePreview }>
-                    <video className={ classes.video } controls>
-                        <source src={ filePreview } type='video/mp4'/>
-                    </video>
-                </React.Fragment>
-            )
-        }
+        return filePreview && (
+            <React.Fragment key={ filePreview }>
+                <video className={ classes.video } controls>
+                    <source src={ filePreview } type='video/mp4'/>
+                </video>
+            </React.Fragment>
+        )
 
-        return (
+        return apiSource && (
             <React.Fragment key={ apiSource }>
                 <video className={ classes.video } controls>
                     <source src={ apiSource } type='video/mp4'/>
@@ -90,7 +89,6 @@ const VideoWithPreview = ({
                     (!filePreview && !apiSource) && (
                         <label htmlFor={ inputID }>
                             <Card className={ classes.videoContainer }>
-
                                 { 
                                     !isUploading 
                                         ? <CardContent>
@@ -105,17 +103,21 @@ const VideoWithPreview = ({
                         </label>
                     )
                 }
-                <label htmlFor={ inputID }>
-                    <Button 
-                        variant="contained" 
-                        color='primary' 
-                        component="span"
-                        fullWidth
-                        disabled={ isUploading }
-                    >
-                        <VideocamIcon />
-                    </Button>
-                </label>
+                {
+                    (apiSource || filePreview) && (
+                        <label htmlFor={ inputID }>
+                            <Button 
+                                variant="contained" 
+                                color='primary' 
+                                component="span"
+                                fullWidth
+                                disabled={ isUploading }
+                            >
+                                { !isUploading ? <VideocamIcon /> : <MoonLoader size={ 19 } color={ Colors.white } /> }
+                            </Button>
+                        </label>
+                    )
+                }
             </Grid>
         </Grid>
     )

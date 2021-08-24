@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card, CardHeader, IconButton, Typography, Divider, CardContent, Grid } from '@material-ui/core';
+import { Card, CardHeader, IconButton, Typography, Divider, CardContent, Grid, makeStyles } from '@material-ui/core';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import ImageWithPreview from './../ImageWithPreview';
 import { createStructuredSelector } from 'reselect';
@@ -8,7 +8,26 @@ import { selectMovieHasErrorMessages } from './../../redux/modules/movie/selecto
 import { connect } from 'react-redux';
 
 
-const MovieImages = ({ movie, MOVIE_ERROR_MESSAGES, MOVIE_HAS_ERROR_MESSAGES, handleChangePosterFile, handleChangeWallpaperFile, handleChangeTitleLogoFile, filePreviews }) => {
+const movieImagesUseStyles = makeStyles(theme => ({
+    posterImg: {
+        height: '50vh',
+        width: '20vh'
+    },
+    wallpaperImg: {
+        height: '50vh',
+        width: '100%'
+    },
+    titleLogoImg: {
+        height: '50vh',
+        width: '100%'
+    }
+}));
+
+
+const MovieImages = ({ movie, MOVIE_ERROR_MESSAGES, MOVIE_HAS_ERROR_MESSAGES, handleChangePosterFile, handleChangeWallpaperFile, handleChangeTitleLogoFile, filePreviews }) => 
+{
+    const classes = movieImagesUseStyles();
+
     return (
         <Card>
             <CardHeader
@@ -31,6 +50,7 @@ const MovieImages = ({ movie, MOVIE_ERROR_MESSAGES, MOVIE_HAS_ERROR_MESSAGES, ha
                             inputName='poster'
                             apiSource={ movie.poster_path }
                             filePreview={ filePreviews.poster }
+                            imgClass={ classes.posterImg }
                             handleChangeFile={ handleChangePosterFile }
                             error={ MOVIE_HAS_ERROR_MESSAGES.poster_path }
                             helperText={ MOVIE_ERROR_MESSAGES.poster_path }
@@ -44,6 +64,7 @@ const MovieImages = ({ movie, MOVIE_ERROR_MESSAGES, MOVIE_HAS_ERROR_MESSAGES, ha
                             inputName='wallpaper'
                             apiSource={ movie.wallpaper_path }
                             filePreview={ filePreviews.wallpaper }
+                            imgClass={ classes.wallpaperImg }
                             handleChangeFile={ handleChangeWallpaperFile }
                             error={ MOVIE_HAS_ERROR_MESSAGES.wallpaper_path }
                             helperText={ MOVIE_ERROR_MESSAGES.wallpaper_path }
@@ -57,6 +78,7 @@ const MovieImages = ({ movie, MOVIE_ERROR_MESSAGES, MOVIE_HAS_ERROR_MESSAGES, ha
                             inputName='title_logo'
                             apiSource={ movie.title_logo_path }
                             filePreview={ filePreviews.title_logo }
+                            imgClass={ classes.titleLogoImg }
                             handleChangeFile={ handleChangeTitleLogoFile }
                             error={ MOVIE_HAS_ERROR_MESSAGES.title_logo_path }
                             helperText={ MOVIE_ERROR_MESSAGES.title_logo_path }
