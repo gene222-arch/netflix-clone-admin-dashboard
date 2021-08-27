@@ -238,10 +238,16 @@ export default (state = initialState, { type, payload }) =>
                 }
             }
 
+        case CREATE_TRAILER_FAILED:
+            return {
+                ...state, 
+                isLoading,
+                trailerError: payload.message
+            }
+
         case FETCH_ALL_COMING_SOON_MOVIES_FAILED:
         case FIND_COMING_SOON_MOVIE_BY_ID_FAILED:
         case CREATE_COMING_SOON_MOVIE_FAILED:
-        case CREATE_TRAILER_FAILED:
         case UPDATE_COMING_SOON_MOVIE_FAILED:
         case UPDATE_TRAILER_START:
         case DELETE_COMING_SOON_MOVIES_FAILED:

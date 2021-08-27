@@ -10,28 +10,30 @@ export const selectComingSoonMovieErrorMessages = createSelector(getErrorMessage
 
 export const selectTrailerErrorMessages = createSelector(getTrailerErrorMessages, trailerError => trailerError);  
 
-export const selectComingSoonMovieHasErrorMessages = createSelector(getErrorMessages, error => 
+export const selectComingSoonMovieHasErrorMessages = createSelector(getErrorMessages, errors => 
 {
     let hasErrorMessages = {};
 
-    const errors = Object
-        .entries(error)
-        .map(([ key, value ]) => ({ 
-            [key]: Boolean(value) 
-        }));
+    for (const key in errors) {
+        hasErrorMessages = {
+            ...hasErrorMessages,
+            [key]: Boolean(errors[key])
+        };
+    }
 
-    return errors.reduce((obj, item) => ({ ...obj, ...item }), hasErrorMessages);
+    return hasErrorMessages;
 });  
 
-export const selectTrailerHasErrorMessages = createSelector(getTrailerErrorMessages, trailerError => 
-    {
-        let hasErrorMessages = {};
-    
-        const errors = Object
-            .entries(trailerError)
-            .map(([ key, value ]) => ({ 
-                [key]: Boolean(value) 
-            }));
-    
-        return errors.reduce((obj, item) => ({ ...obj, ...item }), hasErrorMessages);
-    });  
+export const selectTrailerHasErrorMessages = createSelector(getTrailerErrorMessages, errors => 
+{
+    let hasErrorMessages = {};
+
+    for (const key in errors) {
+        hasErrorMessages = {
+            ...hasErrorMessages,
+            [key]: Boolean(errors[key])
+        };
+    }
+
+    return hasErrorMessages;
+});  
