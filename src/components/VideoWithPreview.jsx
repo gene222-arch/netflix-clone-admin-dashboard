@@ -54,13 +54,15 @@ const VideoWithPreview = ({
 
     const showVideo = () => 
     {
-        return filePreview && (
-            <React.Fragment key={ filePreview }>
-                <video className={ classes.video } controls>
-                    <source src={ filePreview } type='video/mp4'/>
-                </video>
-            </React.Fragment>
-        )
+        if (filePreview) {
+            return (
+                <React.Fragment key={ filePreview }>
+                    <video className={ classes.video } controls>
+                        <source src={ filePreview } type='video/mp4'/>
+                    </video>
+                </React.Fragment>
+            )
+        }
 
         return apiSource && (
             <React.Fragment key={ apiSource }>
