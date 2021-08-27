@@ -75,7 +75,7 @@ const initialState = {
     comingSoonMovies: [],
     trailer: TRAILER_DEFAULT_PROPS,
     isLoading: false,
-    error: COMING_SOON_MOVIE_DEFAULT_PROPS,
+    error: COMING_SOON_MOVIE_DEFAULT_PROPS, 
     trailerError: TRAILER_DEFAULT_PROPS
 };
 
@@ -238,6 +238,7 @@ export default (state = initialState, { type, payload }) =>
                 }
             }
 
+        case UPDATE_TRAILER_FAILED:
         case CREATE_TRAILER_FAILED:
             return {
                 ...state, 
@@ -249,7 +250,6 @@ export default (state = initialState, { type, payload }) =>
         case FIND_COMING_SOON_MOVIE_BY_ID_FAILED:
         case CREATE_COMING_SOON_MOVIE_FAILED:
         case UPDATE_COMING_SOON_MOVIE_FAILED:
-        case UPDATE_TRAILER_START:
         case DELETE_COMING_SOON_MOVIES_FAILED:
         case DELETE_TRAILER_FAILED:
         case TOGGLE_COMING_SOON_MOVIE_RELEASE_FAILED:
