@@ -10,15 +10,15 @@ import { connect } from 'react-redux';
 
 const movieImagesUseStyles = makeStyles(theme => ({
     posterImg: {
-        height: '50vh',
+        height: '40vh',
         width: '20vh'
     },
     wallpaperImg: {
-        height: '50vh',
+        height: '40vh',
         width: '100%'
     },
     titleLogoImg: {
-        height: '50vh',
+        height: '30vh',
         width: '100%'
     }
 }));
