@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Card, CardHeader, Divider, CardContent, Grid, CardActions, TextField, Container } from '@material-ui/core';
+import { Card, CardHeader, Divider, CardContent, Grid, CardActions, TextField, Container, makeStyles } from '@material-ui/core';
 import { createStructuredSelector } from 'reselect';
 import { selectComingSoonMovie } from './../redux/modules/coming-soon-movie/selector';
 import * as COMING_SOON_MOVIE_ACTION from './../redux/modules/coming-soon-movie/actions';
@@ -7,10 +7,25 @@ import * as COMING_SOON_MOVIE_API from './../services/movies/coming.soon.movie'
 import { connect, useDispatch } from 'react-redux';
 import { selectTrailerErrorMessages, selectTrailerHasErrorMessages } from './../redux/modules/coming-soon-movie/selector';
 import VideoWithPreview from './VideoWithPreview';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import SaveCancelButtons from './SaveCancelButtons';
 import ImageWithPreview from './ImageWithPreview';
 import CardBackButton from './CardBackButton';
+
+const movieImagesUseStyles = makeStyles(theme => ({
+    posterImg: {
+        height: '40vh',
+        width: '20vh'
+    },
+    wallpaperImg: {
+        height: '40vh',
+        width: '100%'
+    },
+    titleLogoImg: {
+        height: '30vh',
+        width: '100%'
+    }
+}));
 
 const DEFAULT_FILE_PREVIEW_PROPS = {
     poster: null,
@@ -25,6 +40,7 @@ const DEFAULT_FILE_PREVIEW_PROPS = {
 
 const TrailerInputFields = ({ id, trailer, setTrailer, COMING_SOON_MOVIE, handleClickSave, TRAILER_ERROR_MESSAGES, TRAILER_HAS_ERROR_MESSAGES }) => 
 {
+    const classes = movieImagesUseStyles();
     const dispatch = useDispatch();
     const history = useHistory();
 
@@ -217,6 +233,7 @@ const TrailerInputFields = ({ id, trailer, setTrailer, COMING_SOON_MOVIE, handle
                                 inputName='poster'
                                 apiSource={ trailer.poster_path }
                                 filePreview={ filePreviews.poster }
+                                imgClass={ classes.posterImg }
                                 handleChangeFile={ handleChangePosterFile }
                                 error={ TRAILER_HAS_ERROR_MESSAGES?.poster_path }
                                 helperText={ TRAILER_ERROR_MESSAGES?.poster_path }
@@ -230,6 +247,7 @@ const TrailerInputFields = ({ id, trailer, setTrailer, COMING_SOON_MOVIE, handle
                                 inputName='wallpaper'
                                 apiSource={ trailer.wallpaper_path }
                                 filePreview={ filePreviews.wallpaper }
+                                imgClass={ classes.wallpaperImg }
                                 handleChangeFile={ handleChangeWallpaperFile }
                                 error={ TRAILER_HAS_ERROR_MESSAGES?.wallpaper_path }
                                 helperText={ TRAILER_ERROR_MESSAGES?.wallpaper_path }
@@ -243,6 +261,7 @@ const TrailerInputFields = ({ id, trailer, setTrailer, COMING_SOON_MOVIE, handle
                                 inputName='title_logo'
                                 apiSource={ trailer.title_logo_path }
                                 filePreview={ filePreviews.title_logo }
+                                imgClass={ classes.titleLogoImg }
                                 handleChangeFile={ handleChangeTitleLogoFile }
                                 error={ TRAILER_HAS_ERROR_MESSAGES?.title_logo_path }
                                 helperText={ TRAILER_ERROR_MESSAGES?.title_logo_path }
