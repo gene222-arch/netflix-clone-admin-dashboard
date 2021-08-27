@@ -188,6 +188,7 @@ const TrailerInputFields = ({ id, trailer, setTrailer, COMING_SOON_MOVIE, handle
     useEffect(() => {
         return () => {
             setFilePreviews(DEFAULT_FILE_PREVIEW_PROPS);
+            dispatch(COMING_SOON_MOVIE_ACTION.clearTrailerErrors());
         }
     }, []);
 
