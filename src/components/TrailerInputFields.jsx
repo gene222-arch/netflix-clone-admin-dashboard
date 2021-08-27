@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Card, CardHeader, Divider, CardContent, Grid, CardActions, TextField } from '@material-ui/core';
+import { Card, CardHeader, Divider, CardContent, Grid, CardActions, TextField, Container } from '@material-ui/core';
 import { createStructuredSelector } from 'reselect';
 import { selectComingSoonMovie } from './../redux/modules/coming-soon-movie/selector';
 import * as COMING_SOON_MOVIE_ACTION from './../redux/modules/coming-soon-movie/actions';
@@ -176,88 +176,90 @@ const TrailerInputFields = ({ id, trailer, setTrailer, COMING_SOON_MOVIE, handle
     }, []);
 
     return (
-        <Card>
-            <CardHeader
-                title={
-                    <CardBackButton title={ history.location.state?.routeName  } />
-                }
-            />
-            <Divider />
-            <CardContent>
-                <Grid container spacing={ 2 }>
-                <Grid item xs={ 12 } sm={ 12 } lg={ 12 } md={ 12 }>
-                    <TextField
-                        id="title"
-                        label="Title"
-                        value={ trailer?.title ?? '' }
-                        onChange={ (e) => setTrailer({ ...trailer, title: e.target.value }) }
-                        variant='filled'
-                        fullWidth
-                        error={ TRAILER_HAS_ERROR_MESSAGES?.title }
-                        helperText={ TRAILER_ERROR_MESSAGES?.title }
-                    />
-                </Grid>
-                <Grid item xs={ 12 } sm={ 12 } lg={ 12 } md={ 12 }>
-                    <VideoWithPreview
-                        inputID='video'
-                        inputName='video'
-                        filePreview={ filePreviews.video }
-                        isUploading={ filePreviews.isVideoUploading }
-                        apiSource={ trailer.video_path }
-                        handleChangeVideoFile={ handleChangeVideoFile }
-                        error={ TRAILER_HAS_ERROR_MESSAGES?.video_path }
-                        helperText={ TRAILER_ERROR_MESSAGES?.video_path }
-                    />
-                </Grid>
-                    <Grid item xs={ 12 } sm={ 12 } lg={ 12 } md={ 12 }>
-                        <ImageWithPreview 
-                            name='Poster'
-                            inputID='poster'
-                            inputName='poster'
-                            apiSource={ trailer.poster_path }
-                            filePreview={ filePreviews.poster }
-                            handleChangeFile={ handleChangePosterFile }
-                            error={ TRAILER_HAS_ERROR_MESSAGES?.poster_path }
-                            helperText={ TRAILER_ERROR_MESSAGES?.poster_path }
-                            isUploading={ filePreviews.isPosterUploading }
-                        />
-                    </Grid>
-                    <Grid item xs={ 12 } sm={ 12 } lg={ 12 } md={ 12 }>
-                        <ImageWithPreview 
-                            name='Wallpaper'
-                            inputID='wallpaper'
-                            inputName='wallpaper'
-                            apiSource={ trailer.wallpaper_path }
-                            filePreview={ filePreviews.wallpaper }
-                            handleChangeFile={ handleChangeWallpaperFile }
-                            error={ TRAILER_HAS_ERROR_MESSAGES?.wallpaper_path }
-                            helperText={ TRAILER_ERROR_MESSAGES?.wallpaper_path }
-                            isUploading={ filePreviews.isWallpaperUploading }
-                        />
-                    </Grid>
-                    <Grid item xs={ 12 } sm={ 12 } lg={ 12 } md={ 12 }>
-                        <ImageWithPreview 
-                            name='Title Logo'
-                            inputID='title_logo'
-                            inputName='title_logo'
-                            apiSource={ trailer.title_logo_path }
-                            filePreview={ filePreviews.title_logo }
-                            handleChangeFile={ handleChangeTitleLogoFile }
-                            error={ TRAILER_HAS_ERROR_MESSAGES?.title_logo_path }
-                            helperText={ TRAILER_ERROR_MESSAGES?.title_logo_path }
-                            isUploading={ filePreviews.isTitleLogoUploading }
-                        />
-                    </Grid>
-                </Grid>
-            </CardContent>
-            <CardActions>
-                <SaveCancelButtons 
-                    saveButtonCallback={ handleClickSave }
-                    cancelButtonCallback={ handleClickCancel }
-                    isLoading={ COMING_SOON_MOVIE.isLoading }
+        <Container maxWidth="md">
+            <Card>
+                <CardHeader
+                    title={
+                        <CardBackButton title={ history.location.state?.routeName  } />
+                    }
                 />
-            </CardActions>
-        </Card>
+                <Divider />
+                <CardContent>
+                    <Grid container spacing={ 2 }>
+                    <Grid item xs={ 12 } sm={ 12 } lg={ 12 } md={ 12 }>
+                        <TextField
+                            id="title"
+                            label="Title"
+                            value={ trailer?.title ?? '' }
+                            onChange={ (e) => setTrailer({ ...trailer, title: e.target.value }) }
+                            variant='filled'
+                            fullWidth
+                            error={ TRAILER_HAS_ERROR_MESSAGES?.title }
+                            helperText={ TRAILER_ERROR_MESSAGES?.title }
+                        />
+                    </Grid>
+                    <Grid item xs={ 12 } sm={ 12 } lg={ 12 } md={ 12 }>
+                        <VideoWithPreview
+                            inputID='video'
+                            inputName='video'
+                            filePreview={ filePreviews.video }
+                            isUploading={ filePreviews.isVideoUploading }
+                            apiSource={ trailer.video_path }
+                            handleChangeVideoFile={ handleChangeVideoFile }
+                            error={ TRAILER_HAS_ERROR_MESSAGES?.video_path }
+                            helperText={ TRAILER_ERROR_MESSAGES?.video_path }
+                        />
+                    </Grid>
+                        <Grid item xs={ 12 } sm={ 12 } lg={ 12 } md={ 12 }>
+                            <ImageWithPreview 
+                                name='Poster'
+                                inputID='poster'
+                                inputName='poster'
+                                apiSource={ trailer.poster_path }
+                                filePreview={ filePreviews.poster }
+                                handleChangeFile={ handleChangePosterFile }
+                                error={ TRAILER_HAS_ERROR_MESSAGES?.poster_path }
+                                helperText={ TRAILER_ERROR_MESSAGES?.poster_path }
+                                isUploading={ filePreviews.isPosterUploading }
+                            />
+                        </Grid>
+                        <Grid item xs={ 12 } sm={ 12 } lg={ 12 } md={ 12 }>
+                            <ImageWithPreview 
+                                name='Wallpaper'
+                                inputID='wallpaper'
+                                inputName='wallpaper'
+                                apiSource={ trailer.wallpaper_path }
+                                filePreview={ filePreviews.wallpaper }
+                                handleChangeFile={ handleChangeWallpaperFile }
+                                error={ TRAILER_HAS_ERROR_MESSAGES?.wallpaper_path }
+                                helperText={ TRAILER_ERROR_MESSAGES?.wallpaper_path }
+                                isUploading={ filePreviews.isWallpaperUploading }
+                            />
+                        </Grid>
+                        <Grid item xs={ 12 } sm={ 12 } lg={ 12 } md={ 12 }>
+                            <ImageWithPreview 
+                                name='Title Logo'
+                                inputID='title_logo'
+                                inputName='title_logo'
+                                apiSource={ trailer.title_logo_path }
+                                filePreview={ filePreviews.title_logo }
+                                handleChangeFile={ handleChangeTitleLogoFile }
+                                error={ TRAILER_HAS_ERROR_MESSAGES?.title_logo_path }
+                                helperText={ TRAILER_ERROR_MESSAGES?.title_logo_path }
+                                isUploading={ filePreviews.isTitleLogoUploading }
+                            />
+                        </Grid>
+                    </Grid>
+                </CardContent>
+                <CardActions>
+                    <SaveCancelButtons 
+                        saveButtonCallback={ handleClickSave }
+                        cancelButtonCallback={ handleClickCancel }
+                        isLoading={ COMING_SOON_MOVIE.isLoading }
+                    />
+                </CardActions>
+            </Card>
+        </Container>
     )
 }
 
