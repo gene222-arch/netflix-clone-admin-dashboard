@@ -24,7 +24,9 @@ const DEFAULT_FILE_PREVIEW_PROPS = {
     title_logo: null,
     isTitleLogoUploading: false,
     video: null,
-    isVideoUploading:false
+    isVideoUploading: false,
+    video_preview: null,
+    isVideoPreviewUploading: false
 };
 
 const MovieInputFields = ({ movie, setMovie, cardHeaderTitle, saveButtonCallback }) => 
@@ -68,6 +70,42 @@ const MovieInputFields = ({ movie, setMovie, cardHeaderTitle, saveButtonCallback
         }
 
         setFilePreviews({ ...filePreviews, isVideoUploading: false });
+        e.target.value = null;
+    }
+
+    const handleChangeVideoPreviewFile = async (e) => 
+    {
+        setFilePreviews({ ...filePreviews, isVideoPreviewUploading: true });
+
+        let files = e.target.files || e.dataTransfer.files;
+        if (!files.length) return;
+        
+        const file = files[0];
+        const reader = new FileReader();
+
+        try {
+            const { data, status } = await MOVIE_API.uploadVideoPreviewAsync({ video_preview: file });
+
+            if (status === 'success') 
+            {
+                setMovie({ ...movie, video_preview_path: data });
+
+                reader.onload = (e) => {
+                    setFilePreviews({ ...filePreviews, video_preview: e.target.result });
+                };
+    
+                reader.readAsDataURL(file);
+
+                dispatch(MOVIE_ACTION.updateMovieErrorState({ 
+                    video_preview_path: ''
+                }));
+            }
+            
+        } catch ({ message }) {
+            dispatch(MOVIE_ACTION.updateMovieErrorState({  video_preview_path: message.video_preview }));
+        }
+
+        setFilePreviews({ ...filePreviews, isVideoPreviewUploading: false });
         e.target.value = null;
     }
 
@@ -230,6 +268,9 @@ const MovieInputFields = ({ movie, setMovie, cardHeaderTitle, saveButtonCallback
                 {/* Displays */}
                 <Grid item xs={12} sm={12} md={12} lg={12}>
                     <MovieFile
+                        videoPreview={ filePreviews.video_preview }
+                        isVideoPreviewUploading={ filePreviews.isVideoPreviewUploading }
+                        handleChangeVideoPreviewFile={ handleChangeVideoPreviewFile }
                         movie={ movie }
                         handleChangePosterFile={ handleChangePosterFile }
                         handleChangeWallpaperFile={ handleChangeWallpaperFile }

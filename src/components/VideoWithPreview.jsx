@@ -2,7 +2,7 @@ import React from 'react'
 import Grid from '@material-ui/core/Grid'
 import { makeStyles } from '@material-ui/core/styles';
 import VideocamIcon from '@material-ui/icons/Videocam';
-import { Card, CardContent, Fab, FormHelperText, Button, InputLabel, Input } from '@material-ui/core';
+import { Card, CardContent, Fab, FormHelperText, Button, InputLabel, Input, Typography } from '@material-ui/core';
 import Tooltip from '@material-ui/core/Tooltip';
 import Colors from './../constants/Colors';
 import { MoonLoader } from 'react-spinners'
@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
     },
     input: {
       display: 'none',
-    },
+    }
 }));
 
 const VideoWithPreview = ({
@@ -47,6 +47,7 @@ const VideoWithPreview = ({
     isUploading = false,
     handleChangeVideoFile,
     error = false,
+    label,
     helperText = ''
 }) => {
 
@@ -99,6 +100,13 @@ const VideoWithPreview = ({
                                             </Tooltip>
                                         </CardContent>
                                         : <MoonLoader size={ 19 } color={ Colors.white } />
+                                }
+                                {
+                                    label && (
+                                        <Typography variant="h6" color="initial" align='center'>
+                                           { label }
+                                        </Typography>
+                                    )
                                 }
                                 { error && <FormHelperText error={ error }>{ helperText }</FormHelperText> }
                             </Card>

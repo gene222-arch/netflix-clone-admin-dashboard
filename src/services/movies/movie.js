@@ -71,6 +71,14 @@ export const uploadVideoAsync = async (payload) =>
         .catch(error => Promise.reject(error.response.data));
 }
 
+export const uploadVideoPreviewAsync = async (payload) => 
+{
+    return await axiosInstance()
+        .post(`/movies/upload/video-preview`, FormDataHelper.prepareToFormData(payload, 'POST'), config)
+        .then(response => response.data)
+        .catch(error => Promise.reject(error.response.data));
+}
+
 export const deleteAsync = async (ids) => 
 {
     return await axiosInstance()

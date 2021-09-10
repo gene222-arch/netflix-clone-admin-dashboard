@@ -6,6 +6,7 @@ import { createStructuredSelector } from 'reselect';
 import { selectMovieErrorMessages } from '../../redux/modules/movie/selector';
 import { selectMovieHasErrorMessages } from './../../redux/modules/movie/selector';
 import { connect } from 'react-redux';
+import VideoWithPreview from './../VideoWithPreview';
 
 
 const movieImagesUseStyles = makeStyles(theme => ({
@@ -24,7 +25,7 @@ const movieImagesUseStyles = makeStyles(theme => ({
 }));
 
 
-const MovieImages = ({ movie, MOVIE_ERROR_MESSAGES, MOVIE_HAS_ERROR_MESSAGES, handleChangePosterFile, handleChangeWallpaperFile, handleChangeTitleLogoFile, filePreviews }) => 
+const MovieImages = ({ movie, MOVIE_ERROR_MESSAGES, MOVIE_HAS_ERROR_MESSAGES, videoPreview, isVideoPreviewUploading, handleChangeVideoPreviewFile, handleChangePosterFile, handleChangeWallpaperFile, handleChangeTitleLogoFile, filePreviews }) => 
 {
     const classes = movieImagesUseStyles();
 
@@ -43,6 +44,19 @@ const MovieImages = ({ movie, MOVIE_ERROR_MESSAGES, MOVIE_HAS_ERROR_MESSAGES, ha
             <Divider />
             <CardContent>
                 <Grid container spacing={ 2 }>
+                    <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
+                        <VideoWithPreview
+                            label='Video Preview'
+                            inputID='video_preview'
+                            inputName='video_preview'
+                            filePreview={ videoPreview }
+                            isUploading={ isVideoPreviewUploading }
+                            apiSource={ movie.video_preview_path }
+                            handleChangeVideoFile={ handleChangeVideoPreviewFile }
+                            error={ MOVIE_HAS_ERROR_MESSAGES.video_preview_path }
+                            helperText={ MOVIE_ERROR_MESSAGES.video_preview_path }
+                        />
+                    </Grid>
                     <Grid item xs={ 12 } sm={ 12 } lg={ 12 } md={ 12 }>
                         <ImageWithPreview 
                             name='Poster'
