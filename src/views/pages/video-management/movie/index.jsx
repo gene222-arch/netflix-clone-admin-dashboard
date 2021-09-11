@@ -21,6 +21,11 @@ const Movie = ({ MOVIE }) =>
     const columns = 
     [
         { title: 'id', field: 'id', hidden: true },
+        {
+            title: 'Poster', 
+            field: 'poster_path',
+            render: ({ poster_path }) => <img src={ poster_path } alt="" width={ 170 } height={ 240 } />
+        },
         { 
             title: 'Title', 
             field: 'title',
