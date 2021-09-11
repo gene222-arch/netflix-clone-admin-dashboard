@@ -58,8 +58,7 @@ const MainLayout = ({ children, MAIN_LAYOUT }) =>
                 <List></List>
                 <List>
                     <Dashboard />
-                    <VideoManagement />
-                    <SecondListItem />                 
+                    <VideoManagement />           
                 </List>
             </Drawer>
 

@@ -7,6 +7,11 @@ const mainLayoutUseStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
     },
+    accountCircleIcon: {
+        fontSize: '5rem',
+        width: '100%',
+        textAlign: 'center'
+    },
     appBar: {
         zIndex: theme.zIndex.drawer + 1,
         transition: theme.transitions.create(['width', 'margin'], {
@@ -38,11 +43,12 @@ const mainLayoutUseStyles = makeStyles((theme) => ({
     },
     authenticatedUserName: {
         fontSize: '.9rem',
-        color: theme.palette.text.disabled,
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        textAlign: 'center'
     },
-    authenticatedUserEmail: {
+    authenticatedUserRole: {
         fontSize: '.9rem',
+        textAlign: 'center',
         color: theme.palette.text.disabled
     },
     menuButton: {
@@ -85,6 +91,9 @@ const mainLayoutUseStyles = makeStyles((theme) => ({
         padding: theme.spacing(0, 1, 0, 2),
         // necessary for content to be below app bar
         ...theme.mixins.toolbar,
+    },
+    userInfoContainer: {
+        marginTop: '1.25rem'
     },
     content: {
         flexGrow: 1,

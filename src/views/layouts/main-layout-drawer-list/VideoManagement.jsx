@@ -5,11 +5,12 @@ import { List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
 import Collapse from '@material-ui/core/Collapse';
 
 /** Material UI Icons*/
-import MailIcon from '@material-ui/icons/Mail';
+import NewReleasesIcon from '@material-ui/icons/NewReleases';
 import EmojiEmotionsIcon from '@material-ui/icons/EmojiEmotions';
 import SportsKabaddiIcon from '@material-ui/icons/SportsKabaddi';
 import DropdownIcon from '../../../components/DropdownIcon';
 import MovieIcon from '@material-ui/icons/Movie';
+import SupervisedUserCircleIcon from '@material-ui/icons/SupervisedUserCircle';
 import VideoLibraryIcon from '@material-ui/icons/VideoLibrary';
 import CastIcon from '@material-ui/icons/RecentActors';
 import { createStructuredSelector } from 'reselect';
@@ -85,7 +86,7 @@ const VideoManagement = ({ MAIN_LAYOUT }) =>
                         text={
                             <ListItem button selected={ MAIN_LAYOUT.videoManagementDirectors } onClick={ selectVideoManagementDirectors }>
                                 <ListItemText primary='Directors'/>
-                                <SportsKabaddiIcon />
+                                <SupervisedUserCircleIcon />
                             </ListItem>
                         }
                     />
@@ -118,7 +119,7 @@ const VideoManagement = ({ MAIN_LAYOUT }) =>
                         text={
                             <ListItem button selected={ MAIN_LAYOUT.videoManagementComingSoonMovies } onClick={ selectVideoManagementComingSoonMovies }>
                                 <ListItemText primary='Coming Soon Movies'/>
-                                <VideoLibraryIcon />
+                                <NewReleasesIcon />
                             </ListItem>
                         }
                     />

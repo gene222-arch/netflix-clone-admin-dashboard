@@ -11,6 +11,9 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import CancelIcon from '@material-ui/icons/Cancel';
 import { selectMainLayout } from '../../../redux/modules/main-layout/selector';
 import TextContentLoader from '../../../components/content-loader/TextContentLoader';
+import APP_LOGO from './../../../assets/images/app/iconflicklify.ico'
+import { CardContent, Card, Divider } from '@material-ui/core';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
 
 const Avatar = ({ AUTH, MAIN_LAYOUT }) => 
@@ -24,9 +27,7 @@ const Avatar = ({ AUTH, MAIN_LAYOUT }) =>
     return (
         <>
             <div className={ classes.toolbar }>
-                <Typography variant="h5" color="initial">
-                    Netflix Dash
-                </Typography>
+                <img src={ APP_LOGO } alt="" width={ 50 } height={ 50 } />
                 <IconButton onClick={ handleToggleDrawer }>
                     {theme.direction === 'rtl' ? <ChevronRightIcon /> : <CancelIcon />}
                 </IconButton>
@@ -43,12 +44,18 @@ const Avatar = ({ AUTH, MAIN_LAYOUT }) =>
                             )
                             : (
                                 <>
-                                    <Typography variant='subtitle1' color="initial" className={ classes.authenticatedUserName }>
-                                        { `${ AUTH.user.first_name } ${ AUTH.user.last_name }` }
-                                    </Typography>
-                                    <Typography variant='subtitle2' color="initial" className={ classes.authenticatedUserEmail } >
-                                        { AUTH.user.email }
-                                    </Typography>
+                                    <Card className={ classes.userInfoContainer }>
+                                    <Divider />
+                                        <CardContent>
+                                            <AccountCircleIcon className={ classes.accountCircleIcon } />
+                                            <Typography variant='subtitle1' color="initial" className={ classes.authenticatedUserName }>
+                                                { `${ AUTH.user.first_name } ${ AUTH.user.last_name }` }
+                                            </Typography>
+                                            <Typography variant='subtitle2' color="initial" className={ classes.authenticatedUserRole } >
+                                                Administrator
+                                            </Typography>
+                                        </CardContent>
+                                    </Card>
                                 </>
                             )
                     }
