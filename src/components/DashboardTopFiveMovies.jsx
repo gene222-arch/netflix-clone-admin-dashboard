@@ -46,7 +46,7 @@ const DisplayListItem = ({ index, title, count }) =>
 			<ListItemIcon>{ index }</ListItemIcon>
 			<ListItemText primary={ title } />
 			<ListItemSecondaryAction>
-				<Avatar className={ classes.avatar }>{ count }</Avatar>
+				<Typography variant="subtitle1" color='textSecondary'>{ count }</Typography>
 			</ListItemSecondaryAction>
 		</ListItem>
 	)
