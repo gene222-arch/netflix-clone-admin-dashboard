@@ -52,7 +52,7 @@ const Avatar = ({ AUTH, MAIN_LAYOUT }) =>
                                                 { `${ AUTH.user.first_name } ${ AUTH.user.last_name }` }
                                             </Typography>
                                             <Typography variant='subtitle2' color="initial" className={ classes.authenticatedUserRole } >
-                                                Administrator
+                                                { AUTH.role }
                                             </Typography>
                                         </CardContent>
                                     </Card>

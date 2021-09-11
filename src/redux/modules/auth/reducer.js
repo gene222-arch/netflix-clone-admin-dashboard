@@ -85,6 +85,7 @@ export default (state = initialState, { type, payload }) =>
                 isLoading,
                 isAuthenticated: true,
                 user: payload.user,
+                role: payload.role,
                 permissions: payload.permissions,
                 error,
             };
