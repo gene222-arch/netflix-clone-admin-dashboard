@@ -19,6 +19,8 @@ import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
+import VisibilityIcon from '@material-ui/icons/Visibility';
+import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 
 /** Material UI Styling */
 import loginFormUseStyles from '../../../assets/js/material-ui/loginFormUseStyles';
@@ -29,6 +31,8 @@ import * as AUTH_ACTION from '../../../redux/modules/auth/actions'
 /** Routes */
 import PATH from './../../../routes/path';
 import { selectAuth, selectAuthErrorMessages, selectAuthHasErrorMessages } from './../../../redux/modules/auth/selector';
+import InputAdornment from '@material-ui/core/InputAdornment'
+import { IconButton } from '@material-ui/core';
 
 
 const LoginForm = ({ AUTH, ERROR_MESSAGE, HAS_ERROR_MESSAGE }) => 
@@ -37,6 +41,7 @@ const LoginForm = ({ AUTH, ERROR_MESSAGE, HAS_ERROR_MESSAGE }) =>
     const classes = loginFormUseStyles();
 
     const [ credentials, setCredentials ] = useState(AUTH.credentials);
+    const [ showPassword, setShowPassword ] = useState(false);
     
     const handleChangeCredentials = (e) => 
     {
@@ -47,9 +52,12 @@ const LoginForm = ({ AUTH, ERROR_MESSAGE, HAS_ERROR_MESSAGE }) =>
             : setCredentials({...credentials, [name]: value});
     };
 
+    const handleClickTogglePasswordVisibility = () => setShowPassword(! showPassword);
+
+    const handleMouseDownPassword = (e) => e.preventDefault();
+
     const onClickLogin = (e) => {
         e.preventDefault();
-        console.log('Log in');
         dispatch(AUTH_ACTION.login(credentials));
     }
 
@@ -90,13 +98,26 @@ const LoginForm = ({ AUTH, ERROR_MESSAGE, HAS_ERROR_MESSAGE }) =>
                     fullWidth
                     name='password'
                     label='Password'
-                    type='password'
+                    type={ !showPassword ? 'password' : '' }
                     id='password'
                     autoComplete='current-password'
                     value={ credentials.password }
                     onChange={ handleChangeCredentials }
                     error={ HAS_ERROR_MESSAGE.password }
                     helperText={ ERROR_MESSAGE.password }
+                    InputProps={{
+                        endAdornment: (
+                            <InputAdornment position="end">
+                                <IconButton
+                                    aria-label="toggle password visibility"
+                                    onClick={ handleClickTogglePasswordVisibility }
+                                    onMouseDown={ handleMouseDownPassword }
+                                >
+                                { showPassword ? <VisibilityIcon /> : <VisibilityOffIcon /> }
+                                </IconButton>
+                            </InputAdornment>
+                        ),
+                    }}
                 />
                 <FormControlLabel
                     control={
