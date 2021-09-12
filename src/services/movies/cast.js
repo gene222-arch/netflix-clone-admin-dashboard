@@ -51,7 +51,7 @@ export const updateEnabledStatusAsync = async (id) =>
 export const uploadAvatarAsync = async (payload) => 
 {
     return await axiosInstance()
-        .post(`/authors/upload-avatar`, FormDataHelper.prepareToFormData(payload, 'POST'), config)
+        .post(`/casts/upload-avatar`, FormDataHelper.prepareToFormData(payload, 'POST'), config)
         .then(response => response.data)
         .catch(error => Promise.reject(error.response.data));
 }
