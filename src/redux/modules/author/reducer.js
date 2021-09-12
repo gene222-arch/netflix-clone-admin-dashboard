@@ -24,6 +24,7 @@ const {
 
 const AUTHOR_DEFAULT_PROPS = {
     id: '',
+    avatar_path: null,
     pseudonym: '',
     birth_name: '',
     gender: '',

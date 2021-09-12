@@ -32,12 +32,18 @@ const ImageWithPreview = ({
     handleChangeFile,
     error = false,
     helperText = '',
-    isUploading = false
+    isUploading = false,
+    defaultImg = null
 }) => 
 {
     const classes = useStyles();
 
-    const showPreview = () => {
+    const showPreview = () => 
+    {
+        if (
+            (! defaultImg || typeof defaultImg === 'object') &&
+            (!apiSource && !filePreview)
+            ) return defaultImg;
 
         if (apiSource && !filePreview) {
             return <img src={ apiSource } className={ imgClass } style={{

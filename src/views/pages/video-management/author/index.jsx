@@ -20,6 +20,11 @@ const Author = ({ AUTHOR }) =>
     const history = useHistory();
     const columns = [
         { title: 'id', field: 'id', hidden: true },
+        {
+            title: 'Poster', 
+            field: 'avatar_path',
+            render: ({ avatar_path }) => <img src={ avatar_path } alt="" width={ 170 } height={ 240 } />
+        },
         { 
             title: 'Birth Name', 
             field: 'birth_name',

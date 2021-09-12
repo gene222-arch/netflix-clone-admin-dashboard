@@ -1,6 +1,5 @@
 import React from 'react'
 import { format } from 'date-fns';
-import { useHistory } from 'react-router-dom'
 import { KeyboardDatePicker } from '@material-ui/pickers';
 import { Card, CardHeader, IconButton, CardActions, Typography, CardContent, TextField, Grid, Container, FormHelperText } from '@material-ui/core';
 import Radio from '@material-ui/core/Radio';
@@ -11,13 +10,27 @@ import { MoreVert as MoreVertIcon } from '@material-ui/icons'
 import Divider from '@material-ui/core/Divider';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
 /** Components */
 import SaveCancelButtons from './SaveCancelButtons';
+import ImageWithPreview from './ImageWithPreview';
+import { makeStyles } from '@material-ui/core/styles';
 
+const avatarUseStyles = makeStyles(theme => ({
+    avatarImg: {
+        height: '40vh',
+        width: '20vh'
+    },
+    avatarDefaultImg: {
+        fontSize: '15rem'
+    }
+}));
 
-const InputFields = ({ data, setData, saveButtonCallback, cancelButtonCallback, isLoading = false, cardHeaderTitle = '', errors = null, errorMessages = null }) => 
+const InputFields = ({ data, setData, isAvatarUploading, avatarPreview, uploadErrorMessage, handleChangeAvatar, saveButtonCallback, cancelButtonCallback, isLoading = false, cardHeaderTitle = '', errors = null, errorMessages = null }) => 
 {
+    const classes = avatarUseStyles();
+
     const handleChange = (e) => {
         const { name, value, checked } = e.target;
 
@@ -27,8 +40,8 @@ const InputFields = ({ data, setData, saveButtonCallback, cancelButtonCallback, 
     }
 
     const handleChangeBirthDate = (date) => setData({ ...data, date_of_birth: format(date, 'yyyy-MM-dd') });
-    const handleChangeDateOfDeath = (date) => setData({ ...data, date_of_death: format(date, 'yyyy-MM-dd') })
 
+    const handleChangeDateOfDeath = (date) => setData({ ...data, date_of_death: format(date, 'yyyy-MM-dd') });
     
     return (
         <Container maxWidth='lg'>
@@ -48,7 +61,24 @@ const InputFields = ({ data, setData, saveButtonCallback, cancelButtonCallback, 
                 
                 <CardContent>
                     <Grid container spacing={2}>
-                        <Grid item xs={ 12 } sm={ 12 } lg={ 12 } xl={ 12 }>
+                        <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
+                            <ImageWithPreview 
+                                name='Avatar'
+                                inputID='avatar'
+                                inputName='avatar'
+                                apiSource={ data.avatar_path }
+                                filePreview={ avatarPreview }
+                                imgClass={ classes.avatarImg }
+                                handleChangeFile={ handleChangeAvatar }
+                                error={ Boolean(uploadErrorMessage) }
+                                helperText={ uploadErrorMessage }
+                                isUploading={ isAvatarUploading }
+                                defaultImg={
+                                    <AccountCircleIcon className={ classes.avatarDefaultImg } />
+                                }
+                            />
+                        </Grid>
+                        <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
                             <TextField
                                 id='pseudonym'
                                 name='pseudonym'
@@ -61,7 +91,7 @@ const InputFields = ({ data, setData, saveButtonCallback, cancelButtonCallback, 
                                 onChange={ handleChange }
                             />
                         </Grid>
-                        <Grid item xs={ 12 } sm={ 12 } lg={ 12 } xl={ 12 }>
+                        <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
                             <TextField
                                 id='birth_name'
                                 name='birth_name'
@@ -74,7 +104,7 @@ const InputFields = ({ data, setData, saveButtonCallback, cancelButtonCallback, 
                                 onChange={ handleChange }
                             />
                         </Grid>
-                        <Grid item xs={ 12 } sm={ 12 } lg={ 12 } xl={ 12 }>
+                        <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
                             <FormControl component='fieldset' error={ errors.gender } >
                                 <FormLabel component='legend'>Gender</FormLabel>
                                 <RadioGroup aria-label='gender' name='gender' value={ data.gender ?? '' } onChange={ handleChange }>
@@ -85,7 +115,7 @@ const InputFields = ({ data, setData, saveButtonCallback, cancelButtonCallback, 
                                 <FormHelperText>{ errorMessages?.gender } </FormHelperText>
                             </FormControl>
                         </Grid>
-                        <Grid item xs={ 12 } sm={ 12 } lg={ 12 } xl={ 12 }>
+                        <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
                             <TextField
                                 id='height_in_cm'
                                 name='height_in_cm'
@@ -98,7 +128,7 @@ const InputFields = ({ data, setData, saveButtonCallback, cancelButtonCallback, 
                                 onChange={ handleChange }
                             />
                         </Grid>
-                        <Grid item xs={ 12 } sm={ 12 } lg={ 12 } xl={ 12 }>
+                        <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
                             <TextField
                                 id='biographical_information'
                                 name='biographical_information'
@@ -113,7 +143,7 @@ const InputFields = ({ data, setData, saveButtonCallback, cancelButtonCallback, 
                                 onChange={ handleChange }
                             />
                         </Grid>
-                        <Grid item xs={ 12 } sm={ 12 } lg={ 12 } xl={ 12 }>
+                        <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
                             <KeyboardDatePicker
                                 id='date-of-birth'
                                 label='Date of Birth'
@@ -133,7 +163,7 @@ const InputFields = ({ data, setData, saveButtonCallback, cancelButtonCallback, 
                                 onChange={ handleChangeBirthDate }
                             />
                         </Grid>
-                        <Grid item xs={ 12 } sm={ 12 } lg={ 12 } xl={ 12 }>
+                        <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
                             <TextField
                                 id='place_of_birth'
                                 name='place_of_birth'
@@ -147,7 +177,7 @@ const InputFields = ({ data, setData, saveButtonCallback, cancelButtonCallback, 
                                 onChange={ handleChange }
                             />
                         </Grid>
-                        <Grid item xs={ 12 } sm={ 12 } lg={ 12 } xl={ 12 }>
+                        <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
                             <TextField
                                 id='birth_details'
                                 name='birth_details'
@@ -162,7 +192,7 @@ const InputFields = ({ data, setData, saveButtonCallback, cancelButtonCallback, 
                                 onChange={ handleChange }
                             />
                         </Grid>
-                        <Grid item xs={ 12 } sm={ 12 } lg={ 12 } xl={ 12 }>
+                        <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
                             <KeyboardDatePicker
                                 id='date-of-death'
                                 label='Date of Death'
@@ -182,7 +212,7 @@ const InputFields = ({ data, setData, saveButtonCallback, cancelButtonCallback, 
                                 onChange={ handleChangeDateOfDeath }
                             />
                         </Grid>
-                        <Grid item xs={ 12 } sm={ 12 } lg={ 12 } xl={ 12 }>
+                        <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
                             <TextField
                                 id='death_details'
                                 name='death_details'
@@ -197,7 +227,7 @@ const InputFields = ({ data, setData, saveButtonCallback, cancelButtonCallback, 
                                 onChange={ handleChange }
                             />
                         </Grid>
-                        <Grid item xs={ 12 } sm={ 12 } lg={ 12 } xl={ 12 }>
+                        <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
                             <FormControlLabel
                                 control={<Switch checked={ Boolean(data.enabled) } onChange={ handleChange } name='enabled' />}
                                 label='Enabled'
