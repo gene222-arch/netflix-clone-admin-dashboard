@@ -3,6 +3,7 @@ import { createStructuredSelector } from 'reselect';
 import { connect, useDispatch } from 'react-redux';
 
 import * as DIRECTOR_ACTION from '../../../../redux/modules/director/actions'; 
+import * as DIRECTOR_API from './../../../../services/movies/director'; 
 import { selectDirector, selectDirectorErrorMessages, selectDirectorHasErrorMessages } from '../../../../redux/modules/director/selector';
 import InputFields from '../../../../components/InputFields';
 import { useHistory } from 'react-router-dom';
@@ -16,6 +17,9 @@ const UpdateDirector = ({ DIRECTOR, match, DIRECTOR_ERROR_MESSAGES, DIRECTOR_HAS
     const history = useHistory();
 
     const [ director, setDirector ] = useState(DIRECTOR.director);
+    const [ isAvatarUploading, setIsAvatarUploading ] = useState(false);
+    const [ avatarPreview, setAvatarPreview ] = useState(null);
+    const [ uploadErrorMessage, setUploadErrorMessage ] = useState('');
 
     const handleClickUpdateDirector = () => {
         delete director.tableData
@@ -32,11 +36,42 @@ const UpdateDirector = ({ DIRECTOR, match, DIRECTOR_ERROR_MESSAGES, DIRECTOR_HAS
         history.push(PATH.VIDEO_MANAGEMENT_DIRECTOR);
     }
 
+    const handleChangeAvatar = async (e) => 
+    {
+        setIsAvatarUploading(true);
+
+        let files = e.target.files || e.dataTransfer.files;
+        if (!files.length) return;
+        
+        const file = files[0];
+        const reader = new FileReader();
+
+        try {
+            const { data: avatar_path, status } = await DIRECTOR_API.uploadAvatarAsync({ avatar: file });
+            
+            if (status === 'success') 
+            {
+                setDirector({ ...director, avatar_path });
+
+                reader.onload = (e) => setAvatarPreview(e.target.result);
+                reader.readAsDataURL(file);
+            }
+        } catch ({ message }) {
+            setUploadErrorMessage(message.avatar);
+        }
+
+        setIsAvatarUploading(false);
+        e.target.value = null;
+    }
+
     useEffect(() => {
         onLoadFetchDirectorByID();
         return () => {
             setDirector(DIRECTOR.director);
             dispatch(DIRECTOR_ACTION.clearDirectorErrors());
+            setIsAvatarUploading(false);
+            setAvatarPreview(null);
+            setUploadErrorMessage('');
         }
     }, []);
 
@@ -45,6 +80,10 @@ const UpdateDirector = ({ DIRECTOR, match, DIRECTOR_ERROR_MESSAGES, DIRECTOR_HAS
             cardHeaderTitle='Edit Director'
             data={ director }
             setData={ setDirector }
+            isAvatarUploading={ isAvatarUploading }
+            avatarPreview={ avatarPreview }
+            uploadErrorMessage={ uploadErrorMessage }
+            handleChangeAvatar={ handleChangeAvatar }
             saveButtonCallback={ handleClickUpdateDirector }
             cancelButtonCallback={ handleClickCancel }
             errors={ DIRECTOR_HAS_ERROR_MESSAGES }
