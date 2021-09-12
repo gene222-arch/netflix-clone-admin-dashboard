@@ -7,8 +7,7 @@ import { connect, useDispatch } from 'react-redux';
 import { Checkbox, Card, CardContent, makeStyles, Grid, Typography, Divider, Avatar, CardHeader, IconButton, FormControlLabel, Button } from '@material-ui/core';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import * as ACCESS_RIGHT_ACTION from './../../redux/modules/access-rights/actions'
-import { PuffLoader } from 'react-spinners';
-import { css } from '@emotion/react'
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const inputFieldUseStyles = makeStyles(theme => ({
     cardContent: {
@@ -17,15 +16,14 @@ const inputFieldUseStyles = makeStyles(theme => ({
     checkBoxContainer: {
         width: '100%',
         margin: '0.5rem 0'
+    },
+    progress: {
+        margin: '.69rem .69rem'
     }
 }));
 
 const InputFields = ({ ACCESS_RIGHT, ACCESS_RIGHT_HAS_ERROR, ACCESS_RIGHT_ERROR, isFetching = false, actionName, accessRight, setAccessRight, handleClickSave, handleClickCancel }) => 
 {
-    const loaderStyled = css`
-            marginRight: '1rem'
-        `;
-
     const classes = inputFieldUseStyles();
     const dispatch = useDispatch();
 
@@ -106,7 +104,7 @@ const InputFields = ({ ACCESS_RIGHT, ACCESS_RIGHT_HAS_ERROR, ACCESS_RIGHT_ERROR,
                                                         key={ index }
                                                         control={ 
                                                             isFetching
-                                                                ? <PuffLoader margin={ 5 } size='35' css={ loaderStyled } color='#FFF' />
+                                                                ? <CircularProgress color="secondary" size={ 20 } className={ classes.progress } />
                                                                 : (
                                                                     <Checkbox 
                                                                         name='permission' 
