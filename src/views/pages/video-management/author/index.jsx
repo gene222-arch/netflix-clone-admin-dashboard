@@ -29,7 +29,7 @@ const Author = ({ AUTHOR }) =>
     const columns = [
         { title: 'id', field: 'id', hidden: true },
         {
-            title: 'Poster', 
+            title: 'Avatar', 
             field: 'avatar_path',
             render: ({ avatar_path }) => <img className={ classes.avatarImg } src={ avatar_path } />
         },
