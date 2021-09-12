@@ -9,14 +9,14 @@ import ACTION_TYPES from './action.types'
 import { 
     fetchAllAccessRightsSuccess,
     fetchAllAccessRightsFailed,
+    fetchAllPermissionsSuccess,
+    fetchAllPermissionsFailed,
     findAccessRightByIDSuccess,
     findAccessRightByIDFailed,
     createAccessRightSuccess,
     createAccessRightFailed,
     updateAccessRightSuccess,
     updateAccessRightFailed,
-    toggleAccessRightEnabledFailed, 
-    toggleAccessRightEnabledSuccess,
     deleteAccessRightsSuccess,
     deleteAccessRightsFailed
 } from './actions';
@@ -26,6 +26,7 @@ import { ERROR_MESSAGE_ON_CREATE, ERROR_MESSAGE_ON_DELETE, ERROR_MESSAGE_ON_UPDA
 
 const {
     FETCH_ALL_ACCESS_RIGHTS_START,
+    FETCH_ALL_PERMISSIONS_START,
     FIND_ACCESS_RIGHT_BY_ID_START,
     CREATE_ACCESS_RIGHT_START,
     UPDATE_ACCESS_RIGHT_START,
@@ -44,6 +45,17 @@ function* fetchAllAccessRightsSaga()
         yield put(fetchAllAccessRightsFailed({ message }));
     }
 }
+
+function* fetchAllPermissionsSaga()
+{
+    try {
+        const { data: permissions } = yield call(API.fetchAllPermissionsAsync);
+        yield put(fetchAllPermissionsSuccess({ permissions }));
+    } catch ({ message }) {
+        yield put(fetchAllPermissionsFailed({ message }));
+    }
+}
+
 
 function* findAccessRightByIDSaga(payload)
 {
@@ -111,6 +123,14 @@ function* fetchAllAccessRightsWatcher()
     }
 }
 
+function* fetchAllPermissionsWatcher()
+{
+    while (true) {
+        yield take(FETCH_ALL_PERMISSIONS_START);
+        yield call(fetchAllPermissionsSaga);
+    }
+}
+
 function* findAccessRightByIDWatcher()
 {
     while (true) {
@@ -150,6 +170,7 @@ export default function*()
 {
     yield all([
         fetchAllAccessRightsWatcher(),
+        fetchAllPermissionsWatcher(),
         findAccessRightByIDWatcher(),
         createAccessRightWatcher(),
         updateAccessRightWatcher(),

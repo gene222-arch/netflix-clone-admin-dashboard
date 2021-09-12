@@ -4,6 +4,9 @@ const {
     FETCH_ALL_ACCESS_RIGHTS_START,
     FETCH_ALL_ACCESS_RIGHTS_SUCCESS,
     FETCH_ALL_ACCESS_RIGHTS_FAILED,
+    FETCH_ALL_PERMISSIONS_START,
+    FETCH_ALL_PERMISSIONS_SUCCESS,
+    FETCH_ALL_PERMISSIONS_FAILED,
     FIND_ACCESS_RIGHT_BY_ID_START,
     FIND_ACCESS_RIGHT_BY_ID_SUCCESS,
     FIND_ACCESS_RIGHT_BY_ID_FAILED,
@@ -36,6 +39,21 @@ export const fetchAllAccessRightsFailed = (payload) => ({
     payload
 });
 
+/** Fetch All Permissions action */
+export const fetchAllPermissionsStart = (payload) => ({
+    type: FETCH_ALL_PERMISSIONS_START,
+    payload
+});
+
+export const fetchAllPermissionsSuccess = (payload) => ({
+    type: FETCH_ALL_PERMISSIONS_SUCCESS,
+    payload
+});
+
+export const fetchAllPermissionsFailed = (payload) => ({
+    type: FETCH_ALL_PERMISSIONS_FAILED,
+    payload
+});
 
 /** Find By ID action */
 export const findAccessRightByIDStart = (payload) => ({

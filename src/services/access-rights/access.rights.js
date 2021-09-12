@@ -8,6 +8,14 @@ export const fetchAllAsync = async () =>
         .catch(error => Promise.reject(error.response.data));
 }
 
+export const fetchAllPermissionsAsync = async () => 
+{
+    return await axiosInstance()
+        .get('/access-rights/permissions')
+        .then(response => response.data)
+        .catch(error => Promise.reject(error.response.data));
+}
+
 export const findByIDAsync = async (id) => 
 {
     return await axiosInstance()
