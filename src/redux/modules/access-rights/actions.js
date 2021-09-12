@@ -86,11 +86,6 @@ export const updateAccessRightFailed = (payload) => ({
     payload
 });
 
-export const toggleAccessRightEnabledFailed = (payload) => ({
-    type: TOGGLE_ACCESS_RIGHT_ENABLED_FAILED,
-    payload
-});
-
 /** Delete Access Right action */
 export const deleteAccessRightsStart = (payload) => ({
     type: DELETE_ACCESS_RIGHTS_START,

@@ -20,6 +20,7 @@ import SecondListItem from './main-layout-drawer-list/SecondListItem';
 import AppLogo from './main-layout-drawer-list/AppLogo';
 import Dashboard from './main-layout-drawer-list/Dashboard';
 import AppBarContent from './main-layout-header/AppBarContent';
+import AccessRight from './main-layout-drawer-list/AccessRight';
 
 
 
@@ -58,7 +59,8 @@ const MainLayout = ({ children, MAIN_LAYOUT }) =>
                 <List></List>
                 <List>
                     <Dashboard />
-                    <VideoManagement />           
+                    <VideoManagement />    
+                    <AccessRight />       
                 </List>
             </Drawer>
 

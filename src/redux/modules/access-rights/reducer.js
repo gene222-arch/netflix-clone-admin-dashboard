@@ -122,7 +122,6 @@ export default (state = initialState, { type, payload }) =>
         case FIND_ACCESS_RIGHT_BY_ID_FAILED:
         case CREATE_ACCESS_RIGHT_FAILED:
         case UPDATE_ACCESS_RIGHT_FAILED:
-        case TOGGLE_ACCESS_RIGHT_ENABLED_FAILED:
         case DELETE_ACCESS_RIGHTS_FAILED:
             return {
                 ...state,
