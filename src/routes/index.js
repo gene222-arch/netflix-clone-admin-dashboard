@@ -5,6 +5,7 @@ import { Route, Switch } from 'react-router-dom'
 import PATH from './path'
 
 /** Lazy components */
+const AccessRight = lazy(() => import('../views/pages/access-rights'))
 const Dashboard = lazy(() => import('../views/pages/dashboard/Dashboard'))
 const ForgotPasswordForm = lazy(() => import('../views/pages/auth/ForgotPasswordForm'))
 const LoginForm = lazy(() => import('../views/pages/auth/LoginForm'))
@@ -106,6 +107,15 @@ export const PUBLIC_ROUTES = [
 
 
 export const PRIVATE_ROUTES = [
+    {
+        path: PATH.ACCESS_RIGHT,
+        key: 'AccessRight',
+        icon: '',
+        exact: true,
+        component: AccessRight,
+        access: 'Manage Access Rights',
+        restricted: true
+    },
     {
         path: PATH.DASHBOARD,
         key: 'Dashboard',

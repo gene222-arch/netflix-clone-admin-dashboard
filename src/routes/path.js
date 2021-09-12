@@ -1,6 +1,8 @@
 const PATH = 
 {
     ACCESS_RIGHT: '/access-rights',
+    CREATE_ACCESS_RIGHT: '/access-rights/create',
+    UPDATE_ACCESS_RIGHT: '/access-rights/:id/update',
     DASHBOARD: '/',
     FORGOT_PASSWORD: '/auth/forgot-password/email',
     LOGIN: '/auth/sign-in',
