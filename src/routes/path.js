@@ -1,5 +1,6 @@
 const PATH = 
 {
+    ACCESS_RIGHT: '/access-rights',
     DASHBOARD: '/',
     FORGOT_PASSWORD: '/auth/forgot-password/email',
     LOGIN: '/auth/sign-in',

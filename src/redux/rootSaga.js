@@ -1,6 +1,7 @@
 import { all } from 'redux-saga/effects'
 
 /** Module sagas */
+import accessRightSaga from '../redux/modules/access-rights/saga'
 import authSaga from '../redux/modules/auth/saga'
 import authorSaga from '../redux/modules/author/saga'
 import castSaga from '../redux/modules/cast/saga'
@@ -14,6 +15,7 @@ import movieSaga from '../redux/modules/movie/saga'
 export default function* () 
 {
     yield all([
+        accessRightSaga(),
         authSaga(),
         authorSaga(),
         castSaga(),
