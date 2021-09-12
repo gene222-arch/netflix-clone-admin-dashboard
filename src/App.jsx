@@ -35,9 +35,7 @@ const App = ({ history }) =>
 							</AuthLayout>
 						</Route>
 						<Route path='/:path?'>
-							<MainLayout>
-								<RenderRoutes routes={ PRIVATE_ROUTES } />
-							</MainLayout>
+							<RenderRoutes routes={ PRIVATE_ROUTES } />
 						</Route>
 						<Route component={ NotFound } />
 					</Switch>

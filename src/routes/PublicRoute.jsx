@@ -7,19 +7,13 @@ import PATH from './path';
 import { createStructuredSelector } from 'reselect';
 import { selectAuth } from './../redux/modules/auth/selector';
 import { connect } from 'react-redux';
-import PageLoader from './../components/PageLoader';
-
 
 const PublicRoute = ({ AUTH, Component, ...props }) => 
 {
     return (
-        <>
-        {
-            !AUTH.isAuthenticated && !Cookies.has('access_token')
-                ? <Component { ...props } />
-                : <Redirect to={ PATH.DASHBOARD } />
-        }
-        </>
+        (!AUTH.isAuthenticated || !Cookies.has('access_token'))
+            ? <Component { ...props } />
+            : <Redirect to={ PATH.DASHBOARD } />
     )
 }
 

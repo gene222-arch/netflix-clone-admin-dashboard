@@ -312,16 +312,18 @@ export const RenderRoutes = ({ routes }) =>
     return (
         <Switch>
             {
-                routes.map(({ key, path, strict, exact, restricted, component }) => (
+                routes.map(({ key, path, strict, exact, access, restricted, component }) => (
                     <Route
                         key={ key }
                         path={ path }
                         strict={ strict }
                         exact={ exact }
                         render={ props => {
-                            return restricted 
-                                ? <PrivateRoute Component={ component } { ...props }/>
-                                : <PublicRoute Component={ component } { ...props } />
+                            return (
+                                restricted 
+                                    ? <PrivateRoute Component={ component } access={ access } { ...props }/>
+                                    : <PublicRoute Component={ component } { ...props } />
+                            )
                         }}
                     />
                 ))

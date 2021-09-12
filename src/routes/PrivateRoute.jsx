@@ -8,18 +8,19 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import * as Cookies from './../utils/cookies'
 import PATH from './path';
+import MainLayout from '../views/layouts/MainLayout';
 
-const PrivateRoute = ({ AUTH, Component, ...props }) => 
+const PrivateRoute = ({ AUTH, Component, access, ...props }) => 
 {
-    if (! AUTH.permissions.includes(props.access)) {
-        return <Forbidden />
-    }
+    if (! AUTH.isAuthenticated) return <Redirect to={ PATH.LOGIN } />
 
-    if (!AUTH.isAuthenticated && !Cookies.has('access_token')) {
-        return <Redirect to={ PATH.LOGIN } />
-    }
+    if (! AUTH.permissions.includes(access)) return <Forbidden />
     
-    return <Component { ...props } />
+    return (
+        <MainLayout>
+            <Component { ...props } />
+        </MainLayout>
+    )
 }
 
 const mapStateToProps = createStructuredSelector({
