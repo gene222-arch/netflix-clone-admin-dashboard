@@ -56,6 +56,7 @@ const initialState =
     user: null,
     isLoading: false,
     error: ERROR_DEFAULT,
+    role: null
 };
 
 

@@ -121,7 +121,7 @@ export const PRIVATE_ROUTES = [
         icon: '',
         exact: true,
         component: VideoManagementAuthor,
-        access: 'View Authors',
+        access: 'Manage Authors',
         restricted: true
     },
     {
@@ -148,7 +148,7 @@ export const PRIVATE_ROUTES = [
         icon: '',
         exact: true,
         component: VideoManagementCast,
-        access: 'View Casts',
+        access: 'Manage Casts',
         restricted: true
     },
     {
@@ -175,7 +175,7 @@ export const PRIVATE_ROUTES = [
         icon: '',
         exact: true,
         component: VideoManagementDirector,
-        access: 'View Directors',
+        access: 'Manage Directors',
         restricted: true
     },
     {
@@ -202,7 +202,7 @@ export const PRIVATE_ROUTES = [
         icon: '',
         exact: true,
         component: VideoManagementGenre,
-        access: 'View Genres',
+        access: 'Manage Genres',
         restricted: true
     },
     {
@@ -229,7 +229,7 @@ export const PRIVATE_ROUTES = [
         icon: '',
         exact: true,
         component: VideoManagementMovies,
-        access: 'View Movies',
+        access: 'Manage Movies',
         restricted: true
     },
     {
@@ -256,7 +256,7 @@ export const PRIVATE_ROUTES = [
         icon: '',
         exact: true,
         component: VideoManagementComingSoonMovies,
-        access: 'View Coming Soon Movie',
+        access: 'Manage Coming Soon Movies',
         restricted: true
     },
     {
@@ -265,7 +265,7 @@ export const PRIVATE_ROUTES = [
         icon: '',
         exact: true,
         component: CreateComingSoonMovie,
-        access: 'Manage Coming Soon Movie',
+        access: 'Manage Coming Soon Movies',
         restricted: true
     },
     {
@@ -274,7 +274,7 @@ export const PRIVATE_ROUTES = [
         icon: '',
         exact: true,
         component: UpdateComingSoonMovie,
-        access: 'Manage Coming Soon Movie',
+        access: 'Manage Coming Soon Movies',
         restricted: true
     },
     {
@@ -283,7 +283,7 @@ export const PRIVATE_ROUTES = [
         icon: '',
         exact: true,
         component: ViewComingSoonMovie,
-        access: 'Manage Coming Soon Movie',
+        access: 'Manage Coming Soon Movies',
         restricted: true
     },
     {
@@ -292,7 +292,7 @@ export const PRIVATE_ROUTES = [
         icon: '',
         exact: true,
         component: CreateTrailer,
-        access: 'Manage Coming Soon Movie',
+        access: 'Manage Coming Soon Movies',
         restricted: true
     },
     {
@@ -301,7 +301,7 @@ export const PRIVATE_ROUTES = [
         icon: '',
         exact: true,
         component: UpdateTrailer,
-        access: 'Manage Coming Soon Movie',
+        access: 'Manage Coming Soon Movies',
         restricted: true
     },
 ];

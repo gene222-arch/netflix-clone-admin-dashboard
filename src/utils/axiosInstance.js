@@ -27,6 +27,7 @@ export default () =>
                     break;
 
                 case 403:
+                    Cookie.remove('access_token');
                     alert('Forbidden');
                     break;
 
