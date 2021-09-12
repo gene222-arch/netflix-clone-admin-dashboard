@@ -11,7 +11,9 @@ const {
     SELECT_VIDEO_MANAGEMENT_MOVIES,
     SELECT_VIDEO_MANAGEMENT_COMING_SOON_MOVIES,
     TOGGLE_SECOND_LIST_ITEM,
-    SELECT_DASHBOARD } = ACTION_TYPES;
+    SELECT_DASHBOARD,
+    SELECT_ACCESS_RIGHT
+} = ACTION_TYPES;
 
 
 export const toggleDrawer = () => ({
@@ -58,4 +60,8 @@ export const toggleSecondListItem = () => ({
 
 export const selectDashboard = () => ({
     type: SELECT_DASHBOARD
+});
+
+export const selectAccessRight = () => ({
+    type: SELECT_ACCESS_RIGHT
 });

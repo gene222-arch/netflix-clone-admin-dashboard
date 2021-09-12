@@ -12,10 +12,12 @@ const {
     SELECT_VIDEO_MANAGEMENT_MOVIES, 
     SELECT_VIDEO_MANAGEMENT_COMING_SOON_MOVIES,
     TOGGLE_SECOND_LIST_ITEM,
-    SELECT_DASHBOARD
+    SELECT_DASHBOARD,
+    SELECT_ACCESS_RIGHT
 } = ACTION_TYPES;
 
 const DEFAULT_STATE = {
+    accessRight: false,
     dashboard: false,
     drawer: true,
     videoManagement: false,
@@ -29,6 +31,7 @@ const DEFAULT_STATE = {
 };
 
 const initialState = {
+    accessRight: false,
     dashboard: false,
     drawer: false,
     videoManagement: false,
@@ -52,6 +55,7 @@ export default (state = initialState, { type, payload }) =>
         currentSelectedDropdown, 
         currentSelectedDropdownItem, 
         dashboard,
+        accessRight,
         drawer, 
         videoManagement, 
         videoManagementAuthors,
@@ -161,6 +165,13 @@ export default (state = initialState, { type, payload }) =>
                 ...DEFAULT_STATE, 
                 dashboard: true,
                 currentSelectedItem: 'Dashboard',
+            }
+
+        case SELECT_ACCESS_RIGHT: 
+            return {
+                ...DEFAULT_STATE, 
+                accessRight: true,
+                currentSelectedItem: 'Access Rights',
             }
 
         default:
