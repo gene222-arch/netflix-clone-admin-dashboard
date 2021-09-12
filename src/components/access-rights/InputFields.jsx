@@ -7,7 +7,8 @@ import { connect, useDispatch } from 'react-redux';
 import { Checkbox, Card, CardContent, makeStyles, Grid, Typography, Divider, Avatar, CardHeader, IconButton, FormControlLabel, Button } from '@material-ui/core';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import * as ACCESS_RIGHT_ACTION from './../../redux/modules/access-rights/actions'
-
+import { PuffLoader } from 'react-spinners';
+import { css } from '@emotion/react'
 
 const inputFieldUseStyles = makeStyles(theme => ({
     cardContent: {
@@ -19,8 +20,12 @@ const inputFieldUseStyles = makeStyles(theme => ({
     }
 }));
 
-const InputFields = ({ ACCESS_RIGHT, ACCESS_RIGHT_HAS_ERROR, ACCESS_RIGHT_ERROR, actionName, accessRight, setAccessRight, handleClickSave, handleClickCancel }) => 
+const InputFields = ({ ACCESS_RIGHT, ACCESS_RIGHT_HAS_ERROR, ACCESS_RIGHT_ERROR, isFetching = false, actionName, accessRight, setAccessRight, handleClickSave, handleClickCancel }) => 
 {
+    const loaderStyled = css`
+            marginRight: '1rem'
+        `;
+
     const classes = inputFieldUseStyles();
     const dispatch = useDispatch();
 
@@ -100,13 +105,17 @@ const InputFields = ({ ACCESS_RIGHT, ACCESS_RIGHT_HAS_ERROR, ACCESS_RIGHT_ERROR,
                                                         className={ classes.checkBoxContainer }
                                                         key={ index }
                                                         control={ 
-                                                            <Checkbox 
-                                                                name='permission' 
-                                                                checked={ accessRight.permissions.includes(id) } 
-                                                                onChange={ handleChange } 
-                                                                value={ id } 
-                                                            /> 
-                                                            }
+                                                            isFetching
+                                                                ? <PuffLoader margin={ 5 } size='35' css={ loaderStyled } color='#FFF' />
+                                                                : (
+                                                                    <Checkbox 
+                                                                        name='permission' 
+                                                                        checked={ accessRight.permissions.includes(id) } 
+                                                                        onChange={ handleChange } 
+                                                                        value={ id } 
+                                                                    /> 
+                                                                )
+                                                        }
                                                         label={ name }
                                                     />
                                                 </Grid>

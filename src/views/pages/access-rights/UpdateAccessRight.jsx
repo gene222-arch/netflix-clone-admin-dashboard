@@ -15,9 +15,11 @@ const UpdateAccessRight = ({ ACCESS_RIGHT }) =>
     const dispatch = useDispatch();
 
     const [ accessRight, setAccessRight ] = useState(ACCESS_RIGHT.accessRight);
+    const [ isFetching, setIsFetching ] = useState(false);
 
     const onLoadFetchAccessRightById = async () => 
     {
+        setIsFetching(true);
         try {
             const { status, data: { role, permissions } } = await ACCESS_RIGHT_API.findByIDAsync(id);
 
@@ -29,6 +31,7 @@ const UpdateAccessRight = ({ ACCESS_RIGHT }) =>
             }
 
         } catch ({ message }) {}
+        setIsFetching(false);
     }
 
     const handleClickUpdateAccessRight = () => dispatch(ACCESS_RIGHT_ACTION.updateAccessRightStart(accessRight));
@@ -43,12 +46,14 @@ const UpdateAccessRight = ({ ACCESS_RIGHT }) =>
         onLoadFetchAccessRightById();
         return () => {
             setAccessRight(ACCESS_RIGHT.accessRight);
+            setIsFetching(false);
         }
     }, [])
 
     return (
         <InputFields 
             actionName='Update Access Right'
+            isFetching={ isFetching }
             accessRight={ accessRight }
             setAccessRight={ setAccessRight }
             handleClickSave={ handleClickUpdateAccessRight }
