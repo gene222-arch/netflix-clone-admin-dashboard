@@ -12,10 +12,18 @@ import MaterialTableActionButton from './../../../../components/MaterialTableAct
 import { useHistory } from 'react-router-dom';
 import Switch from '@material-ui/core/Switch';
 import Container from '@material-ui/core/Container'
+import { makeStyles } from '@material-ui/core/styles';
 
+const avatarIndexUseStyles = makeStyles(theme => ({
+    avatarImg: {
+        objectFit: 'contain'
+    }
+}));
 
 const Author = ({ AUTHOR }) => 
 {
+    const classes = avatarIndexUseStyles();
+
     const dispatch = useDispatch();
     const history = useHistory();
     const columns = [
@@ -23,7 +31,7 @@ const Author = ({ AUTHOR }) =>
         {
             title: 'Poster', 
             field: 'avatar_path',
-            render: ({ avatar_path }) => <img src={ avatar_path } alt="" width={ 170 } height={ 240 } />
+            render: ({ avatar_path }) => <img className={ classes.avatarImg } src={ avatar_path } />
         },
         { 
             title: 'Birth Name', 
