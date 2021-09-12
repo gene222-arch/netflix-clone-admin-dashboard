@@ -24,6 +24,15 @@ const AccessRight = ({ ACCESS_RIGHT }) =>
             field: 'name',
             render: ({ id, name }) => <StyledNavLink to={ PATH.UPDATE_ACCESS_RIGHT.replace(':id', id) } text={ name } /> 
         },
+        { 
+            title: 'Assigned To', 
+            field: 'users',
+            render: ({ users }) => {
+                return users[0]?.id
+                        ? `${ users[0]?.first_name } ${ users[0]?.last_name }`
+                        : 'To be assigned'
+            }
+        },
     ];
 
     const [ ids, setIDs ] = useState([]);
