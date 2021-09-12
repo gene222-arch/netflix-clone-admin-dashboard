@@ -61,6 +61,9 @@ const CreateAuthor = ({ AUTHOR, AUTHOR_ERROR_MESSAGES, AUTHOR_HAS_ERROR_MESSAGES
         return () => {
             setAuthor(AUTHOR.author);
             dispatch(AUTHOR_ACTION.clearAuthorErrors());
+            setIsAvatarUploading(false);
+            setAvatarPreview(null);
+            setUploadErrorMessage('');
         }
     }, []);
 
