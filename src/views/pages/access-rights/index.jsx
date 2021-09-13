@@ -11,12 +11,16 @@ import MaterialTable from './../../../components/styled-components/MaterialTable
 import MaterialTableActionButton from './../../../components/MaterialTableActionButton';
 import { useHistory } from 'react-router-dom';
 import Container from '@material-ui/core/Container'
+import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
+import Tooltip from '@material-ui/core/Tooltip';
+import IconButton from '@material-ui/core/IconButton';
 
 
 const AccessRight = ({ ACCESS_RIGHT }) => 
 {
     const dispatch = useDispatch();
     const history = useHistory();
+
     const columns = [
         { title: 'id', field: 'id', hidden: true },
         { 
@@ -32,6 +36,22 @@ const AccessRight = ({ ACCESS_RIGHT }) =>
                         ? `${ users[0]?.first_name } ${ users[0]?.last_name }`
                         : 'To be assigned'
             }
+        },
+        { 
+            title: 'Action', 
+            field: 'action',
+            render: ({ id, title }) => (
+                <StyledNavLink
+                    to={ PATH.ASSIGN_ACCESS_RIGHT } 
+                    text={
+                        <Tooltip title="Assign">
+                            <IconButton>
+                                <AssignmentIndIcon />
+                            </IconButton>
+                        </Tooltip>
+                    } 
+                />
+            ) 
         },
     ];
 
@@ -49,7 +69,7 @@ const AccessRight = ({ ACCESS_RIGHT }) =>
 
     return (
         <Container maxWidth="lg">
-            <MaterialTable 
+            <MaterialTable
                 columns={ columns }      
                 data={ ACCESS_RIGHT.accessRights }  
                 title={ 
@@ -61,6 +81,16 @@ const AccessRight = ({ ACCESS_RIGHT }) =>
                 }
                 isLoading={ ACCESS_RIGHT.isLoading }
                 onSelectionChange={ rows => setIDs(rows.map(({ id }) => id)) }
+                options={{
+                    selection: true,
+                    actionsColumnIndex: -1,
+                    showTextRowsSelected: false,
+                    loadingType: 'linear',
+                    selectionProps: ({ id }) => ({
+                        disabled: id === 1,
+                        color: 'textSecondary'
+                    })
+                }}
             />
         </Container>
     )
