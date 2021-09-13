@@ -21,6 +21,17 @@ const AccessRight = ({ ACCESS_RIGHT }) =>
     const dispatch = useDispatch();
     const history = useHistory();
 
+    const usersField = ({ users }) => 
+    {
+        if (! (users.length > 0)) return 'To be assigned';
+        
+        const result = users
+            .map(({ first_name, last_name }) => `${ first_name } ${ last_name }`)
+            .join(', ');
+        
+        return result;
+    }
+
     const columns = [
         { title: 'id', field: 'id', hidden: true },
         { 
@@ -31,11 +42,7 @@ const AccessRight = ({ ACCESS_RIGHT }) =>
         { 
             title: 'Assigned To', 
             field: 'users',
-            render: ({ users }) => {
-                return users[0]?.id
-                        ? `${ users[0]?.first_name } ${ users[0]?.last_name }`
-                        : 'To be assigned'
-            }
+            render: usersField
         },
         { 
             title: 'Action', 
