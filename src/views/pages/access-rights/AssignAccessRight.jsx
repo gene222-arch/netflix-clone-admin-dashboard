@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import * as ACCESS_RIGHT_ACTION from './../../../redux/modules/access-rights/actions'
 import * as ACCESS_RIGHT_API from './../../../services/access-rights/access.rights'
 import * as USER_API from './../../../services/users/user'
 import Container from '@material-ui/core/Container'
@@ -7,7 +8,7 @@ import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import { Card, CardContent, CardHeader, Typography, Checkbox, ListSubheader, List, ListItem, ListItemText, Button } from '@material-ui/core'
 import { createStructuredSelector } from 'reselect';
 import { selectAccessRight } from './../../../redux/modules/access-rights/selector';
-import { connect } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import Colors from './../../../constants/Colors';
@@ -30,15 +31,25 @@ const assignAccessRightUseStyles = makeStyles(theme => ({
     }
 }));
 
+const TO_ASSIGN_PROPS = { 
+    role_id: '', 
+    user_ids: [] 
+};
 
 const AssignAccessRight = ({ ACCESS_RIGHT }) => 
 {
     const classes = assignAccessRightUseStyles();
+    const dispatch = useDispatch();
     const { id } = useParams();
 
-    const [ toAssign, setToAssign ] = useState({ role_id: id, user_ids: [] });
+    const [ isFetching, setIsFetching ] = useState(true);
+    const [ toAssign, setToAssign ] = useState({ ...TO_ASSIGN_PROPS, role_id: id });
     const [ accessRight, setAccessRight ] = useState(ACCESS_RIGHT.accessRight);
     const [ users, setUsers ] = useState([]);
+
+    const handeClickAssignRole = () => {
+        dispatch(ACCESS_RIGHT_ACTION.assignRoleStart(toAssign));
+    }
 
     const handleChange = (e) =>
     {
@@ -75,6 +86,7 @@ const AssignAccessRight = ({ ACCESS_RIGHT }) =>
     const onLoadApiRequests = () => {
         onLoadFetchUsers();
         onLoadFetchAccessRightById();
+        setIsFetching(false);
     }
 
     useEffect(() => 
@@ -83,6 +95,9 @@ const AssignAccessRight = ({ ACCESS_RIGHT }) =>
 
         return () => {
             setAccessRight(ACCESS_RIGHT.accessRight);
+            setToAssign(TO_ASSIGN_PROPS);
+            setUsers([]);
+            setIsFetching(false);
         }
     }, [])
 
@@ -94,7 +109,12 @@ const AssignAccessRight = ({ ACCESS_RIGHT }) =>
                         <CardHeader 
                             title={ accessRight.role } 
                             action={
-                                <Button variant="contained" color="primary">
+                                <Button 
+                                    variant="contained" 
+                                    color="primary"
+                                    onClick={ handeClickAssignRole }
+                                    disabled={ ACCESS_RIGHT.isLoading }
+                                >
                                     Assign
                                 </Button>
                             }
@@ -102,9 +122,9 @@ const AssignAccessRight = ({ ACCESS_RIGHT }) =>
                         <CardContent>
                             {
                                 accessRight.permissions.map(({ name }, index) => (
-                                    <div className={ classes.permissionsContainer }>
+                                    <div key={ index } className={ classes.permissionsContainer }>
                                         <CheckCircleIcon className={ classes.checkCircleIcon } />
-                                        <Typography key={ index } variant="subtitle1" color="initial">
+                                        <Typography variant="subtitle1" color="initial">
                                             { name }
                                         </Typography>
                                     </div>
@@ -129,11 +149,10 @@ const AssignAccessRight = ({ ACCESS_RIGHT }) =>
                                 <Grid container spacing={1}>
                                 {
                                     users.map(({ id, first_name, last_name, email }, index) => (
-                                        <Grid item xs={ 12 } sm={ 12 } md={ 6 } lg={ 6 }>
+                                        <Grid key={ index } item xs={ 12 } sm={ 12 } md={ 6 } lg={ 6 }>
                                             <ListItem>
                                                 <FormControlLabel
                                                     className={ classes.checkBoxContainer }
-                                                    key={ index }
                                                     control={ 
                                                         <Checkbox 
                                                             name='user_ids' 

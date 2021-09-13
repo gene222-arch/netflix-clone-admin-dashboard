@@ -1,6 +1,9 @@
 import ACTION_TYPES from './action.types';
 
 const {
+    ASSIGN_ROLE_START,
+    ASSIGN_ROLE_SUCCESS,
+    ASSIGN_ROLE_FAILED,
     FETCH_ALL_ACCESS_RIGHTS_START,
     FETCH_ALL_ACCESS_RIGHTS_SUCCESS,
     FETCH_ALL_ACCESS_RIGHTS_FAILED,
@@ -22,6 +25,21 @@ const {
     CLEAR_ACCESS_RIGHT_ERRORS
 } = ACTION_TYPES;
 
+/** Assign role action */
+export const assignRoleStart = (payload) => ({
+    type: ASSIGN_ROLE_START,
+    payload
+});
+
+export const assignRoleSuccess = (payload) => ({
+    type: ASSIGN_ROLE_SUCCESS,
+    payload
+});
+
+export const assignRoleFailed = (payload) => ({
+    type: ASSIGN_ROLE_FAILED,
+    payload
+});
 
 /** Fetch All action */
 export const fetchAllAccessRightsStart = (payload) => ({

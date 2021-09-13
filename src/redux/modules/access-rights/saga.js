@@ -7,6 +7,8 @@ import * as API from '../../../services/access-rights/access.rights';
 /** Actions and types */
 import ACTION_TYPES from './action.types'
 import { 
+    assignRoleSuccess,
+    assignRoleFailed,
     fetchAllAccessRightsSuccess,
     fetchAllAccessRightsFailed,
     fetchAllPermissionsSuccess,
@@ -25,6 +27,7 @@ import PATH from './../../../routes/path';
 import { ERROR_MESSAGE_ON_CREATE, ERROR_MESSAGE_ON_DELETE, ERROR_MESSAGE_ON_UPDATE } from './../../../config/alertMessages';
 
 const {
+    ASSIGN_ROLE_START,
     FETCH_ALL_ACCESS_RIGHTS_START,
     FETCH_ALL_PERMISSIONS_START,
     FIND_ACCESS_RIGHT_BY_ID_START,
@@ -36,6 +39,18 @@ const {
 /**
  * Sagas
  */
+function* assignRoleSaga(payload)
+{
+    try {
+        const { data, message, status } = yield call(API.assignRoleAsync, payload);
+        yield put(assignRoleSuccess());
+        yield put(showAlert({ status, message }));
+        yield put(push(PATH.ACCESS_RIGHT));
+    } catch ({ message }) {
+        yield put(assignRoleFailed({ message }));
+    }
+}
+
 function* fetchAllAccessRightsSaga()
 {
     try {
@@ -115,6 +130,14 @@ function* deleteAccessRightsSaga(payload)
 /**
  * Watchers
  */
+function* assignRoleWatcher()
+{
+    while (true) {
+        const { payload } = yield take(ASSIGN_ROLE_START);
+        yield call(assignRoleSaga, payload);
+    }
+}
+ 
 function* fetchAllAccessRightsWatcher()
 {
     while (true) {
@@ -169,6 +192,7 @@ function* deleteAccessRightsWatcher()
 export default function*()
 {
     yield all([
+        assignRoleWatcher(),
         fetchAllAccessRightsWatcher(),
         fetchAllPermissionsWatcher(),
         findAccessRightByIDWatcher(),

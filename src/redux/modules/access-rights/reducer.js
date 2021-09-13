@@ -1,6 +1,9 @@
 import ACTION_TYPES from './action.types';
 
 const {
+    ASSIGN_ROLE_START,
+    ASSIGN_ROLE_SUCCESS,
+    ASSIGN_ROLE_FAILED,
     FETCH_ALL_ACCESS_RIGHTS_START,
     FETCH_ALL_ACCESS_RIGHTS_SUCCESS,
     FETCH_ALL_ACCESS_RIGHTS_FAILED,
@@ -48,7 +51,7 @@ export default (state = initialState, { type, payload }) =>
     
     switch (type) 
     {
-        
+        case ASSIGN_ROLE_START:
         case FETCH_ALL_ACCESS_RIGHTS_START:
         case FETCH_ALL_PERMISSIONS_START:
         case FIND_ACCESS_RIGHT_BY_ID_START:
@@ -58,6 +61,13 @@ export default (state = initialState, { type, payload }) =>
             return {
                 ...state,
                 isLoading: true
+            }
+
+        case ASSIGN_ROLE_SUCCESS: 
+            return {
+                ...state,
+                isLoading,
+                error
             }
 
         case FETCH_ALL_ACCESS_RIGHTS_SUCCESS:
@@ -131,6 +141,7 @@ export default (state = initialState, { type, payload }) =>
                 error
             }
 
+        case ASSIGN_ROLE_FAILED:
         case FETCH_ALL_ACCESS_RIGHTS_FAILED:
         case FETCH_ALL_PERMISSIONS_FAILED:
         case FIND_ACCESS_RIGHT_BY_ID_FAILED:
