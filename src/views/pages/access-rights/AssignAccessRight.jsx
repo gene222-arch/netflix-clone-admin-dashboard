@@ -11,9 +11,9 @@ import { selectAccessRight } from './../../../redux/modules/access-rights/select
 import { connect, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
-import Colors from './../../../constants/Colors';
 import { green } from '@material-ui/core/colors';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+
 
 const assignAccessRightUseStyles = makeStyles(theme => ({
     checkBoxContainer: {
@@ -36,20 +36,25 @@ const TO_ASSIGN_PROPS = {
     user_ids: [] 
 };
 
+
 const AssignAccessRight = ({ ACCESS_RIGHT }) => 
 {
     const classes = assignAccessRightUseStyles();
     const dispatch = useDispatch();
     const { id } = useParams();
 
+    const userIds = ACCESS_RIGHT
+        .accessRights
+        .find(({ id: accessRightId }) => accessRightId === parseInt(id))
+        .users
+        .map(({ id }) => id);
+
     const [ isFetching, setIsFetching ] = useState(true);
-    const [ toAssign, setToAssign ] = useState({ ...TO_ASSIGN_PROPS, role_id: id });
+    const [ toAssign, setToAssign ] = useState({ role_id: id, user_ids: userIds });
     const [ accessRight, setAccessRight ] = useState(ACCESS_RIGHT.accessRight);
     const [ users, setUsers ] = useState([]);
 
-    const handeClickAssignRole = () => {
-        dispatch(ACCESS_RIGHT_ACTION.assignRoleStart(toAssign));
-    }
+    const handeClickAssignRole = () => dispatch(ACCESS_RIGHT_ACTION.assignRoleStart(toAssign));
 
     const handleChange = (e) =>
     {
