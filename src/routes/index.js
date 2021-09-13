@@ -8,6 +8,7 @@ import PATH from './path'
 const AccessRight = lazy(() => import('../views/pages/access-rights'))
 const CreateAccessRight = lazy(() => import('../views/pages/access-rights/CreateAccessRight'))
 const UpdateAccessRight = lazy(() => import('../views/pages/access-rights/UpdateAccessRight'))
+const AssignAccessRight = lazy(() => import('../views/pages/access-rights/AssignAccessRight'))
 const Dashboard = lazy(() => import('../views/pages/dashboard/Dashboard'))
 const ForgotPasswordForm = lazy(() => import('../views/pages/auth/ForgotPasswordForm'))
 const LoginForm = lazy(() => import('../views/pages/auth/LoginForm'))
@@ -133,6 +134,15 @@ export const PRIVATE_ROUTES = [
         icon: '',
         exact: true,
         component: UpdateAccessRight,
+        access: 'Manage Access Rights',
+        restricted: true
+    },
+    {
+        path: PATH.ASSIGN_ACCESS_RIGHT,
+        key: 'AssignAccessRight',
+        icon: '',
+        exact: true,
+        component: AssignAccessRight,
         access: 'Manage Access Rights',
         restricted: true
     },

@@ -40,9 +40,9 @@ const AccessRight = ({ ACCESS_RIGHT }) =>
         { 
             title: 'Action', 
             field: 'action',
-            render: ({ id, title }) => (
+            render: ({ id, title }) => id !== 1 && (
                 <StyledNavLink
-                    to={ PATH.ASSIGN_ACCESS_RIGHT } 
+                    to={ PATH.ASSIGN_ACCESS_RIGHT.replace(':id', id) } 
                     text={
                         <Tooltip title="Assign">
                             <IconButton>

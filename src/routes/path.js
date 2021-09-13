@@ -3,7 +3,7 @@ const PATH =
     ACCESS_RIGHT: '/access-rights',
     CREATE_ACCESS_RIGHT: '/access-rights/create',
     UPDATE_ACCESS_RIGHT: '/access-rights/:id/update',
-    ASSIGN_ACCESS_RIGHT: '/access-rights/assign',
+    ASSIGN_ACCESS_RIGHT: '/access-rights/:id/assign',
     DASHBOARD: '/',
     FORGOT_PASSWORD: '/auth/forgot-password/email',
     LOGIN: '/auth/sign-in',
