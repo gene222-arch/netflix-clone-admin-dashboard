@@ -31,6 +31,10 @@ const {
     VERIFIY_EMAIL_SUCCESS,
     VERIFY_EMAIL_FAILED,
 
+    SELECT_PROFILE_START,
+    SELECT_PROFILE_SUCCESS,
+    SELECT_PROFILE_FAILED,
+
     CLEAR_ERRORS
 } = ACTION_TYPES;
 
@@ -48,12 +52,22 @@ const ERROR_DEFAULT = {
     password: ''
 };
 
+const PROFILE_PROPS = {
+    user_id: '',
+    name: '',
+    avatar: null,
+    is_for_kids: false,
+    is_profile_locked: false,
+    pin_code: ''
+};
+
 const initialState = 
 {
     isAuthenticated: false,
     credentials: CREDENTIALS_DEFAULT,
     permissions: null,
     user: null,
+    selectedProfile: PROFILE_PROPS,
     profiles: [],
     isLoading: false,
     error: ERROR_DEFAULT,
@@ -74,6 +88,7 @@ export default (state = initialState, { type, payload }) =>
         case REGISTER_START:
         case FORGOT_PASSWORD_START:
         case RESET_PASSWORD_START:
+        case SELECT_PROFILE_START:
         case VERIFIY_EMAIL_START:
             return {
                 ...state,
@@ -104,6 +119,14 @@ export default (state = initialState, { type, payload }) =>
                 user: null,
                 error: payload.errorMessages,
             };
+
+        case SELECT_PROFILE_SUCCESS:
+            return {
+                ...state,
+                isLoading,
+                error, 
+                selectedProfile: payload.profile
+            }
             
         case FORGOT_PASSWORD_SUCCESS:
         case RESET_PASSWORD_SUCCESS:
@@ -119,6 +142,7 @@ export default (state = initialState, { type, payload }) =>
         case FORGOT_PASSWORD_FAILED:
         case RESET_PASSWORD_FAILED:
         case VERIFY_EMAIL_FAILED:
+        case SELECT_PROFILE_FAILED:
             return {
                 ...state,
                 isLoading,

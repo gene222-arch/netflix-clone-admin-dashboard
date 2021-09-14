@@ -9,6 +9,7 @@ import { fetchAuthAsync } from './../../../services/auth/auth';
 import { forgotPasswordAsync } from './../../../services/auth/forgot.password';
 import { resetPasswordAsync } from './../../../services/auth/reset.password';
 import { verifyEmailAsync } from './../../../services/auth/verify.email';
+import * as USER_PROFILE_API from './../../../services/users/user.profiles'
 
 /** Actions and types */
 import ACTION_TYPES from './action.types'
@@ -26,7 +27,9 @@ import {
     resetPasswordSuccess,
     resetPasswordFailed,
     verifyEmailSuccess,
-    verifyEmailFailed
+    verifyEmailFailed,
+    selectProfileSuccess,
+    selectProfileFailed
 } from './actions';
 import * as ALERT from './../alert/actions';
 
@@ -47,7 +50,8 @@ const {
     LOGOUT_START,
     REGISTER_START,
     RESET_PASSWORD_START,
-    VERIFIY_EMAIL_START
+    VERIFIY_EMAIL_START,
+    SELECT_PROFILE_START
 } = ACTION_TYPES;
 
 
@@ -227,6 +231,16 @@ function* verifyEmailSaga (payload)
     }
 }
 
+function* selectProfileSaga (payload)
+{
+    try {
+        const { data: profile } = yield call(USER_PROFILE_API.findByIDAsync, payload);
+        yield put(selectProfileSuccess({ profile }));
+    } catch ({ message, status }) {
+        yield put(selectProfileFailed({ errorMessages: message }));
+        yield put(ALERT.showAlert({ status, message }));
+    }
+}
 
 /**
  * Watchers
@@ -301,6 +315,15 @@ function* verifyEmailWatcher ()
     }
 }
 
+function* selectProfileWatcher()
+{
+    while (true) 
+    {
+        const { payload } = yield take(SELECT_PROFILE_START);
+
+        yield call(selectProfileSaga, payload);
+    }
+}
 
 /**
  * Main
@@ -315,6 +338,7 @@ export default function* ()
         logoutWatcher(),
         registerWatcher(),
         resetPasswordWatcher(),
-        verifyEmailWatcher()
+        verifyEmailWatcher(),
+        selectProfileWatcher()
     ]);
 }

@@ -31,6 +31,10 @@ const {
     VERIFIY_EMAIL_SUCCESS,
     VERIFY_EMAIL_FAILED,
 
+    SELECT_PROFILE_START,
+    SELECT_PROFILE_SUCCESS,
+    SELECT_PROFILE_FAILED,
+
     CLEAR_ERRORS
 } = ACTION_TYPES;
 
@@ -165,6 +169,20 @@ export const verifyEmailSuccess = (payload) => ({
 
 export const verifyEmailFailed = (payload) => ({
     type: VERIFY_EMAIL_FAILED,
+    payload
+});
+
+export const selectProfileStart = (payload) => ({
+    type:SELECT_PROFILE_START,
+    payload
+});
+
+export const selectProfileSuccess = (payload) => ({
+    type:SELECT_PROFILE_SUCCESS
+});
+
+export const selectProfileFailed = (payload) => ({
+    type:SELECT_PROFILE_FAILED,
     payload
 });
 

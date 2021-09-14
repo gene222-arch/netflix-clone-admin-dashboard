@@ -5,7 +5,6 @@ import Typography from '@material-ui/core/Typography'
 import { createStructuredSelector } from 'reselect';
 import { selectAuth } from '../../../redux/modules/auth/selector';
 import { connect } from 'react-redux';
-import { Avatar } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import LockIcon from '@material-ui/icons/Lock';
 
@@ -63,7 +62,7 @@ const UserProfile = ({ AUTH }) =>
                                         <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
                                             { Boolean(is_profile_locked) && <LockIcon color='disabled' /> }
                                         </Grid>
-                                    </Grid>
+                                    </Grid>     
                                 </Grid>
                             ))
                         }
