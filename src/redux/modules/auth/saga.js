@@ -119,7 +119,7 @@ function* loginSaga (payload)
 
             data.role 
                 ? yield put(push(PATH.DASHBOARD))
-                : yield put(push(PATH.MANAGE_USER_PROFILE))
+                : yield put(push(PATH.USER_PROFILE))
         }
 
     } catch ({ message, status }) {

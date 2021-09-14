@@ -41,7 +41,7 @@ const UpdateComingSoonMovie = lazy(() => import('../views/pages/video-management
 const ViewComingSoonMovie = lazy(() => import('../views/pages/video-management/coming-soon-movie/ViewComingSoonMovie'))
 const CreateTrailer = lazy(() => import('../views/pages/video-management/coming-soon-movie/trailer/CreateTrailer'))
 const UpdateTrailer = lazy(() => import('../views/pages/video-management/coming-soon-movie/trailer/UpdateTrailer'))
-const ManageUserProfile = lazy(() => import('../views/pages/user/ManageUserProfile'))
+const UserProfile = lazy(() => import('../views/pages/user/UserProfile'))
 
 
 export const PUBLIC_ROUTES = [
@@ -112,11 +112,11 @@ export const PUBLIC_ROUTES = [
 
 export const USER_ROUTES = [
     {
-        path: PATH.MANAGE_USER_PROFILE,
-        key: 'ManageUserProfile',
+        path: PATH.USER_PROFILE,
+        key: 'UserProfile',
         icon: '',
         exact: true,
-        component: ManageUserProfile,
+        component: UserProfile,
         access: '',
         restricted: true
     },

@@ -54,6 +54,7 @@ const initialState =
     credentials: CREDENTIALS_DEFAULT,
     permissions: null,
     user: null,
+    profiles: [],
     isLoading: false,
     error: ERROR_DEFAULT,
     role: null
@@ -81,13 +82,16 @@ export default (state = initialState, { type, payload }) =>
     
         case AUTH_USER_SUCCESS:
         case LOGIN_SUCCESS: 
+            const { user, role, permissions, profiles } = payload;
+
             return {
                 ...state,
                 isLoading,
                 isAuthenticated: true,
-                user: payload.user,
-                role: payload.role,
-                permissions: payload.permissions,
+                user,
+                profiles,
+                role,
+                permissions,
                 error,
             };
             
