@@ -1,11 +1,12 @@
 import React from 'react'
+import Container from '@material-ui/core/Container'
 
 const ManageUserProfile = () => 
 {
     return (
-        <div>
-            User Profile List
-        </div>
+        <Container maxWidth="lg">
+            
+        </Container>
     )
 }
 
