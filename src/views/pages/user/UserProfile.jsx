@@ -30,6 +30,9 @@ const userProfileUseStyles = makeStyles(theme => ({
             cursor: 'pointer',
         }
     },
+    container: {
+        height: '90.2vh'
+    },
     headerTitle: {
         marginBottom: '1rem',
         width: '100%'
@@ -39,13 +42,20 @@ const userProfileUseStyles = makeStyles(theme => ({
     },
 }));
 
+const PIN_PROPS = {
+    num1: '',
+    num2: '',
+    num3: '',
+    num4: ''
+}
+
 const UserProfile = ({ AUTH }) => 
 {
     const classes = userProfileUseStyles();
     const dispatch = useDispatch();
 
     const [ id, setId ] = useState('');
-    const [ pin, setPin ] = useState('');
+    const [ pin, setPin ] = useState(PIN_PROPS);
     const [ isIncorrectPin, setIsIncorrectPin ] = useState(false);
     const [ selectedProfilePin, setSelectedProfilePin ] = useState('');
     const [ showInputPin, setShowInputPin ] = useState(false);
@@ -53,7 +63,7 @@ const UserProfile = ({ AUTH }) =>
 
     const cleanUp = () => {
         setShowInputPin(false);
-        setPin('');
+        setPin(PIN_PROPS);
         setSelectedProfilePin('');
         setId('');
         setIsIncorrectPin(false);
@@ -61,14 +71,19 @@ const UserProfile = ({ AUTH }) =>
 
     const handleClickSelect = () => 
     {
-        if (pin === selectedProfilePin) 
+        const pinValue = Object.values(pin).join('');
+
+        if (pinValue === selectedProfilePin) 
         {
             dispatch(AUTH_ACTION.selectProfileStart(id));
             cleanUp();
         }
 
         setIsIncorrectPin(true);
-        setPin('');
+        setPin(PIN_PROPS);
+
+        let nextfield = document.querySelector(`input[name=num1]`);
+        nextfield.focus();
     }
 
     const handleClickSelectNonPin = (profileId) => dispatch(AUTH_ACTION.selectProfileStart(profileId));
@@ -86,7 +101,7 @@ const UserProfile = ({ AUTH }) =>
     }, []);
 
     return (
-        <Container maxWidth="md">
+        <Container maxWidth="md" className={ classes.container }>
             <InputPinDialog
                 isIncorrectPin={ isIncorrectPin }
                 open={ showInputPin }

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
@@ -30,6 +30,9 @@ const inputDialogUseStyles = makeStyles(theme => ({
     inputContainer: {
         fontSize: '1rem'
     },
+    pinInputContainer: {
+        width: '100%'
+    },
     wrongPinText: {
         color: Colors.warning,
         fontWeight: 'bold',
@@ -37,9 +40,31 @@ const inputDialogUseStyles = makeStyles(theme => ({
     }
 }));
 
-const InputPinDialog = ({ open, pin, setPin, handleClickToggleModal, handleClickSave, handleClickCancel, isIncorrectPin = false}) => 
+const InputPinDialog = ({ open, pin, setPin, handleClickToggleModal, handleClickSave, handleClickCancel, isIncorrectPin = false }) => 
 {
     const classes = inputDialogUseStyles();
+
+    const handleChange = (e, nextFieldName) => 
+    {
+        const { value, name } = e.target;
+        setPin({ ...pin, [name]: value });
+
+        let nextfield = document.querySelector(`input[name=${ nextFieldName }]`);
+        nextfield.focus();
+    };
+
+    const checkPinEveryInput = () => 
+    {
+        const pinValues = Object.values(pin);
+
+        const filterPinValues = pinValues.filter(val => Boolean(val));
+
+        filterPinValues.length === 4 && handleClickSave();
+    }
+    
+    useEffect(() => {
+        checkPinEveryInput();
+    }, [pin]);
 
     return (
         <div>
@@ -79,21 +104,60 @@ const InputPinDialog = ({ open, pin, setPin, handleClickToggleModal, handleClick
                         </Grid>
                         <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
                             <Grid container spacing={1} justify='center'>
-                                <Grid item xs={ 12 } sm={ 4 } md={ 4 } lg={ 4 }>
+                                <Grid item xs={ 2 } sm={ 1 } md={ 1 } lg={ 1 }>
                                     <TextField
-                                        className={ classes.inputContainer }
+                                        name='num1'
+                                        variant='outlined'
                                         inputProps={{ 
-                                            min: 4, 
+                                            min: 1, 
                                             style: { textAlign: 'center' },
-                                            maxLength: 4
+                                            maxLength: 1
                                         }}
-                                        autoFocus
-                                        margin="dense"
-                                        id="name"
-                                        label="-- -- -- --"
-                                        type="password"
-                                        value={ pin }
-                                        onChange={ (e) => setPin(e.target.value) }
+                                        type='password'
+                                        value={ pin.num1 }
+                                        onChange={ (e) => handleChange(e, 'num2') }
+                                    />
+                                </Grid>
+                                <Grid item xs={ 2 } sm={ 1 } md={ 1 } lg={ 1 }>
+                                    <TextField
+                                        name='num2'
+                                        variant='outlined'
+                                        inputProps={{ 
+                                            min: 1, 
+                                            style: { textAlign: 'center' },
+                                            maxLength: 1
+                                        }}
+                                        type='password'
+                                        value={ pin.num2 }
+                                        onChange={ (e) => handleChange(e, 'num3') }
+                                    />
+                                </Grid>
+                                <Grid item xs={ 2 } sm={ 1 } md={ 1 } lg={ 1 }>
+                                    <TextField
+                                        name='num3'
+                                        variant='outlined'
+                                        inputProps={{ 
+                                            min: 1, 
+                                            style: { textAlign: 'center' },
+                                            maxLength: 1
+                                        }}
+                                        type='password'
+                                        value={ pin.num3 }
+                                        onChange={ (e) => handleChange(e, 'num4') }
+                                    />
+                                </Grid>
+                                <Grid item xs={ 2 } sm={ 1 } md={ 1 } lg={ 1 }>
+                                    <TextField
+                                        name='num4'
+                                        variant='outlined'
+                                        inputProps={{ 
+                                            min: 1, 
+                                            style: { textAlign: 'center' },
+                                            maxLength: 1
+                                        }}
+                                        type='password'
+                                        value={ pin.num4 }
+                                        onChange={ (e) => handleChange(e, 'num4') }
                                     />
                                 </Grid>
                             </Grid>
@@ -103,9 +167,6 @@ const InputPinDialog = ({ open, pin, setPin, handleClickToggleModal, handleClick
                 <DialogActions>
                     <Button onClick={ handleClickCancel } color='default'>
                         Cancel
-                    </Button>
-                    <Button onClick={ handleClickSave } color='default'>
-                        Submit
                     </Button>
                 </DialogActions>
             </Dialog>
