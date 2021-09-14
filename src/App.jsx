@@ -25,8 +25,6 @@ import { connect } from 'react-redux';
 
 const App = ({ AUTH, history }) => 
 {
-	console.log(AUTH);
-
 	return (
 		<MuiThemeProvider theme={ THEME } >
 			<CssBaseline />

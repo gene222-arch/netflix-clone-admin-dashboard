@@ -1,12 +1,14 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import Container from '@material-ui/core/Container'
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
 import { createStructuredSelector } from 'reselect';
 import { selectAuth } from '../../../redux/modules/auth/selector';
-import { connect } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 import { makeStyles } from '@material-ui/styles';
 import LockIcon from '@material-ui/icons/Lock';
+import InputPinDialog from './InputPinDialog';
+import * as AUTH_ACTION from '../../../redux/modules/auth/actions';
 
 
 const userProfileUseStyles = makeStyles(theme => ({
@@ -40,19 +42,78 @@ const userProfileUseStyles = makeStyles(theme => ({
 const UserProfile = ({ AUTH }) => 
 {
     const classes = userProfileUseStyles();
+    const dispatch = useDispatch();
+
+    const [ id, setId ] = useState('');
+    const [ pin, setPin ] = useState('');
+    const [ isIncorrectPin, setIsIncorrectPin ] = useState(false);
+    const [ selectedProfilePin, setSelectedProfilePin ] = useState('');
+    const [ showInputPin, setShowInputPin ] = useState(false);
+
+
+    const cleanUp = () => {
+        setShowInputPin(false);
+        setPin('');
+        setSelectedProfilePin('');
+        setId('');
+        setIsIncorrectPin(false);
+    }
+
+    const handleClickSelect = () => 
+    {
+        if (pin === selectedProfilePin) 
+        {
+            dispatch(AUTH_ACTION.selectProfileStart(id));
+            setShowInputPin(false);
+        }
+        
+        setIsIncorrectPin(true);
+        setPin('');
+    }
+
+    const handleClickSelectNonPin = (profileId) => dispatch(AUTH_ACTION.selectProfileStart(profileId));
+
+    const handleClickToggleModal = (pin) => {
+        setShowInputPin(! showInputPin);
+        setSelectedProfilePin(!selectedProfilePin ? pin : '');
+    }
+
+    useEffect(() => 
+    {
+        return () => {
+            cleanUp();
+        }
+    }, []);
 
     return (
         <Container maxWidth="md">
+            <InputPinDialog
+                isIncorrectPin={ isIncorrectPin }
+                open={ showInputPin }
+                pin={ pin }
+                setPin={ setPin }
+                handleClickToggleModal={ handleClickToggleModal } 
+                handleClickCancel={ cleanUp }
+                handleClickSave={ handleClickSelect }
+            />
             <Grid container justify='center' alignItems='center' className={ classes.subContainer }>
                 <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
                     <Typography variant="h2" color="initial" align='center' className={ classes.headerTitle }>Profiles</Typography>
                     <Grid container spacing={3} justify='center' className={ classes.avatarContainer }>
                         {
-                            AUTH.profiles.map(({ name, avatar, is_profile_locked }) => (
-                                <Grid item xs={ 3 } sm={ 2 } md={ 2 } lg={ 2 } className={ classes.avatarGridContainer }>
+                            AUTH.profiles.map(({ id, name, avatar, is_profile_locked, pin_code }, index) => (
+                                <Grid key={ index } item xs={ 3 } sm={ 2 } md={ 2 } lg={ 2 } className={ classes.avatarGridContainer }>
                                     <Grid container spacing={ 1 } direction='column' justify='center'>
                                         <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
-                                            <img src={ avatar } className={ classes.avatarImg } />
+                                            <img 
+                                                src={ avatar } 
+                                                className={ classes.avatarImg } 
+                                                onClick={ 
+                                                    () => is_profile_locked 
+                                                            ? handleClickToggleModal(pin_code) 
+                                                            : handleClickSelectNonPin(id) 
+                                                    } 
+                                            />
                                         </Grid>
                                         <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
                                             <Typography variant="subtitle1" color="textSecondary">

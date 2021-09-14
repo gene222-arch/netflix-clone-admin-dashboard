@@ -178,7 +178,8 @@ export const selectProfileStart = (payload) => ({
 });
 
 export const selectProfileSuccess = (payload) => ({
-    type:SELECT_PROFILE_SUCCESS
+    type: SELECT_PROFILE_SUCCESS,
+    payload
 });
 
 export const selectProfileFailed = (payload) => ({
