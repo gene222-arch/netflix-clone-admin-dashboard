@@ -14,8 +14,12 @@ const PrivateRoute = ({ AUTH, Component, access, ...props }) =>
 {
     if (! AUTH.isAuthenticated) return <Redirect to={ PATH.LOGIN } />
 
-    if (! AUTH.permissions.includes(access)) return <Forbidden />
+    if (AUTH.role) {
+        if (! AUTH.permissions.includes(access)) return <Forbidden />
+    }
     
+    if (!AUTH.role) return <Component { ...props } />
+
     return (
         <MainLayout>
             <Component { ...props } />
