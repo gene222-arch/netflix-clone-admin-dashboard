@@ -1,7 +1,7 @@
 
 
 const Colors = {
-    darkMode: '#424242',
+    darkMode: '#141414',
     darkGrey: '#2c2c2c',
     netflixRed: '#E50914',
     grey: '#999',

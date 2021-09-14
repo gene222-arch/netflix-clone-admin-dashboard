@@ -2,10 +2,11 @@ import React from 'react'
 import Container from '@material-ui/core/Container'
 import AppHeader from '../../components/app/AppHeader'
 import { makeStyles } from '@material-ui/core/styles'
+import Colors from './../../constants/Colors';
 
 const userLayoutUseStyles = makeStyles(theme => ({
     container: {
-        backgroundColor: '#000',
+        backgroundColor: Colors.darkMode,
         height: '100vh'
     }
 }));
