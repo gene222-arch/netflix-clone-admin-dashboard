@@ -42,7 +42,8 @@ const PATH =
     CREATE_TRAILER: '/video-management/coming-soon-movies/:id/create-trailer',
     UPDATE_TRAILER: '/video-management/coming-soon-movies/:id/trailers/:trailerID',
 
-    USER_PROFILE: '/profiles'
+    USER_PROFILE: '/profiles',
+    PROFILE_HOME_PAGE: '/'
 };
 
 

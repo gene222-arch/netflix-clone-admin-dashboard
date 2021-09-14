@@ -7,7 +7,7 @@ import Colors from './../../constants/Colors';
 const userLayoutUseStyles = makeStyles(theme => ({
     container: {
         backgroundColor: Colors.darkMode,
-        height: '100vh'
+        height: 'auto'
     }
 }));
 

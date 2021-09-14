@@ -64,9 +64,9 @@ const UserProfile = ({ AUTH }) =>
         if (pin === selectedProfilePin) 
         {
             dispatch(AUTH_ACTION.selectProfileStart(id));
-            setShowInputPin(false);
+            cleanUp();
         }
-        
+
         setIsIncorrectPin(true);
         setPin('');
     }

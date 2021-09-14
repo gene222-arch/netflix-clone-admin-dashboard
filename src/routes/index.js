@@ -42,7 +42,7 @@ const ViewComingSoonMovie = lazy(() => import('../views/pages/video-management/c
 const CreateTrailer = lazy(() => import('../views/pages/video-management/coming-soon-movie/trailer/CreateTrailer'))
 const UpdateTrailer = lazy(() => import('../views/pages/video-management/coming-soon-movie/trailer/UpdateTrailer'))
 const UserProfile = lazy(() => import('../views/pages/user/UserProfile'))
-
+const ProfileHomePage = lazy(() => import('../views/pages/user/ProfileHomePage'))
 
 export const PUBLIC_ROUTES = [
     {
@@ -120,6 +120,15 @@ export const USER_ROUTES = [
         access: '',
         restricted: true
     },
+    {
+        path: PATH.PROFILE_HOME_PAGE,
+        key: 'ProfileHomePage',
+        icon: '',
+        exact: true,
+        component: ProfileHomePage,
+        access: '',
+        restricted: true
+    }
 ];
 
 export const PRIVATE_ROUTES = [

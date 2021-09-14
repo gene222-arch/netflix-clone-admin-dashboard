@@ -236,6 +236,7 @@ function* selectProfileSaga (payload)
     try {
         const { data: profile } = yield call(USER_PROFILE_API.findByIDAsync, payload);
         yield put(selectProfileSuccess({ profile }));
+        yield put(push(PATH.PROFILE_HOME_PAGE));
     } catch ({ message, status }) {
         yield put(selectProfileFailed({ errorMessages: message }));
         yield put(ALERT.showAlert({ status, message }));
