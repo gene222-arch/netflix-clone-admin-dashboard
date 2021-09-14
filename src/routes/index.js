@@ -43,6 +43,8 @@ const CreateTrailer = lazy(() => import('../views/pages/video-management/coming-
 const UpdateTrailer = lazy(() => import('../views/pages/video-management/coming-soon-movie/trailer/UpdateTrailer'))
 const UserProfile = lazy(() => import('../views/pages/user/UserProfile'))
 const ProfileHomePage = lazy(() => import('../views/pages/user/ProfileHomePage'))
+const ProfileLock = lazy(() => import('../views/pages/user/settings/profile-lock/ProfileLock'))
+
 
 export const PUBLIC_ROUTES = [
     {
@@ -126,6 +128,15 @@ export const USER_ROUTES = [
         icon: '',
         exact: true,
         component: ProfileHomePage,
+        access: '',
+        restricted: true
+    },
+    {
+        path: PATH.PROFILE_LOCK,
+        key: 'ProfileLock',
+        icon: '',
+        exact: true,
+        component: ProfileLock,
         access: '',
         restricted: true
     }

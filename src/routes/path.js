@@ -43,7 +43,8 @@ const PATH =
     UPDATE_TRAILER: '/video-management/coming-soon-movies/:id/trailers/:trailerID',
 
     USER_PROFILE: '/profiles',
-    PROFILE_HOME_PAGE: '/'
+    PROFILE_HOME_PAGE: '/',
+    PROFILE_LOCK: '/settings/lock/:id'
 };
 
 
