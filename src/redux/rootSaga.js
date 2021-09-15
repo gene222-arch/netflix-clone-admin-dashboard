@@ -10,7 +10,7 @@ import directorSaga from '../redux/modules/director/saga'
 import dashboardSaga from '../redux/modules/dashboard/saga'
 import genreSaga from '../redux/modules/genre/saga'
 import movieSaga from '../redux/modules/movie/saga'
-
+import userSaga from '../redux/modules/user/saga'
 
 export default function* () 
 {
@@ -23,7 +23,8 @@ export default function* ()
         dashboardSaga(),
         directorSaga(),
         genreSaga(),
-        movieSaga()
+        movieSaga(),
+        userSaga()
     ]);
 }
 

@@ -7,3 +7,19 @@ export const fetchAllAsync = async (payload) =>
         .then(response => response.data)
         .catch(error => Promise.reject(error.response.data));
 }
+
+export const updateEmailAsync = async (payload) => 
+{
+    return await axiosInstance()
+        .put('/users/email', payload)
+        .then(response => response.data)
+        .catch(error => Promise.reject(error.response.data));
+}
+
+export const updatePasswordAsync = async (payload) => 
+{
+    return await axiosInstance()
+        .put('/users/password', payload)
+        .then(response => response.data)
+        .catch(error => Promise.reject(error.response.data));
+}
