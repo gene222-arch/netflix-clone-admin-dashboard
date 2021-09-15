@@ -77,6 +77,7 @@ const InputPinDialog = ({ open, pin, setPin, handleClickToggleModal, handleClick
                 maxWidth='md'
                 fullWidth
                 className={ classes.dialog }
+                disableBackdropClick
             >
                 <DialogTitle id="form-dialog-title" className={ classes.dialogTitle }>Profile Lock is currently on</DialogTitle>
                 <DialogContent className={ classes.dialogContainer }>
