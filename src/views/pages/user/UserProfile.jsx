@@ -89,9 +89,10 @@ const UserProfile = ({ AUTH }) =>
 
     const handleClickSelectNonPin = (profileId) => dispatch(AUTH_ACTION.selectProfileStart(profileId));
 
-    const handleClickToggleModal = (pin) => {
+    const handleClickToggleModal = (pin, profileId) => {
         setShowInputPin(! showInputPin);
         setSelectedProfilePin(!selectedProfilePin ? pin : '');
+        setId(!id ? profileId : '');
     }
 
     useEffect(() => 
@@ -126,7 +127,7 @@ const UserProfile = ({ AUTH }) =>
                                                 className={ classes.avatarImg } 
                                                 onClick={ 
                                                     () => is_profile_locked 
-                                                            ? handleClickToggleModal(pin_code) 
+                                                            ? handleClickToggleModal(pin_code, id) 
                                                             : handleClickSelectNonPin(id) 
                                                     } 
                                             />

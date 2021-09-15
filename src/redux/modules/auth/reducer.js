@@ -121,7 +121,7 @@ export default (state = initialState, { type, payload }) =>
             };
 
         case SELECT_PROFILE_SUCCESS:
-            console.log(payload.profile);
+
             return {
                 ...state,
                 isLoading,
