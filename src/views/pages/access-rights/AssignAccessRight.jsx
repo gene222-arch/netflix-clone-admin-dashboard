@@ -1,19 +1,21 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import * as ACCESS_RIGHT_ACTION from './../../../redux/modules/access-rights/actions'
 import * as ACCESS_RIGHT_API from './../../../services/access-rights/access.rights'
 import * as USER_API from './../../../services/users/user'
 import Container from '@material-ui/core/Container'
 import Grid from '@material-ui/core/Grid'
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
-import { Card, CardContent, CardHeader, Typography, Checkbox, ListSubheader, List, ListItem, ListItemText, Button } from '@material-ui/core'
+import { IconButton, Card, CardContent, CardHeader, Typography, Checkbox, ListSubheader, List, ListItem, ListItemText, Button } from '@material-ui/core'
 import { createStructuredSelector } from 'reselect';
 import { selectAccessRight } from './../../../redux/modules/access-rights/selector';
 import { connect, useDispatch } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { green } from '@material-ui/core/colors';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import ImageContentLoader from './../../../components/content-loader/ImageContentLoader';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import PATH from './../../../routes/path';
 
 
 const assignAccessRightUseStyles = makeStyles(theme => ({
@@ -42,13 +44,20 @@ const AssignAccessRight = ({ ACCESS_RIGHT }) =>
 {
     const classes = assignAccessRightUseStyles();
     const dispatch = useDispatch();
+    const history = useHistory();
     const { id } = useParams();
 
-    const userIds = ACCESS_RIGHT
-        .accessRights
-        .find(({ id: accessRightId }) => accessRightId === parseInt(id))
-        .users
-        .map(({ id }) => id);
+    const userIds = useMemo(() => 
+    {
+        console.log('USER IDS RENDER');
+        const ids = ACCESS_RIGHT
+                        .accessRights
+                        .find(({ id: accessRightId }) => accessRightId === parseInt(id))
+                        .users
+                        .map(({ id }) => id);
+        
+        return ids;
+    }, []);
 
     const [ isFetching, setIsFetching ] = useState(true);
     const [ toAssign, setToAssign ] = useState({ role_id: id, user_ids: userIds });
@@ -123,7 +132,11 @@ const AssignAccessRight = ({ ACCESS_RIGHT }) =>
                 <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
                     <Card>
                         <CardHeader 
-                            title={ accessRight.role } 
+                            title={
+                                <IconButton onClick={ () => history.push(PATH.ACCESS_RIGHT) }>
+                                    <ArrowBackIcon />
+                                </IconButton>
+                            } 
                             action={
                                 <Button 
                                     variant="contained" 
@@ -135,7 +148,15 @@ const AssignAccessRight = ({ ACCESS_RIGHT }) =>
                                 </Button>
                             }
                         />
+                        <CardHeader title={
+                            <Typography variant="h4" color="initial" align='center'>
+                                { accessRight.role }
+                            </Typography>
+                        } />
                         <CardContent>
+                            <Typography variant="subtitle1" color="textSecondary" gutterBottom>
+                                Permissions
+                            </Typography>
                             {
                                 accessRight.permissions.map(({ name }, index) => (
                                     <div key={ index } className={ classes.permissionsContainer }>
