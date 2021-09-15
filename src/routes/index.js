@@ -44,7 +44,7 @@ const UpdateTrailer = lazy(() => import('../views/pages/video-management/coming-
 const UserProfile = lazy(() => import('../views/pages/user/UserProfile'))
 const ProfileHomePage = lazy(() => import('../views/pages/user/ProfileHomePage'))
 const ProfileLock = lazy(() => import('../views/pages/user/settings/profile-lock/ProfileLock'))
-
+const UpdatePassword = lazy(() => import('../views/pages/user/UpdatePassword'))
 
 export const PUBLIC_ROUTES = [
     {
@@ -137,6 +137,15 @@ export const USER_ROUTES = [
         icon: '',
         exact: true,
         component: ProfileLock,
+        access: '',
+        restricted: true
+    },
+    {
+        path: PATH.UPDATE_PASSWORD,
+        key: 'UpdatePassword',
+        icon: '',
+        exact: true,
+        component: UpdatePassword,
         access: '',
         restricted: true
     }

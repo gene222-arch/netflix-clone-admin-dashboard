@@ -44,7 +44,8 @@ const PATH =
 
     USER_PROFILE: '/profiles',
     PROFILE_HOME_PAGE: '/',
-    PROFILE_LOCK: '/settings/lock/:id'
+    PROFILE_LOCK: '/settings/lock/:id',
+    UPDATE_PASSWORD: '/password'
 };
 
 

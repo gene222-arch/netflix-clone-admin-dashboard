@@ -14,7 +14,11 @@ const {
 } = ACTION_TYPES;
 
 const USER_DEFAULT_PROPS = {
-
+    id: '',
+    email: '',
+    password: '',
+    current_password: '',
+    password_confirmation: ''
 };
 
 const initialState = {
@@ -78,6 +82,7 @@ export default (state = initialState, { type, payload }) =>
         case CLEAR_USER_ERRORS: 
             return {
                 ...state,
+                isLoading,
                 error
             }
 
