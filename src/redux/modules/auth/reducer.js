@@ -19,6 +19,10 @@ const {
     LOGOUT_SUCCESS,
     LOGOUT_FAILED,
 
+    MANAGE_PROFILE_LOCK_START,
+    MANAGE_PROFILE_LOCK_SUCCESS,
+    MANAGE_PROFILE_LOCK_FAILED,
+
     REGISTER_START,
     REGISTRATION_SUCCESS,
     REGISTRATION_FAILED,
@@ -85,6 +89,7 @@ export default (state = initialState, { type, payload }) =>
         case AUTH_USER_START:
         case LOGIN_START: 
         case LOGOUT_START:
+        case MANAGE_PROFILE_LOCK_START:
         case REGISTER_START:
         case FORGOT_PASSWORD_START:
         case RESET_PASSWORD_START:
@@ -120,6 +125,24 @@ export default (state = initialState, { type, payload }) =>
                 error: payload.errorMessages,
             };
 
+        case MANAGE_PROFILE_LOCK_SUCCESS:
+            const { user_profile_id, pin } = payload;
+
+            const newProfiles = state
+                .profiles
+                .map(profile => (
+                    id === user_profile_id
+                        ? { ...profile, is_profile_locked: true, pin_code: pin }
+                        : profile
+                ))
+            
+            return {
+                ...state,
+                profiles: newProfiles,
+                isLoading,
+                error
+            }
+
         case SELECT_PROFILE_SUCCESS:
 
             return {
@@ -139,11 +162,12 @@ export default (state = initialState, { type, payload }) =>
                 error,
             };
             
-        case REGISTRATION_FAILED:         
         case FORGOT_PASSWORD_FAILED:
+        case MANAGE_PROFILE_LOCK_FAILED:
+        case REGISTRATION_FAILED:         
         case RESET_PASSWORD_FAILED:
-        case VERIFY_EMAIL_FAILED:
         case SELECT_PROFILE_FAILED:
+        case VERIFY_EMAIL_FAILED:
             return {
                 ...state,
                 isLoading,

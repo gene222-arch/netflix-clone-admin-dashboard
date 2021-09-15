@@ -32,6 +32,15 @@ export const updateAsync = async (payload) =>
         .catch(error => Promise.reject(error.response.data));
 }
 
+export const manageProfileLockAsync = async (payload) => 
+{
+    return await axiosInstance()
+        .put(`/user-profiles/${ payload.user_profile_id }/pin-code`, payload)
+        .then(response => response.data)
+        .catch(error => Promise.reject(error.response.data));
+}
+
+
 export const deleteAsync = async (ids) => 
 {
     return await axiosInstance()

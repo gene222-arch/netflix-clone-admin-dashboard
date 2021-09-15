@@ -24,6 +24,8 @@ import {
     registrationFailed, 
     logoutSuccess,
     logoutFailed,
+    manageProfileLockSuccess,
+    manageProfileLockFailed,
     resetPasswordSuccess,
     resetPasswordFailed,
     verifyEmailSuccess,
@@ -48,6 +50,7 @@ const {
     FORGOT_PASSWORD_START,
     LOGIN_START,
     LOGOUT_START,
+    MANAGE_PROFILE_LOCK_START,
     REGISTER_START,
     RESET_PASSWORD_START,
     VERIFIY_EMAIL_START,
@@ -164,6 +167,21 @@ function* loginSaga (payload)
     }
  }
 
+
+function* manageProfileLockSaga(payload)
+{
+    try {
+        
+        const { message, status } = yield call(USER_PROFILE_API.manageProfileLockAsync, payload);
+
+        yield put(manageProfileLockSuccess(payload));
+        yield put(ALERT.showAlert({ status, message }));
+        yield put(push(PATH.PROFILE_HOME_PAGE));
+        
+    } catch ({ message }) {
+        yield put(manageProfileLockFailed({ errorMessages: message }));
+    }
+ }
  
 /**
  * Create a new user resource
@@ -286,6 +304,16 @@ function* logoutWatcher ()
     }
 }
 
+function* managaProfileLockWatcher () 
+{
+    while (true)
+    {
+        yield take(MANAGE_PROFILE_LOCK_START); 
+
+        yield call(manageProfileLockSaga);
+    }
+}
+
 function* registerWatcher () 
 {
     while (true)
@@ -337,6 +365,7 @@ export default function* ()
         forgotPasswordWatcher(),
         loginWatcher(),
         logoutWatcher(),
+        managaProfileLockWatcher(),
         registerWatcher(),
         resetPasswordWatcher(),
         verifyEmailWatcher(),

@@ -19,6 +19,10 @@ const {
     LOGOUT_SUCCESS,
     LOGOUT_FAILED,
 
+    MANAGE_PROFILE_LOCK_START,
+    MANAGE_PROFILE_LOCK_SUCCESS,
+    MANAGE_PROFILE_LOCK_FAILED,
+
     REGISTER_START,
     REGISTRATION_SUCCESS,
     REGISTRATION_FAILED,
@@ -112,6 +116,23 @@ export const logoutSuccess = (payload) => ({
 
 export const logoutFailed = (payload) => ({
     type: LOGOUT_FAILED,
+    payload
+});
+
+
+/** Manage Profile Lock */
+export const manageProfileLockStart = (payload) => ({
+    type: MANAGE_PROFILE_LOCK_START,
+    payload
+});
+
+export const manageProfileLockSuccess = (payload) => ({
+    type: MANAGE_PROFILE_LOCK_SUCCESS,
+    payload
+});
+
+export const manageProfileLockFailed = (payload) => ({
+    type: MANAGE_PROFILE_LOCK_FAILED,
     payload
 });
 

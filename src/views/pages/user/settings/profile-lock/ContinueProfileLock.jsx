@@ -93,58 +93,62 @@ const ContinueProfileLock = ({ profileName = '' }) =>
                         }
                     />
                 </Grid>
-                <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
-                    <Grid container spacing={1}>
-                        <Grid item xs={ 2 } sm={ 1 } md={ 1 } lg={ 1 }>
-                            <TextField
-                                name='num1'
-                                variant='outlined'
-                                inputProps={{ 
-                                    min: 1, 
-                                    style: { textAlign: 'center' },
-                                    maxLength: 1
-                                }}
-                                onChange={ (e) => handleChange(e, 'num2') }
-                            />
+                {
+                    isRequired && (
+                        <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
+                            <Grid container spacing={1}>
+                                <Grid item xs={ 2 } sm={ 1 } md={ 1 } lg={ 1 }>
+                                    <TextField
+                                        name='num1'
+                                        variant='outlined'
+                                        inputProps={{ 
+                                            min: 1, 
+                                            style: { textAlign: 'center' },
+                                            maxLength: 1
+                                        }}
+                                        onChange={ (e) => handleChange(e, 'num2') }
+                                    />
+                                </Grid>
+                                <Grid item xs={ 2 } sm={ 1 } md={ 1 } lg={ 1 }>
+                                    <TextField
+                                        name='num2'
+                                        variant='outlined'
+                                        inputProps={{ 
+                                            min: 1, 
+                                            style: { textAlign: 'center' },
+                                            maxLength: 1
+                                        }}
+                                        onChange={ (e) => handleChange(e, 'num3') }
+                                    />
+                                </Grid>
+                                <Grid item xs={ 2 } sm={ 1 } md={ 1 } lg={ 1 }>
+                                    <TextField
+                                        name='num3'
+                                        variant='outlined'
+                                        inputProps={{ 
+                                            min: 1, 
+                                            style: { textAlign: 'center' },
+                                            maxLength: 1
+                                        }}
+                                        onChange={ (e) => handleChange(e, 'num4') }
+                                    />
+                                </Grid>
+                                <Grid item xs={ 2 } sm={ 1 } md={ 1 } lg={ 1 }>
+                                    <TextField
+                                        name='num4'
+                                        variant='outlined'
+                                        inputProps={{ 
+                                            min: 1, 
+                                            style: { textAlign: 'center' },
+                                            maxLength: 1
+                                        }}
+                                        onChange={ (e) => handleChange(e, 'num4') }
+                                    />
+                                </Grid>
+                            </Grid>
                         </Grid>
-                        <Grid item xs={ 2 } sm={ 1 } md={ 1 } lg={ 1 }>
-                            <TextField
-                                name='num2'
-                                variant='outlined'
-                                inputProps={{ 
-                                    min: 1, 
-                                    style: { textAlign: 'center' },
-                                    maxLength: 1
-                                }}
-                                onChange={ (e) => handleChange(e, 'num3') }
-                            />
-                        </Grid>
-                        <Grid item xs={ 2 } sm={ 1 } md={ 1 } lg={ 1 }>
-                            <TextField
-                                name='num3'
-                                variant='outlined'
-                                inputProps={{ 
-                                    min: 1, 
-                                    style: { textAlign: 'center' },
-                                    maxLength: 1
-                                }}
-                                onChange={ (e) => handleChange(e, 'num4') }
-                            />
-                        </Grid>
-                        <Grid item xs={ 2 } sm={ 1 } md={ 1 } lg={ 1 }>
-                            <TextField
-                                name='num4'
-                                variant='outlined'
-                                inputProps={{ 
-                                    min: 1, 
-                                    style: { textAlign: 'center' },
-                                    maxLength: 1
-                                }}
-                                onChange={ (e) => handleChange(e, 'num4') }
-                            />
-                        </Grid>
-                    </Grid>
-                </Grid>
+                    )
+                }
                 <Grid item className={ classes.btnContainer }>
                     <Grid container spacing={1}>
                         <Grid item>
