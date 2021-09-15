@@ -69,10 +69,10 @@ function* updateUserPasswordSaga(payload)
     }
 }
 
-function* sendChangeEmailVerificationCodeSaga(payload)
+function* sendChangeEmailVerificationCodeSaga()
 {
     try {
-        const { data: emailVerificationCode } = yield call(API.sendChangeEmailVerificationCodeAsync, payload);
+        const { data: emailVerificationCode } = yield call(API.sendChangeEmailVerificationCodeAsync);
 
         yield put(sendChangeEmailVerificationCodeSuccess({ emailVerificationCode }));
     } catch ({ message, status }) {
@@ -111,8 +111,8 @@ function* updateUserPasswordWatcher()
 function* sendChangeEmailVerificationCodeWatcher()
 {
     while (true) {
-        const { payload } = yield take(SEND_CHANGE_EMAIL_VERIFICATION_CODE_START);
-        yield call(sendChangeEmailVerificationCodeSaga, payload);
+        yield take(SEND_CHANGE_EMAIL_VERIFICATION_CODE_START);
+        yield call(sendChangeEmailVerificationCodeSaga);
     }
 }
 

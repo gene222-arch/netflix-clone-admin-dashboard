@@ -5,9 +5,11 @@ import Typography from '@material-ui/core/Typography'
 import { makeStyles, Button } from '@material-ui/core'
 import { createStructuredSelector } from 'reselect';
 import { selectAuth } from './../../../../redux/modules/auth/selector';
-import { connect } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 import InputCode from './InputCode'
 import UpdateEmail from './UpdateEmail';
+import { selectUser } from './../../../../redux/modules/user/selector';
+import * as USER_ACTION from './../../../../redux/modules/user/actions';
 
 const securityCheckUseStyles = makeStyles(theme => ({
     container: {
@@ -33,9 +35,10 @@ const CODE_PROPS =
     num6: ''
 };
 
-const SecurityCheck = ({ AUTH }) => 
+const SecurityCheck = ({ AUTH, USER }) => 
 {
     const classes = securityCheckUseStyles();
+    const dispatch = useDispatch();
 
     const [ code, setCode ] = useState(CODE_PROPS);
     const [ isCodeVerified, setIsCodeVerified ] = useState(false);
@@ -57,7 +60,10 @@ const SecurityCheck = ({ AUTH }) =>
         setIsCodeVerified(true);
     }
 
-    useEffect(() => {
+    useEffect(() => 
+    {
+        dispatch(USER_ACTION.sendChangeEmailVerificationCodeStart());
+
         return () => {
             setCode(CODE_PROPS);
             setIsCodeVerified(false);
@@ -112,7 +118,8 @@ const SecurityCheck = ({ AUTH }) =>
 }
 
 const mapStateToProps = createStructuredSelector({
-    AUTH: selectAuth
+    AUTH: selectAuth,
+    USER: selectUser
 });
 
 export default connect(mapStateToProps)(SecurityCheck)
