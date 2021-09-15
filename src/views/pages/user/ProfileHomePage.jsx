@@ -16,6 +16,7 @@ import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import { useHistory } from 'react-router-dom';
 import PATH from './../../../routes/path';
 import AvatarList from './settings/profile-home-page/AvatarList';
+import Membership from './settings/profile-home-page/Membership';
 
 const profileHomePageUseStyles = makeStyles(theme => ({
     container: {
@@ -45,26 +46,6 @@ const ProfileHomePage = ({ AUTH }) =>
 
     const handleChangePinLock = () => history.push(PATH.PROFILE_LOCK.replace(':id', id));
 
-    const memberShipActionButtons = 
-    [
-        {
-            id: 'email',
-            icon: MailOutlineIcon,
-            primaryText: AUTH.user.email,
-            actionText: 'Change account email',
-            actionPath: PATH.PROFILE_LOCK.replace(':id', id),
-            isTextSecondary: false
-        },
-        {
-            id: 'password',
-            icon: LockOpenIcon,
-            primaryText: 'Password',
-            actionText: 'Change account password',
-            actionPath: PATH.PROFILE_LOCK.replace(':id', id),
-            isTextSecondary: true
-        },
-    ];
-
     useEffect(() => {
         return () => {
             setId(null);
@@ -90,37 +71,7 @@ const ProfileHomePage = ({ AUTH }) =>
             </Grid>
             
             <Divider />
-
-            <Grid container spacing={1} className={ classes.gridContainer } >
-                <Grid item xs={ 12 } sm={ 3 } md={ 3 } lg={ 3 }>
-                    <Typography variant="subtitle1" color="initial">MEMBERSHIP</Typography>
-                </Grid>
-                <Grid item xs={ 12 } sm={ 8 } md={ 8 } lg={ 8 }>
-                    <List>
-                        {
-                            memberShipActionButtons.map(({ id, icon: Icon, primaryText, actionText, actionPath, isTextSecondary }) => (
-                                <ListItem key={ id }>
-                                    <ListItemAvatar>
-                                        <Icon color={ isTextSecondary ? 'disabled' : 'action' } />
-                                    </ListItemAvatar>
-                                    <ListItemText primary={ 
-                                        <Typography variant="subtitle1" color={ isTextSecondary ? 'textSecondary' : 'inherit' }>
-                                            { primaryText }
-                                        </Typography>
-                                     } />
-                                    <ListItemSecondaryAction>
-                                        <StyledNavLink 
-                                            to={ actionPath }
-                                            text={ actionText }
-                                        />
-                                    </ListItemSecondaryAction>
-                                </ListItem>
-                            ))
-                        }
-                    </List>
-                </Grid>
-            </Grid>
-            
+            <Membership id={ id } />
             <Divider />
 
             <Grid container spacing={1} className={ classes.gridContainer } >
