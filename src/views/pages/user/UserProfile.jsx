@@ -78,12 +78,13 @@ const UserProfile = ({ AUTH }) =>
             dispatch(AUTH_ACTION.selectProfileStart(id));
             cleanUp();
         }
-
-        setIsIncorrectPin(true);
-        setPin(PIN_PROPS);
-
-        let nextfield = document.querySelector(`input[name=num1]`);
-        nextfield.focus();
+        else {
+            setIsIncorrectPin(true);
+            setPin(PIN_PROPS);
+    
+            let nextfield = document.querySelector(`input[name=num1]`);
+            nextfield.focus();  
+        }
     }
 
     const handleClickSelectNonPin = (profileId) => dispatch(AUTH_ACTION.selectProfileStart(profileId));

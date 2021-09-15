@@ -173,7 +173,7 @@ export const verifyEmailFailed = (payload) => ({
 });
 
 export const selectProfileStart = (payload) => ({
-    type:SELECT_PROFILE_START,
+    type: SELECT_PROFILE_START,
     payload
 });
 
@@ -183,7 +183,7 @@ export const selectProfileSuccess = (payload) => ({
 });
 
 export const selectProfileFailed = (payload) => ({
-    type:SELECT_PROFILE_FAILED,
+    type: SELECT_PROFILE_FAILED,
     payload
 });
 

@@ -1,8 +1,17 @@
 import React from 'react'
 import APP_LOGO from './../../assets/images/app/iconflicklify.ico'
 import { makeStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid'
+import { createStructuredSelector } from 'reselect';
+import { selectAuth } from './../../redux/modules/auth/selector';
+import { connect } from 'react-redux';
 
 const appHeaderUseStyles = makeStyles(theme => ({
+    avatar: {
+        width: '2.5rem',
+        borderRadius: 5,
+        padding: theme.spacing(2, 0)
+    },
     logo: {
         width: '2.5rem',
         height: 'auto',
@@ -10,16 +19,30 @@ const appHeaderUseStyles = makeStyles(theme => ({
     }
 }));
 
-const AppHeader = () => 
+const AppHeader = ({ AUTH }) => 
 {
     const classes = appHeaderUseStyles();
 
     return (
-        <img 
-            src={ APP_LOGO }
-            className={ classes.logo }
-        />
+        <Grid container spacing={1}>
+            <Grid item>
+                <img 
+                    src={ APP_LOGO }
+                    className={ classes.logo }
+                />
+            </Grid>
+            <Grid item>
+                <img 
+                    src={ AUTH.selectedProfile?.avatar }
+                    className={ classes.avatar }
+                />
+            </Grid>
+        </Grid>
     )
 }
 
-export default AppHeader
+const mapStateToProps = createStructuredSelector({
+    AUTH: selectAuth
+});
+
+export default connect(mapStateToProps)(AppHeader)
