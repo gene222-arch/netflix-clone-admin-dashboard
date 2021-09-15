@@ -116,6 +116,7 @@ const InputPinDialog = ({ open, pin, setPin, handleClickToggleModal, handleClick
                                         type='password'
                                         value={ pin.num1 }
                                         onChange={ (e) => handleChange(e, 'num2') }
+                                        focused
                                     />
                                 </Grid>
                                 <Grid item xs={ 2 } sm={ 1 } md={ 1 } lg={ 1 }>

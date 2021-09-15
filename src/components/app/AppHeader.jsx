@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import APP_LOGO from './../../assets/images/app/iconflicklify.ico'
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid'
@@ -8,6 +8,7 @@ import { connect } from 'react-redux';
 import Typography from '@material-ui/core/Typography'
 import Container from '@material-ui/core/Container'
 import Colors from './../../constants/Colors';
+import AppHeaderMenu from './AppHeaderMenu';
 
 
 const appHeaderUseStyles = makeStyles(theme => ({
@@ -30,9 +31,18 @@ const AppHeader = ({ AUTH }) =>
 {
     const classes = appHeaderUseStyles();
 
+    const [ anchorEl, setAnchorEl ] = useState(null);
+
+    useEffect(() => {
+        return () => {
+            setAnchorEl(null);
+        }
+    }, []);
+
     return (
-        <Container maxWidth="xl" className={ classes.container } >
-            <Grid container spacing={1} justify='space-between' >
+        <Container maxWidth="xl" className={ classes.container }>
+            <AppHeaderMenu anchorEl={ anchorEl } setAnchorEl={ setAnchorEl } />
+            <Grid container spacing={1} justify='space-between'>
                 <Grid item>
                     <img 
                         src={ APP_LOGO }
@@ -48,6 +58,8 @@ const AppHeader = ({ AUTH }) =>
                             <img 
                                 src={ AUTH.selectedProfile?.avatar }
                                 className={ classes.avatar }
+                                onMouseOver={ e => setAnchorEl(e.currentTarget) }
+                                // onMouseOut={ () => setAnchorEl(null) }
                             />
                         </Grid>
                     </Grid>
