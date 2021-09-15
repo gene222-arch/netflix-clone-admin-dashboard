@@ -4,7 +4,7 @@ import Colors from './../constants/Colors';
 const THEME = createMuiTheme({
 	palette: {
 		primary: {
-			main: Colors.darkGrey,
+			main: Colors.darkMode,
 		},
 		type: 'dark'
 	},
