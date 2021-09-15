@@ -5,6 +5,8 @@ import Grid from '@material-ui/core/Grid'
 import { createStructuredSelector } from 'reselect';
 import { selectAuth } from './../../redux/modules/auth/selector';
 import { connect } from 'react-redux';
+import Typography from '@material-ui/core/Typography'
+
 
 const appHeaderUseStyles = makeStyles(theme => ({
     avatar: {
@@ -24,7 +26,7 @@ const AppHeader = ({ AUTH }) =>
     const classes = appHeaderUseStyles();
 
     return (
-        <Grid container spacing={1}>
+        <Grid container spacing={1} justify='space-between' >
             <Grid item>
                 <img 
                     src={ APP_LOGO }
@@ -32,10 +34,17 @@ const AppHeader = ({ AUTH }) =>
                 />
             </Grid>
             <Grid item>
-                <img 
-                    src={ AUTH.selectedProfile?.avatar }
-                    className={ classes.avatar }
-                />
+                <Grid container spacing={1} alignItems='center' >
+                    <Grid item>
+                        <Typography variant="subtitle1" color="initial">{ AUTH.selectedProfile?.name }</Typography>
+                    </Grid>
+                    <Grid item>
+                        <img 
+                            src={ AUTH.selectedProfile?.avatar }
+                            className={ classes.avatar }
+                        />
+                    </Grid>
+                </Grid>
             </Grid>
         </Grid>
     )
