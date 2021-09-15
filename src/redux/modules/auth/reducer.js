@@ -154,14 +154,15 @@ export default (state = initialState, { type, payload }) =>
                 selectedProfile: payload.profile
             }
 
-        case UPDATE_USER_DETAILS: {
+        case UPDATE_USER_DETAILS: 
+        
             return {
                 ...state,
-                user: { ...state.user, ...payload.user },
+                user: { ...state.user, ...payload },
                 isLoading,
                 error 
             }
-        }
+        
             
         case FORGOT_PASSWORD_SUCCESS:
         case RESET_PASSWORD_SUCCESS:

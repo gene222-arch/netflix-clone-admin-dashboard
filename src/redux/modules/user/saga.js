@@ -4,6 +4,8 @@ import { push } from 'connected-react-router';
 /** Async functions */
 import * as API from './../../../services/users/user';
 
+import { updateUserDetails } from './../auth/actions'
+ 
 /** Actions and types */
 import ACTION_TYPES from './action.types'
 import { 
@@ -45,6 +47,7 @@ function* updateUserEmailSaga(payload)
     try {
         const { message, status } = yield call(API.updateEmailAsync, payload);
 
+        yield put(updateUserDetails(payload));
         yield put(updateUserEmailSuccess(payload));
         yield put(showAlert({ status, message }));
         yield put(push(PATH.PROFILE_HOME_PAGE));
