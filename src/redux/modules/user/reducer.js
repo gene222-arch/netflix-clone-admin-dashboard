@@ -10,6 +10,9 @@ const {
     UPDATE_USER_PASSWORD_START,
     UPDATE_USER_PASSWORD_SUCCESS,
     UPDATE_USER_PASSWORD_FAILED,
+    SEND_CHANGE_EMAIL_VERIFICATION_CODE_START,
+    SEND_CHANGE_EMAIL_VERIFICATION_CODE_SUCCESS,
+    SEND_CHANGE_EMAIL_VERIFICATION_CODE_FAILED,
     CLEAR_USER_ERRORS
 } = ACTION_TYPES;
 
@@ -24,6 +27,7 @@ const USER_DEFAULT_PROPS = {
 const initialState = {
     user: USER_DEFAULT_PROPS,
     users: [],
+    change_email_verification_code: '',
     isLoading: false,
     error: USER_DEFAULT_PROPS
 };
@@ -44,6 +48,7 @@ export default (state = initialState, { type, payload }) =>
         case FETCH_ALL_USERS_START:
         case UPDATE_USER_EMAIL_START:
         case UPDATE_USER_PASSWORD_START:
+        case SEND_CHANGE_EMAIL_VERIFICATION_CODE_START:
             return {
                 ...state,
                 isLoading: true
@@ -79,6 +84,14 @@ export default (state = initialState, { type, payload }) =>
                 error
             }
 
+        case SEND_CHANGE_EMAIL_VERIFICATION_CODE_SUCCESS: 
+            return {
+                ...state, 
+                change_email_verification_code: payload.emailVerificationCode,
+                isLoading,
+                error
+            }
+
         case CLEAR_USER_ERRORS: 
             return {
                 ...state,
@@ -89,6 +102,7 @@ export default (state = initialState, { type, payload }) =>
         case FETCH_ALL_USERS_FAILED:
         case UPDATE_USER_EMAIL_FAILED:
         case UPDATE_USER_PASSWORD_FAILED:
+        case SEND_CHANGE_EMAIL_VERIFICATION_CODE_FAILED:
             return {
                 ...state,
                 isLoading,

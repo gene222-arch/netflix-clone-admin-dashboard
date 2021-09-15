@@ -23,3 +23,11 @@ export const updatePasswordAsync = async (payload) =>
         .then(response => response.data)
         .catch(error => Promise.reject(error.response.data));
 }
+
+export const sendChangeEmailVerificationCodeAsync = async (payload) => 
+{
+    return await axiosInstance()
+        .post('/users/email-verification-code', payload)
+        .then(response => response.data)
+        .catch(error => Promise.reject(error.response.data));
+}

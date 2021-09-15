@@ -10,6 +10,9 @@ const {
     UPDATE_USER_PASSWORD_START,
     UPDATE_USER_PASSWORD_SUCCESS,
     UPDATE_USER_PASSWORD_FAILED,
+    SEND_CHANGE_EMAIL_VERIFICATION_CODE_START,
+    SEND_CHANGE_EMAIL_VERIFICATION_CODE_SUCCESS,
+    SEND_CHANGE_EMAIL_VERIFICATION_CODE_FAILED,
     CLEAR_USER_ERRORS
 } = ACTION_TYPES;
 
@@ -63,8 +66,23 @@ export const updateUserPasswordFailed = (payload) => ({
     payload
 });
 
-/** Clear User errors */
+/** Update User Password */
+export const sendChangeEmailVerificationCodeStart = (payload) => ({
+    type: SEND_CHANGE_EMAIL_VERIFICATION_CODE_START,
+    payload
+});
 
+export const sendChangeEmailVerificationCodeSuccess = (payload) => ({
+    type: SEND_CHANGE_EMAIL_VERIFICATION_CODE_SUCCESS,
+    payload
+});
+
+export const sendChangeEmailVerificationCodeFailed = (payload) => ({
+    type: SEND_CHANGE_EMAIL_VERIFICATION_CODE_FAILED,
+    payload
+});
+
+/** Clear User errors */
 export const clearUserErrors = (payload) => ({
     type: CLEAR_USER_ERRORS,
     payload

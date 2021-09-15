@@ -13,6 +13,8 @@ import {
     updateUserEmailFailed,
     updateUserPasswordSuccess,
     updateUserPasswordFailed,
+    sendChangeEmailVerificationCodeSuccess,
+    sendChangeEmailVerificationCodeFailed
 } from './actions';
 import { showAlert } from './../alert/actions';
 import PATH from './../../../routes/path';
@@ -21,7 +23,8 @@ import { ERROR_MESSAGE_ON_UPDATE } from './../../../config/alertMessages';
 const {
     FETCH_ALL_USERS_START,
     UPDATE_USER_EMAIL_START,
-    UPDATE_USER_PASSWORD_START
+    UPDATE_USER_PASSWORD_START,
+    SEND_CHANGE_EMAIL_VERIFICATION_CODE_START
 }  = ACTION_TYPES;
 
 /**
@@ -57,12 +60,24 @@ function* updateUserPasswordSaga(payload)
     try {
         const { message, status } = yield call(API.updatePasswordAsync, payload);
 
-        yield put(updateUserPasswordSuccess({ author: payload }));
+        yield put(updateUserPasswordSuccess());
         yield put(showAlert({ status, message }));
         yield put(push(PATH.PROFILE_HOME_PAGE));
     } catch ({ message, status }) {
         yield put(updateUserPasswordFailed({ message }));
         yield put(showAlert({ status, message: ERROR_MESSAGE_ON_UPDATE }));
+    }
+}
+
+function* sendChangeEmailVerificationCodeSaga(payload)
+{
+    try {
+        const { data: emailVerificationCode } = yield call(API.sendChangeEmailVerificationCodeAsync, payload);
+
+        yield put(sendChangeEmailVerificationCodeSuccess({ emailVerificationCode }));
+    } catch ({ message, status }) {
+        yield put(sendChangeEmailVerificationCodeFailed({ message }));
+        yield put(showAlert({ status, message: 'Something went wrong' }));
     }
 }
 
@@ -93,6 +108,14 @@ function* updateUserPasswordWatcher()
     }
 }
 
+function* sendChangeEmailVerificationCodeWatcher()
+{
+    while (true) {
+        const { payload } = yield take(SEND_CHANGE_EMAIL_VERIFICATION_CODE_START);
+        yield call(sendChangeEmailVerificationCodeSaga, payload);
+    }
+}
+
 /**
  * 
  */
@@ -101,6 +124,7 @@ export default function*()
     yield all([
         fetchAllUsersWatcher(),
         updateUserEmailWatcher(),
-        updateUserPasswordWatcher()
+        updateUserPasswordWatcher(),
+        sendChangeEmailVerificationCodeWatcher()
     ]);
 }
