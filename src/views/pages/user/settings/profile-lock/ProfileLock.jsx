@@ -4,13 +4,14 @@ import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
 import { createStructuredSelector } from 'reselect';
 import { selectAuth } from '../../../../../redux/modules/auth/selector';
-import { connect } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 import { useParams, useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/styles';
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import InputPassword from './InputPassword';
 import ContinueProfileLock from './ContinueProfileLock';
+import * as AUTH_API from './../../../../../services/auth/auth'
 
 const profileLockUseStyles = makeStyles(theme => ({
     avatar: {
@@ -27,16 +28,32 @@ const ProfileLock = ({ AUTH }) =>
 {
     const { id } = useParams();
     const classes = profileLockUseStyles();
+    const dispatch = useDispatch();
     const history = useHistory();
 
+    const [ isLoading, setIsLoading ] = useState(false);
     const [ continueProfileLock, setContinueProfileLock ] = useState(false);
     const [ password, setPassword ] = useState('');
+    const [ passwordErrorMessage, setPasswordErrorMessage ] = useState('');
     const [ profile, setProfile ] = useState(AUTH.profile);
 
     const onLoadFetchProfile = () => setProfile(AUTH.profiles.find(({ id: profileId }) => profileId === parseInt(id)));
 
-    const handleClickContinue = () => {
-        setContinueProfileLock(true);
+    const handleClickContinue = async () => 
+    {
+        setIsLoading(true);
+
+        try {
+            const { status } = await AUTH_API.checkPasswordMatchAsync({ password });
+
+            if (status === 'success') {
+                setContinueProfileLock(true);
+            }
+        } catch ({ message }) {
+            setPasswordErrorMessage(!password ? message.password : message);
+        }
+
+        setIsLoading(false);
     }
 
     const handleClickCancel = () => history.goBack();
@@ -47,6 +64,9 @@ const ProfileLock = ({ AUTH }) =>
         return () => {
             setProfile(AUTH.profile);
             setPassword('');
+            setPasswordErrorMessage('');
+            setIsLoading(false);
+            setContinueProfileLock(false);
         }
     }, []);
 
@@ -69,8 +89,11 @@ const ProfileLock = ({ AUTH }) =>
                     !continueProfileLock 
                         ? (
                             <InputPassword 
+                                isLoading={ isLoading }
                                 profileName={ profile?.name }
+                                password={ password }
                                 setPassword={ setPassword }
+                                passwordErrorMessage={ passwordErrorMessage }
                                 handleClickContinue={ handleClickContinue }
                                 handleClickCancel={ handleClickCancel }
                             />

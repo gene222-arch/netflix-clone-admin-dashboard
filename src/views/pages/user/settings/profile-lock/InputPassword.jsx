@@ -20,7 +20,7 @@ const inputPasswordUseStyles = makeStyles(theme => ({
 }));
 
 
-const InputPassword = ({ profileName = '', setPassword, handleClickContinue, handleClickCancel }) => 
+const InputPassword = ({ profileName = '', password = '', setPassword, passwordErrorMessage = '', handleClickContinue, handleClickCancel, isLoading = false }) => 
 {
     const classes = inputPasswordUseStyles();
 
@@ -40,7 +40,11 @@ const InputPassword = ({ profileName = '', setPassword, handleClickContinue, han
                             variant='filled'
                             fullWidth
                             onChange={ e => setPassword(e.target.value) }
+                            type='password'
+                            error={ Boolean(passwordErrorMessage) }
+                            helperText={ passwordErrorMessage }
                         />
+                        
                     </Grid>
                 </Grid>
             </Grid>
@@ -51,6 +55,7 @@ const InputPassword = ({ profileName = '', setPassword, handleClickContinue, han
                             variant="outlined" 
                             color="default"
                             onClick={ handleClickContinue }
+                            disabled={ !password || isLoading }
                         >
                             Continue
                         </Button>
@@ -60,6 +65,7 @@ const InputPassword = ({ profileName = '', setPassword, handleClickContinue, han
                             variant="outlined" 
                             color="default"
                             onClick={ handleClickCancel }
+                            disabled={ isLoading }
                         >
                             Cancel 
                         </Button>
