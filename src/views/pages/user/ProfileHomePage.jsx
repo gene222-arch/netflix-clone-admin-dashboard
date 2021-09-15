@@ -14,6 +14,7 @@ import LockOpenIcon from '@material-ui/icons/LockOpen';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import { useHistory } from 'react-router-dom';
+import PATH from './../../../routes/path';
 
 const profileHomePageUseStyles = makeStyles(theme => ({
     avatar: {
@@ -52,7 +53,7 @@ const ProfileHomePage = ({ AUTH }) =>
 
     const handleClickSetId = (profileId) =>setId(!id ? profileId : null);
 
-    const handleClickChangePinLick = (profileId) => history.push('path-to-change-profile-lock');
+    const handleChangePinLock = () => history.push(PATH.PROFILE_LOCK.replace(':id', id));
 
     const memberShipActionButtons = 
     [
@@ -61,7 +62,7 @@ const ProfileHomePage = ({ AUTH }) =>
             icon: MailOutlineIcon,
             primaryText: AUTH.user.email,
             actionText: 'Change account email',
-            actionPath: 'path',
+            actionPath: PATH.PROFILE_LOCK.replace(':id', id),
             isTextSecondary: false
         },
         {
@@ -69,7 +70,7 @@ const ProfileHomePage = ({ AUTH }) =>
             icon: LockOpenIcon,
             primaryText: 'Password',
             actionText: 'Change account password',
-            actionPath: 'path',
+            actionPath: PATH.PROFILE_LOCK.replace(':id', id),
             isTextSecondary: true
         },
     ];
@@ -140,8 +141,8 @@ const ProfileHomePage = ({ AUTH }) =>
                     <List>
                         {
                             AUTH.profiles.map(({ id: profileId, name, avatar, is_profile_locked }, index) => (
-                                <>
-                                    <List key={ index } className={classes.profileContainer} onClick={ () => handleClickSetId(profileId) } >
+                                <div key={ index }>
+                                    <List className={classes.profileContainer} onClick={ () => handleClickSetId(profileId) } >
                                         <ListItem>
                                             <ListItemAvatar>
                                                 <img src={ avatar } alt="" className={ classes.avatar } />
@@ -156,11 +157,11 @@ const ProfileHomePage = ({ AUTH }) =>
                                     </List>
                                     <Collapse in={ id === profileId } timeout="auto" unmountOnExit className={ classes.collapse }>
                                         <List component="div" disablePadding>
-                                            <ListItem button onClick={ () => handleClickChangePinLick(profileId) }>
+                                            <ListItem button onClick={ handleChangePinLock }>
                                                 <ListItemText primary="Profile Lock" secondary={ !is_profile_locked ? 'Off' : 'On' } />
                                                 <ListItemSecondaryAction>
                                                     <StyledNavLink 
-                                                        to={ 'path-to-change-pin-lock' }
+                                                        to={ PATH.PROFILE_LOCK.replace(':id', id) }
                                                         text={ 'Change' }
                                                     />
                                                 </ListItemSecondaryAction>
@@ -168,7 +169,7 @@ const ProfileHomePage = ({ AUTH }) =>
                                         </List>
                                     </Collapse>
                                     <Divider className={ classes.divider } />
-                                </>
+                                </div>
                             ))
                         }
                     </List>
