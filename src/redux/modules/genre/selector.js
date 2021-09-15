@@ -17,11 +17,12 @@ export const selectGenreHasErrorMessages = createSelector(getErrorMessages, erro
 {
     let hasErrorMessages = {};
 
-    const errors = Object
-        .entries(error)
-        .map(([ key, value ]) => ({ 
-            [key]: Boolean(value) 
-        }));
+    for (const key in error) {
+        hasErrorMessages = {
+            ...hasErrorMessages,
+            [key]: Boolean(error[key])
+        };
+    }
 
-    return errors.reduce((obj, item) => ({ ...obj, ...item }), hasErrorMessages);
+    return hasErrorMessages;
 });  

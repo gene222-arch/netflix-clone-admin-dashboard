@@ -16,11 +16,12 @@ export const selectAuthorHasErrorMessages = createSelector(getErrorMessages, err
 {
     let hasErrorMessages = {};
 
-    const errors = Object
-        .entries(error)
-        .map(([ key, value ]) => ({ 
-            [key]: Boolean(value) 
-        }));
+    for (const key in error) {
+        hasErrorMessages = {
+            ...hasErrorMessages,
+            [key]: Boolean(error[key])
+        };
+    }
 
-    return errors.reduce((obj, item) => ({ ...obj, ...item }), hasErrorMessages);
+    return hasErrorMessages;
 });  
