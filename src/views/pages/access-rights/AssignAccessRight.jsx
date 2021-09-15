@@ -16,7 +16,8 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import ImageContentLoader from './../../../components/content-loader/ImageContentLoader';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import PATH from './../../../routes/path';
-
+import { selectUser } from './../../../redux/modules/user/selector';
+import * as USER_ACTION from './../../../redux/modules/user/actions';
 
 const assignAccessRightUseStyles = makeStyles(theme => ({
     checkBoxContainer: {
@@ -40,7 +41,7 @@ const TO_ASSIGN_PROPS = {
 };
 
 
-const AssignAccessRight = ({ ACCESS_RIGHT }) => 
+const AssignAccessRight = ({ ACCESS_RIGHT, USER }) => 
 {
     const classes = assignAccessRightUseStyles();
     const dispatch = useDispatch();
@@ -62,7 +63,6 @@ const AssignAccessRight = ({ ACCESS_RIGHT }) =>
     const [ isFetching, setIsFetching ] = useState(true);
     const [ toAssign, setToAssign ] = useState({ role_id: id, user_ids: userIds });
     const [ accessRight, setAccessRight ] = useState(ACCESS_RIGHT.accessRight);
-    const [ users, setUsers ] = useState([]);
 
     const handeClickAssignRole = () => dispatch(ACCESS_RIGHT_ACTION.assignRoleStart(toAssign));
 
@@ -90,17 +90,9 @@ const AssignAccessRight = ({ ACCESS_RIGHT }) =>
         } catch ({ message }) {}
     }
 
-    const onLoadFetchUsers = async () => 
-    {
-        try {
-            const { data } = await USER_API.fetchAllAsync();
-            setUsers(data);
-        } catch ({ message }) {}
-    }
-
     const onLoadApiRequests = async () => 
     {
-        await onLoadFetchUsers();
+        dispatch(USER_ACTION.fetchAllUsersStart());
         await onLoadFetchAccessRightById();
         setIsFetching(false);
     }
@@ -112,7 +104,6 @@ const AssignAccessRight = ({ ACCESS_RIGHT }) =>
         return () => {
             setAccessRight(ACCESS_RIGHT.accessRight);
             setToAssign(TO_ASSIGN_PROPS);
-            setUsers([]);
             setIsFetching(false);
         }
     }, []);
@@ -185,7 +176,7 @@ const AssignAccessRight = ({ ACCESS_RIGHT }) =>
                             >
                                 <Grid container spacing={1}>
                                 {
-                                    users.map(({ id, first_name, last_name, email }, index) => (
+                                    USER.users.map(({ id, first_name, last_name, email }, index) => (
                                         <Grid key={ index } item xs={ 12 } sm={ 12 } md={ 6 } lg={ 6 }>
                                             <ListItem>
                                                 <FormControlLabel
@@ -220,7 +211,8 @@ const AssignAccessRight = ({ ACCESS_RIGHT }) =>
 }
 
 const mapStateToProps = createStructuredSelector({
-    ACCESS_RIGHT: selectAccessRight
+    ACCESS_RIGHT: selectAccessRight,
+    USER: selectUser
 });
 
 export default connect(mapStateToProps)(AssignAccessRight)
