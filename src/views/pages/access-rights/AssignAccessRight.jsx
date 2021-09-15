@@ -13,6 +13,7 @@ import { useParams } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { green } from '@material-ui/core/colors';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import ImageContentLoader from './../../../components/content-loader/ImageContentLoader';
 
 
 const assignAccessRightUseStyles = makeStyles(theme => ({
@@ -88,9 +89,10 @@ const AssignAccessRight = ({ ACCESS_RIGHT }) =>
         } catch ({ message }) {}
     }
 
-    const onLoadApiRequests = () => {
-        onLoadFetchUsers();
-        onLoadFetchAccessRightById();
+    const onLoadApiRequests = async () => 
+    {
+        await onLoadFetchUsers();
+        await onLoadFetchAccessRightById();
         setIsFetching(false);
     }
 
@@ -104,7 +106,16 @@ const AssignAccessRight = ({ ACCESS_RIGHT }) =>
             setUsers([]);
             setIsFetching(false);
         }
-    }, [])
+    }, []);
+
+    if (isFetching) {
+        return (
+            <Container maxWidth="lg">
+                <ImageContentLoader width={ '100%' } height={ 200 } />
+                <ImageContentLoader width={ '100%' } height={ 300 } />
+            </Container>
+        )
+    }
 
     return (
        <Container maxWidth="lg">
