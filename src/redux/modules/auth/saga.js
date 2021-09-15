@@ -177,7 +177,7 @@ function* manageProfileLockSaga(payload)
         yield put(manageProfileLockSuccess(payload));
         yield put(ALERT.showAlert({ status, message }));
         yield put(push(PATH.PROFILE_HOME_PAGE));
-        
+
     } catch ({ message }) {
         yield put(manageProfileLockFailed({ errorMessages: message }));
     }
@@ -308,9 +308,9 @@ function* managaProfileLockWatcher ()
 {
     while (true)
     {
-        yield take(MANAGE_PROFILE_LOCK_START); 
+        const { payload } = yield take(MANAGE_PROFILE_LOCK_START); 
 
-        yield call(manageProfileLockSaga);
+        yield call(manageProfileLockSaga, payload);
     }
 }
 

@@ -131,7 +131,7 @@ export default (state = initialState, { type, payload }) =>
             const newProfiles = state
                 .profiles
                 .map(profile => (
-                    id === user_profile_id
+                    profile.id === user_profile_id
                         ? { ...profile, is_profile_locked: true, pin_code: pin }
                         : profile
                 ))
