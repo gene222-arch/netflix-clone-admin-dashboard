@@ -15,24 +15,14 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import { useHistory } from 'react-router-dom';
 import PATH from './../../../routes/path';
+import AvatarList from './settings/profile-home-page/AvatarList';
 
 const profileHomePageUseStyles = makeStyles(theme => ({
-    avatar: {
-        width: '4rem',
-        borderRadius: 5,
-        marginRight: '1rem'
-    },
-    collapse: {
-        paddingLeft: '5rem'
-    },
     container: {
         padding: '2rem 0'
     },
     divider: {
         marginTop: '1rem',
-    },
-    expandIcon: {
-        fontSize: '2rem'
     },
     gridContainer: {
         padding: '1.5rem 0'
@@ -138,41 +128,11 @@ const ProfileHomePage = ({ AUTH }) =>
                     <Typography variant="subtitle1" color="initial">PROFILE & PARENTAL CONTROLS</Typography>
                 </Grid>
                 <Grid item xs={ 12 } sm={ 9 } md={ 9 } lg={ 9 }>
-                    <List>
-                        {
-                            AUTH.profiles.map(({ id: profileId, name, avatar, is_profile_locked }, index) => (
-                                <div key={ index }>
-                                    <List className={classes.profileContainer} onClick={ () => handleClickSetId(profileId) } >
-                                        <ListItem>
-                                            <ListItemAvatar>
-                                                <img src={ avatar } alt="" className={ classes.avatar } />
-                                            </ListItemAvatar>
-                                            <ListItemText primary={ name } secondary="All Maturity Ratings" />
-                                            {
-                                                id === profileId 
-                                                    ? <ExpandLessIcon className={ classes.expandIcon }/> 
-                                                    : <ExpandMoreIcon className={ classes.expandIcon }/>
-                                            }
-                                        </ListItem>
-                                    </List>
-                                    <Collapse in={ id === profileId } timeout="auto" unmountOnExit className={ classes.collapse }>
-                                        <List component="div" disablePadding>
-                                            <ListItem button onClick={ handleChangePinLock }>
-                                                <ListItemText primary="Profile Lock" secondary={ !is_profile_locked ? 'Off' : 'On' } />
-                                                <ListItemSecondaryAction>
-                                                    <StyledNavLink 
-                                                        to={ PATH.PROFILE_LOCK.replace(':id', id) }
-                                                        text={ 'Change' }
-                                                    />
-                                                </ListItemSecondaryAction>
-                                            </ListItem>
-                                        </List>
-                                    </Collapse>
-                                    <Divider className={ classes.divider } />
-                                </div>
-                            ))
-                        }
-                    </List>
+                    <AvatarList 
+                        id={ id } 
+                        handleClickSetId={ handleClickSetId } 
+                        handleChangePinLock={ handleChangePinLock } 
+                    />
                 </Grid>
             </Grid>
             
