@@ -43,8 +43,10 @@ const ContinueProfileLock = ({ profile, AUTH, AUTH_HAS_ERROR_MESSAGE, AUTH_ERROR
         const { value, name } = e.target;
         setPin({ ...pin, [name]: value });
 
-        let nextfield = document.querySelector(`input[name=${ nextFieldName }]`);
-        nextfield.focus();
+        if (value) {
+            let nextfield = document.querySelector(`input[name=${ nextFieldName }]`);
+            nextfield.focus();
+        }
     };
 
     const handleClickSave = () => 

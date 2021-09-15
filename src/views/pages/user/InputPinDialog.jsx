@@ -49,8 +49,10 @@ const InputPinDialog = ({ open, pin, setPin, handleClickToggleModal, handleClick
         const { value, name } = e.target;
         setPin({ ...pin, [name]: value });
 
-        let nextfield = document.querySelector(`input[name=${ nextFieldName }]`);
-        nextfield.focus();
+        if (value) {
+            let nextfield = document.querySelector(`input[name=${ nextFieldName }]`);
+            nextfield.focus();
+        }
     };
 
     const checkPinEveryInput = () => 

@@ -47,7 +47,7 @@ const SecurityCheck = ({ AUTH, USER }) =>
         const { value, name } = e.target;
         setCode({ ...code, [name]: value });
 
-        if (elementName) 
+        if (elementName && value) 
         {
             const nextfield = document.querySelector(`input[name=${ elementName }]`);
 
