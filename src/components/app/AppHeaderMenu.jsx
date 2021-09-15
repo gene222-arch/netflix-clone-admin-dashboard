@@ -159,8 +159,8 @@ const AppHeaderMenu = ({ AUTH, anchorEl, setAnchorEl }) =>
                                 lockIconClassName={ classes.lockIcon }
                                 handleClick={ 
                                     () => profile.is_profile_locked 
-                                        ? handleClickToggleModal(profile.pin_code, id) 
-                                        : handleClickSelectNonPin(id) 
+                                        ? handleClickToggleModal(profile.pin_code, profile.id) 
+                                        : handleClickSelectNonPin(profile.id) 
                                 } 
                             />
                         )
