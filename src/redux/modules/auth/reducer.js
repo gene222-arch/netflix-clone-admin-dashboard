@@ -31,6 +31,8 @@ const {
     RESET_PASSWORD_SUCCESS,
     RESET_PASSWORD_FAILED,
 
+    UPDATE_USER_DETAILS,
+
     VERIFIY_EMAIL_START,
     VERIFIY_EMAIL_SUCCESS,
     VERIFY_EMAIL_FAILED,
@@ -151,6 +153,15 @@ export default (state = initialState, { type, payload }) =>
                 error, 
                 selectedProfile: payload.profile
             }
+
+        case UPDATE_USER_DETAILS: {
+            return {
+                ...state,
+                user: { ...state.user, ...payload.user },
+                isLoading,
+                error 
+            }
+        }
             
         case FORGOT_PASSWORD_SUCCESS:
         case RESET_PASSWORD_SUCCESS:

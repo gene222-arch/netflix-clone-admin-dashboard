@@ -31,6 +31,8 @@ const {
     RESET_PASSWORD_SUCCESS,
     RESET_PASSWORD_FAILED,
 
+    UPDATE_USER_DETAILS,
+
     VERIFIY_EMAIL_START,
     VERIFIY_EMAIL_SUCCESS,
     VERIFY_EMAIL_FAILED,
@@ -205,6 +207,11 @@ export const selectProfileSuccess = (payload) => ({
 
 export const selectProfileFailed = (payload) => ({
     type: SELECT_PROFILE_FAILED,
+    payload
+});
+
+export const updateUserDetails = (payload) => ({
+    type: UPDATE_USER_DETAILS,
     payload
 });
 
