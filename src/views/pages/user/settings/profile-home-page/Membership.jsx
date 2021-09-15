@@ -4,10 +4,11 @@ import { Grid, Typography, List, ListItem, ListItemAvatar, ListItemText, ListIte
 import StyledNavLink from './../../../../../components/styled-components/StyledNavLink';
 import { createStructuredSelector } from 'reselect';
 import { selectAuth } from './../../../../../redux/modules/auth/selector';
-import { connect } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 import PATH from './../../../../../routes/path';
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import LockOpenIcon from '@material-ui/icons/LockOpen';
+import * as USER_ACTION from './../../../../../redux/modules/user/actions'
 
 
 const membershipUseStyles = makeStyles(theme => ({
@@ -20,9 +21,10 @@ const membershipUseStyles = makeStyles(theme => ({
 }));
 
 
-const Membership = ({ AUTH, id }) => 
+const Membership = ({ AUTH }) => 
 {
     const classes = membershipUseStyles();
+    const dispatch = useDispatch();
 
     const memberShipActionButtons = 
     [
@@ -32,7 +34,8 @@ const Membership = ({ AUTH, id }) =>
             primaryText: AUTH.user.email,
             actionText: 'Change account email',
             actionPath: PATH.UPDATE_EMAIL,
-            isTextSecondary: false
+            isTextSecondary: false,
+            onClick: () => dispatch(USER_ACTION.sendChangeEmailVerificationCodeStart())
         },
         {
             id: 'password',
@@ -40,7 +43,8 @@ const Membership = ({ AUTH, id }) =>
             primaryText: 'Password: ***********',
             actionText: 'Change account password',
             actionPath: PATH.UPDATE_PASSWORD,
-            isTextSecondary: true
+            isTextSecondary: true,
+            onClick: () => console.log('')
         },
     ];
 
@@ -53,7 +57,7 @@ const Membership = ({ AUTH, id }) =>
             <Grid item xs={ 12 } sm={ 8 } md={ 8 } lg={ 8 }>
                 <List>
                     {
-                        memberShipActionButtons.map(({ id, icon: Icon, primaryText, actionText, actionPath, isTextSecondary }) => (
+                        memberShipActionButtons.map(({ id, icon: Icon, primaryText, actionText, actionPath, isTextSecondary, onClick }) => (
                             <ListItem key={ id }>
                                 <ListItemAvatar>
                                     <Icon color={ isTextSecondary ? 'disabled' : 'action' } />
@@ -67,6 +71,7 @@ const Membership = ({ AUTH, id }) =>
                                     <StyledNavLink 
                                         to={ actionPath }
                                         text={ actionText }
+                                        onClick={ onClick }
                                     />
                                 </ListItemSecondaryAction>
                             </ListItem>

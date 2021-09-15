@@ -43,7 +43,7 @@ function* fetchAllUsersSaga()
 function* updateUserEmailSaga(payload)
 {
     try {
-        const { message, status } = yield call(API.updateEmailAsync, { email: payload.email });
+        const { message, status } = yield call(API.updateEmailAsync, payload);
 
         yield put(updateUserEmailSuccess(payload));
         yield put(showAlert({ status, message }));
@@ -72,9 +72,10 @@ function* updateUserPasswordSaga(payload)
 function* sendChangeEmailVerificationCodeSaga()
 {
     try {
-        const { data: emailVerificationCode } = yield call(API.sendChangeEmailVerificationCodeAsync);
+        const { data: emailVerificationCode, status, message } = yield call(API.sendChangeEmailVerificationCodeAsync);
 
         yield put(sendChangeEmailVerificationCodeSuccess({ emailVerificationCode }));
+        yield put(showAlert({ status, message }));
     } catch ({ message, status }) {
         yield put(sendChangeEmailVerificationCodeFailed({ message }));
         yield put(showAlert({ status, message: 'Something went wrong' }));

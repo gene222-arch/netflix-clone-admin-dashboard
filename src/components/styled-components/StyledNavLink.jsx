@@ -6,7 +6,7 @@ import styledNavLinkUseStyles from './../../assets/js/material-ui/styledNavLinkU
 const StyledNavLink = ({ to, text, ...props }) => 
 {
     const classes = styledNavLinkUseStyles();
-    return <NavLinkRouter to={to} className={ classes.link } { ...props } >{ text }</NavLinkRouter>
+    return <NavLinkRouter to={to} className={ classes.link } { ...props }>{ text }</NavLinkRouter>
 }
 
 export default StyledNavLink

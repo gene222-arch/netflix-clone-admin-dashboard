@@ -63,17 +63,10 @@ export default (state = initialState, { type, payload }) =>
             }
 
         case UPDATE_USER_EMAIL_SUCCESS:
-
-            UPDATED_USERS = users.map(user => {
-                return user.id === payload.user_id 
-                    ? { ...user, email: payload.email }
-                    : user;
-            });
-
             return {
                 ...state,
-                users: UPDATED_USERS,
                 isLoading,
+                change_email_verification_code: '',
                 error
             }
 

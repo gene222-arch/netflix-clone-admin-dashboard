@@ -71,7 +71,7 @@ const ProfileHomePage = ({ AUTH }) =>
             </Grid>
             
             <Divider />
-            <Membership id={ id } />
+            <Membership />
             <Divider />
 
             <Grid container spacing={1} className={ classes.gridContainer } >

@@ -9,7 +9,6 @@ import { connect, useDispatch } from 'react-redux';
 import InputCode from './InputCode'
 import UpdateEmail from './UpdateEmail';
 import { selectUser } from './../../../../redux/modules/user/selector';
-import * as USER_ACTION from './../../../../redux/modules/user/actions';
 
 const securityCheckUseStyles = makeStyles(theme => ({
     container: {
@@ -57,13 +56,13 @@ const SecurityCheck = ({ AUTH, USER }) =>
     }
 
     const handleClickVerifyCode = () => {
-        setIsCodeVerified(true);
+        if (USER.change_email_verification_code === parseInt(Object.values(code).join(''))) {
+            setIsCodeVerified(true);
+        }
     }
 
     useEffect(() => 
     {
-        dispatch(USER_ACTION.sendChangeEmailVerificationCodeStart());
-
         return () => {
             setCode(CODE_PROPS);
             setIsCodeVerified(false);
