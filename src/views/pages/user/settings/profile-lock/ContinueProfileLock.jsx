@@ -3,6 +3,10 @@ import Typography from '@material-ui/core/Typography'
 import Grid from '@material-ui/core/Grid'
 import { Button, Checkbox, FormControlLabel, makeStyles, TextField } from '@material-ui/core'
 import { useHistory } from 'react-router-dom';
+import * as AUTH_ACTION from './../../../../../redux/modules/auth/actions'
+import { useDispatch, connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
+import { selectAuth, selectAuthErrorMessages, selectAuthHasErrorMessages } from './../../../../../redux/modules/auth/selector'
 
 const continueLockProfileUseStyles = makeStyles(theme => ({
     btnContainer: {
@@ -24,9 +28,10 @@ const PIN_PROPS = {
  * * Note: UseEffect does not force another UseEffect to render
  */
 
-const ContinueProfileLock = ({ profileName = '' }) => 
+const ContinueProfileLock = ({ profileId, profileName = '', AUTH, AUTH_HAS_ERROR_MESSAGE, AUTH_ERROR_MESSAGE }) => 
 {
     const classes = continueLockProfileUseStyles();
+    const dispatch = useDispatch();
     const history = useHistory();
 
     const [ isPinCreated, setIsPinCreated ] = useState(false);
@@ -43,8 +48,9 @@ const ContinueProfileLock = ({ profileName = '' }) =>
     };
 
     const handleClickSave = () => {
-        const pinValue = Object.values(pin);
-        window.alert('pin' + pinValue);
+        const pinValue = Object.values(pin).join('');
+        dispatch(AUTH_ACTION.manageProfileLockStart({ user_profile_id: profileId, pin_code: pinValue, is_profile_locked: isRequired }));
+        setPin(PIN_PROPS);
     }
 
     const checkPinEveryInput = () => 
@@ -106,7 +112,9 @@ const ContinueProfileLock = ({ profileName = '' }) =>
                                             style: { textAlign: 'center' },
                                             maxLength: 1
                                         }}
+                                        value={ pin.num1 }
                                         onChange={ (e) => handleChange(e, 'num2') }
+                                        error={ AUTH_HAS_ERROR_MESSAGE.pin_code }
                                     />
                                 </Grid>
                                 <Grid item xs={ 2 } sm={ 1 } md={ 1 } lg={ 1 }>
@@ -118,7 +126,9 @@ const ContinueProfileLock = ({ profileName = '' }) =>
                                             style: { textAlign: 'center' },
                                             maxLength: 1
                                         }}
+                                        value={ pin.num2 }
                                         onChange={ (e) => handleChange(e, 'num3') }
+                                        error={ AUTH_HAS_ERROR_MESSAGE.pin_code }
                                     />
                                 </Grid>
                                 <Grid item xs={ 2 } sm={ 1 } md={ 1 } lg={ 1 }>
@@ -130,7 +140,9 @@ const ContinueProfileLock = ({ profileName = '' }) =>
                                             style: { textAlign: 'center' },
                                             maxLength: 1
                                         }}
+                                        value={ pin.num3 }
                                         onChange={ (e) => handleChange(e, 'num4') }
+                                        error={ AUTH_HAS_ERROR_MESSAGE.pin_code }
                                     />
                                 </Grid>
                                 <Grid item xs={ 2 } sm={ 1 } md={ 1 } lg={ 1 }>
@@ -142,10 +154,19 @@ const ContinueProfileLock = ({ profileName = '' }) =>
                                             style: { textAlign: 'center' },
                                             maxLength: 1
                                         }}
+                                        value={ pin.num4 }
                                         onChange={ (e) => handleChange(e, 'num4') }
+                                        error={ AUTH_HAS_ERROR_MESSAGE.pin_code }
                                     />
                                 </Grid>
                             </Grid>
+                            {
+                                AUTH_HAS_ERROR_MESSAGE.pin_code && (
+                                    <Typography variant="subtitle1" color="error">
+                                        { AUTH_ERROR_MESSAGE.pin_code }
+                                    </Typography>
+                                )
+                            }
                         </Grid>
                     )
                 }
@@ -156,7 +177,7 @@ const ContinueProfileLock = ({ profileName = '' }) =>
                                 variant="outlined" 
                                 color="default"
                                 onClick={ handleClickSave }
-                                disabled={ !isPinCreated }
+                                disabled={ !isPinCreated || AUTH.isLoading }
                             >
                                 Save
                             </Button>
@@ -166,6 +187,7 @@ const ContinueProfileLock = ({ profileName = '' }) =>
                                 variant="outlined" 
                                 color="default"
                                 onClick={ () => history.goBack() }
+                                disabled={ AUTH.isLoading }
                             >
                                 Cancel 
                             </Button>
@@ -177,4 +199,10 @@ const ContinueProfileLock = ({ profileName = '' }) =>
     )
 }
 
-export default ContinueProfileLock
+const mapStateToProps = createStructuredSelector({
+    AUTH: selectAuth,
+    AUTH_HAS_ERROR_MESSAGE: selectAuthHasErrorMessages,
+    AUTH_ERROR_MESSAGE: selectAuthErrorMessages
+});
+
+export default connect(mapStateToProps)(ContinueProfileLock)
