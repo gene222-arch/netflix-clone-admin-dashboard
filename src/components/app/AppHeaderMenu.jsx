@@ -147,7 +147,6 @@ const AppHeaderMenu = ({ AUTH, anchorEl, setAnchorEl }) =>
                         height: '18rem'
                     } 
                 }}
-                onBackdropClick={ () => window.alert('backdropped is clicked') }
             >
                 {
                     AUTH.profiles.map((profile, index) => 
