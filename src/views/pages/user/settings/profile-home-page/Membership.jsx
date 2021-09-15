@@ -39,7 +39,7 @@ const Membership = ({ AUTH, id }) =>
             icon: LockOpenIcon,
             primaryText: 'Password',
             actionText: 'Change account password',
-            actionPath: PATH.PROFILE_LOCK.replace(':id', id),
+            actionPath: PATH.UPDATE_PASSWORD,
             isTextSecondary: true
         },
     ];
