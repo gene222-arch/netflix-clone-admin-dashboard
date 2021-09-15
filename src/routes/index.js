@@ -45,6 +45,8 @@ const UserProfile = lazy(() => import('../views/pages/user/UserProfile'))
 const ProfileHomePage = lazy(() => import('../views/pages/user/ProfileHomePage'))
 const ProfileLock = lazy(() => import('../views/pages/user/settings/profile-lock/ProfileLock'))
 const UpdatePassword = lazy(() => import('../views/pages/user/UpdatePassword'))
+const SecurityCheck = lazy(() => import('../views/pages/user/update-email/SecurityCheck'))
+
 
 export const PUBLIC_ROUTES = [
     {
@@ -146,6 +148,15 @@ export const USER_ROUTES = [
         icon: '',
         exact: true,
         component: UpdatePassword,
+        access: '',
+        restricted: true
+    },
+    {
+        path: PATH.UPDATE_EMAIL,
+        key: 'SecurityCheck',
+        icon: '',
+        exact: true,
+        component: SecurityCheck,
         access: '',
         restricted: true
     }

@@ -1,0 +1,118 @@
+import React, { useState, useEffect } from 'react'
+import Container from '@material-ui/core/Container'
+import Grid from '@material-ui/core/Grid'
+import Typography from '@material-ui/core/Typography'
+import { makeStyles, Button } from '@material-ui/core'
+import { createStructuredSelector } from 'reselect';
+import { selectAuth } from './../../../../redux/modules/auth/selector';
+import { connect } from 'react-redux';
+import InputCode from './InputCode'
+import UpdateEmail from './UpdateEmail';
+
+const securityCheckUseStyles = makeStyles(theme => ({
+    container: {
+        marginTop: '2rem',
+        height: '86.2vh'
+    },
+    enterCodeBtn: {
+        padding: '1rem 2rem',
+        marginTop: '2rem'
+    },
+    gridContainer: {
+        width: '100%'
+    }
+}));
+
+const CODE_PROPS = 
+{
+    num1: '',
+    num2: '',
+    num3: '',
+    num4: '',
+    num5: '',
+    num6: ''
+};
+
+const SecurityCheck = ({ AUTH }) => 
+{
+    const classes = securityCheckUseStyles();
+
+    const [ code, setCode ] = useState(CODE_PROPS);
+    const [ isCodeVerified, setIsCodeVerified ] = useState(false);
+
+    const handleChange = (e, elementName) => 
+    {
+        const { value, name } = e.target;
+        setCode({ ...code, [name]: value });
+
+        if (elementName) 
+        {
+            const nextfield = document.querySelector(`input[name=${ elementName }]`);
+
+            nextfield.focus();
+        }
+    }
+
+    const handleClickVerifyCode = () => {
+        setIsCodeVerified(true);
+    }
+
+    useEffect(() => {
+        return () => {
+            setCode(CODE_PROPS);
+            setIsCodeVerified(false);
+        }
+    }, []);
+
+    return (
+        <Container maxWidth="sm" className={ classes.container }>
+        {
+            !isCodeVerified
+                ? (
+                    <Grid container spacing={1} alignItems='center' justify='center'>
+                        <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
+                            <Typography variant="caption" color="error" align='center'>
+                                <strong>SECURITY CHECK</strong>
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
+                            <Typography variant="h4" color="default" align='center' gutterBottom>
+                                <strong>Check your email for a code</strong>
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
+                            <Typography variant="subtitle1" color="textSecondary" align='center' gutterBottom>
+                                Please enter the code we sent to <strong>{ AUTH.user.email }</strong> to help us protect your account.
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
+                            <InputCode 
+                                code={ code }
+                                handleChange={ handleChange }
+                            />
+                        </Grid>
+                        <Grid item xs={ 12 } sm={ 10 } md={ 10 } lg={ 10 }>
+                            <Button 
+                                variant="contained" 
+                                color="default" 
+                                className={ classes.enterCodeBtn }
+                                fullWidth
+                                disabled={ Object.values(code).filter(num => Boolean(num)).length !== 6 }
+                                onClick={ handleClickVerifyCode }
+                            >
+                                Enter Code to Continue
+                            </Button>
+                        </Grid>
+                    </Grid>
+                )
+                : <UpdateEmail />
+        }
+        </Container>
+    )
+}
+
+const mapStateToProps = createStructuredSelector({
+    AUTH: selectAuth
+});
+
+export default connect(mapStateToProps)(SecurityCheck)

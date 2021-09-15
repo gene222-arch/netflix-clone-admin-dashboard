@@ -31,13 +31,13 @@ const Membership = ({ AUTH, id }) =>
             icon: MailOutlineIcon,
             primaryText: AUTH.user.email,
             actionText: 'Change account email',
-            actionPath: PATH.PROFILE_LOCK.replace(':id', id),
+            actionPath: PATH.UPDATE_EMAIL,
             isTextSecondary: false
         },
         {
             id: 'password',
             icon: LockOpenIcon,
-            primaryText: 'Password',
+            primaryText: 'Password: ***********',
             actionText: 'Change account password',
             actionPath: PATH.UPDATE_PASSWORD,
             isTextSecondary: true
