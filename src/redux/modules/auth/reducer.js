@@ -126,13 +126,13 @@ export default (state = initialState, { type, payload }) =>
             };
 
         case MANAGE_PROFILE_LOCK_SUCCESS:
-            const { user_profile_id, pin_code } = payload;
+            const { user_profile_id, pin_code, is_profile_locked } = payload;
 
             const newProfiles = state
                 .profiles
                 .map(profile => (
                     profile.id === user_profile_id
-                        ? { ...profile, is_profile_locked: true, pin_code }
+                        ? { ...profile, is_profile_locked, pin_code }
                         : profile
                 ))
             

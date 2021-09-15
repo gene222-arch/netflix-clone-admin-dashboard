@@ -98,7 +98,7 @@ const ProfileLock = ({ AUTH }) =>
                                 handleClickCancel={ handleClickCancel }
                             />
                         )
-                        : <ContinueProfileLock profileId={ profile?.id } profileName={ profile?.name } />
+                        : <ContinueProfileLock profile={ profile } />
                 }
             </Grid>
         </Container>

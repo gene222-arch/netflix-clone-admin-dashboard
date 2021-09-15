@@ -28,7 +28,7 @@ const PIN_PROPS = {
  * * Note: UseEffect does not force another UseEffect to render
  */
 
-const ContinueProfileLock = ({ profileId, profileName = '', AUTH, AUTH_HAS_ERROR_MESSAGE, AUTH_ERROR_MESSAGE }) => 
+const ContinueProfileLock = ({ profile, AUTH, AUTH_HAS_ERROR_MESSAGE, AUTH_ERROR_MESSAGE }) => 
 {
     const classes = continueLockProfileUseStyles();
     const dispatch = useDispatch();
@@ -36,7 +36,7 @@ const ContinueProfileLock = ({ profileId, profileName = '', AUTH, AUTH_HAS_ERROR
 
     const [ isPinCreated, setIsPinCreated ] = useState(false);
     const [ pin, setPin ] = useState(PIN_PROPS);
-    const [ isRequired, setIsRequired ] = useState(false);
+    const [ isRequired, setIsRequired ] = useState(profile.is_profile_locked);
 
     const handleChange = (e, nextFieldName) => 
     {
@@ -47,9 +47,15 @@ const ContinueProfileLock = ({ profileId, profileName = '', AUTH, AUTH_HAS_ERROR
         nextfield.focus();
     };
 
-    const handleClickSave = () => {
+    const handleClickSave = () => 
+    {
         const pinValue = Object.values(pin).join('');
-        dispatch(AUTH_ACTION.manageProfileLockStart({ user_profile_id: profileId, pin_code: pinValue, is_profile_locked: isRequired }));
+
+        const payload = !isRequired 
+            ? { user_profile_id: profile.id, pin_code: '', is_profile_locked: isRequired }
+            : { user_profile_id: profile.id, pin_code: pinValue, is_profile_locked: isRequired }
+
+        dispatch(AUTH_ACTION.manageProfileLockStart(payload));
         setPin(PIN_PROPS);
     }
 
@@ -64,6 +70,16 @@ const ContinueProfileLock = ({ profileId, profileName = '', AUTH, AUTH_HAS_ERROR
 
     useEffect(() => 
     {
+        if (profile.is_profile_locked) 
+        {
+            setPin({
+                num1: profile.pin_code[0],
+                num2: profile.pin_code[1],
+                num3: profile.pin_code[2],
+                num4: profile.pin_code[3] 
+            });
+        }
+
         return () => {
             setIsRequired(false);
             setPin(PIN_PROPS);
@@ -94,7 +110,7 @@ const ContinueProfileLock = ({ profileId, profileName = '', AUTH, AUTH_HAS_ERROR
                         }
                         label={ 
                             <Typography variant="caption" color="textSecondary">
-                                { `Required a PIN to access ${ profileName }'s profile.` }
+                                { `Required a PIN to access ${ profile.name }'s profile.` }
                             </Typography>
                         }
                     />
