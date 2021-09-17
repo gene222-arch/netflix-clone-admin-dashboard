@@ -9,9 +9,10 @@ import { createStructuredSelector } from 'reselect';
 import { selectAuth } from './../../redux/modules/auth/selector';
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
-import { Divider, makeStyles } from '@material-ui/core';
+import { Divider, makeStyles, useMediaQuery } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import InputPinDialog from './../../views/pages/user/InputPinDialog';
+import { useTheme } from '@material-ui/core/styles';
 
 const appHeaderMenuUseStyles = makeStyles(theme => ({
     avatar: {
@@ -64,12 +65,25 @@ const AppHeaderMenu = ({ AUTH, anchorEl, setAnchorEl }) =>
     const classes = appHeaderMenuUseStyles();
     const dispatch = useDispatch();
     const history = useHistory();
+    const theme = useTheme();
 
     const [ id, setId ] = useState('');
     const [ pin, setPin ] = useState(PIN_PROPS);
     const [ isIncorrectPin, setIsIncorrectPin ] = useState(false);
     const [ selectedProfilePin, setSelectedProfilePin ] = useState('');
     const [ showInputPin, setShowInputPin ] = useState(false);
+
+
+    const menuStyle = !useMediaQuery(theme.breakpoints.down('sm')) ? 
+    {  
+        width: '12rem',
+        height: '18rem'
+    } : {
+        width: '100%',
+        height: '100%',
+        padding: 0,
+        margin: 0
+    };
 
 
     const cleanUp = () => {
@@ -142,10 +156,7 @@ const AppHeaderMenu = ({ AUTH, anchorEl, setAnchorEl }) =>
                 open={ Boolean(anchorEl) }
                 onClose={ handleClickToggleMenu }
                 PaperProps={{ 
-                    style: {  
-                        width: '12rem',
-                        height: '18rem'
-                    } 
+                    style: menuStyle
                 }}
             >
                 {
