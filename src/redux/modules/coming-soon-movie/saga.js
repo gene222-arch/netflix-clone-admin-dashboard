@@ -24,7 +24,8 @@ import {
     deleteTrailerSuccess,
     deleteTrailerFailed,
     toggleComingSoonMovieReleaseSuccess,
-    toggleComingSoonMovieReleaseFailed
+    toggleComingSoonMovieReleaseFailed,
+    fetchAllComingSoonMoviesStart
 } from './actions';
 import { showAlert } from './../alert/actions';
 import PATH from './../../../routes/path';
@@ -118,6 +119,7 @@ function* toggleComingSoonMovieReleaseSaga(payload)
         const { message, status } = yield call(API.updateStatusAsync, payload);
         
         yield put(showAlert({ status, message }));
+        yield put(fetchAllComingSoonMoviesStart());
     } catch ({ message, status }) {
         yield put(toggleComingSoonMovieReleaseFailed({ message }));
         yield put(showAlert({ status, message: ERROR_MESSAGE_ON_UPDATE }));
