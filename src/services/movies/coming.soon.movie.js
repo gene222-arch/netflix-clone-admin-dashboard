@@ -55,10 +55,10 @@ export const updateAsync = async (payload) =>
         .catch(error => Promise.reject(error.response.data));
 }
 
-export const updateStatusAsync = async (id) => 
+export const updateStatusAsync = async ({ id, ...rest }) => 
 {
     return await axiosInstance()
-        .put(`/coming-soon-movies/${ id }/status`)
+        .put(`/coming-soon-movies/${ id }/status`, rest)
         .then(response => response.data)
         .catch(error => Promise.reject(error.response.data));
 }

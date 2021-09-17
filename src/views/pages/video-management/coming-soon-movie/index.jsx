@@ -17,6 +17,12 @@ import VisibilityIcon from '@material-ui/icons/Visibility';
 import Tooltip from '@material-ui/core/Tooltip';
 import VideoPreviewDialog from '../../../../components/VideoPreviewDialog';
 
+const DATA_PROPS = {
+    id: '',
+    video_path: '',
+    video_size_in_mb: '',
+    duration_in_minutes: ''
+};
 
 const ComingSoonMovie = ({ COMING_SOON_MOVIE }) => 
 {
@@ -89,12 +95,12 @@ const ComingSoonMovie = ({ COMING_SOON_MOVIE }) =>
         },
     ];
 
-    const [ id, setId ] = useState('');
     const [ ids, setIds ] = useState([]);
+    const [ data, setData ] = useState(DATA_PROPS);
     const [ open, setOpen ] = useState(false);
 
     const handleClickRelease = (movieId) => {
-        setId(movieId);
+        setData({ ...data, id: movieId });
         setOpen(true);
     }
 
@@ -103,20 +109,20 @@ const ComingSoonMovie = ({ COMING_SOON_MOVIE }) =>
         dispatch(COMING_SOON_MOVIE_ACTION.deleteComingSoonMoviesStart({ ids }));
     }
 
-    const handleClickUpdateStatus = () => dispatch(COMING_SOON_MOVIE_ACTION.toggleComingSoonMovieReleaseStart({ id }));
-
-    const handleClickCancelUpdateStatus = () => {
-        setId('');
+    const handleClickUpdateStatus = () => {
+        dispatch(COMING_SOON_MOVIE_ACTION.toggleComingSoonMovieReleaseStart(data));
         setOpen(false);
     }
+
+    const handleClickCancelUpdateStatus = () => setOpen(false);
 
     useEffect(() => {
         dispatch(COMING_SOON_MOVIE_ACTION.fetchAllComingSoonMoviesStart());
 
         return () => {
-            setId('');
             setIds([]);
             setOpen(false);
+            setData(DATA_PROPS);
         }
     }, []);
 
@@ -125,6 +131,8 @@ const ComingSoonMovie = ({ COMING_SOON_MOVIE }) =>
             <VideoPreviewDialog 
                 open={ open }
                 setOpen={ setOpen }
+                data={ data }
+                setData={ setData }
                 onSave={ handleClickUpdateStatus }
                 onCancel={ handleClickCancelUpdateStatus }
             />

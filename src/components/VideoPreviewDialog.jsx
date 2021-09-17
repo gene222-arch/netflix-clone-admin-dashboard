@@ -16,6 +16,7 @@ import { makeStyles } from '@material-ui/styles';
 import Colors from './../constants/Colors';
 import Container from '@material-ui/core/Container'
 
+
 const videoPreviewDialogUseStyles = makeStyles(theme => ({
     container: {
         width: '100%',
@@ -25,18 +26,12 @@ const videoPreviewDialogUseStyles = makeStyles(theme => ({
     }
 }))
 
-const DATA_PROPS = {
-    video_path: '',
-    video_size_in_mb: '',
-    duration_in_minutes: ''
-};
 
-const VideoPreviewDialog = ({ open, setOpen, onSave, onCancel, MOVIE_HAS_ERROR_MESSAGES, MOVIE_ERROR_MESSAGES }) => 
+const VideoPreviewDialog = ({ open, setOpen, data, setData, onSave, onCancel, MOVIE_HAS_ERROR_MESSAGES, MOVIE_ERROR_MESSAGES }) => 
 {
     const classes = videoPreviewDialogUseStyles();
     const dispatch = useDispatch();
 
-    const [ data, setData ] = useState(DATA_PROPS);
     const [ filePreview, setFilePreview ] = useState(null);
     const [ isUploading, setIsUploading ] = useState(false);
 
@@ -79,6 +74,8 @@ const VideoPreviewDialog = ({ open, setOpen, onSave, onCancel, MOVIE_HAS_ERROR_M
     useEffect(() => 
     {
         return () => {
+            setFilePreview(null);
+            setIsUploading(false);
         }
     }, []);
 
@@ -104,6 +101,14 @@ const VideoPreviewDialog = ({ open, setOpen, onSave, onCancel, MOVIE_HAS_ERROR_M
                         error={ MOVIE_HAS_ERROR_MESSAGES.video_path }
                         helperText={ MOVIE_ERROR_MESSAGES.video_path }
                         label='Upload Movie Video File'
+                    />
+                    <TextField
+                        label='Duration in minutes'
+                        fullWidth
+                        variant="outlined"
+                        value={ data.duration_in_minutes }
+                        onChange={ (e) => setData({ ...data, duration_in_minutes: e.target.value }) }
+                        type='number'
                     />
                 </DialogContent>
                 <DialogActions>
