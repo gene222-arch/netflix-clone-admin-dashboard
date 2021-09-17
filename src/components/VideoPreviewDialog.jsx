@@ -1,0 +1,127 @@
+import React, { useState, useEffect } from 'react'
+import TextField from '@material-ui/core/TextField';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import VideoWithPreview from './VideoWithPreview';
+import * as MOVIE_API from './../services/movies/movie'
+import * as MOVIE_ACTION from './../redux/modules/movie/actions'
+import { createStructuredSelector } from 'reselect';
+import { selectMovieErrorMessages, selectMovieHasErrorMessages } from './../redux/modules/movie/selector';
+import { connect, useDispatch } from 'react-redux';
+import Button from '@material-ui/core/Button'
+import { makeStyles } from '@material-ui/styles';
+import Colors from './../constants/Colors';
+import Container from '@material-ui/core/Container'
+
+const videoPreviewDialogUseStyles = makeStyles(theme => ({
+    container: {
+        width: '100%',
+    },
+    saveBtn: {
+        backgroundColor: Colors.white
+    }
+}))
+
+const DATA_PROPS = {
+    video_path: '',
+    video_size_in_mb: '',
+    duration_in_minutes: ''
+};
+
+const VideoPreviewDialog = ({ open, setOpen, onSave, onCancel, MOVIE_HAS_ERROR_MESSAGES, MOVIE_ERROR_MESSAGES }) => 
+{
+    const classes = videoPreviewDialogUseStyles();
+    const dispatch = useDispatch();
+
+    const [ data, setData ] = useState(DATA_PROPS);
+    const [ filePreview, setFilePreview ] = useState(null);
+    const [ isUploading, setIsUploading ] = useState(false);
+
+    const handleChangeVideoFile = async (e) => 
+    {
+        setIsUploading(true);
+
+        let files = e.target.files || e.dataTransfer.files;
+
+        if (! files.length) return;
+        
+        const file = files[0];
+        const video_size_in_mb = file.size / 1000;
+        const reader = new FileReader();
+
+        try {
+            const { data: path, status } = await MOVIE_API.uploadVideoAsync({ video: file });
+
+            if (status === 'success') 
+            {
+                setData({ ...data, video_path: path, video_size_in_mb, duration_in_minutes: 1 });
+
+                reader.onload = (e) => setFilePreview(e.target.result);
+    
+                reader.readAsDataURL(file);
+
+                dispatch(MOVIE_ACTION.updateMovieErrorState({ video_path: '' }));
+            }
+            
+        } catch ({ message }) {
+            dispatch(MOVIE_ACTION.updateMovieErrorState({  video_path: message.video }));
+        }
+
+        setIsUploading(false);
+        e.target.value = null;
+    }
+
+    const handleClickToggle = () => setOpen(! open);
+
+    useEffect(() => 
+    {
+        return () => {
+        }
+    }, []);
+
+    return (
+        <Container maxWidth="xl">
+            <Dialog 
+                fullScreen
+                open={ open } 
+                onClose={ handleClickToggle }
+                className={ classes.container }
+            >
+                <DialogTitle>Upcoming Movie Release</DialogTitle>
+                <DialogContent>
+                    <DialogContentText>
+                        Upload a video for the movie to be release.
+                    </DialogContentText>
+                    <VideoWithPreview 
+                        inputID='video'
+                        inputName='video'
+                        filePreview={ filePreview }
+                        isUploading={ isUploading }
+                        handleChangeVideoFile={ handleChangeVideoFile }
+                        error={ MOVIE_HAS_ERROR_MESSAGES.video_path }
+                        helperText={ MOVIE_ERROR_MESSAGES.video_path }
+                        label='Upload Movie Video File'
+                    />
+                </DialogContent>
+                <DialogActions>
+                    <Button variant="contained" className={ classes.saveBtn } onClick={ onSave }>
+                        Save
+                    </Button>
+                    <Button variant="outlined" color="default" onClick={ onCancel }>
+                        Cancel
+                    </Button>
+                </DialogActions>
+            </Dialog>
+        </Container>
+    )
+}
+
+const mapStateToProps = createStructuredSelector({
+    MOVIE_HAS_ERROR_MESSAGES: selectMovieHasErrorMessages,
+    MOVIE_ERROR_MESSAGES: selectMovieErrorMessages
+});
+
+export default connect(mapStateToProps)(VideoPreviewDialog)

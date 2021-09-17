@@ -15,6 +15,7 @@ import { Chip, Avatar, IconButton, Container } from '@material-ui/core';
 import comingSoonMovieUseStyles from './../../../../assets/js/material-ui/comingSoonMovieUseStyles';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import Tooltip from '@material-ui/core/Tooltip';
+import VideoPreviewDialog from '../../../../components/VideoPreviewDialog';
 
 
 const ComingSoonMovie = ({ COMING_SOON_MOVIE }) => 
@@ -65,7 +66,7 @@ const ComingSoonMovie = ({ COMING_SOON_MOVIE }) =>
                             </Avatar>
                         } 
                         label={ status } 
-                        onClick={ () => handleClickUpdateStatus(id) } 
+                        onClick={ () => handleClickRelease(id) } 
                     />
                 </Tooltip>
             )
@@ -88,37 +89,61 @@ const ComingSoonMovie = ({ COMING_SOON_MOVIE }) =>
         },
     ];
 
-    const [ ids, setIDs ] = useState([]);
+    const [ id, setId ] = useState('');
+    const [ ids, setIds ] = useState([]);
+    const [ open, setOpen ] = useState(false);
+
+    const handleClickRelease = (movieId) => {
+        setId(movieId);
+        setOpen(true);
+    }
 
     const handleClickDeleteComingSoonMovie = () => {
-        setIDs([]);
+        setIds([]);
         dispatch(COMING_SOON_MOVIE_ACTION.deleteComingSoonMoviesStart({ ids }));
     }
 
-    const handleClickUpdateStatus = (id) => {
-        dispatch(COMING_SOON_MOVIE_ACTION.toggleComingSoonMovieReleaseStart({ id }));
+    const handleClickUpdateStatus = () => dispatch(COMING_SOON_MOVIE_ACTION.toggleComingSoonMovieReleaseStart({ id }));
+
+    const handleClickCancelUpdateStatus = () => {
+        setId('');
+        setOpen(false);
     }
 
     useEffect(() => {
         dispatch(COMING_SOON_MOVIE_ACTION.fetchAllComingSoonMoviesStart());
+
+        return () => {
+            setId('');
+            setIds([]);
+            setOpen(false);
+        }
     }, []);
 
     return (
-        <Container maxWidth="lg">
-            <MaterialTable 
-                columns={ columns }      
-                data={ COMING_SOON_MOVIE.comingSoonMovies }  
-                title={ 
-                    <MaterialTableActionButton
-                        ids={ ids } 
-                        addButtonCallback = { () => history.push(PATH.CREATE_COMING_SOON_MOVIE, { actionName: 'Create Movie' }) }
-                        deleteButtonCallback={ handleClickDeleteComingSoonMovie }
-                    /> 
-                }
-                isLoading={ COMING_SOON_MOVIE.isLoading }
-                onSelectionChange={ rows => setIDs(rows.map(({ id }) => id)) }
+        <>
+            <VideoPreviewDialog 
+                open={ open }
+                setOpen={ setOpen }
+                onSave={ handleClickUpdateStatus }
+                onCancel={ handleClickCancelUpdateStatus }
             />
-        </Container>
+            <Container maxWidth="lg">
+                <MaterialTable 
+                    columns={ columns }      
+                    data={ COMING_SOON_MOVIE.comingSoonMovies }  
+                    title={ 
+                        <MaterialTableActionButton
+                            ids={ ids } 
+                            addButtonCallback = { () => history.push(PATH.CREATE_COMING_SOON_MOVIE, { actionName: 'Create Movie' }) }
+                            deleteButtonCallback={ handleClickDeleteComingSoonMovie }
+                        /> 
+                    }
+                    isLoading={ COMING_SOON_MOVIE.isLoading }
+                    onSelectionChange={ rows => setIds(rows.map(({ id }) => id)) }
+                />
+            </Container>
+        </>
     )
 }
 
