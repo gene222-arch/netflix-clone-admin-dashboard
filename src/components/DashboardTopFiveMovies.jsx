@@ -9,6 +9,8 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction'
 import Typography from '@material-ui/core/Typography'
 import { Avatar, Grid } from '@material-ui/core';
 import Colors from './../constants/Colors';
+import { useHistory } from 'react-router-dom';
+import PATH from './../routes/path';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -37,12 +39,12 @@ const useStyles = makeStyles((theme) => ({
 	}
 }));
 
-const DisplayListItem = ({ index, title, count }) => 
+const DisplayListItem = ({ id, index, title, count }) => 
 {
-	const classes = useStyles();
+	const history = useHistory();
 
 	return (
-		<ListItem button>
+		<ListItem button onClick={ () => history.push(PATH.UPDATE_MOVIE.replace(':id', id)) }>
 			<ListItemIcon>{ index }</ListItemIcon>
 			<ListItemText primary={ title } />
 			<ListItemSecondaryAction>
@@ -78,7 +80,8 @@ const DashboardTopFiveMovies = ({ movies = [], HeaderIcon, listHeaderTitle = '' 
                 {
 					movies.map(({ id, title, count }, index) => (
 						<DisplayListItem 
-							key={ id } 
+							key={ id }
+							id={ id } 
 							index={ index + 1 } 
 							title={ title } 
 							count={ count } 
