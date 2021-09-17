@@ -8,6 +8,16 @@ export const fetchAllAsync = async (payload) =>
         .catch(error => Promise.reject(error.response.data));
 }
 
+
+export const fetchByTokenAsync = async () => 
+{
+    return await axiosInstance()
+        .get('/users/via-token')
+        .then(response => response.data)
+        .catch(error => Promise.reject(error.response.data));
+}
+
+
 export const updateEmailAsync = async (payload) => 
 {
     return await axiosInstance()
@@ -27,7 +37,7 @@ export const updatePasswordAsync = async (payload) =>
 export const sendChangeEmailVerificationCodeAsync = async (payload) => 
 {
     return await axiosInstance()
-        .post('/users/email-verification-code', payload)
+    .post('/users/email-verification-code', payload)
         .then(response => response.data)
         .catch(error => Promise.reject(error.response.data));
 }

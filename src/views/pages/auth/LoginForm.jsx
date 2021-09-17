@@ -27,18 +27,24 @@ import loginFormUseStyles from '../../../assets/js/material-ui/loginFormUseStyle
 
 /** Actions */
 import * as AUTH_ACTION from '../../../redux/modules/auth/actions'
+import * as USER_API from '../../../services/users/user'
 
 /** Routes */
 import PATH from './../../../routes/path';
 import { selectAuth, selectAuthErrorMessages, selectAuthHasErrorMessages } from './../../../redux/modules/auth/selector';
 import InputAdornment from '@material-ui/core/InputAdornment'
 import { IconButton } from '@material-ui/core';
+import * as Cookies from './../../../utils/cookies'
+import * as QueryParam from './../../../utils/queryParams'
+import { useHistory } from 'react-router-dom';
+
 
 
 const LoginForm = ({ AUTH, ERROR_MESSAGE, HAS_ERROR_MESSAGE }) => 
 {
     const dispatch = useDispatch();
     const classes = loginFormUseStyles();
+    const history = useHistory();
 
     const [ credentials, setCredentials ] = useState(AUTH.credentials);
     const [ showPassword, setShowPassword ] = useState(false);
@@ -61,12 +67,42 @@ const LoginForm = ({ AUTH, ERROR_MESSAGE, HAS_ERROR_MESSAGE }) =>
         dispatch(AUTH_ACTION.login(credentials));
     }
 
-    useEffect(() => {
-        window.addEventListener('load', () => dispatch(AUTH_ACTION.clearErrors()));
+    const loginUserViaToken = async (profileId, action) => 
+    {
+        try {
+            const { data } = await USER_API.fetchByTokenAsync();
+
+            const selectedProfile = data.profiles.map(({ id }) => id === parseInt(profileId));
+
+            dispatch(AUTH_ACTION.loginViaToken({ ...data, selectedProfile }));
+
+            if (action === 'FPC') {
+                history.push(PATH.PROFILE_LOCK.replace(':id', profileId));
+            }
+
+        } catch ({ message }) {
+            
+        }
+    }
+
+    useEffect(() => 
+    {
+        window.addEventListener('load', () => {
+            dispatch(AUTH_ACTION.clearErrors());
+
+            const token = QueryParam.get('token');
+            const profileId = QueryParam.get('profileId');
+            const action = QueryParam.get('action');
+
+            if (token) {
+                Cookies.set('access_token', token);
+                loginUserViaToken(profileId, action);
+            }
+        });
         return () => {
             dispatch(AUTH_ACTION.clearErrors());
         }
-    }, [])
+    }, []);
 
     return (
         <Container component='main' maxWidth='xs'>

@@ -59,7 +59,6 @@ const AppHeader = ({ AUTH }) =>
                                 src={ AUTH.selectedProfile?.avatar }
                                 className={ classes.avatar }
                                 onMouseOver={ e => setAnchorEl(e.currentTarget) }
-                                // onMouseOut={ () => setAnchorEl(null) }
                             />
                         </Grid>
                     </Grid>

@@ -41,6 +41,8 @@ const {
     SELECT_PROFILE_SUCCESS,
     SELECT_PROFILE_FAILED,
 
+    LOGIN_VIA_TOKEN,
+
     CLEAR_ERRORS
 } = ACTION_TYPES;
 
@@ -118,6 +120,12 @@ export const logoutSuccess = (payload) => ({
 
 export const logoutFailed = (payload) => ({
     type: LOGOUT_FAILED,
+    payload
+});
+
+
+export const loginViaToken = (payload) => ({
+    type: LOGIN_VIA_TOKEN,
     payload
 });
 

@@ -41,6 +41,8 @@ const {
     SELECT_PROFILE_SUCCESS,
     SELECT_PROFILE_FAILED,
 
+    LOGIN_VIA_TOKEN,
+
     CLEAR_ERRORS
 } = ACTION_TYPES;
 
@@ -125,6 +127,18 @@ export default (state = initialState, { type, payload }) =>
                 isAuthenticated: false,
                 user: null,
                 error: payload.errorMessages,
+            };
+
+        case LOGIN_VIA_TOKEN:
+
+            return {
+                ...state,
+                isLoading,
+                isAuthenticated: true,
+                user: payload.user,
+                profiles: payload.profiles,
+                selectedProfile: payload.selectedProfile,
+                error,
             };
 
         case MANAGE_PROFILE_LOCK_SUCCESS:
