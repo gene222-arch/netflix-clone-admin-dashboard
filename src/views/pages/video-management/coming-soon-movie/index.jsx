@@ -21,7 +21,8 @@ const DATA_PROPS = {
     id: '',
     video_path: '',
     video_size_in_mb: '',
-    duration_in_minutes: ''
+    duration_in_minutes: '',
+    status: ''
 };
 
 const ComingSoonMovie = ({ COMING_SOON_MOVIE }) => 
@@ -72,7 +73,7 @@ const ComingSoonMovie = ({ COMING_SOON_MOVIE }) =>
                             </Avatar>
                         } 
                         label={ status } 
-                        onClick={ () => handleClickRelease(id) } 
+                        onClick={ () => handleClickRelease(id, status) } 
                     />
                 </Tooltip>
             )
@@ -99,8 +100,8 @@ const ComingSoonMovie = ({ COMING_SOON_MOVIE }) =>
     const [ data, setData ] = useState(DATA_PROPS);
     const [ open, setOpen ] = useState(false);
 
-    const handleClickRelease = (movieId) => {
-        setData({ ...data, id: movieId });
+    const handleClickRelease = (movieId, status) => {
+        setData({ ...data, status, id: movieId });
         setOpen(true);
     }
 
@@ -111,10 +112,15 @@ const ComingSoonMovie = ({ COMING_SOON_MOVIE }) =>
 
     const handleClickUpdateStatus = () => {
         dispatch(COMING_SOON_MOVIE_ACTION.toggleComingSoonMovieReleaseStart(data));
-        setOpen(false);
+        if (Object.values(COMING_SOON_MOVIE.error).length <= 0) {
+            setOpen(false);
+        }
     }
 
-    const handleClickCancelUpdateStatus = () => setOpen(false);
+    const handleClickCancelUpdateStatus = () => {
+        setData(DATA_PROPS);
+        setOpen(false);
+    }
 
     useEffect(() => {
         dispatch(COMING_SOON_MOVIE_ACTION.fetchAllComingSoonMoviesStart());

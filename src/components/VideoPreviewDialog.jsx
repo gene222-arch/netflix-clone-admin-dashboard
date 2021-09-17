@@ -8,13 +8,15 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import VideoWithPreview from './VideoWithPreview';
 import * as MOVIE_API from './../services/movies/movie'
 import * as MOVIE_ACTION from './../redux/modules/movie/actions'
+import * as COMING_SOON_MOVIE_ACTION from './../redux/modules/coming-soon-movie/actions'
 import { createStructuredSelector } from 'reselect';
-import { selectMovieErrorMessages, selectMovieHasErrorMessages } from './../redux/modules/movie/selector';
 import { connect, useDispatch } from 'react-redux';
 import Button from '@material-ui/core/Button'
 import { makeStyles } from '@material-ui/styles';
 import Colors from './../constants/Colors';
 import Container from '@material-ui/core/Container'
+import Grid from '@material-ui/core/Grid'
+import { selectComingSoonMovieHasErrorMessages, selectComingSoonMovieErrorMessages } from '../redux/modules/coming-soon-movie/selector';
 
 
 const videoPreviewDialogUseStyles = makeStyles(theme => ({
@@ -27,13 +29,19 @@ const videoPreviewDialogUseStyles = makeStyles(theme => ({
 }))
 
 
-const VideoPreviewDialog = ({ open, setOpen, data, setData, onSave, onCancel, MOVIE_HAS_ERROR_MESSAGES, MOVIE_ERROR_MESSAGES }) => 
+const VideoPreviewDialog = ({ open, setOpen, data, setData, onSave, onCancel, COMING_SOON_MOVIE_HAS_ERROR_MESSAGE, COMING_SOON_MOVIE_ERROR_MESSAGE }) => 
 {
     const classes = videoPreviewDialogUseStyles();
     const dispatch = useDispatch();
 
     const [ filePreview, setFilePreview ] = useState(null);
     const [ isUploading, setIsUploading ] = useState(false);
+
+    const handleClickCancel = () => {
+        onCancel();
+        setFilePreview(null);
+        dispatch(COMING_SOON_MOVIE_ACTION.clearComingSoonMovieErrors());
+    }
 
     const handleChangeVideoFile = async (e) => 
     {
@@ -76,6 +84,7 @@ const VideoPreviewDialog = ({ open, setOpen, data, setData, onSave, onCancel, MO
         return () => {
             setFilePreview(null);
             setIsUploading(false);
+            dispatch(COMING_SOON_MOVIE_ACTION.clearComingSoonMovieErrors());
         }
     }, []);
 
@@ -92,30 +101,38 @@ const VideoPreviewDialog = ({ open, setOpen, data, setData, onSave, onCancel, MO
                     <DialogContentText>
                         Upload a video for the movie to be release.
                     </DialogContentText>
-                    <VideoWithPreview 
-                        inputID='video'
-                        inputName='video'
-                        filePreview={ filePreview }
-                        isUploading={ isUploading }
-                        handleChangeVideoFile={ handleChangeVideoFile }
-                        error={ MOVIE_HAS_ERROR_MESSAGES.video_path }
-                        helperText={ MOVIE_ERROR_MESSAGES.video_path }
-                        label='Upload Movie Video File'
-                    />
-                    <TextField
-                        label='Duration in minutes'
-                        fullWidth
-                        variant="outlined"
-                        value={ data.duration_in_minutes }
-                        onChange={ (e) => setData({ ...data, duration_in_minutes: e.target.value }) }
-                        type='number'
-                    />
+                    <Grid container spacing={ 3 }>
+                        <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
+                            <VideoWithPreview 
+                                inputID='video'
+                                inputName='video'
+                                filePreview={ filePreview }
+                                isUploading={ isUploading }
+                                handleChangeVideoFile={ handleChangeVideoFile }
+                                error={ COMING_SOON_MOVIE_HAS_ERROR_MESSAGE.video_path }
+                                helperText={ COMING_SOON_MOVIE_ERROR_MESSAGE.video_path }
+                                label='Upload Movie Video File'
+                            />
+                        </Grid>
+                        <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
+                            <TextField
+                                label='Duration in minutes'
+                                fullWidth
+                                variant="outlined"
+                                value={ data.duration_in_minutes }
+                                onChange={ (e) => setData({ ...data, duration_in_minutes: e.target.value }) }
+                                type='number'
+                                error={ COMING_SOON_MOVIE_HAS_ERROR_MESSAGE.duration_in_minutes }
+                                helperText={ COMING_SOON_MOVIE_ERROR_MESSAGE.duration_in_minutes }
+                            />
+                        </Grid>
+                    </Grid>
                 </DialogContent>
                 <DialogActions>
                     <Button variant="contained" className={ classes.saveBtn } onClick={ onSave }>
                         Save
                     </Button>
-                    <Button variant="outlined" color="default" onClick={ onCancel }>
+                    <Button variant="outlined" color="default" onClick={ handleClickCancel }>
                         Cancel
                     </Button>
                 </DialogActions>
@@ -125,8 +142,8 @@ const VideoPreviewDialog = ({ open, setOpen, data, setData, onSave, onCancel, MO
 }
 
 const mapStateToProps = createStructuredSelector({
-    MOVIE_HAS_ERROR_MESSAGES: selectMovieHasErrorMessages,
-    MOVIE_ERROR_MESSAGES: selectMovieErrorMessages
+    COMING_SOON_MOVIE_HAS_ERROR_MESSAGE: selectComingSoonMovieHasErrorMessages,
+    COMING_SOON_MOVIE_ERROR_MESSAGE: selectComingSoonMovieErrorMessages
 });
 
 export default connect(mapStateToProps)(VideoPreviewDialog)
