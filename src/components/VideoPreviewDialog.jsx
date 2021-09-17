@@ -16,8 +16,10 @@ import { makeStyles } from '@material-ui/styles';
 import Colors from './../constants/Colors';
 import Container from '@material-ui/core/Container'
 import Grid from '@material-ui/core/Grid'
+import Fade from '@material-ui/core/Fade';
 import { selectComingSoonMovieHasErrorMessages, selectComingSoonMovieErrorMessages } from '../redux/modules/coming-soon-movie/selector';
 
+const Transition = React.forwardRef((props, ref) => <Fade in ref={ref} {...props} />);
 
 const videoPreviewDialogUseStyles = makeStyles(theme => ({
     container: {
@@ -95,6 +97,7 @@ const VideoPreviewDialog = ({ open, setOpen, data, setData, onSave, onCancel, CO
                 open={ open } 
                 onClose={ handleClickToggle }
                 className={ classes.container }
+                TransitionComponent={ Transition }
             >
                 <DialogTitle>Upcoming Movie Release</DialogTitle>
                 <DialogContent>
