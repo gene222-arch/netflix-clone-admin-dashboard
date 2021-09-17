@@ -28,7 +28,7 @@ const Avatar = ({ AUTH, MAIN_LAYOUT }) =>
         <>
             <div className={ classes.toolbar }>
                 <img src={ APP_LOGO } alt="" width={ 50 } height={ 50 } />
-                <IconButton onClick={ handleToggleDrawer }>
+                <IconButton onClick={ handleToggleDrawer } onMouseOver={ handleToggleDrawer }>
                     {theme.direction === 'rtl' ? <ChevronRightIcon /> : <CancelIcon />}
                 </IconButton>
             </div>

@@ -27,6 +27,7 @@ const AppBarContent = ({ AUTH, MAIN_LAYOUT }) =>
                 color='inherit'
                 aria-label='open drawer'
                 onClick={ handleToggleDrawer }
+                onMouseOver={ handleToggleDrawer }
                 edge='start'
                 className={clsx(classes.menuButton, {
                     [classes.hide]: MAIN_LAYOUT.drawer,

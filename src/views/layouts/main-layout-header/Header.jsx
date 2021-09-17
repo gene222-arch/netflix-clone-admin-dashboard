@@ -51,6 +51,7 @@ const Header = ({ AUTH }) =>
                 aria-haspopup='true' 
                 style={{ backgroundColor: 'transparent' }}
                 onClick={ handleClick }
+                onMouseOver={ handleClick }
                 disabled={ !AUTH.user }
             >
                 {
