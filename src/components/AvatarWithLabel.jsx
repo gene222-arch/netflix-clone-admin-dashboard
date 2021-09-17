@@ -11,6 +11,14 @@ const avatarWithLabelUseStyles = makeStyles(theme => ({
         width: theme.spacing(15),
         height: theme.spacing(15)
     },
+    container: {
+        cursor: 'pointer',
+        '&:hover': {
+            backgroundColor: '#FFF',
+            color: '#000',
+            borderRadius: 5
+        }
+    },
     chip: {
         padding: theme.spacing(3),
         boxShadow: theme.shadows[2]
@@ -21,12 +29,12 @@ const avatarWithLabelUseStyles = makeStyles(theme => ({
     }
 }));
 
-const AvatarWithLabel = ({ label = 'Label', counter = 0, Icon, avatarStyle, counterStyle, labelStyle }) => 
+const AvatarWithLabel = ({ label = 'Label', counter = 0, Icon, onClick, avatarStyle, counterStyle, labelStyle }) => 
 {
     const classes = avatarWithLabelUseStyles();
 
     return (
-        <Grid container spacing={1} direction='column' alignItems='center' >
+        <Grid container spacing={1} direction='column' alignItems='center' className={ classes.container } onClick={ onClick }>
             <Grid item>
                 <Avatar 
                     alt="Remy Sharp" 

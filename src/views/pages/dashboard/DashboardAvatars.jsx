@@ -5,9 +5,13 @@ import GroupIcon from '@material-ui/icons/Group';
 import MovieIcon from '@material-ui/icons/Movie';
 import TimerIcon from '@material-ui/icons/Timer';
 import Colors from './../../../constants/Colors';
+import { useHistory } from 'react-router-dom';
+import PATH from './../../../routes/path';
 
 const DashboardAvatars = ({ generalAnalytics }) => 
 {
+    const history = useHistory();
+
     return (
         <Grid container spacing={1} justify='space-evenly' >
             <Grid item>
@@ -21,6 +25,7 @@ const DashboardAvatars = ({ generalAnalytics }) =>
                     counterStyle={{
                         backgroundColor: Colors.darkMode
                     }}
+                    onClick={ () => 1 }
                 />
             </Grid>
             <Grid item>
@@ -34,6 +39,7 @@ const DashboardAvatars = ({ generalAnalytics }) =>
                     counterStyle={{
                         backgroundColor: Colors.darkMode
                     }}
+                    onClick={ () => history.push(PATH.VIDEO_MANAGEMENT_MOVIES) }
                 />
             </Grid>
             <Grid item>
@@ -47,6 +53,7 @@ const DashboardAvatars = ({ generalAnalytics }) =>
                     counterStyle={{
                         backgroundColor: Colors.darkMode
                     }}
+                    onClick={ () => history.push(PATH.VIDEO_MANAGEMENT_COMING_SOON_MOVIES) }
                 />
             </Grid>
         </Grid>
