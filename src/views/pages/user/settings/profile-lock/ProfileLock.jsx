@@ -7,11 +7,14 @@ import { selectAuth } from '../../../../../redux/modules/auth/selector';
 import { connect, useDispatch } from 'react-redux';
 import { useParams, useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/styles';
-import TextField from '@material-ui/core/TextField'
-import Button from '@material-ui/core/Button'
 import InputPassword from './InputPassword';
 import ContinueProfileLock from './ContinueProfileLock';
 import * as AUTH_API from './../../../../../services/auth/auth'
+import * as AUTH_ACTION from './../../../../../redux/modules/auth/actions'
+import * as USER_API from './../../../../../services/users/user'
+import * as QueryParam from './../../../../../utils/queryParams'
+import * as Cookies from './../../../../../utils/cookies'
+
 
 const profileLockUseStyles = makeStyles(theme => ({
     avatar: {
@@ -58,9 +61,37 @@ const ProfileLock = ({ AUTH }) =>
 
     const handleClickCancel = () => history.goBack();
 
-    useEffect(() => 
+    const loginUserViaToken = async (profileId, action) => 
+    {
+        try {
+            const { data } = await USER_API.fetchByTokenAsync();
+
+            const selectedProfile = data.profiles.find(({ id }) => id === parseInt(profileId));
+
+            dispatch(AUTH_ACTION.loginViaToken({ ...data, selectedProfile }));
+        } catch ({ message }) {
+            
+        }
+    }
+
+    const onLoadInvokeActions = () => 
     {
         onLoadFetchProfile();
+
+        const token = QueryParam.get('token');
+        const profileId = QueryParam.get('profileId');
+        const action = QueryParam.get('action');
+
+        if (token) {
+            Cookies.set('access_token', token);
+            loginUserViaToken(profileId, action);
+        }
+    }
+
+    useEffect(() => 
+    {
+        onLoadInvokeActions();
+
         return () => {
             setProfile(AUTH.profile);
             setPassword('');
