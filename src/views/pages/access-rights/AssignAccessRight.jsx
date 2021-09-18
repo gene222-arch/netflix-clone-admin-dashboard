@@ -13,7 +13,7 @@ import { useParams, useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { green } from '@material-ui/core/colors';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import ImageContentLoader from './../../../components/content-loader/ImageContentLoader';
+import BoxContentLoader from './../../../components/content-loader/BoxContentLoader';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import PATH from './../../../routes/path';
 import { selectUser } from './../../../redux/modules/user/selector';
@@ -50,7 +50,6 @@ const AssignAccessRight = ({ ACCESS_RIGHT, USER }) =>
 
     const userIds = useMemo(() => 
     {
-        console.log('USER IDS RENDER');
         const ids = ACCESS_RIGHT
                         .accessRights
                         .find(({ id: accessRightId }) => accessRightId === parseInt(id))
@@ -111,8 +110,8 @@ const AssignAccessRight = ({ ACCESS_RIGHT, USER }) =>
     if (isFetching) {
         return (
             <Container maxWidth="lg">
-                <ImageContentLoader width={ '100%' } height={ 200 } />
-                <ImageContentLoader width={ '100%' } height={ 300 } />
+                <BoxContentLoader width={ '100%' } height={ 200 } />
+                <BoxContentLoader width={ '100%' } height={ 300 } />
             </Container>
         )
     }

@@ -8,7 +8,7 @@ import { Paper, Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core';
 import * as COMING_SOON_MOVIE_API from '../../../../services/movies/coming.soon.movie';
 import ComingSoonMovieAccordion from '../../../../components/ComingSoonMovieAccordion';
-import ImageContentLoader from './../../../../components/content-loader/ImageContentLoader';
+import BoxContentLoader from './../../../../components/content-loader/BoxContentLoader';
 import TrailerCarousel from './TrailerCarousel';
 import ViewComingSoonMovieHeader from './ViewComingSoonMovieHeader';
 import * as COMING_SOON_MOVIE_ACTION from './../../../../redux/modules/coming-soon-movie/actions'
@@ -86,7 +86,7 @@ const ViewComingSoonMovie = ({ COMING_SOON_MOVIE }) =>
                 <Grid item xs={ 12 } sm={ 12 } md={ 5 } lg={ 5 }>
                     {
                         !comingSoonMovie
-                            ? <ImageContentLoader width='100%' height='83vh' />
+                            ? <BoxContentLoader width='100%' height='83vh' />
                             : <img src={ comingSoonMovie?.poster_path } className={ classes.posterImg } />
                     }
                 </Grid>

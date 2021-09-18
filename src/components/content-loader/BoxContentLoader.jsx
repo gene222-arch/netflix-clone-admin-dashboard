@@ -1,9 +1,9 @@
 import { Avatar } from '@material-ui/core';
 import React from 'react'
 import ContentLoader from 'react-content-loader'
-import Colors from './../../constants/Colors';
+import Colors from '../../constants/Colors';
 
-const ImageContentLoader = ({ speed = 1.5, width, height }) => {
+const BoxContentLoader = ({ speed = 1.5, width, height }) => {
     return (
         <ContentLoader 
             speed={ speed }
@@ -16,4 +16,4 @@ const ImageContentLoader = ({ speed = 1.5, width, height }) => {
     )
 }
 
-export default ImageContentLoader
+export default BoxContentLoader
