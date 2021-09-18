@@ -7,14 +7,34 @@ import TimerIcon from '@material-ui/icons/Timer';
 import Colors from './../../../constants/Colors';
 import { useHistory } from 'react-router-dom';
 import PATH from './../../../routes/path';
+import { createStructuredSelector } from 'reselect';
+import { selectDashboard } from './../../../redux/modules/dashboard/selector';
+import { connect } from 'react-redux';
+import BoxContentLoader from './../../../components/content-loader/BoxContentLoader';
 
-const DashboardAvatars = ({ generalAnalytics }) => 
+const DashboardAvatars = ({ DASHBOARD, generalAnalytics }) => 
 {
     const history = useHistory();
 
+    if (DASHBOARD.isLoading) {
+        return (
+            <Grid container spacing={ 10 } justify='center' alignItems='center'>
+                <Grid item xs={ 12 } sm={ 4 } md={ 4 } lg={ 4 }>
+                    <BoxContentLoader width={ '100%' } height={ 200 } />
+                </Grid>
+                <Grid item xs={ 12 } sm={ 4 } md={ 4 } lg={ 4 }>
+                    <BoxContentLoader width={ '100%' } height={ 200 } />
+                </Grid>
+                <Grid item xs={ 12 } sm={ 4 } md={ 4 } lg={ 4 }>
+                    <BoxContentLoader width={ '100%' } height={ 200 } />
+                </Grid>
+            </Grid>
+        )
+    }
+
     return (
-        <Grid container spacing={1} justify='space-evenly' >
-            <Grid item>
+        <Grid container spacing={1} justify='center' alignItems='center'>
+            <Grid item xs={ 12 } sm={ 4 } md={ 4 } lg={ 4 }>
                 <AvatarWithLabel 
                     label='Users' 
                     Icon={ GroupIcon }
@@ -28,7 +48,7 @@ const DashboardAvatars = ({ generalAnalytics }) =>
                     onClick={ () => 1 }
                 />
             </Grid>
-            <Grid item>
+            <Grid item xs={ 12 } sm={ 4 } md={ 4 } lg={ 4 }>
                 <AvatarWithLabel 
                     label='Movies' 
                     Icon={ MovieIcon }
@@ -42,7 +62,7 @@ const DashboardAvatars = ({ generalAnalytics }) =>
                     onClick={ () => history.push(PATH.VIDEO_MANAGEMENT_MOVIES) }
                 />
             </Grid>
-            <Grid item>
+            <Grid item xs={ 12 } sm={ 4 } md={ 4 } lg={ 4 }>
                 <AvatarWithLabel 
                     label='Coming Soon' 
                     Icon={ TimerIcon }
@@ -60,4 +80,8 @@ const DashboardAvatars = ({ generalAnalytics }) =>
     )
 }
 
-export default DashboardAvatars
+const mapStateToProps = createStructuredSelector({
+    DASHBOARD: selectDashboard
+});
+
+export default connect(mapStateToProps)(DashboardAvatars)

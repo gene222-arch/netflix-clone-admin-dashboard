@@ -11,6 +11,11 @@ import { Avatar, Grid } from '@material-ui/core';
 import Colors from './../constants/Colors';
 import { useHistory } from 'react-router-dom';
 import PATH from './../routes/path';
+import { connect } from 'react-redux';
+import BoxContentLoader from './content-loader/BoxContentLoader';
+import { selectDashboard } from './../redux/modules/dashboard/selector';
+import { createStructuredSelector } from 'reselect';
+import TextContentLoader from './content-loader/TextContentLoader';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -54,9 +59,21 @@ const DisplayListItem = ({ id, index, title, count }) =>
 	)
 }
 
-const DashboardTopFiveMovies = ({ movies = [], HeaderIcon, listHeaderTitle = '' }) =>
+const DashboardTopFiveMovies = ({ DASHBOARD, movies = [], HeaderIcon, listHeaderTitle = '' }) =>
 {
     const classes = useStyles();
+
+	if (DASHBOARD.isLoading) {
+		return (
+			<>
+				<TextContentLoader height={ 30 } />
+				<BoxContentLoader 
+					width={ '100%' }
+					height={ 250 }
+				/>
+			</>
+		)
+	}
 
     return (
         <div className={ classes.root }>
@@ -93,4 +110,8 @@ const DashboardTopFiveMovies = ({ movies = [], HeaderIcon, listHeaderTitle = '' 
     );
 }
 
-export default DashboardTopFiveMovies
+const mapStateToProps = createStructuredSelector({
+    DASHBOARD: selectDashboard
+});
+
+export default connect(mapStateToProps)(DashboardTopFiveMovies)

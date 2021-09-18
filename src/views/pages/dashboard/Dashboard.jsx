@@ -13,7 +13,6 @@ import DashboardTopFiveMovies from './../../../components/DashboardTopFiveMovies
 
 const Dashboard = ({ DASHBOARD_DATA }) => 
 {
-    console.log(DASHBOARD_DATA)
     const dispatch = useDispatch();
 
     useEffect(() => {
