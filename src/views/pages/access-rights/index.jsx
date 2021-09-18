@@ -23,7 +23,7 @@ const AccessRight = ({ ACCESS_RIGHT }) =>
 
     const usersField = ({ users }) => 
     {
-        if (! (users.length > 0)) return 'To be assigned';
+        if (! (users?.length > 0)) return 'To be assigned';
         
         const result = users
             .map(({ first_name, last_name }) => `${ first_name } ${ last_name }`)

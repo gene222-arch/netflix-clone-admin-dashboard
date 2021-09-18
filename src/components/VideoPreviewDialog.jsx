@@ -17,7 +17,7 @@ import Colors from './../constants/Colors';
 import Container from '@material-ui/core/Container'
 import Grid from '@material-ui/core/Grid'
 import Fade from '@material-ui/core/Fade';
-import { selectComingSoonMovieHasErrorMessages, selectComingSoonMovieErrorMessages } from '../redux/modules/coming-soon-movie/selector';
+import { selectComingSoonMovieHasErrorMessages, selectComingSoonMovieErrorMessages, selectComingSoonMovie } from '../redux/modules/coming-soon-movie/selector';
 
 const Transition = React.forwardRef((props, ref) => <Fade in ref={ref} {...props} />);
 
@@ -31,7 +31,7 @@ const videoPreviewDialogUseStyles = makeStyles(theme => ({
 }))
 
 
-const VideoPreviewDialog = ({ open, setOpen, data, setData, onSave, onCancel, COMING_SOON_MOVIE_HAS_ERROR_MESSAGE, COMING_SOON_MOVIE_ERROR_MESSAGE }) => 
+const VideoPreviewDialog = ({ COMING_SOON_MOVIE, open, setOpen, data, setData, onSave, onCancel, COMING_SOON_MOVIE_HAS_ERROR_MESSAGE, COMING_SOON_MOVIE_ERROR_MESSAGE }) => 
 {
     const classes = videoPreviewDialogUseStyles();
     const dispatch = useDispatch();
@@ -132,10 +132,20 @@ const VideoPreviewDialog = ({ open, setOpen, data, setData, onSave, onCancel, CO
                     </Grid>
                 </DialogContent>
                 <DialogActions>
-                    <Button variant="contained" className={ classes.saveBtn } onClick={ onSave }>
+                    <Button 
+                        variant="contained" 
+                        className={ classes.saveBtn } 
+                        onClick={ onSave }
+                        disabled={ COMING_SOON_MOVIE.isLoading }
+                    >
                         Save
                     </Button>
-                    <Button variant="outlined" color="default" onClick={ handleClickCancel }>
+                    <Button 
+                        variant="outlined" 
+                        color="default" 
+                        onClick={ handleClickCancel }
+                        disabled={ COMING_SOON_MOVIE.isLoading }
+                    >
                         Cancel
                     </Button>
                 </DialogActions>
@@ -145,6 +155,7 @@ const VideoPreviewDialog = ({ open, setOpen, data, setData, onSave, onCancel, CO
 }
 
 const mapStateToProps = createStructuredSelector({
+    COMING_SOON_MOVIE: selectComingSoonMovie,
     COMING_SOON_MOVIE_HAS_ERROR_MESSAGE: selectComingSoonMovieHasErrorMessages,
     COMING_SOON_MOVIE_ERROR_MESSAGE: selectComingSoonMovieErrorMessages
 });
