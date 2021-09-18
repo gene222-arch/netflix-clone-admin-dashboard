@@ -10,6 +10,7 @@ const {
 const initialState = {
     dashboardData: null,
     isLoading: false,
+    hasLoaded: false,
     error: null
 }
 
@@ -30,6 +31,7 @@ export default (state = initialState, { type, payload }) =>
             return { 
                 ...state,
                 dashboardData: payload.dashboardData,
+                hasLoaded: true,
                 isLoading,
                 error 
             }

@@ -63,7 +63,7 @@ const DashboardTopFiveMovies = ({ DASHBOARD, movies = [], HeaderIcon, listHeader
 {
     const classes = useStyles();
 
-	if (DASHBOARD.isLoading) {
+	if (DASHBOARD.isLoading && !DASHBOARD.hasLoaded) {
 		return (
 			<>
 				<TextContentLoader height={ 30 } />

@@ -16,7 +16,7 @@ const DashboardAvatars = ({ DASHBOARD, generalAnalytics }) =>
 {
     const history = useHistory();
 
-    if (DASHBOARD.isLoading) {
+    if (DASHBOARD.isLoading && !DASHBOARD.hasLoaded) {
         return (
             <Grid container spacing={ 10 } justify='center' alignItems='center'>
                 <Grid item xs={ 12 } sm={ 4 } md={ 4 } lg={ 4 }>
