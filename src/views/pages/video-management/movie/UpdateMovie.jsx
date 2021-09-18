@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react'
 import MovieInputFields from '../../../../components/movie-input-fields/MovieInputFields';
 import { useDispatch, connect } from 'react-redux';
 import { selectMovie } from './../../../../redux/modules/movie/selector';
+import * as MOVIE_API from './../../../../services/movies/movie';
 import * as MOVIE_ACTION from './../../../../redux/modules/movie/actions';
 import { createStructuredSelector } from 'reselect';
 import { useParams } from 'react-router-dom';
@@ -41,23 +42,39 @@ const UpdateMovie = ({ MOVIE, AUTHOR_NAMES, CAST_NAMES, DIRECTOR_NAMES, GENRE_NA
         dispatch(MOVIE_ACTION.updateMovieStart(movie_));
     }
 
-    const onLoadFetchMovieByID = () => 
+    const onLoadFetchMovieByID = async () => 
     {
-        const findMovie = MOVIE.movies.find(movie => movie.id === parseInt(id));
-        const { authors, casts, directors, genres, language, country } = findMovie;
+        const parsedId = parseInt(id);
+        let selectedMovie = null;
 
-        const movie_ = {
-            ...findMovie,
-            id,
-            language: { value: language, label: language },
-            country: { value: country, label: country },
-            authors: getOptionsFromString(authors, AUTHOR_NAMES),
-            casts: getOptionsFromString(casts, CAST_NAMES),
-            directors:getOptionsFromString(directors, DIRECTOR_NAMES),
-            genres: getOptionsFromString(genres, GENRE_NAMES)
+        if (! MOVIE.movies.length) {
+            try {
+                const { data } = await MOVIE_API.findByIDAsync(parsedId);
+                selectedMovie = data;
+            } catch ({ message }) {
+                window.alert(message)
+            }
+        } else {
+            selectedMovie = MOVIE.movies.find(movie => movie.id === parsedId);
         }
+        
+        if (selectedMovie) 
+        {
+            const { authors, casts, directors, genres, language, country } = selectedMovie;
 
-        setMovie(movie_);
+            const movie_ = {
+                ...selectedMovie,
+                id,
+                language: { value: language, label: language },
+                country: { value: country, label: country },
+                authors: getOptionsFromString(authors, AUTHOR_NAMES),
+                casts: getOptionsFromString(casts, CAST_NAMES),
+                directors:getOptionsFromString(directors, DIRECTOR_NAMES),
+                genres: getOptionsFromString(genres, GENRE_NAMES)
+            }
+
+            setMovie(movie_);
+        }
     }
 
     const concatSelectedOptions = (data) => !data ? '' : data.map(({ label }) => label).join(', ');
