@@ -10,6 +10,7 @@ import { selectAuthorNames } from '../../../../redux/modules/author/selector';
 import { selectCastNames } from '../../../../redux/modules/cast/selector';
 import { selectDirectorNames } from '../../../../redux/modules/director/selector';
 import { selectGenreNames } from '../../../../redux/modules/genre/selector';
+import MovieInputLoader from '../../../../components/styled-loaders/MovieInputLoader';
 
 
 const UpdateMovie = ({ MOVIE, AUTHOR_NAMES, CAST_NAMES, DIRECTOR_NAMES, GENRE_NAMES }) => 
@@ -17,6 +18,7 @@ const UpdateMovie = ({ MOVIE, AUTHOR_NAMES, CAST_NAMES, DIRECTOR_NAMES, GENRE_NA
     const { id } = useParams();
     const dispatch = useDispatch();
 
+    const [ isLoading, setIsLoading ] = useState(false);
     const [ movie, setMovie ] = useState(MOVIE.movie)
 
     const handleClickUpdateMovie = () => 
@@ -47,7 +49,10 @@ const UpdateMovie = ({ MOVIE, AUTHOR_NAMES, CAST_NAMES, DIRECTOR_NAMES, GENRE_NA
         const parsedId = parseInt(id);
         let selectedMovie = null;
 
-        if (! MOVIE.movies.length) {
+        if (! MOVIE.movies.length) 
+        {
+            setIsLoading(true);
+
             try {
                 const { data } = await MOVIE_API.findByIDAsync(parsedId);
                 selectedMovie = data;
@@ -75,6 +80,7 @@ const UpdateMovie = ({ MOVIE, AUTHOR_NAMES, CAST_NAMES, DIRECTOR_NAMES, GENRE_NA
 
             setMovie(movie_);
         }
+        setIsLoading(false);
     }
 
     const concatSelectedOptions = (data) => !data ? '' : data.map(({ label }) => label).join(', ');
@@ -83,12 +89,16 @@ const UpdateMovie = ({ MOVIE, AUTHOR_NAMES, CAST_NAMES, DIRECTOR_NAMES, GENRE_NA
 
     const getValuesFromOptions = (selectedOptions) => selectedOptions.map(({ value }) => value);
 
-    useEffect(() => {
+    useEffect(() => 
+    {
         onLoadFetchMovieByID();
         return () => {
-            setMovie(MOVIE.movie)
+            setMovie(MOVIE.movie);
+            setIsLoading(false);
         }
     }, []);
+
+    if (isLoading) return <MovieInputLoader />
 
     return (
         <MovieInputFields 
