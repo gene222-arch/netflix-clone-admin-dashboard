@@ -8,6 +8,8 @@ import { Checkbox, Card, CardContent, makeStyles, Grid, Typography, Divider, Ava
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import * as ACCESS_RIGHT_ACTION from './../../redux/modules/access-rights/actions'
 import CircularProgress from '@material-ui/core/CircularProgress';
+import BoxContentLoader from './../content-loader/BoxContentLoader';
+import TextContentLoader from './../content-loader/TextContentLoader';
 
 const inputFieldUseStyles = makeStyles(theme => ({
     cardContent: {
@@ -78,17 +80,23 @@ const InputFields = ({ ACCESS_RIGHT, ACCESS_RIGHT_HAS_ERROR, ACCESS_RIGHT_ERROR,
                 <CardContent>
                     <Grid container spacing={3}>
                         <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
-                            <TextField
-                                id='role'
-                                name='role'
-                                label="Role Name"
-                                variant='filled'
-                                fullWidth
-                                error={ ACCESS_RIGHT_HAS_ERROR.role }
-                                helperText={ ACCESS_RIGHT_ERROR.role }
-                                value={ accessRight.role }
-                                onChange={ handleChange }
-                            />
+                            {
+                                isFetching 
+                                    ? <BoxContentLoader width={ '100%' } height={ 50 } />
+                                    : (
+                                        <TextField
+                                            id='role'
+                                            name='role'
+                                            label="Role Name"
+                                            variant='filled'
+                                            fullWidth
+                                            error={ ACCESS_RIGHT_HAS_ERROR.role }
+                                            helperText={ ACCESS_RIGHT_ERROR.role }
+                                            value={ accessRight.role }
+                                            onChange={ handleChange }
+                                        />
+                                    )
+                            }
                         </Grid>
                         <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
                             <Divider />
