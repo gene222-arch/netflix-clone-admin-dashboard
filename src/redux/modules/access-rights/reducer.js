@@ -95,31 +95,15 @@ export default (state = initialState, { type, payload }) =>
             }
 
         case CREATE_ACCESS_RIGHT_SUCCESS:
-
-            const newAccessRight = { 
-                ...ACCESS_RIGHT_DEFAULT_PROPS,
-                ...payload.accessRight,
-                id: (accessRights[accessRights.length - 1].id + 1), 
-            };
-
             return {
                 ...state,
-                accessRights: [ ...accessRights, newAccessRight ],
                 isLoading,
                 error
             }
 
         case UPDATE_ACCESS_RIGHT_SUCCESS:
-
-            UPDATED_ACCESS_RIGHTS = accessRights.map(accessRight => {
-                return accessRight.id === payload.accessRight.id 
-                    ? payload.accessRight
-                    : accessRight;
-            });
-
             return {
                 ...state,
-                accessRights: UPDATED_ACCESS_RIGHTS,
                 isLoading,
                 error
             }

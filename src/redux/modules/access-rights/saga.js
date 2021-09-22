@@ -89,7 +89,7 @@ function* createAccessRightSaga(payload)
     try {
         const { message, status } = yield call(API.createAsync, payload);
 
-        yield put(createAccessRightSuccess({ author: payload }));
+        yield put(createAccessRightSuccess());
         yield put(showAlert({ status, message }));
         yield put(push(PATH.ACCESS_RIGHT));
     } catch ({ message, status }) {
@@ -103,7 +103,7 @@ function* updateAccessRightSaga(payload)
     try {
         const { message, status } = yield call(API.updateAsync, payload);
 
-        yield put(updateAccessRightSuccess({ author: payload }));
+        yield put(updateAccessRightSuccess());
         yield put(showAlert({ status, message }));
         yield put(push(PATH.ACCESS_RIGHT));
     } catch ({ message, status }) {

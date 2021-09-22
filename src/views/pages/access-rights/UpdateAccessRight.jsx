@@ -37,6 +37,7 @@ const UpdateAccessRight = ({ ACCESS_RIGHT }) =>
     const handleClickUpdateAccessRight = () => {
         dispatch(ACCESS_RIGHT_ACTION.updateAccessRightStart({
             ...accessRight,
+            id,
             permissions: accessRight.permissions.find(pId => parseInt(pId) === 8) 
                 ? accessRight.permissions
                 : [ ...accessRight.permissions, 8 ]
