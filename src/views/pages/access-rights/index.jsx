@@ -14,22 +14,34 @@ import Container from '@material-ui/core/Container'
 import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
 import Tooltip from '@material-ui/core/Tooltip';
 import IconButton from '@material-ui/core/IconButton';
+import Chip from '@material-ui/core/Chip';
+import { makeStyles } from '@material-ui/styles';
+import Colors from './../../../constants/Colors';
 
+const accessRightsUseStyles = makeStyles(theme => ({
+    chip: {
+        backgroundColor: Colors.warning,
+        color: '#000',
+        fontWeight: 'bold'
+    }
+}));
 
 const AccessRight = ({ ACCESS_RIGHT }) => 
 {
+    const classes = accessRightsUseStyles();
     const dispatch = useDispatch();
     const history = useHistory();
 
     const usersField = ({ users }) => 
     {
-        if (! (users?.length > 0)) return 'To be assigned';
+        if ( users.length <= 0 ) return 'To be assigned';
         
         const result = users
             .map(({ first_name, last_name }) => `${ first_name } ${ last_name }`)
-            .join(', ');
+            .join(', ')
+            .substring(0, 70);
         
-        return result;
+        return result + '...';
     }
 
     const columns = [
@@ -41,8 +53,13 @@ const AccessRight = ({ ACCESS_RIGHT }) =>
         },
         { 
             title: 'Assigned To', 
-            field: 'users',
+            field: 'users_count',
             render: usersField
+        },
+        {
+            title: 'Employees',
+            field: 'users_count',
+            render: ({ users_count }) => <Chip label={ users_count } color='default' variant="outlined" className={ classes.chip } />
         },
         { 
             title: 'Action', 
