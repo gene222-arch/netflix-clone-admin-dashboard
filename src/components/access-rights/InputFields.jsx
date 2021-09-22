@@ -10,6 +10,7 @@ import * as ACCESS_RIGHT_ACTION from './../../redux/modules/access-rights/action
 import CircularProgress from '@material-ui/core/CircularProgress';
 import BoxContentLoader from './../content-loader/BoxContentLoader';
 import TextContentLoader from './../content-loader/TextContentLoader';
+import { selectAuth } from './../../redux/modules/auth/selector';
 
 const inputFieldUseStyles = makeStyles(theme => ({
     cardContent: {
@@ -24,7 +25,7 @@ const inputFieldUseStyles = makeStyles(theme => ({
     }
 }));
 
-const InputFields = ({ ACCESS_RIGHT, ACCESS_RIGHT_HAS_ERROR, ACCESS_RIGHT_ERROR, isFetching = false, actionName, accessRight, setAccessRight, handleClickSave, handleClickCancel }) => 
+const InputFields = ({ AUTH, ACCESS_RIGHT, ACCESS_RIGHT_HAS_ERROR, ACCESS_RIGHT_ERROR, isFetching = false, actionName, accessRight, setAccessRight, handleClickSave, handleClickCancel }) => 
 {
     const classes = inputFieldUseStyles();
     const dispatch = useDispatch();
@@ -105,11 +106,10 @@ const InputFields = ({ ACCESS_RIGHT, ACCESS_RIGHT_HAS_ERROR, ACCESS_RIGHT_ERROR,
                                 <CardContent className={ classes.cardContent }>
                                     {
                                         ACCESS_RIGHT.permissions.map(({ id, name, description }, index) => (
-                                            <Grid container spacing={1} alignItems='center'>
+                                            <Grid key={ index } container spacing={1} alignItems='center'>
                                                 <Grid item xs={ 12 } sm={ 12 } md={ 4 } lg={ 4 }>
                                                     <FormControlLabel
                                                         className={ classes.checkBoxContainer }
-                                                        key={ index }
                                                         control={ 
                                                             isFetching
                                                                 ? <CircularProgress color="secondary" size={ 20 } className={ classes.progress } />
@@ -119,7 +119,11 @@ const InputFields = ({ ACCESS_RIGHT, ACCESS_RIGHT_HAS_ERROR, ACCESS_RIGHT_ERROR,
                                                                         checked={ accessRight.permissions.includes(id) || name === 'View Dashboard' } 
                                                                         onChange={ handleChange } 
                                                                         value={ id } 
-                                                                        disabled={ name === 'View Dashboard' }
+                                                                        disabled={ 
+                                                                            actionName === 'Create Access Right'
+                                                                                ?  name === 'View Dashboard'
+                                                                                : AUTH.role === 'Super Administrator' || AUTH.user.id === 1
+                                                                        }
                                                                     /> 
                                                                 )
                                                         }
@@ -127,7 +131,7 @@ const InputFields = ({ ACCESS_RIGHT, ACCESS_RIGHT_HAS_ERROR, ACCESS_RIGHT_ERROR,
                                                     />
                                                 </Grid>
                                                 <Grid item xs={ 12 } sm={ 12 } md={ 8 } lg={ 8 }>
-                                                    <Typography variant="body1" color="textSecondary">{ description }</Typography>
+                                                    <Typography variant="body1" color='textSecondary'>{ description }</Typography>
                                                 </Grid>
                                             </Grid>
                                         ))
@@ -143,6 +147,7 @@ const InputFields = ({ ACCESS_RIGHT, ACCESS_RIGHT_HAS_ERROR, ACCESS_RIGHT_ERROR,
 }
 
 const mapStateToProps = createStructuredSelector({
+    AUTH: selectAuth,
     ACCESS_RIGHT: selectAccessRight,
     ACCESS_RIGHT_HAS_ERROR: selectAccessRightHasErrorMessages,
     ACCESS_RIGHT_ERROR: selectAccessRightErrorMessages 

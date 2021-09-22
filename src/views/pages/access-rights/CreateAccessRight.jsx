@@ -14,10 +14,14 @@ const CreateAccessRight = ({ ACCESS_RIGHT }) =>
 
     const [ accessRight, setAccessRight ] = useState(ACCESS_RIGHT.accessRight);
 
-    const handleClickCreateAccessRight = () => dispatch(ACCESS_RIGHT_ACTION.createAccessRightStart({
-        ...accessRight,
-        permissions: [ ...accessRight.permissions, 8 ]
-    }));
+    const handleClickCreateAccessRight = () => {
+        dispatch(ACCESS_RIGHT_ACTION.updateAccessRightStart({
+            ...accessRight,
+            permissions: accessRight.permissions.find(pId => parseInt(pId) === 8) 
+                ? accessRight.permissions
+                : [ ...accessRight.permissions, 8 ]
+        }));
+    }
 
     const handleClickCancel = () => {
         dispatch(ACCESS_RIGHT_ACTION.clearAccessRightErrors());

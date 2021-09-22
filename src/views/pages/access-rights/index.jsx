@@ -111,8 +111,7 @@ const AccessRight = ({ ACCESS_RIGHT }) =>
                     showTextRowsSelected: false,
                     loadingType: 'linear',
                     selectionProps: ({ id }) => ({
-                        disabled: id === 1,
-                        color: 'textSecondary'
+                        disabled: id === 1
                     })
                 }}
             />
