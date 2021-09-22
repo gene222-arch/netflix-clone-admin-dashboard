@@ -39,17 +39,15 @@ const App = ({ AUTH, history }) =>
 					</Route>
 
 					{
-						!AUTH.role && (
+						AUTH.role === 'Subscriber'
+						? (
 							<Route path='/:path?'>
 								<UserLayout>
 									<RenderRoutes routes={ USER_ROUTES } />
 								</UserLayout>
 							</Route>
 						)
-					}
-
-					{
-						AUTH.role && (
+						: (
 							<Route path='/:path?'>
 								<RenderRoutes routes={ PRIVATE_ROUTES } />
 							</Route>
