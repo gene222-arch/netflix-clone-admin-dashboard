@@ -11,6 +11,7 @@ import { createStructuredSelector } from 'reselect';
 import { selectDashboard } from './../../../redux/modules/dashboard/selector';
 import { connect } from 'react-redux';
 import BoxContentLoader from './../../../components/content-loader/BoxContentLoader';
+import Subscriptions from '@material-ui/icons/Subscriptions';
 
 const DashboardAvatars = ({ DASHBOARD, generalAnalytics }) => 
 {
@@ -74,6 +75,20 @@ const DashboardAvatars = ({ DASHBOARD, generalAnalytics }) =>
                         backgroundColor: Colors.darkMode
                     }}
                     onClick={ () => history.push(PATH.VIDEO_MANAGEMENT_COMING_SOON_MOVIES) }
+                />
+            </Grid>
+            <Grid item xs={ 12 } sm={ 4 } md={ 4 } lg={ 4 }>
+                <AvatarWithLabel 
+                    label='Subscribers' 
+                    Icon={ Subscriptions }
+                    counter={ generalAnalytics?.total_number_of_subscribers } 
+                    avatarStyle={{
+                        backgroundColor: Colors.netflixRed
+                    }}
+                    counterStyle={{
+                        backgroundColor: Colors.darkMode
+                    }}
+                    onClick={ () => 1 }
                 />
             </Grid>
         </Grid>
