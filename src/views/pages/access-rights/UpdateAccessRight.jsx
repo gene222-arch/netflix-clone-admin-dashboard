@@ -34,7 +34,10 @@ const UpdateAccessRight = ({ ACCESS_RIGHT }) =>
         setIsFetching(false);
     }
 
-    const handleClickUpdateAccessRight = () => dispatch(ACCESS_RIGHT_ACTION.updateAccessRightStart(accessRight));
+    const handleClickUpdateAccessRight = () => dispatch(ACCESS_RIGHT_ACTION.updateAccessRightStart({
+        ...accessRight,
+        permissions: [ ...accessRight.permissions, 8 ]
+    }));
 
     const handleClickCancel = () => {
         dispatch(ACCESS_RIGHT_ACTION.clearAccessRightErrors());

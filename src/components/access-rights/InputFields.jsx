@@ -116,9 +116,10 @@ const InputFields = ({ ACCESS_RIGHT, ACCESS_RIGHT_HAS_ERROR, ACCESS_RIGHT_ERROR,
                                                                 : (
                                                                     <Checkbox 
                                                                         name='permission' 
-                                                                        checked={ accessRight.permissions.includes(id) } 
+                                                                        checked={ accessRight.permissions.includes(id) || name === 'View Dashboard' } 
                                                                         onChange={ handleChange } 
                                                                         value={ id } 
+                                                                        disabled={ name === 'View Dashboard' }
                                                                     /> 
                                                                 )
                                                         }
