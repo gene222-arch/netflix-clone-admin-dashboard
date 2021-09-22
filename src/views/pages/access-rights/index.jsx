@@ -19,7 +19,12 @@ import { makeStyles } from '@material-ui/styles';
 import Colors from './../../../constants/Colors';
 
 const accessRightsUseStyles = makeStyles(theme => ({
-    chip: {
+    permissionCountChip: {
+        backgroundColor: Colors.infoDark,
+        color: '#FFF',
+        fontWeight: 'bold'
+    },
+    userCountChip: {
         backgroundColor: Colors.warning,
         color: '#000',
         fontWeight: 'bold'
@@ -59,7 +64,27 @@ const AccessRight = ({ ACCESS_RIGHT }) =>
         {
             title: 'Employees',
             field: 'users_count',
-            render: ({ users_count }) => <Chip label={ users_count } color='default' variant="outlined" className={ classes.chip } />
+            render: ({ users_count }) => (
+                <Chip 
+                    label={ users_count } 
+                    color='default' 
+                    variant="outlined" 
+                    className={ classes.userCountChip } 
+                />
+            )
+        },
+        {
+            title: 'Permissions',
+            field: 'permissions_count',
+            render: ({ permissions_count }) => (
+                <Chip 
+                    label={ permissions_count } 
+                    color='default' 
+                    variant="outlined" 
+                    className={ classes.permissionCountChip } 
+                />
+            )
+        
         },
         { 
             title: 'Action', 
