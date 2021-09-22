@@ -8,6 +8,7 @@ import Grid from '@material-ui/core/Grid'
 import Colors from '../../../../constants/Colors';
 import { useHistory, useLocation } from 'react-router-dom'
 import PATH from '../../../../routes/path'
+import UploadAvatar from './UploadAvatar';
 
 const useStyles = makeStyles(theme => ({
     btn: {
@@ -34,14 +35,14 @@ const AllowAccessToLocation = () =>
     const { state } = useLocation();
  
     const handleClickNo = () => {
-        history.push(PATH.REGISTER, {
+        history.push(PATH.UPLOAD_AVATAR, {
             ...state,
             allow_access_to_location: false
         });
     }
 
     const handleClickContinue = () => {
-        history.push(PATH.REGISTER, {
+        history.push(PATH.UPLOAD_AVATAR, {
             ...state,
             allow_access_to_location: true
         });
@@ -53,7 +54,7 @@ const AllowAccessToLocation = () =>
             <Container maxWidth="md" className={ classes.subContainer }>
                 <Grid container spacing={2} alignItems='center'>
                     <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
-                        <Typography variant="subtitle2">Step 1 of 2</Typography>
+                        <Typography variant="subtitle2">Step 1 of 3</Typography>
                     </Grid>
                     <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
                         <Typography variant="h4" color="initial" className={ classes.queryText }>
