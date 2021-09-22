@@ -17,6 +17,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Chip from '@material-ui/core/Chip';
 import { makeStyles } from '@material-ui/styles';
 import Colors from './../../../constants/Colors';
+import LinearProgress from '../../../components/LinearProgress';
 
 const accessRightsUseStyles = makeStyles(theme => ({
     permissionCountChip: {
@@ -77,12 +78,7 @@ const AccessRight = ({ ACCESS_RIGHT }) =>
             title: 'Permissions',
             field: 'permissions_count',
             render: ({ permissions_count }) => (
-                <Chip 
-                    label={ permissions_count } 
-                    color='default' 
-                    variant="outlined" 
-                    className={ classes.permissionCountChip } 
-                />
+                <LinearProgress value={ permissions_count } maxValue={ ACCESS_RIGHT.permissions.length } />
             )
         
         },
