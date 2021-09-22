@@ -20,9 +20,10 @@ import mainLayoutUseStyles from '../../../assets/js/material-ui/mainLayoutUseSty
 import * as MAIN_LAYOUT_ACTION from '../../../redux/modules/main-layout/actions'
 import StyledNavLink from '../../../components/styled-components/StyledNavLink';
 import PATH from './../../../routes/path';
+import { selectAuth } from './../../../redux/modules/auth/selector';
 
 
-const VideoManagement = ({ MAIN_LAYOUT }) => 
+const VideoManagement = ({ MAIN_LAYOUT, AUTH }) => 
 {
     const classes = mainLayoutUseStyles();
     const dispatch = useDispatch();
@@ -59,70 +60,95 @@ const VideoManagement = ({ MAIN_LAYOUT }) =>
             >
                 <List component='div' disablePadding>
                     {/* Authors */}
-                    <StyledNavLink 
-                        to={ PATH.VIDEO_MANAGEMENT_AUTHOR }
-                        text={
-                            <ListItem button selected={ MAIN_LAYOUT.videoManagementAuthors } onClick={ selectVideoManagementAuthors }>
-                                <ListItemText primary='Authors'/>
-                                <SportsKabaddiIcon />
-                            </ListItem>
-                        }
-                    />
+                    {
+                        AUTH.permissions.includes('Manage Authors') && (
+                            <StyledNavLink 
+                                to={ PATH.VIDEO_MANAGEMENT_AUTHOR }
+                                text={
+                                    <ListItem button selected={ MAIN_LAYOUT.videoManagementAuthors } onClick={ selectVideoManagementAuthors }>
+                                        <ListItemText primary='Authors'/>
+                                        <SportsKabaddiIcon />
+                                    </ListItem>
+                                }
+                            />
+                        )
+                    }
 
                     {/* Casts */}
-                    <StyledNavLink 
-                        to={ PATH.VIDEO_MANAGEMENT_CAST }
-                        text={
-                            <ListItem button selected={ MAIN_LAYOUT.videoManagementCasts } onClick={ selectVideoManagementCasts }>
-                                <ListItemText primary='Casts'/>
-                                <CastIcon />
-                            </ListItem>
-                        }
-                    />
+                    {
+                         AUTH.permissions.includes('Manage Casts') && ( 
+                            <StyledNavLink 
+                                to={ PATH.VIDEO_MANAGEMENT_CAST }
+                                text={
+                                    <ListItem button selected={ MAIN_LAYOUT.videoManagementCasts } onClick={ selectVideoManagementCasts }>
+                                        <ListItemText primary='Casts'/>
+                                        <CastIcon />
+                                    </ListItem>
+                                }
+                            />
+                        )
+                    }
 
                     {/* Directors */}
-                    <StyledNavLink 
-                        to={ PATH.VIDEO_MANAGEMENT_DIRECTOR }
-                        text={
-                            <ListItem button selected={ MAIN_LAYOUT.videoManagementDirectors } onClick={ selectVideoManagementDirectors }>
-                                <ListItemText primary='Directors'/>
-                                <SupervisedUserCircleIcon />
-                            </ListItem>
-                        }
-                    />
-
+                    {
+                        AUTH.permissions.includes('Manage Directors') && ( 
+                            <StyledNavLink 
+                                to={ PATH.VIDEO_MANAGEMENT_DIRECTOR }
+                                text={
+                                    <ListItem button selected={ MAIN_LAYOUT.videoManagementDirectors } onClick={ selectVideoManagementDirectors }>
+                                        <ListItemText primary='Directors'/>
+                                        <SupervisedUserCircleIcon />
+                                    </ListItem>
+                                }
+                            />
+                        )
+                    }
                     {/* Genres */}
-                    <StyledNavLink 
-                        to={ PATH.VIDEO_MANAGEMENT_GENRE }
-                        text={
-                            <ListItem button selected={ MAIN_LAYOUT.videoManagementGenres } onClick={ selectVideoManagementGenres }>
-                                <ListItemText primary='Genres'/>
-                                <EmojiEmotionsIcon />
-                            </ListItem>
-                        }
-                    />
-
+                    {
+                        AUTH.permissions.includes('Manage Genres') && 
+                        (
+                            <StyledNavLink 
+                                to={ PATH.VIDEO_MANAGEMENT_GENRE }
+                                text={
+                                    <ListItem button selected={ MAIN_LAYOUT.videoManagementGenres } onClick={ selectVideoManagementGenres }>
+                                        <ListItemText primary='Genres'/>
+                                        <EmojiEmotionsIcon />
+                                    </ListItem>
+                                }
+                            />
+                        )
+                    }
                     {/* Movies */}
-                    <StyledNavLink 
-                        to={ PATH.VIDEO_MANAGEMENT_MOVIES }
-                        text={
-                            <ListItem button selected={ MAIN_LAYOUT.videoManagementMovies } onClick={ selectVideoManagementMovies }>
-                                <ListItemText primary='Movies'/>
-                                <VideoLibraryIcon />
-                            </ListItem>
-                        }
-                    />
+                    {
+                        AUTH.permissions.includes('Manage Movies') && 
+                        (
+                            <StyledNavLink 
+                                to={ PATH.VIDEO_MANAGEMENT_MOVIES }
+                                text={
+                                    <ListItem button selected={ MAIN_LAYOUT.videoManagementMovies } onClick={ selectVideoManagementMovies }>
+                                        <ListItemText primary='Movies'/>
+                                        <VideoLibraryIcon />
+                                    </ListItem>
+                                }
+                            />
+                        )
+                    }
 
                      {/* Coming Soon Movies */}
-                     <StyledNavLink 
-                        to={ PATH.VIDEO_MANAGEMENT_COMING_SOON_MOVIES }
-                        text={
-                            <ListItem button selected={ MAIN_LAYOUT.videoManagementComingSoonMovies } onClick={ selectVideoManagementComingSoonMovies }>
-                                <ListItemText primary='Coming Soon Movies'/>
-                                <NewReleasesIcon />
-                            </ListItem>
-                        }
-                    />
+                     {
+                        AUTH.permissions.includes('Manage Coming Soon Movies') && 
+                        (
+                            <StyledNavLink 
+                                to={ PATH.VIDEO_MANAGEMENT_COMING_SOON_MOVIES }
+                                text={
+                                    <ListItem button selected={ MAIN_LAYOUT.videoManagementComingSoonMovies } onClick={ selectVideoManagementComingSoonMovies }>
+                                        <ListItemText primary='Coming Soon Movies'/>
+                                        <NewReleasesIcon />
+                                    </ListItem>
+                                }
+                            />
+                        )
+                    }
                 </List>
             </Collapse>            
         </>
@@ -130,6 +156,7 @@ const VideoManagement = ({ MAIN_LAYOUT }) =>
 }
 
 const mapStateToProps = createStructuredSelector({
+    AUTH: selectAuth,
     MAIN_LAYOUT: selectMainLayout
 });
 

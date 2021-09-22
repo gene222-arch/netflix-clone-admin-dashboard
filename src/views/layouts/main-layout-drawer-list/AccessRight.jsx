@@ -7,14 +7,15 @@ import { selectMainLayout } from '../../../redux/modules/main-layout/selector';
 import { ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
 import StyledNavLink from '../../../components/styled-components/StyledNavLink';
 import PATH from './../../../routes/path';
+import { selectAuth } from './../../../redux/modules/auth/selector';
 
-const Dashboard = ({ MAIN_LAYOUT }) => 
+const Dashboard = ({ MAIN_LAYOUT, AUTH }) => 
 {
     const dispatch = useDispatch();
 
     const handleClickAccessRight = () => dispatch(MAIN_LAYOUT_ACTION.selectAccessRight());
 
-    return (
+    return AUTH.permissions.includes('Manage Access Rights') && (
         <StyledNavLink 
             to={ PATH.ACCESS_RIGHT }
             text={
@@ -34,6 +35,7 @@ const Dashboard = ({ MAIN_LAYOUT }) =>
 }
 
 const mapStateToProps = createStructuredSelector({
+    AUTH: selectAuth,
     MAIN_LAYOUT: selectMainLayout
 });
 
