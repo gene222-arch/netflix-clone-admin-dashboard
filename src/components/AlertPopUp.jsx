@@ -10,15 +10,19 @@ import { createStructuredSelector } from 'reselect';
 import { selectAlert } from '../redux/modules/alert/selector';
 import * as ALERT_ACTION from '../redux/modules/alert/actions';
 import { connect, useDispatch } from 'react-redux';
+import Colors from './../constants/Colors';
 
 const useStyles = makeStyles((theme) => 
 ({
+    success: {
+        backgroundColor: Colors.grey
+    },
     root: {
-		width: '100%',
-			'& > * + *': {
-				marginTop: theme.spacing(2),
-			},
-		},
+        width: '100%',
+            '& > * + *': {
+                marginTop: theme.spacing(2),
+            },
+    },
 }));
 
 const AlertPopUp = ({  ALERT }) => 
@@ -41,9 +45,18 @@ const AlertPopUp = ({  ALERT }) =>
                     horizontal: ALERT.horizontal 
                 }}
             >
-				<MuiAlert onClose={ handleClickCloseAlert } severity={ ALERT.status || DEFAULT_STATUS }>
-					{ ALERT.message }
-				</MuiAlert>
+				{
+                    ALERT.status === 'success'
+                        ? (
+                            <MuiAlert onClose={ handleClickCloseAlert } severity='default' className={ classes.success }>
+                                { ALERT.message }
+                            </MuiAlert>
+                        ) : (
+                            <MuiAlert onClose={ handleClickCloseAlert } severity={ ALERT.status || DEFAULT_STATUS }>
+                                { ALERT.message }
+                            </MuiAlert>
+                        )
+                }
 			</Snackbar>
         </div>
     );
