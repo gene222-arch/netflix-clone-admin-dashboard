@@ -48,6 +48,7 @@ const CreateDirector = ({ DIRECTOR, DIRECTOR_ERROR_MESSAGES, DIRECTOR_HAS_ERROR_
 
                 reader.onload = (e) => setAvatarPreview(e.target.result);
                 reader.readAsDataURL(file);
+                setUploadErrorMessage('');
             }
         } catch ({ message }) {
             setUploadErrorMessage(message.avatar);

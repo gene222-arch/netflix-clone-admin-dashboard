@@ -49,6 +49,7 @@ const CreateCast = ({ CAST, CAST_ERROR_MESSAGES, CAST_HAS_ERROR_MESSAGES }) =>
 
                 reader.onload = (e) => setAvatarPreview(e.target.result);
                 reader.readAsDataURL(file);
+                setUploadErrorMessage('');
             }
         } catch ({ message }) {
             setUploadErrorMessage(message.avatar);

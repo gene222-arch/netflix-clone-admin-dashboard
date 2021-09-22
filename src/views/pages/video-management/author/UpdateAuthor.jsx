@@ -55,6 +55,7 @@ const UpdateAuthor = ({ AUTHOR, match, AUTHOR_ERROR_MESSAGES, AUTHOR_HAS_ERROR_M
 
                 reader.onload = (e) => setAvatarPreview(e.target.result);
                 reader.readAsDataURL(file);
+                setUploadErrorMessage('');
             }
         } catch ({ message }) {
             setUploadErrorMessage(message.avatar);
