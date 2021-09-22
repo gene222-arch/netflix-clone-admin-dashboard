@@ -13,7 +13,6 @@ import { selectMainLayout } from '../../../redux/modules/main-layout/selector';
 import TextContentLoader from '../../../components/content-loader/TextContentLoader';
 import APP_LOGO from './../../../assets/images/app/iconflicklify.ico'
 import { CardContent, Card, Divider } from '@material-ui/core';
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
 
 const Avatar = ({ AUTH, MAIN_LAYOUT }) => 
@@ -47,7 +46,7 @@ const Avatar = ({ AUTH, MAIN_LAYOUT }) =>
                                     <Card className={ classes.userInfoContainer }>
                                     <Divider />
                                         <CardContent>
-                                            <AccountCircleIcon className={ classes.accountCircleIcon } />
+                                            <img src={ AUTH.user.avatar_path } className={ classes.avatar }/>
                                             <Typography variant='subtitle1' color="initial" className={ classes.authenticatedUserName }>
                                                 { `${ AUTH.user.first_name } ${ AUTH.user.last_name }` }
                                             </Typography>

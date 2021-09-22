@@ -7,10 +7,10 @@ const mainLayoutUseStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
     },
-    accountCircleIcon: {
-        fontSize: '5rem',
+    avatar: {
         width: '100%',
-        textAlign: 'center'
+        objectFit: 'contain',
+        borderRadius: '100%'
     },
     appBar: {
         zIndex: theme.zIndex.drawer + 1,
