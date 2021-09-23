@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, forwardRef } from 'react';
 import * as AUTH_ACTION from './../../redux/modules/auth/actions'
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from './../Menu';
@@ -31,34 +31,29 @@ const PIN_PROPS = {
     num4: ''
 }
 
-const AvatarMenu = ({ profile, avatarClassName, lockIconClassName, handleClick }) => 
-{
-    const { avatar, name, is_profile_locked } = profile;
-
-    return (
-        <MenuItem onClick={ handleClick }>
-            <Grid container justify='space-between' alignItems='center'>
-                <Grid item xs={ 9 } sm={ 9 } md={ 9 } lg={ 9 }>
-                    <Grid container spacing={ 1 }>
-                        <Grid item>
-                            <img src={ avatar } className={ avatarClassName } />
-                        </Grid>
-                        <Grid item>
-                            <Typography variant="caption" color="textSecondary">
-                                { name.toUpperCase() }
-                            </Typography>
-                        </Grid>
+const AvatarMenu = forwardRef(({ profile, avatarClassName, lockIconClassName, handleClick }, ref) => (
+    <MenuItem onClick={ handleClick } ref={ ref }>
+        <Grid container justify='space-between' alignItems='center'>
+            <Grid item xs={ 9 } sm={ 9 } md={ 9 } lg={ 9 }>
+                <Grid container spacing={ 1 }>
+                    <Grid item>
+                        <img src={ profile.avatar } className={ avatarClassName } />
+                    </Grid>
+                    <Grid item>
+                        <Typography variant="caption" color="textSecondary">
+                            { profile.name.toUpperCase() }
+                        </Typography>
                     </Grid>
                 </Grid>
-                <Grid item xs={ 1 } sm={ 1 } md={ 1 } lg={ 1 }>
-                    {
-                        Boolean(is_profile_locked) && <LockOutlinedIcon color='disabled' className={ lockIconClassName } />
-                    }
-                </Grid>
             </Grid>
-        </MenuItem>
-    )
-}
+            <Grid item xs={ 1 } sm={ 1 } md={ 1 } lg={ 1 }>
+                {
+                    Boolean(profile.is_profile_locked) && <LockOutlinedIcon color='disabled' className={ lockIconClassName } />
+                }
+            </Grid>
+        </Grid>
+    </MenuItem>
+));
 
 const AppHeaderMenu = ({ AUTH, anchorEl, setAnchorEl }) => 
 {
