@@ -9,18 +9,29 @@ import { Redirect } from 'react-router-dom';
 import * as Cookies from './../utils/cookies'
 import PATH from './path';
 import MainLayout from '../views/layouts/MainLayout';
+import UserLayout from '../views/layouts/UserLayout';
 
 const PrivateRoute = ({ AUTH, Component, access, ...props }) => 
 {
     if (! AUTH.isAuthenticated) return <Redirect to={ PATH.LOGIN } />
 
-    if (AUTH.role && ! AUTH.permissions.includes(access)) return <Forbidden />
-    
+    if (AUTH.role !== 'Subscriber') {
+        if (AUTH.role && ! AUTH.permissions.includes(access)) return <Forbidden />
+    }
+
     if (!AUTH.role) 
     {
         if (! Cookies.has('access_token')) return <Redirect to={ PATH.LOGIN } />
 
         return <Component { ...props } />
+    }
+
+    if (AUTH.role === 'Subscriber') {
+        return (
+            <UserLayout>
+                <Component { ...props } />
+            </UserLayout>
+        )
     }
 
     return (

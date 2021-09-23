@@ -76,8 +76,6 @@ const ProfileLock = ({ AUTH }) =>
 
     const onLoadInvokeActions = () => 
     {
-        onLoadFetchProfile();
-
         const token = QueryParam.get('token');
         const profileId = QueryParam.get('profileId');
         const action = QueryParam.get('action');
@@ -85,6 +83,7 @@ const ProfileLock = ({ AUTH }) =>
         if (token) {
             Cookies.set('access_token', token);
             loginUserViaToken(profileId, action);
+            onLoadFetchProfile();
         }
     }
 

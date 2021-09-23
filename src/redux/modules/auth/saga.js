@@ -118,7 +118,8 @@ function* loginSaga (payload)
         const { status, data } = yield call(loginAsync, payload);
         const data_ = data;
 
-        if (status === 'success') {
+        if (status === 'success') 
+        {
             const { access_token, expires_at, data } = data_;
 
             Cookies.set('access_token', access_token, expires_at);
