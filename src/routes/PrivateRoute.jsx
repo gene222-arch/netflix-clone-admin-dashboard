@@ -27,9 +27,9 @@ const PrivateRoute = ({ AUTH, Component, access, ...props }) =>
     }
 
     return (
-        <MainLayout>
+        <UserLayout>
             <Component { ...props } />
-        </MainLayout>
+        </UserLayout>
     )
 }
 

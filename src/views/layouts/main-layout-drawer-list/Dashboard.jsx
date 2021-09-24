@@ -15,7 +15,7 @@ const Dashboard = ({ MAIN_LAYOUT, AUTH }) =>
 
     const handleClickDashboard = () => dispatch(MAIN_LAYOUT_ACTION.selectDashboard());
 
-    return AUTH.permissions.includes('View Dashboard') && (
+    return AUTH.permissions?.includes('View Dashboard') && (
         <StyledNavLink 
             to={ PATH.DASHBOARD }
             text={

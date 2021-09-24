@@ -61,7 +61,7 @@ const VideoManagement = ({ MAIN_LAYOUT, AUTH }) =>
                 <List component='div' disablePadding>
                     {/* Authors */}
                     {
-                        AUTH.permissions.includes('Manage Authors') && (
+                        AUTH.permissions?.includes('Manage Authors') && (
                             <StyledNavLink 
                                 to={ PATH.VIDEO_MANAGEMENT_AUTHOR }
                                 text={
@@ -76,7 +76,7 @@ const VideoManagement = ({ MAIN_LAYOUT, AUTH }) =>
 
                     {/* Casts */}
                     {
-                         AUTH.permissions.includes('Manage Casts') && ( 
+                         AUTH.permissions?.includes('Manage Casts') && ( 
                             <StyledNavLink 
                                 to={ PATH.VIDEO_MANAGEMENT_CAST }
                                 text={
@@ -91,7 +91,7 @@ const VideoManagement = ({ MAIN_LAYOUT, AUTH }) =>
 
                     {/* Directors */}
                     {
-                        AUTH.permissions.includes('Manage Directors') && ( 
+                        AUTH.permissions?.includes('Manage Directors') && ( 
                             <StyledNavLink 
                                 to={ PATH.VIDEO_MANAGEMENT_DIRECTOR }
                                 text={
@@ -105,7 +105,7 @@ const VideoManagement = ({ MAIN_LAYOUT, AUTH }) =>
                     }
                     {/* Genres */}
                     {
-                        AUTH.permissions.includes('Manage Genres') && 
+                        AUTH.permissions?.includes('Manage Genres') && 
                         (
                             <StyledNavLink 
                                 to={ PATH.VIDEO_MANAGEMENT_GENRE }
@@ -120,7 +120,7 @@ const VideoManagement = ({ MAIN_LAYOUT, AUTH }) =>
                     }
                     {/* Movies */}
                     {
-                        AUTH.permissions.includes('Manage Movies') && 
+                        AUTH.permissions?.includes('Manage Movies') && 
                         (
                             <StyledNavLink 
                                 to={ PATH.VIDEO_MANAGEMENT_MOVIES }
@@ -136,7 +136,7 @@ const VideoManagement = ({ MAIN_LAYOUT, AUTH }) =>
 
                      {/* Coming Soon Movies */}
                      {
-                        AUTH.permissions.includes('Manage Coming Soon Movies') && 
+                        AUTH.permissions?.includes('Manage Coming Soon Movies') && 
                         (
                             <StyledNavLink 
                                 to={ PATH.VIDEO_MANAGEMENT_COMING_SOON_MOVIES }

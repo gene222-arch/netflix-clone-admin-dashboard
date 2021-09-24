@@ -138,6 +138,7 @@ export default (state = initialState, { type, payload }) =>
                 user: payload.user,
                 profiles: payload.profiles,
                 selectedProfile: payload.selectedProfile,
+                role: payload.role,
                 error,
             };
 

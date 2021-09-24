@@ -15,7 +15,7 @@ const Dashboard = ({ MAIN_LAYOUT, AUTH }) =>
 
     const handleClickAccessRight = () => dispatch(MAIN_LAYOUT_ACTION.selectAccessRight());
 
-    return AUTH.permissions.includes('Manage Access Rights') && (
+    return AUTH.permissions?.includes('Manage Access Rights') && (
         <StyledNavLink 
             to={ PATH.ACCESS_RIGHT }
             text={
