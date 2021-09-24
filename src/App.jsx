@@ -32,11 +32,15 @@ const App = ({ AUTH, history }) =>
 			<AlertPopUp />
 			<MuiPickersUtilsProvider utils={DateFnsUtils}>
 				<Switch>
-					<Route path='/auth/:path?'>
-						<AuthLayout>
-							<RenderRoutes routes={ PUBLIC_ROUTES } />
-						</AuthLayout>
-					</Route>
+					{
+						!AUTH.isAuthenticated && (
+							<Route path='/auth/:path?'>
+								<AuthLayout>
+									<RenderRoutes routes={ PUBLIC_ROUTES } />
+								</AuthLayout>
+							</Route>
+						)
+					}
 
 					{
 						(!AUTH.role || AUTH.role === 'Subscriber') && (

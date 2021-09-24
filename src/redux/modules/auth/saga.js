@@ -125,7 +125,7 @@ function* loginSaga (payload)
             Cookies.set('access_token', access_token, expires_at);
             yield put(loginSuccess(data));
 
-            data.role 
+            data.role !== 'Subscriber'
                 ? yield put(push(PATH.DASHBOARD))
                 : yield put(push(PATH.USER_PROFILE))
         }

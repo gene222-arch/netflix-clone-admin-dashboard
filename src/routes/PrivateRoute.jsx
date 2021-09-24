@@ -15,17 +15,8 @@ const PrivateRoute = ({ AUTH, Component, access, ...props }) =>
 {
     if (! AUTH.isAuthenticated) return <Redirect to={ PATH.LOGIN } />
 
-    if (AUTH.role !== 'Subscriber') {
-        if (AUTH.role && ! AUTH.permissions.includes(access)) return <Forbidden />
-    }
-
-    if (!AUTH.role) 
-    {
-        if (! Cookies.has('access_token')) return <Redirect to={ PATH.LOGIN } />
-
-        return <Component { ...props } />
-    }
-
+    if ( access && ! AUTH.permissions.includes(access) ) return <Forbidden />
+    
     if (AUTH.role === 'Subscriber') {
         return (
             <UserLayout>
