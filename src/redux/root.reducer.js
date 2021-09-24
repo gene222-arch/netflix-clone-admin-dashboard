@@ -23,7 +23,6 @@ const history = createBrowserHistory();
 const persistConfig = {
     key: 'root',
     storage,
-    // whitelist: [],
     blacklist: ['alert', 'mainLayout', 'router', 'confirm']    
 };
 
