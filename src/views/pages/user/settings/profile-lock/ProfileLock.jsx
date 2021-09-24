@@ -10,7 +10,8 @@ import { makeStyles } from '@material-ui/styles';
 import InputPassword from './InputPassword';
 import ContinueProfileLock from './ContinueProfileLock';
 import * as AUTH_API from './../../../../../services/auth/auth'
-
+import * as QueryParams from './../../../../../utils/queryParams'
+import * as Cookies from './../../../../../utils/cookies'
 
 const profileLockUseStyles = makeStyles(theme => ({
     avatar: {
@@ -59,11 +60,13 @@ const ProfileLock = ({ AUTH }) =>
 
     useEffect(() => 
     {
-        if (! AUTH.selectedProfile.id) {
-            onLoadFetchProfile();
-        } else {
-            setProfile(AUTH.selectedProfile);
+        const token = QueryParams.get('token');
+
+        if (token) {
+            Cookies.set('access_token', token);
         }
+
+        onLoadFetchProfile();
 
         return () => {
             setProfile(AUTH.profile);
