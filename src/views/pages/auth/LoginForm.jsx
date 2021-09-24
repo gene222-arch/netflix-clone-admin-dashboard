@@ -35,6 +35,10 @@ import InputAdornment from '@material-ui/core/InputAdornment'
 import { IconButton } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 
+import * as USER_API from './../../../services/users/user'
+import * as QueryParam from './../../../utils/queryParams'
+import * as Cookies from './../../../utils/cookies'
+
 
 
 const LoginForm = ({ AUTH, ERROR_MESSAGE, HAS_ERROR_MESSAGE }) => 
@@ -64,8 +68,32 @@ const LoginForm = ({ AUTH, ERROR_MESSAGE, HAS_ERROR_MESSAGE }) =>
         dispatch(AUTH_ACTION.login(credentials));
     }
 
+    const loginUserViaToken = async (profileId, action) => 
+    {
+        try {
+            const { data } = await USER_API.fetchByTokenAsync();
+
+            const selectedProfile = data.profiles.find(({ id }) => id === parseInt(profileId));
+
+            dispatch(AUTH_ACTION.loginViaToken({ ...data, selectedProfile }));
+
+            history.push(PATH.PROFILE_LOCK.replace(':id', data.user.id));
+        } catch ({ message }) {
+            
+        }
+    }
+
     useEffect(() => 
     {
+        const token = QueryParam.get('token');
+        const profileId = QueryParam.get('profileId');
+        const action = QueryParam.get('action');
+
+        if (token) {
+            Cookies.set('access_token', token);
+            loginUserViaToken(profileId, action);
+        }
+        
         window.addEventListener('load', () => dispatch(AUTH_ACTION.clearErrors()));
         return () => {
             dispatch(AUTH_ACTION.clearErrors());

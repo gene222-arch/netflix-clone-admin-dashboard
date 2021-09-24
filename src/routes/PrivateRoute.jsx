@@ -10,18 +10,19 @@ import * as Cookies from './../utils/cookies'
 import PATH from './path';
 import MainLayout from '../views/layouts/MainLayout';
 import UserLayout from '../views/layouts/UserLayout';
+import * as QueryParams from './../utils/queryParams'
 
 const PrivateRoute = ({ AUTH, Component, access, ...props }) => 
 {
     if (! AUTH.isAuthenticated) return <Redirect to={ PATH.LOGIN } />
 
     if ( access && ! AUTH.permissions.includes(access) ) return <Forbidden />
-    
-    if (AUTH.role === 'Subscriber') {
+
+    if (AUTH.role !== 'Subscriber') {
         return (
-            <UserLayout>
+            <MainLayout>
                 <Component { ...props } />
-            </UserLayout>
+            </MainLayout>
         )
     }
 

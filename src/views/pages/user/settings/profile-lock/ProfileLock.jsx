@@ -10,10 +10,10 @@ import { makeStyles } from '@material-ui/styles';
 import InputPassword from './InputPassword';
 import ContinueProfileLock from './ContinueProfileLock';
 import * as AUTH_API from './../../../../../services/auth/auth'
-import * as AUTH_ACTION from './../../../../../redux/modules/auth/actions'
-import * as USER_API from './../../../../../services/users/user'
-import * as QueryParam from './../../../../../utils/queryParams'
-import * as Cookies from './../../../../../utils/cookies'
+// import * as AUTH_ACTION from './../../../../../redux/modules/auth/actions'
+// import * as USER_API from './../../../../../services/users/user'
+// import * as QueryParam from './../../../../../utils/queryParams'
+// import * as Cookies from './../../../../../utils/cookies'
 
 
 const profileLockUseStyles = makeStyles(theme => ({
@@ -61,30 +61,31 @@ const ProfileLock = ({ AUTH }) =>
 
     const handleClickCancel = () => history.goBack();
 
-    const loginUserViaToken = async (profileId, action) => 
-    {
-        try {
-            const { data } = await USER_API.fetchByTokenAsync();
+    // const loginUserViaToken = async (profileId, action) => 
+    // {
+    //     try {
+    //         const { data } = await USER_API.fetchByTokenAsync();
 
-            const selectedProfile = data.profiles.find(({ id }) => id === parseInt(profileId));
+    //         const selectedProfile = data.profiles.find(({ id }) => id === parseInt(profileId));
 
-            dispatch(AUTH_ACTION.loginViaToken({ ...data, selectedProfile }));
-        } catch ({ message }) {
+    //         dispatch(AUTH_ACTION.loginViaToken({ ...data, selectedProfile }));
+    //     } catch ({ message }) {
             
-        }
-    }
+    //     }
+    // }
 
     const onLoadInvokeActions = () => 
     {
-        const token = QueryParam.get('token');
-        const profileId = QueryParam.get('profileId');
-        const action = QueryParam.get('action');
+        onLoadFetchProfile();
+        
+        // const token = QueryParam.get('token');
+        // const profileId = QueryParam.get('profileId');
+        // const action = QueryParam.get('action');
 
-        if (token) {
-            Cookies.set('access_token', token);
-            loginUserViaToken(profileId, action);
-            onLoadFetchProfile();
-        }
+        // if (token) {
+        //     Cookies.set('access_token', token);
+        //     loginUserViaToken(profileId, action);
+        // }
     }
 
     useEffect(() => 
