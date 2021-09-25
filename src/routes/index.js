@@ -9,6 +9,9 @@ const AccessRight = lazy(() => import('../views/pages/access-rights'))
 const CreateAccessRight = lazy(() => import('../views/pages/access-rights/CreateAccessRight'))
 const UpdateAccessRight = lazy(() => import('../views/pages/access-rights/UpdateAccessRight'))
 const AssignAccessRight = lazy(() => import('../views/pages/access-rights/AssignAccessRight'))
+const ActivityLog = lazy(() => import('../views/pages/activity-log'))
+const CreateActivityLog = lazy(() => import('../views/pages/activity-log/CreateActivityLog'))
+const UpdateActivityLog = lazy(() => import('../views/pages/activity-log/UpdateActivityLog'))
 const Dashboard = lazy(() => import('../views/pages/dashboard/Dashboard'))
 const ForgotPasswordForm = lazy(() => import('../views/pages/auth/ForgotPasswordForm'))
 const LoginForm = lazy(() => import('../views/pages/auth/LoginForm'))
@@ -207,6 +210,33 @@ export const PRIVATE_ROUTES = [
         exact: true,
         component: AssignAccessRight,
         access: 'Manage Access Rights',
+        restricted: true
+    },
+    {
+        path: PATH.ACTIVITY_LOG,
+        key: 'ActivityLog',
+        icon: '',
+        exact: true,
+        component: ActivityLog,
+        access: 'Manage Activity Logs',
+        restricted: true
+    },
+    {
+        path: PATH.CREATE_ACTIVITY_LOG,
+        key: 'CreateActivityLog',
+        icon: '',
+        exact: true,
+        component: CreateActivityLog,
+        access: 'Manage Activity Logs',
+        restricted: true
+    },
+    {
+        path: PATH.UPDATE_ACTIVITY_LOG,
+        key: 'UpdateActivityLog',
+        icon: '',
+        exact: true,
+        component: UpdateActivityLog,
+        access: 'Manage Activity Logs',
         restricted: true
     },
     {
