@@ -48,7 +48,7 @@ const AlertPopUp = ({  ALERT }) =>
 				{
                     ALERT.status === 'success'
                         ? (
-                            <MuiAlert onClose={ handleClickCloseAlert } severity='default' className={ classes.success }>
+                            <MuiAlert onClose={ handleClickCloseAlert } className={ classes.success }>
                                 { ALERT.message }
                             </MuiAlert>
                         ) : (
