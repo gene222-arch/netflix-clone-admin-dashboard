@@ -1,6 +1,7 @@
 import { all } from 'redux-saga/effects'
 
 /** Module sagas */
+import activityLogSaga from '../redux/modules/activity-log/saga'
 import accessRightSaga from '../redux/modules/access-rights/saga'
 import authSaga from '../redux/modules/auth/saga'
 import authorSaga from '../redux/modules/author/saga'
@@ -15,6 +16,7 @@ import userSaga from '../redux/modules/user/saga'
 export default function* () 
 {
     yield all([
+        activityLogSaga(),
         accessRightSaga(),
         authSaga(),
         authorSaga(),

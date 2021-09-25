@@ -4,6 +4,7 @@ import { persistCombineReducers } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 import { createBrowserHistory } from 'history'
 /** Module Reducers */
+import activityLogReducer from './modules/activity-log/reducer'
 import accessRightReducer from './modules/access-rights/reducer'
 import alertReducer from './modules/alert/reducer'
 import authReducer from './modules/auth/reducer'
@@ -34,6 +35,7 @@ const reducers = {
     confirm: confirmReducer,
 
     /** local reducers */
+    activityLog: activityLogReducer,
     accessRight: accessRightReducer,
     auth: authReducer,
     author: authorReducer,
