@@ -6,21 +6,6 @@ import * as ACTIVITY_LOG_ACTION from './../../../redux/modules/activity-log/acti
 import { useHistory } from 'react-router-dom';
 import InputField from '../../../components/activity-log/InputField';
 
-const TYPES = [
-    {
-        value: 'Create',
-        label: 'Create'
-    },
-    {
-        value: 'Update',
-        label: 'Update'
-    },
-    {
-        value: 'Delete',
-        label: 'Delete'
-    }
-];
-
 const CreateActivityLog = ({ ACTIVITY_LOG }) => 
 {
     const dispatch = useDispatch();

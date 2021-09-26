@@ -26,13 +26,9 @@ const ActivityLog = ({ ACTIVITY_LOG }) =>
         {
             title: 'Date',
             field: 'executed_at',
-            render: ({ executed_at, view_data_path }) => (
+            render: ({ id, executed_at, view_data_path }) => (
                 !view_data_path
-                    ? (
-                        <Tooltip title='Navigation not available'>
-                            <Typography variant='subtitle2' color='textSecondary'>{ executed_at }</Typography>
-                        </Tooltip>
-                    )
+                    ? <StyledNavLink to={ PATH.UPDATE_ACTIVITY_LOG.replace(':id', id) } text={ executed_at } />
                     : <StyledNavLink to={ view_data_path } text={ executed_at } />
             )
         },
