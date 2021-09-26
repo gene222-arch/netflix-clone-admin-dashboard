@@ -11,6 +11,8 @@ import { selectCastNames } from '../../../../redux/modules/cast/selector';
 import { selectDirectorNames } from '../../../../redux/modules/director/selector';
 import { selectGenreNames } from '../../../../redux/modules/genre/selector';
 import MovieInputLoader from '../../../../components/styled-loaders/MovieInputLoader';
+import VideocamOff from '@material-ui/icons/VideocamOff';
+import DataNotFound from './../../../../components/not-found-components/DataNotFound';
 
 
 const UpdateMovie = ({ MOVIE, AUTHOR_NAMES, CAST_NAMES, DIRECTOR_NAMES, GENRE_NAMES }) => 
@@ -19,7 +21,9 @@ const UpdateMovie = ({ MOVIE, AUTHOR_NAMES, CAST_NAMES, DIRECTOR_NAMES, GENRE_NA
     const dispatch = useDispatch();
 
     const [ isLoading, setIsLoading ] = useState(false);
-    const [ movie, setMovie ] = useState(MOVIE.movie)
+    const [ movie, setMovie ] = useState(MOVIE.movie);
+    const [ isMovieFound, setIsMovieFound ] = useState(true);
+
 
     const handleClickUpdateMovie = () => 
     {
@@ -63,7 +67,10 @@ const UpdateMovie = ({ MOVIE, AUTHOR_NAMES, CAST_NAMES, DIRECTOR_NAMES, GENRE_NA
             selectedMovie = MOVIE.movies.find(movie => movie.id === parsedId);
         }
         
-        if (selectedMovie) 
+        if (! selectedMovie) {
+            setIsMovieFound(false);
+        }
+        else
         {
             const { authors, casts, directors, genres, language, country } = selectedMovie;
 
@@ -99,6 +106,8 @@ const UpdateMovie = ({ MOVIE, AUTHOR_NAMES, CAST_NAMES, DIRECTOR_NAMES, GENRE_NA
     }, []);
 
     if (isLoading) return <MovieInputLoader />
+
+    if (! isMovieFound) return <DataNotFound type='Movie' Icon={ VideocamOff } />
 
     return (
         <MovieInputFields 
