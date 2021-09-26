@@ -8,6 +8,8 @@ import { selectCast, selectCastErrorMessages, selectCastHasErrorMessages } from 
 import InputFields from '../../../../components/InputFields';
 import { useHistory } from 'react-router-dom';
 import PATH from './../../../../routes/path';
+import DataNotFound from './../../../../components/not-found-components/DataNotFound';
+import { PersonAddDisabled } from '@material-ui/icons';
 
 
 const UpdateCast = ({ CAST, match, CAST_ERROR_MESSAGES, CAST_HAS_ERROR_MESSAGES }) => 
@@ -20,6 +22,7 @@ const UpdateCast = ({ CAST, match, CAST_ERROR_MESSAGES, CAST_HAS_ERROR_MESSAGES 
     const [ isAvatarUploading, setIsAvatarUploading ] = useState(false);
     const [ avatarPreview, setAvatarPreview ] = useState(null);
     const [ uploadErrorMessage, setUploadErrorMessage ] = useState('');
+    const [ isCastFound, setIsCastFound ] = useState(true);
     
     const handleClickUpdateCast = () => {
         delete cast.tableData
@@ -28,7 +31,10 @@ const UpdateCast = ({ CAST, match, CAST_ERROR_MESSAGES, CAST_HAS_ERROR_MESSAGES 
 
     const onLoadFetchCastByID = () => {
         const findCast = CAST.casts.find(cast => cast.id === parseInt(id));
-        setCast(findCast);
+
+        !findCast 
+            ? setIsCastFound(false)
+            : setCast(findCast);
     }
 
     const handleClickCancel = () => {
@@ -74,8 +80,11 @@ const UpdateCast = ({ CAST, match, CAST_ERROR_MESSAGES, CAST_HAS_ERROR_MESSAGES 
             setIsAvatarUploading(false);
             setAvatarPreview(null);
             setUploadErrorMessage('');
+            setIsCastFound(true);
         }
     }, []);
+
+    if (! isCastFound) return <DataNotFound type='Cast' Icon={ PersonAddDisabled } />
 
     return (
         <InputFields 
