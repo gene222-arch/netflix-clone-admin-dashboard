@@ -8,10 +8,22 @@ import { selectAuthor, selectAuthorErrorMessages, selectAuthorHasErrorMessages }
 import InputFields from '../../../../components/InputFields';
 import { useHistory } from 'react-router-dom';
 import PATH from './../../../../routes/path';
+import DataNotFound from './../../../../components/not-found-components/DataNotFound';
+import { PersonAddDisabled } from '@material-ui/icons';
+import { makeStyles } from '@material-ui/core';
+
+const updateAuthorUseStyles = makeStyles(theme => ({
+    authorIcon: {
+        fontSize: '10rem',
+        width: '100%',
+        textAlign: 'center'
+    }
+}));
 
 
 const UpdateAuthor = ({ AUTHOR, match, AUTHOR_ERROR_MESSAGES, AUTHOR_HAS_ERROR_MESSAGES }) => 
 {
+    const classes = updateAuthorUseStyles();
     const { id } = match.params; 
     const dispatch = useDispatch();
     const history = useHistory();
@@ -20,6 +32,7 @@ const UpdateAuthor = ({ AUTHOR, match, AUTHOR_ERROR_MESSAGES, AUTHOR_HAS_ERROR_M
     const [ isAvatarUploading, setIsAvatarUploading ] = useState(false);
     const [ avatarPreview, setAvatarPreview ] = useState(null);
     const [ uploadErrorMessage, setUploadErrorMessage ] = useState('');
+    const [ isAuthorFound, setIsAuthorFound ] = useState(true);
 
     const handleClickUpdateAuthor = () => {
         delete author.tableData
@@ -28,7 +41,9 @@ const UpdateAuthor = ({ AUTHOR, match, AUTHOR_ERROR_MESSAGES, AUTHOR_HAS_ERROR_M
 
     const onLoadFetchAuthorByID = () => {
         const findAuthor = AUTHOR.authors.find(author => author.id === parseInt(id));
-        setAuthor(findAuthor);
+        !findAuthor 
+            ? setIsAuthorFound(false)
+            : setAuthor(findAuthor);
     }
 
     const handleClickCancel = () => {
@@ -73,8 +88,11 @@ const UpdateAuthor = ({ AUTHOR, match, AUTHOR_ERROR_MESSAGES, AUTHOR_HAS_ERROR_M
             setIsAvatarUploading(false);
             setAvatarPreview(null);
             setUploadErrorMessage('');
+            setIsAuthorFound(false);
         }
     }, []);
+
+    if (! isAuthorFound) return <DataNotFound type='Author' icon={ <PersonAddDisabled className={ classes.authorIcon } /> } />
 
     return (
         <InputFields 
