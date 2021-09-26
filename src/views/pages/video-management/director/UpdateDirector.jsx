@@ -8,6 +8,8 @@ import { selectDirector, selectDirectorErrorMessages, selectDirectorHasErrorMess
 import InputFields from '../../../../components/InputFields';
 import { useHistory } from 'react-router-dom';
 import PATH from './../../../../routes/path';
+import DataNotFound from './../../../../components/not-found-components/DataNotFound';
+import { PersonAddDisabled } from '@material-ui/icons';
 
 
 const UpdateDirector = ({ DIRECTOR, match, DIRECTOR_ERROR_MESSAGES, DIRECTOR_HAS_ERROR_MESSAGES }) => 
@@ -20,15 +22,20 @@ const UpdateDirector = ({ DIRECTOR, match, DIRECTOR_ERROR_MESSAGES, DIRECTOR_HAS
     const [ isAvatarUploading, setIsAvatarUploading ] = useState(false);
     const [ avatarPreview, setAvatarPreview ] = useState(null);
     const [ uploadErrorMessage, setUploadErrorMessage ] = useState('');
+    const [ isDirectorFound, setIsDirectorFound ] = useState(true);
 
     const handleClickUpdateDirector = () => {
         delete director.tableData
         dispatch(DIRECTOR_ACTION.updateDirectorStart(director));
     }
 
-    const onLoadFetchDirectorByID = () => {
+    const onLoadFetchDirectorByID = () => 
+    {
         const findDirector = DIRECTOR.directors.find(director => director.id === parseInt(id));
-        setDirector(findDirector);
+
+        !findDirector
+            ? setIsDirectorFound(false)
+            : setDirector(findDirector);
     }
 
     const handleClickCancel = () => {
@@ -73,8 +80,11 @@ const UpdateDirector = ({ DIRECTOR, match, DIRECTOR_ERROR_MESSAGES, DIRECTOR_HAS
             setIsAvatarUploading(false);
             setAvatarPreview(null);
             setUploadErrorMessage('');
+            setIsDirectorFound(true);
         }
     }, []);
+
+    if (! isDirectorFound) return <DataNotFound type='Director' Icon={ PersonAddDisabled } />
 
     return (
         <InputFields 
