@@ -9,6 +9,8 @@ import { selectAuthorNames } from '../../../../redux/modules/author/selector';
 import { selectCastNames } from '../../../../redux/modules/cast/selector';
 import { selectDirectorNames } from '../../../../redux/modules/director/selector';
 import { selectGenreNames } from '../../../../redux/modules/genre/selector';
+import VideocamOff from '@material-ui/icons/VideocamOff';
+import DataNotFound from './../../../../components/not-found-components/DataNotFound';
 
 
 const UpdateComingSoonMovie = ({ COMING_SOON_MOVIE, AUTHOR_NAMES, CAST_NAMES, DIRECTOR_NAMES, GENRE_NAMES }) => 
@@ -16,7 +18,8 @@ const UpdateComingSoonMovie = ({ COMING_SOON_MOVIE, AUTHOR_NAMES, CAST_NAMES, DI
     const { id } = useParams();
     const dispatch = useDispatch();
 
-    const [ comingSoonMovie, setComingSoonMovie ] = useState(COMING_SOON_MOVIE.comingSoonMovie)
+    const [ comingSoonMovie, setComingSoonMovie ] = useState(COMING_SOON_MOVIE.comingSoonMovie);
+    const [ isComingSoonMovieFound, setIsComingSoonMovieFound ] = useState(true);
 
     const handleClickUpdateComingSoonMovie = () => 
     {
@@ -44,20 +47,26 @@ const UpdateComingSoonMovie = ({ COMING_SOON_MOVIE, AUTHOR_NAMES, CAST_NAMES, DI
     const onLoadFetchMovieByID = () => 
     {
         const findMovie = COMING_SOON_MOVIE.comingSoonMovies.find(comingSoonMovie => comingSoonMovie.id === parseInt(id));
-        const { authors, casts, directors, genres, language, country } = findMovie;
 
-        const comingSoonMovie_ = {
-            ...findMovie,
-            id,
-            language: { value: language, label: language },
-            country: { value: country, label: country },
-            authors: getOptionsFromString(authors, AUTHOR_NAMES),
-            casts: getOptionsFromString(casts, CAST_NAMES),
-            directors:getOptionsFromString(directors, DIRECTOR_NAMES),
-            genres: getOptionsFromString(genres, GENRE_NAMES)
+        if (! findMovie) {
+            setIsComingSoonMovieFound(false);
         }
+        else {
+            const { authors, casts, directors, genres, language, country } = findMovie;
 
-        setComingSoonMovie(comingSoonMovie_);
+            const comingSoonMovie_ = {
+                ...findMovie,
+                id,
+                language: { value: language, label: language },
+                country: { value: country, label: country },
+                authors: getOptionsFromString(authors, AUTHOR_NAMES),
+                casts: getOptionsFromString(casts, CAST_NAMES),
+                directors:getOptionsFromString(directors, DIRECTOR_NAMES),
+                genres: getOptionsFromString(genres, GENRE_NAMES)
+            }
+    
+            setComingSoonMovie(comingSoonMovie_);
+        }
     }
 
     const concatSelectedOptions = (data) => !data ? '' : data.map(({ label }) => label).join(', ');
@@ -72,6 +81,8 @@ const UpdateComingSoonMovie = ({ COMING_SOON_MOVIE, AUTHOR_NAMES, CAST_NAMES, DI
             setComingSoonMovie(COMING_SOON_MOVIE.comingSoonMovie)
         }
     }, []);
+
+    if (! isComingSoonMovieFound) return <DataNotFound type='Upcoming Movie' Icon={ VideocamOff } />
 
     return (
         <ComingSoonMovieInputFields 
