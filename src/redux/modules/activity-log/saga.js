@@ -36,8 +36,8 @@ const {
 function* fetchAllActivityLogsSaga()
 {
     try {
-        const { data: accessRights } = yield call(API.fetchAllAsync);
-        yield put(fetchAllActivityLogsSuccess({ accessRights }));
+        const { data: activityLogs } = yield call(API.fetchAllAsync);
+        yield put(fetchAllActivityLogsSuccess({ activityLogs }));
     } catch ({ message }) {
         yield put(fetchAllActivityLogsFailed({ message }));
     }
@@ -47,9 +47,9 @@ function* findActivityLogByIDSaga(payload)
 {
     try {
         const { id } = payload;
-        const { data: author } = yield call(API.findByIDAsync, id);
+        const { data: activityLog } = yield call(API.findByIDAsync, id);
 
-        yield put(findActivityLogByIDSuccess({ author }));
+        yield put(findActivityLogByIDSuccess({ activityLog }));
     } catch ({ message }) {
         yield put(findActivityLogByIDFailed({ message }));
     }
