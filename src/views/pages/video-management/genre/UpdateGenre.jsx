@@ -4,7 +4,8 @@ import { connect, useDispatch } from 'react-redux';
 import * as GENRE_ACTION from './../../../../redux/modules/genre/actions';
 import { selectGenre } from './../../../../redux/modules/genre/selector';
 import GenreInputFields from '../../../../components/GenreInputFields'
-
+import DataNotFound from './../../../../components/not-found-components/DataNotFound';
+import { MoodBadOutlined } from '@material-ui/icons';
 
 const CreateGenre = ({ GENRE, match }) => 
 {
@@ -12,14 +13,19 @@ const CreateGenre = ({ GENRE, match }) =>
     const dispatch = useDispatch();
 
     const [ genre, setGenre ] = useState(GENRE.genre);
+    const [ isGenreFound, setIsGenreFound ] = useState(true);
 
     const handleClickCreateGenre = () => {
         dispatch(GENRE_ACTION.updateGenreStart(genre));
     }
 
-    const onLoadFetchGenreByID = () => {
+    const onLoadFetchGenreByID = () => 
+    {
         const findGenre = GENRE.genres.find(genre => genre.id === parseInt(id));
-        setGenre(findGenre);
+        
+        !findGenre 
+            ? setIsGenreFound(false)
+            : setGenre(findGenre);
     }
 
     useEffect(() => {
@@ -29,6 +35,8 @@ const CreateGenre = ({ GENRE, match }) =>
             setGenre(GENRE.genre);
         }
     }, []);
+
+    if (! isGenreFound) return <DataNotFound type='Genre' Icon={ MoodBadOutlined } />
 
     return (
         <GenreInputFields 
