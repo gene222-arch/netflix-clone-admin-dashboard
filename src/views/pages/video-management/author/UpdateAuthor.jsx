@@ -10,20 +10,10 @@ import { useHistory } from 'react-router-dom';
 import PATH from './../../../../routes/path';
 import DataNotFound from './../../../../components/not-found-components/DataNotFound';
 import { PersonAddDisabled } from '@material-ui/icons';
-import { makeStyles } from '@material-ui/core';
-
-const updateAuthorUseStyles = makeStyles(theme => ({
-    authorIcon: {
-        fontSize: '10rem',
-        width: '100%',
-        textAlign: 'center'
-    }
-}));
 
 
 const UpdateAuthor = ({ AUTHOR, match, AUTHOR_ERROR_MESSAGES, AUTHOR_HAS_ERROR_MESSAGES }) => 
 {
-    const classes = updateAuthorUseStyles();
     const { id } = match.params; 
     const dispatch = useDispatch();
     const history = useHistory();
@@ -92,7 +82,7 @@ const UpdateAuthor = ({ AUTHOR, match, AUTHOR_ERROR_MESSAGES, AUTHOR_HAS_ERROR_M
         }
     }, []);
 
-    if (! isAuthorFound) return <DataNotFound type='Author' icon={ <PersonAddDisabled className={ classes.authorIcon } /> } />
+    if (! isAuthorFound) return <DataNotFound type='Author' Icon={ PersonAddDisabled } />
 
     return (
         <InputFields 
