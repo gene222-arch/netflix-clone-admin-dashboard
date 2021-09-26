@@ -7,6 +7,9 @@ import { useHistory, useParams } from 'react-router-dom';
 import * as ACCESS_RIGHT_ACTION from './../../../redux/modules/access-rights/actions'
 import * as ACCESS_RIGHT_API from './../../../services/access-rights/access.rights'
 import PATH from './../../../routes/path';
+import DataNotFound from './../../../components/not-found-components/DataNotFound';
+import { LockOpen } from '@material-ui/icons';
+
 
 const UpdateAccessRight = ({ ACCESS_RIGHT }) => 
 {
@@ -16,21 +19,29 @@ const UpdateAccessRight = ({ ACCESS_RIGHT }) =>
 
     const [ accessRight, setAccessRight ] = useState(ACCESS_RIGHT.accessRight);
     const [ isFetching, setIsFetching ] = useState(false);
+    const [ isAccessRightFound, setIsAccessRightFound ] = useState(true);
 
     const onLoadFetchAccessRightById = async () => 
     {
         setIsFetching(true);
-        try {
-            const { status, data: { role, permissions } } = await ACCESS_RIGHT_API.findByIDAsync(id);
+        
+        const accessRightExists = ACCESS_RIGHT.accessRights.find(access => access.id === parseInt(id));
 
-            if (status === 'success') {
-                setAccessRight({
-                    role,
-                    permissions: permissions.map(({ id }) => id)
-                });
-            }
+        if (! accessRightExists) {
+            setIsAccessRightFound(false);
+        } else {
+            try {
+                const { status, data: { role, permissions } } = await ACCESS_RIGHT_API.findByIDAsync(id);
+    
+                if (status === 'success') {
+                    setAccessRight({
+                        role,
+                        permissions: permissions.map(({ id }) => id)
+                    });
+                }
+            } catch ({ message }) {}
+        }
 
-        } catch ({ message }) {}
         setIsFetching(false);
     }
 
@@ -57,6 +68,8 @@ const UpdateAccessRight = ({ ACCESS_RIGHT }) =>
             setIsFetching(false);
         }
     }, [])
+
+    if (! isAccessRightFound) return <DataNotFound type='Access Right' Icon={ LockOpen } />
 
     return (
         <InputFields 
