@@ -21,6 +21,7 @@ import AppLogo from './main-layout-drawer-list/AppLogo';
 import Dashboard from './main-layout-drawer-list/Dashboard';
 import AppBarContent from './main-layout-header/AppBarContent';
 import AccessRight from './main-layout-drawer-list/AccessRight';
+import ActivityLog from './main-layout-drawer-list/ActivityLog';
 
 
 
@@ -61,6 +62,7 @@ const MainLayout = ({ children, MAIN_LAYOUT }) =>
                     <Dashboard />
                     <VideoManagement />    
                     <AccessRight />       
+                    <ActivityLog />
                 </List>
             </Drawer>
 
