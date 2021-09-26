@@ -8,6 +8,7 @@ import { ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
 import StyledNavLink from '../../../components/styled-components/StyledNavLink';
 import PATH from './../../../routes/path';
 import { selectAuth } from './../../../redux/modules/auth/selector';
+import ToolTipComponent from '../../../components/ToolTipComponent';
 
 const Dashboard = ({ MAIN_LAYOUT, AUTH }) => 
 {
@@ -19,16 +20,22 @@ const Dashboard = ({ MAIN_LAYOUT, AUTH }) =>
         <StyledNavLink 
             to={ PATH.ACCESS_RIGHT }
             text={
-                <ListItem 
-                    button 
-                    onClick={ handleClickAccessRight }
-                    selected={ MAIN_LAYOUT.accessRight }
-                >
-                    <ListItemIcon>
-                        <VpnKeyIcon />
-                    </ListItemIcon>
-                    <ListItemText primary='Access Rights' />
-                </ListItem>
+                <ToolTipComponent 
+                    withToolTip={ !MAIN_LAYOUT.drawer }
+                    title='Access Rights'
+                    component={ 
+                        <ListItem 
+                            button 
+                            onClick={ handleClickAccessRight }
+                            selected={ MAIN_LAYOUT.accessRight }
+                        >
+                            <ListItemIcon>
+                                <VpnKeyIcon />
+                            </ListItemIcon>
+                            <ListItemText primary='Access Rights' />
+                        </ListItem>
+                    }
+                />
             }
         />
     )

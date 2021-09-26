@@ -21,6 +21,7 @@ import * as MAIN_LAYOUT_ACTION from '../../../redux/modules/main-layout/actions'
 import StyledNavLink from '../../../components/styled-components/StyledNavLink';
 import PATH from './../../../routes/path';
 import { selectAuth } from './../../../redux/modules/auth/selector';
+import ToolTipComponent from '../../../components/ToolTipComponent';
 
 
 const VideoManagement = ({ MAIN_LAYOUT, AUTH }) => 
@@ -44,13 +45,19 @@ const VideoManagement = ({ MAIN_LAYOUT, AUTH }) =>
 
     return (
         <>
-            <ListItem button onClick={ handleToggleVideoMngmt }>
-                <ListItemIcon>
-                    <MovieIcon />
-                </ListItemIcon>
-                <ListItemText primary={'Video Management'} />
-                <DropdownIcon open={ MAIN_LAYOUT.videoManagement } />
-            </ListItem>
+            <ToolTipComponent 
+                withToolTip={ !MAIN_LAYOUT.drawer }
+                title='Video Management'
+                component={ 
+                    <ListItem button onClick={ handleToggleVideoMngmt }>
+                        <ListItemIcon>
+                            <MovieIcon />
+                        </ListItemIcon>
+                        <ListItemText primary={'Video Management'} />
+                        <DropdownIcon open={ MAIN_LAYOUT.videoManagement } />
+                    </ListItem>
+                }
+            />
             
             <Collapse 
                 in={ MAIN_LAYOUT.videoManagement } 
