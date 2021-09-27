@@ -15,6 +15,9 @@ const CRUDBadgeUseStyles = makeStyles(theme => ({
     },
     error: {
         backgroundColor: theme.palette.error.main
+    },
+    disabled: {
+        backgroundColor: theme.palette.grey
     }
 }));
 
@@ -32,13 +35,15 @@ const CRUDBadge = ({ action }) =>
     switch (action) 
     {
         case CRUD_ACTIONS.CREATE:
-        return <Chip label={ <strong>{ CRUD_ACTIONS.CREATE }</strong> } className={ classes.success }/>
+            return <Chip label={ <strong>{ CRUD_ACTIONS.CREATE }</strong> } className={ classes.success }/>
         case CRUD_ACTIONS.READ:
-        return <Chip label={ <strong>{ CRUD_ACTIONS.READ }</strong> } className={ classes.info }/>
+            return <Chip label={ <strong>{ CRUD_ACTIONS.READ }</strong> } className={ classes.info }/>
         case CRUD_ACTIONS.UPDATE:
-        return <Chip label={ <strong>{ CRUD_ACTIONS.UPDATE }</strong> } className={ classes.warning }/>
+            return <Chip label={ <strong>{ CRUD_ACTIONS.UPDATE }</strong> } className={ classes.warning }/>
         case CRUD_ACTIONS.DELETE:
-        return <Chip label={ <strong>{ CRUD_ACTIONS.DELETE }</strong> } className={ classes.error }/>
+            return <Chip label={ <strong>{ CRUD_ACTIONS.DELETE }</strong> } className={ classes.error }/>
+        default: 
+            return <Chip label={ <strong>{ CRUD_ACTIONS.DELETE }</strong> } className={ classes.disabled }/>
     }
 }
 

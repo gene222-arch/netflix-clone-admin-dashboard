@@ -35,7 +35,7 @@ const ActivityLog = ({ ACTIVITY_LOG }) =>
         {
             title: 'Model',
             field: 'model_type',
-            render: ({ model_type }) => model_type.replace('App\\Models\\', '')
+            render: ({ model_type }) => model_type.replace('App\\Models\\', '').replace('Spatie\\Permission\\Models\\', '')
         },
         { 
             title: 'Type', 

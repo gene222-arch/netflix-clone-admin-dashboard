@@ -46,7 +46,7 @@ const MovieImages = ({ movie, MOVIE_ERROR_MESSAGES, MOVIE_HAS_ERROR_MESSAGES, vi
                 <Grid container spacing={ 2 }>
                     <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
                         <VideoWithPreview
-                            name='Video Preview'
+                            label='Video Preview'
                             inputID='video_preview'
                             inputName='video_preview'
                             filePreview={ videoPreview }

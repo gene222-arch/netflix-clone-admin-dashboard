@@ -57,17 +57,15 @@ const InputFields = ({ AUTH, ACCESS_RIGHT, ACCESS_RIGHT_HAS_ERROR, ACCESS_RIGHT_
                         </IconButton>
                     }
                     action={
-                        parseInt(id) !== 1 && (
-                            <Button 
-                                variant="contained" 
-                                color='primary' 
-                                onClick={ handleClickSave } 
-                                disabled={ ACCESS_RIGHT.isLoading }
-                                fullWidth
-                            >
-                                Save
-                            </Button>
-                        )
+                        <Button 
+                            variant="contained" 
+                            color='primary' 
+                            onClick={ handleClickSave } 
+                            disabled={ ACCESS_RIGHT.isLoading }
+                            fullWidth
+                        >
+                            Save
+                        </Button>
                     }
                     title={ <Typography variant="h5" color="initial">{ actionName }</Typography> }
                 />
