@@ -48,16 +48,9 @@ const AssignAccessRight = ({ ACCESS_RIGHT, USER }) =>
     const history = useHistory();
     const { id } = useParams();
 
-    const userIds = useMemo(() => 
-    {
-        const ids = ACCESS_RIGHT
-                        .accessRights
-                        .find(({ id: accessRightId }) => accessRightId === parseInt(id))
-                        .users
-                        .map(({ id }) => id);
-        
-        return ids;
-    }, []);
+    const currentAccessRight = ACCESS_RIGHT.accessRights.find(({ id: accessRightId }) => accessRightId === parseInt(id));
+
+    const userIds = useMemo(() => currentAccessRight.users.map(({ id }) => id), []);
 
     const [ isFetching, setIsFetching ] = useState(true);
     const [ toAssign, setToAssign ] = useState({ role_id: id, user_ids: userIds });
@@ -91,8 +84,13 @@ const AssignAccessRight = ({ ACCESS_RIGHT, USER }) =>
 
     const onLoadApiRequests = async () => 
     {
-        dispatch(USER_ACTION.fetchAllUsersStart());
-        await onLoadFetchAccessRightById();
+        try {
+            dispatch(USER_ACTION.fetchAllUsersStart());
+            await onLoadFetchAccessRightById();
+        } catch ({ message }) {
+            console.log(message);
+        }
+
         setIsFetching(false);
     }
 
@@ -167,37 +165,48 @@ const AssignAccessRight = ({ ACCESS_RIGHT, USER }) =>
                                 component="nav"
                                 aria-labelledby="nested-list-subheader"
                                 subheader={
-                                    <ListSubheader component="div" id="nested-list-subheader">
-                                        Users
-                                    </ListSubheader>
+                                    !USER.users
+                                        ? (
+                                            <Typography 
+                                                variant="h6" 
+                                                color="textSecondary"
+                                                align='center'
+                                            >
+                                                All user`s had already given a role
+                                            </Typography>
+                                        )
+                                        : <ListSubheader component="div" id="nested-list-subheader">Users</ListSubheader>
                                 }
                                 className={classes.root}
                             >
                                 <Grid container spacing={1}>
                                 {
-                                    USER.users.map(({ id, first_name, last_name, email }, index) => (
-                                        <Grid key={ index } item xs={ 12 } sm={ 12 } md={ 6 } lg={ 6 }>
-                                            <ListItem>
-                                                <FormControlLabel
-                                                    className={ classes.checkBoxContainer }
-                                                    control={ 
-                                                        <Checkbox 
-                                                            name='user_ids' 
-                                                            checked={ toAssign.user_ids.includes(id) } 
-                                                            onChange={ handleChange } 
-                                                            value={ id } 
-                                                        /> 
-                                                    }
-                                                    label={ 
-                                                        <ListItemText 
-                                                            primary={ `${ first_name } ${ last_name }` } 
-                                                            secondary={ email } 
-                                                        /> 
-                                                    }
-                                                />
-                                            </ListItem>
-                                        </Grid>
-                                    ))
+                                    USER.users?.map(({ id, first_name, last_name, email, roles, roles_count }, index) => 
+                                    {
+                                        return (roles[0]?.name === currentAccessRight.name || !roles_count) && (
+                                            <Grid key={ index } item xs={ 12 } sm={ 12 } md={ 6 } lg={ 6 }>
+                                                <ListItem>
+                                                    <FormControlLabel
+                                                        className={ classes.checkBoxContainer }
+                                                        control={ 
+                                                            <Checkbox 
+                                                                name='user_ids' 
+                                                                checked={ toAssign.user_ids.includes(id) } 
+                                                                onChange={ handleChange } 
+                                                                value={ id } 
+                                                            /> 
+                                                        }
+                                                        label={ 
+                                                            <ListItemText 
+                                                                primary={ `${ first_name } ${ last_name }` } 
+                                                                secondary={ email } 
+                                                            /> 
+                                                        }
+                                                    />
+                                                </ListItem>
+                                            </Grid>
+                                        )
+                                    })
                                 }
                                 </Grid>
                             </List>
