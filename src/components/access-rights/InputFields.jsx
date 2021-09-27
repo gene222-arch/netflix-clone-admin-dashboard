@@ -11,24 +11,15 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import BoxContentLoader from './../content-loader/BoxContentLoader';
 import TextContentLoader from './../content-loader/TextContentLoader';
 import { selectAuth } from './../../redux/modules/auth/selector';
-
-const inputFieldUseStyles = makeStyles(theme => ({
-    cardContent: {
-        padding: '3rem'
-    },
-    checkBoxContainer: {
-        width: '100%',
-        margin: '0.5rem 0'
-    },
-    progress: {
-        margin: '.69rem .69rem'
-    }
-}));
+import PermissionCheckBox from './PermissionCheckBox';
+import inputFieldUseStyles from './../../assets/js/material-ui/accessRightInputFields';
+import { useParams } from 'react-router';
 
 const InputFields = ({ AUTH, ACCESS_RIGHT, ACCESS_RIGHT_HAS_ERROR, ACCESS_RIGHT_ERROR, isFetching = false, actionName, accessRight, setAccessRight, handleClickSave, handleClickCancel }) => 
 {
     const classes = inputFieldUseStyles();
     const dispatch = useDispatch();
+    const { id } = useParams();
 
     const handleChange = (e) => 
     {
@@ -66,15 +57,17 @@ const InputFields = ({ AUTH, ACCESS_RIGHT, ACCESS_RIGHT_HAS_ERROR, ACCESS_RIGHT_
                         </IconButton>
                     }
                     action={
-                        <Button 
-                            variant="contained" 
-                            color='primary' 
-                            onClick={ handleClickSave } 
-                            disabled={ ACCESS_RIGHT.isLoading }
-                            fullWidth
-                        >
-                            Save
-                        </Button>
+                        parseInt(id) !== 1 && (
+                            <Button 
+                                variant="contained" 
+                                color='primary' 
+                                onClick={ handleClickSave } 
+                                disabled={ ACCESS_RIGHT.isLoading }
+                                fullWidth
+                            >
+                                Save
+                            </Button>
+                        )
                     }
                     title={ <Typography variant="h5" color="initial">{ actionName }</Typography> }
                 />
@@ -104,38 +97,12 @@ const InputFields = ({ AUTH, ACCESS_RIGHT, ACCESS_RIGHT_HAS_ERROR, ACCESS_RIGHT_
                             <Card>
                                 <CardHeader title="Permissions" />
                                 <CardContent className={ classes.cardContent }>
-                                    {
-                                        ACCESS_RIGHT.permissions.map(({ id, name, description }, index) => (
-                                            <Grid key={ index } container spacing={1} alignItems='center'>
-                                                <Grid item xs={ 12 } sm={ 12 } md={ 4 } lg={ 4 }>
-                                                    <FormControlLabel
-                                                        className={ classes.checkBoxContainer }
-                                                        control={ 
-                                                            isFetching
-                                                                ? <CircularProgress color="secondary" size={ 20 } className={ classes.progress } />
-                                                                : (
-                                                                    <Checkbox 
-                                                                        name='permission' 
-                                                                        checked={ accessRight.permissions.includes(id) || name === 'View Dashboard' } 
-                                                                        onChange={ handleChange } 
-                                                                        value={ id } 
-                                                                        disabled={ 
-                                                                            actionName === 'Create Access Right'
-                                                                                ?  name === 'View Dashboard'
-                                                                                : AUTH.role === 'Super Administrator' || AUTH.user.id === 1
-                                                                        }
-                                                                    /> 
-                                                                )
-                                                        }
-                                                        label={ name }
-                                                    />
-                                                </Grid>
-                                                <Grid item xs={ 12 } sm={ 12 } md={ 8 } lg={ 8 }>
-                                                    <Typography variant="body1" color='textSecondary'>{ description }</Typography>
-                                                </Grid>
-                                            </Grid>
-                                        ))
-                                    }
+                                    <PermissionCheckBox 
+                                        actionName={ actionName }
+                                        permissions={ accessRight.permissions } 
+                                        isFetching={ isFetching }
+                                        handleChange={ handleChange }
+                                    />
                                 </CardContent>
                             </Card>
                         </Grid>
