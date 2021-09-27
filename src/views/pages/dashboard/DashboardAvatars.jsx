@@ -12,6 +12,7 @@ import { selectDashboard } from './../../../redux/modules/dashboard/selector';
 import { connect } from 'react-redux';
 import BoxContentLoader from './../../../components/content-loader/BoxContentLoader';
 import Subscriptions from '@material-ui/icons/Subscriptions';
+import CheckIcon from '@material-ui/icons/Check';
 
 const DashboardAvatars = ({ DASHBOARD, generalAnalytics }) => 
 {
@@ -39,7 +40,7 @@ const DashboardAvatars = ({ DASHBOARD, generalAnalytics }) =>
                 <AvatarWithLabel 
                     label='Users' 
                     Icon={ GroupIcon }
-                    counter={ generalAnalytics?.total_number_of_users } 
+                    counter={ generalAnalytics.total_number_of_users } 
                     avatarStyle={{
                         backgroundColor: Colors.info
                     }}
@@ -53,7 +54,7 @@ const DashboardAvatars = ({ DASHBOARD, generalAnalytics }) =>
                 <AvatarWithLabel 
                     label='Movies' 
                     Icon={ MovieIcon }
-                    counter={ generalAnalytics?.total_number_of_movies } 
+                    counter={ generalAnalytics.total_number_of_movies } 
                     avatarStyle={{
                         backgroundColor: Colors.tomato
                     }}
@@ -67,7 +68,7 @@ const DashboardAvatars = ({ DASHBOARD, generalAnalytics }) =>
                 <AvatarWithLabel 
                     label='Coming Soon' 
                     Icon={ TimerIcon }
-                    counter={ generalAnalytics?.total_number_of_coming_soon_movies } 
+                    counter={ generalAnalytics.total_number_of_coming_soon_movies } 
                     avatarStyle={{
                         backgroundColor: Colors.warning
                     }}
@@ -81,9 +82,23 @@ const DashboardAvatars = ({ DASHBOARD, generalAnalytics }) =>
                 <AvatarWithLabel 
                     label='Subscribers' 
                     Icon={ Subscriptions }
-                    counter={ generalAnalytics?.total_number_of_subscribers } 
+                    counter={ generalAnalytics.total_number_of_subscribers } 
                     avatarStyle={{
                         backgroundColor: Colors.netflixRed
+                    }}
+                    counterStyle={{
+                        backgroundColor: Colors.darkMode
+                    }}
+                    onClick={ () => 1 }
+                />
+            </Grid>
+            <Grid item xs={ 12 } sm={ 4 } md={ 4 } lg={ 4 }>
+                <AvatarWithLabel 
+                    label='Active Subscribers' 
+                    Icon={ CheckIcon }
+                    counter={ generalAnalytics.total_active_subscribers } 
+                    avatarStyle={{
+                        backgroundColor: Colors.success
                     }}
                     counterStyle={{
                         backgroundColor: Colors.darkMode

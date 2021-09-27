@@ -9,6 +9,7 @@ import StarsRoundedIcon from '@material-ui/icons/StarsRounded';
 import ThumbUpRoundedIcon from '@material-ui/icons/ThumbUpRounded';
 import DashboardAvatars from './DashboardAvatars';
 import DashboardTopFiveMovies from './../../../components/DashboardTopFiveMovies';
+import MonthlySubscriber from './charts/MonthlySubscriber';
 
 
 const Dashboard = ({ DASHBOARD_DATA }) => 
@@ -21,7 +22,7 @@ const Dashboard = ({ DASHBOARD_DATA }) =>
 
     return (
         <Container maxWidth="lg">
-            <Grid container spacing={5}>
+            <Grid container spacing={ 10 }>
                 <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
                     <DashboardAvatars  generalAnalytics={ DASHBOARD_DATA?.general_analytics }/>
                 </Grid>
@@ -38,6 +39,9 @@ const Dashboard = ({ DASHBOARD_DATA }) =>
                         listHeaderTitle='Top 5 Most Liked Movies' 
                         HeaderIcon={ ThumbUpRoundedIcon }
                     />
+                </Grid>
+                <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
+                    <MonthlySubscriber />
                 </Grid>
             </Grid>
         </Container>

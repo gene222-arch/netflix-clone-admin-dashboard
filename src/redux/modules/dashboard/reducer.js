@@ -1,3 +1,4 @@
+
 import ACTION_TYPES from './action.types'
 
 const {
@@ -6,9 +7,23 @@ const {
     FETCH_DASHBOARD_DATA_FAILED,
 } = ACTION_TYPES;
 
+const DEFAULT_DASHBOARD_DATA = 
+{
+    monthly_subscribers_per_year: [],
+    general_analytics: {
+        total_number_of_users: '',
+        total_active_subscribers: '',
+        total_number_of_subscribers: '',
+        total_number_of_movies: '',
+        total_number_of_coming_soon_movies: ''
+    },
+    top_five_most_rated_movies: [],
+    top_five_most_liked_movies: [],
+};
+
 
 const initialState = {
-    dashboardData: null,
+    dashboardData: DEFAULT_DASHBOARD_DATA,
     isLoading: false,
     hasLoaded: false,
     error: null
