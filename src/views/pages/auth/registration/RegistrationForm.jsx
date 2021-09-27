@@ -43,10 +43,13 @@ const RegistrationForm = ({ AUTH, AUTH_ERROR_MESSAGES, AUTH_HAS_ERROR_MESSAGES }
     const classes = registrationFormUseStlyes();
     const { state } = useLocation();
 
-    const [ credentials, setCredentials ] = useState({ 
+    const credentialsDefaultValue = { 
         ...CREDENTIALS_PROPS, 
-        ...state
-    });
+        ...state,
+        role: 'Subscriber'
+    };
+
+    const [ credentials, setCredentials ] = useState(credentialsDefaultValue);
 
     const handleChangeCredentials = (e) => setCredentials({...credentials, [e.target.name]: e.target.value});
 
