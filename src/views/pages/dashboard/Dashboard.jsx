@@ -10,6 +10,7 @@ import ThumbUpRoundedIcon from '@material-ui/icons/ThumbUpRounded';
 import DashboardAvatars from './DashboardAvatars';
 import DashboardTopFiveMovies from './../../../components/DashboardTopFiveMovies';
 import MonthlySubscriber from './charts/MonthlySubscriber';
+import MonthlyActiveSubscriber from './charts/MonthlyActiveSubscriber';
 
 
 const Dashboard = ({ DASHBOARD_DATA }) => 
@@ -28,6 +29,9 @@ const Dashboard = ({ DASHBOARD_DATA }) =>
                 </Grid>
                 <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
                     <MonthlySubscriber />
+                </Grid>
+                <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
+                    <MonthlyActiveSubscriber />
                 </Grid>
                 <Grid item xs={ 12 } sm={ 12 } md={ 6 } lg={ 6 }>
                     <DashboardTopFiveMovies 

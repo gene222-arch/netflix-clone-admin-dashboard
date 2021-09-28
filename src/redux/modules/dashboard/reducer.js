@@ -10,6 +10,7 @@ const {
 const DEFAULT_DASHBOARD_DATA = 
 {
     monthly_subscribers_per_year: [],
+    monthly_active_subscribers: [],
     general_analytics: {
         total_number_of_users: '',
         total_active_subscribers: '',
