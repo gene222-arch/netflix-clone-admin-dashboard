@@ -126,7 +126,7 @@ const MonthlySubscriber = ({ DASHBOARD }) =>
     const onLoadMapSubscribers = () => 
     {
         const sortedSubscribers = DASHBOARD
-            .monthly_subscriber_per_year
+            .monthly_subscribers_per_year
             .map(val => parseInt(val))
             .sort((a, b) => b - a);
 
@@ -134,7 +134,7 @@ const MonthlySubscriber = ({ DASHBOARD }) =>
         const leastActiveCount = sortedSubscribers[sortedSubscribers.length - 1];
 
         const activeSubscribers = DASHBOARD
-            .monthly_subscriber_per_year
+            .monthly_subscribers_per_year
             .map(val => 
             {
                 val = parseInt(val);
@@ -167,6 +167,7 @@ const MonthlySubscriber = ({ DASHBOARD }) =>
 
     useEffect(() => {
         window.addEventListener('resize', () => setChartKey(isoStringData));
+        onLoadMapSubscribers();
 
         return () => {
             setChartKey(isoStringData);
