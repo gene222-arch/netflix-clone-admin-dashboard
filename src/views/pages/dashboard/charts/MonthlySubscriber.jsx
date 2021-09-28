@@ -5,6 +5,7 @@ import ReactHighcharts from 'highcharts-react-official'
 import { createStructuredSelector } from 'reselect';
 import { selectDashboardData } from './../../../../redux/modules/dashboard/selector';
 import { connect } from 'react-redux';
+import Colors from './../../../../constants/Colors';
 
 HighchartsExporting(Highcharts);
 
@@ -116,7 +117,7 @@ const MonthlySubscriber = ({ DASHBOARD }) =>
             {
                 name: 'Subscribers',
                 data: DASHBOARD.monthly_subscribers_per_year.map(val => parseInt(val)),
-                color: '#2196f3'
+                color: Colors.warningMain
             }
         ]
     };
