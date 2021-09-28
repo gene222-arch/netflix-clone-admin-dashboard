@@ -26,6 +26,9 @@ const Dashboard = ({ DASHBOARD_DATA }) =>
                 <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
                     <DashboardAvatars  generalAnalytics={ DASHBOARD_DATA?.general_analytics }/>
                 </Grid>
+                <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
+                    <MonthlySubscriber />
+                </Grid>
                 <Grid item xs={ 12 } sm={ 12 } md={ 6 } lg={ 6 }>
                     <DashboardTopFiveMovies 
                         movies={ DASHBOARD_DATA?.top_five_most_rated_movies } 
@@ -39,9 +42,6 @@ const Dashboard = ({ DASHBOARD_DATA }) =>
                         listHeaderTitle='Top 5 Most Liked Movies' 
                         HeaderIcon={ ThumbUpRoundedIcon }
                     />
-                </Grid>
-                <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
-                    <MonthlySubscriber />
                 </Grid>
             </Grid>
         </Container>
