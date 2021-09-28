@@ -92,7 +92,7 @@ const DashboardTopFiveMovies = ({ DASHBOARD, movies = [], HeaderIcon, listHeader
 			>
 				<ListItem button>
 					<ListItemIcon>Title</ListItemIcon>
-					<ListItemSecondaryAction>Count</ListItemSecondaryAction>
+					<ListItemSecondaryAction>Votes</ListItemSecondaryAction>
 				</ListItem>
                 {
 					movies.map(({ id, title, count }, index) => (

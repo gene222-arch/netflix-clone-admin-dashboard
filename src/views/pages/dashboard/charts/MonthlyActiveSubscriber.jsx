@@ -13,6 +13,7 @@ const isoStringData = (new Date()).toISOString();
 
 const MonthlyActiveSubscriber = ({ DASHBOARD }) => 
 {
+    const [ monthlyActiveSubscribers, setMonthlyActiveSubscribers ] = useState([]);
     const [ chartKey, setChartKey ] = useState(isoStringData);
 
     const options = 
@@ -116,17 +117,62 @@ const MonthlyActiveSubscriber = ({ DASHBOARD }) =>
         series: [
             {
                 name: 'Subscribers',
-                data: DASHBOARD.monthly_active_subscribers.map(val => parseInt(val)),
+                data: monthlyActiveSubscribers,
                 color: Colors.success
             }
         ]
     };
 
+    const onLoadMapActiveSubscribers = () => 
+    {
+        const sortedSubscribers = DASHBOARD
+            .monthly_active_subscribers
+            .map(val => parseInt(val))
+            .sort((a, b) => b - a);
+
+        const mostActiveCount = sortedSubscribers[0];
+        const leastActiveCount = sortedSubscribers[sortedSubscribers.length - 1];
+
+        const activeSubscribers = DASHBOARD
+            .monthly_active_subscribers
+            .map(val => 
+            {
+                val = parseInt(val);
+
+                if (val === parseInt(mostActiveCount)) 
+                {
+                    return { 
+                        y: val,
+                        marker: {
+                            symbol: 'url(https://www.highcharts.com/samples/graphics/sun.png)'
+                        }
+                    }
+                }
+
+                if (val === parseInt(leastActiveCount)) 
+                {
+                    return { 
+                        y: val,
+                        marker: {
+                            symbol: 'url(https://www.highcharts.com/samples/graphics/sun.png)'
+                        }
+                    }
+                }
+
+                return val;
+            });
+
+            setMonthlyActiveSubscribers(activeSubscribers);
+    }
+
     useEffect(() => {
         window.addEventListener('resize', () => setChartKey(isoStringData));
 
+        onLoadMapActiveSubscribers();
+
         return () => {
             setChartKey(isoStringData);
+            setMonthlyActiveSubscribers([]);
         }
     }, []);
 
