@@ -112,13 +112,13 @@ const ContinueProfileLock = ({ profile, AUTH, AUTH_HAS_ERROR_MESSAGE, AUTH_ERROR
                         }
                         label={ 
                             <Typography variant="caption" color="textSecondary">
-                                { `Required a PIN to access ${ profile.name }'s profile.` }
+                                { `Require a PIN to access ${ profile.name }'s profile.` }
                             </Typography>
                         }
                     />
                 </Grid>
                 {
-                    isRequired && (
+                    Boolean(isRequired) && (
                         <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
                             <Grid container spacing={1}>
                                 <Grid item xs={ 2 } sm={ 1 } md={ 1 } lg={ 1 }>
