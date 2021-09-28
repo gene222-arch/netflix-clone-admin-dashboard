@@ -13,6 +13,7 @@ const isoStringData = (new Date()).toISOString();
 
 const MonthlySubscriber = ({ DASHBOARD }) => 
 {
+    const [ monthlySubscriber, setMonthlySubscriber ] = useState([]);
     const [ chartKey, setChartKey ] = useState(isoStringData);
 
     const options = 
@@ -116,17 +117,60 @@ const MonthlySubscriber = ({ DASHBOARD }) =>
         series: [
             {
                 name: 'Subscribers',
-                data: DASHBOARD.monthly_subscribers_per_year.map(val => parseInt(val)),
+                data: monthlySubscriber,
                 color: Colors.warningMain
             }
         ]
     };
+
+    const onLoadMapSubscribers = () => 
+    {
+        const sortedSubscribers = DASHBOARD
+            .monthly_subscriber_per_year
+            .map(val => parseInt(val))
+            .sort((a, b) => b - a);
+
+        const mostActiveCount = sortedSubscribers[0];
+        const leastActiveCount = sortedSubscribers[sortedSubscribers.length - 1];
+
+        const activeSubscribers = DASHBOARD
+            .monthly_subscriber_per_year
+            .map(val => 
+            {
+                val = parseInt(val);
+
+                if (val === parseInt(mostActiveCount)) 
+                {
+                    return { 
+                        y: val,
+                        marker: {
+                            symbol: 'url(https://www.highcharts.com/samples/graphics/sun.png)'
+                        }
+                    }
+                }
+
+                if (val === parseInt(leastActiveCount)) 
+                {
+                    return { 
+                        y: val,
+                        marker: {
+                            symbol: 'url(https://www.highcharts.com/samples/graphics/sun.png)'
+                        }
+                    }
+                }
+
+                return val;
+            });
+
+            setMonthlySubscriber(activeSubscribers);
+    }
 
     useEffect(() => {
         window.addEventListener('resize', () => setChartKey(isoStringData));
 
         return () => {
             setChartKey(isoStringData);
+            setMonthlySubscriber([]);
         }
     }, []);
 
