@@ -173,7 +173,7 @@ const MonthlySubscriber = ({ DASHBOARD }) =>
             setChartKey(isoStringData);
             setMonthlySubscriber([]);
         }
-    }, []);
+    }, [DASHBOARD]);
 
     return (
         <ReactHighcharts 
