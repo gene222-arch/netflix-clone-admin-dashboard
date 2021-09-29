@@ -39,9 +39,17 @@ const InputFields = ({ data, setData, isAvatarUploading, avatarPreview, uploadEr
             : setData({ ...data, enabled: checked });
     }
 
-    const handleChangeBirthDate = (date) => setData({ ...data, date_of_birth: format(date, 'yyyy-MM-dd') });
+    const handleChangeBirthDate = (date, value) => {
+        !value 
+            ? setData({ ...data, date_of_birth: format(date, 'yyyy-MM-dd') })
+            : setData({ ...data, date_of_birth: value });
+    }
 
-    const handleChangeDateOfDeath = (date) => setData({ ...data, date_of_death: format(date, 'yyyy-MM-dd') });
+    const handleChangeDateOfDeath = (date, value) => {
+        !value 
+            ? setData({ ...data, date_of_death: format(date, 'yyyy-MM-dd') })
+            : setData({ ...data, date_of_death: value });
+    }
     
     return (
         <Container maxWidth='lg'>
@@ -147,6 +155,7 @@ const InputFields = ({ data, setData, isAvatarUploading, avatarPreview, uploadEr
                             <KeyboardDatePicker
                                 id='date-of-birth'
                                 label='Date of Birth'
+                                placeholder='YYYY-MM-DD'
                                 variant='inline'
                                 inputVariant='filled'
                                 fullWidth
@@ -157,6 +166,7 @@ const InputFields = ({ data, setData, isAvatarUploading, avatarPreview, uploadEr
                                 KeyboardButtonProps={{
                                     'aria-label': 'change date',
                                 }}
+                                disableFuture={ true }
                                 error={ errors.date_of_birth }
                                 helperText={ errorMessages?.date_of_birth }
                                 value={ data.date_of_birth }
@@ -206,6 +216,7 @@ const InputFields = ({ data, setData, isAvatarUploading, avatarPreview, uploadEr
                                 KeyboardButtonProps={{
                                     'aria-label': 'change date',
                                 }}
+                                disableFuture={ true }
                                 error={ errors.date_of_death }
                                 helperText={ errorMessages?.date_of_death }
                                 value={ data.date_of_death }
