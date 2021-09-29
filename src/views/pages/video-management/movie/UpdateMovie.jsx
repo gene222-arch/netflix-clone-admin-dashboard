@@ -72,7 +72,7 @@ const UpdateMovie = ({ MOVIE, AUTHOR_NAMES, CAST_NAMES, DIRECTOR_NAMES, GENRE_NA
         }
         else
         {
-            const { authors, casts, directors, genres, language, country } = selectedMovie;
+            const { authors, casts, directors, genres, language, country, similar_movies } = selectedMovie;
 
             const movie_ = {
                 ...selectedMovie,
@@ -81,12 +81,14 @@ const UpdateMovie = ({ MOVIE, AUTHOR_NAMES, CAST_NAMES, DIRECTOR_NAMES, GENRE_NA
                 country: { value: country, label: country },
                 authors: getOptionsFromString(authors, AUTHOR_NAMES),
                 casts: getOptionsFromString(casts, CAST_NAMES),
-                directors:getOptionsFromString(directors, DIRECTOR_NAMES),
-                genres: getOptionsFromString(genres, GENRE_NAMES)
+                directors: getOptionsFromString(directors, DIRECTOR_NAMES),
+                genres: getOptionsFromString(genres, GENRE_NAMES),
+                similar_movies: similar_movies.map(({ movie_id, movie }) => ({ value: movie_id, label: movie.title }))
             }
 
             setMovie(movie_);
         }
+
         setIsLoading(false);
     }
 

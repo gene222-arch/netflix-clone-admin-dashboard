@@ -103,14 +103,16 @@ const MovieInfoFields = ({
                                         />
                                     </Grid>
                                     <Grid item xs={ 12 } sm={ 12 } lg={ 12 } md={ 12 }>
+                                        <Typography variant="subtitle1" color="textSecondary" gutterBottom>Select Similar Movies</Typography>
                                         <StyledReactSelect 
                                             data={ MOVIE.movies.map(({ id, title }) => ({ value: id, label: title })) }
                                             value={ movie.similar_movies }
                                             isMulti
-                                            placeholder='Select Similar Movies'
+                                            placeholder='Similar Movies'
                                             onChange={ selectedOptions => handleSelectMultipleOptions(selectedOptions, 'similar_movie_ids', 'similar_movies') }
                                             error={ MOVIE_HAS_ERROR_MESSAGES.similar_movies }
                                             helperText={ MOVIE_ERROR_MESSAGES.similar_movies }
+                                            label={ 'Select Similar Movies' }
                                         />
                                     </Grid>
                                 </Grid>
