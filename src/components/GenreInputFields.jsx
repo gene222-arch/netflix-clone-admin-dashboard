@@ -20,7 +20,8 @@ const GenreInputFields = ({ GENRE, GENRE_ERROR_MESSAGE, GENRE_HAS_ERROR_MESSAGE,
     const dispatch = useDispatch();
     const history = useHistory();
 
-    const handleChange = (e) => {
+    const handleChange = (e) => 
+    {
         const { name, value, checked } = e.target;
 
         name !== 'enabled'
@@ -31,7 +32,13 @@ const GenreInputFields = ({ GENRE, GENRE_ERROR_MESSAGE, GENRE_HAS_ERROR_MESSAGE,
     const handleClickCancel = () => {
         history.push(PATH.VIDEO_MANAGEMENT_GENRE);
     }
-    
+
+    useEffect(() => {
+        return () => {
+            dispatch(GENRE_ACTION.clearGenreErrors());
+        }
+    }, []);
+
     return (
         <Container maxWidth='lg'>
             <Card>

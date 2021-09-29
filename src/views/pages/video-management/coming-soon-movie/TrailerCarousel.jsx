@@ -38,7 +38,6 @@ const TrailerCarousel = ({ COMING_SOON_MOVIE, id, trailers, handleClickEdit, han
 
     return (
         <>
-            <ConfirmationDialog />
             {
                 trailers.length > 0 && (
                     <AppBar position='static'>
