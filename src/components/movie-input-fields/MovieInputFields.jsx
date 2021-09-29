@@ -9,7 +9,7 @@ import { useDispatch, batch } from 'react-redux';
 import { Container, Grid } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 import PATH from '../../routes/path';
-import { format } from 'date-fns';
+import { format, isValid } from 'date-fns';
 import HumanResourceFields from './HumanResourceFields';
 import MovieFile from './MovieImages';
 import MovieInfoFields from './MovieInfoFields';
@@ -215,12 +215,18 @@ const MovieInputFields = ({ movie, setMovie, cardHeaderTitle, saveButtonCallback
 
     const handleChange = (e) => setMovie({ ...movie, [e.target.name]: e.target.value });
 
-    const handleChangeReleaseDate = (date) => 
+    const handleChangeReleaseDate = (date, value) => 
     {
-        const date_of_release = format(date, 'yyyy-MM-dd');
-        const year_of_release = format(date, 'yyyy');
+        if (date !== 'Invalid Date' && !value) {
+            const date_of_release = format(date, 'yyyy-MM-dd');
+            const year_of_release = format(date, 'yyyy');
 
-        setMovie({ ...movie, date_of_release, year_of_release });
+            setMovie({ ...movie, date_of_release, year_of_release });
+        }
+        
+        if (value) {
+            setMovie({ ...movie, date_of_release: value, year_of_release: value.substring(0, 4) });
+        }
     }
 
     const handleClickCancel = () => history.push(PATH.VIDEO_MANAGEMENT_MOVIES);

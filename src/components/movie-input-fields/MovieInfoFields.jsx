@@ -80,6 +80,7 @@ const MovieInfoFields = ({
                                     <Grid item xs={ 12 } sm={ 12 } lg={ 12 } xl={ 12 }>
                                         <KeyboardDatePicker
                                             id='date-of-release'
+                                            placeholder='YYYY-MM-DD'
                                             label='Date of Release'
                                             variant='inline'
                                             inputVariant='filled'
@@ -91,6 +92,7 @@ const MovieInfoFields = ({
                                             KeyboardButtonProps={{
                                                 'aria-label': 'change date',
                                             }}
+                                            disableFuture
                                             error={ MOVIE_HAS_ERROR_MESSAGES.date_of_release }
                                             helperText={ MOVIE_ERROR_MESSAGES.date_of_release }
                                             value={ movie.date_of_release}
