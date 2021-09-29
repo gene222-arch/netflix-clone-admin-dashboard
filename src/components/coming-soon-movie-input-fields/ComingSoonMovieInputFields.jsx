@@ -183,12 +183,18 @@ const ComingSoonMovieInputFields = ({ comingSoonMovie, setComingSoonMovie, cardH
             : setComingSoonMovie({ ...comingSoonMovie, [name]: comingSoonMovie[name] === 'Release' ? 'Coming Soon' : 'Release' });
     }
 
-    const handleChangeReleaseDate = (date) => 
+    const handleChangeReleaseDate = (date, value) => 
     {
-        const date_of_release = format(date, 'yyyy-MM-dd');
-        const year_of_release = format(date, 'yyyy');
+        if (date !== 'Invalid Date' && !value) {
+            const date_of_release = format(date, 'yyyy-MM-dd');
+            const year_of_release = format(date, 'yyyy');
 
-        setComingSoonMovie({ ...comingSoonMovie, date_of_release, year_of_release });
+            setComingSoonMovie({ ...comingSoonMovie, date_of_release, year_of_release });
+        }
+        
+        if (value) {
+            setComingSoonMovie({ ...comingSoonMovie, date_of_release: value, year_of_release: value.substring(0, 4) });
+        }
     }
 
     const handleClickCancel = () => history.push(PATH.VIDEO_MANAGEMENT_COMING_SOON_MOVIES);
