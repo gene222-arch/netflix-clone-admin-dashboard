@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { format } from 'date-fns';
 import { KeyboardDatePicker } from '@material-ui/pickers';
 import { Card, CardHeader, IconButton, CardActions, Typography, CardContent, TextField, Grid, Container, FormHelperText } from '@material-ui/core';
@@ -16,6 +16,7 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import SaveCancelButtons from './SaveCancelButtons';
 import ImageWithPreview from './ImageWithPreview';
 import { makeStyles } from '@material-ui/core/styles';
+import { isValidKeyboardDatePickerDate } from './../utils/date';
 
 const avatarUseStyles = makeStyles(theme => ({
     avatarImg: {
@@ -31,6 +32,9 @@ const InputFields = ({ data, setData, isAvatarUploading, avatarPreview, uploadEr
 {
     const classes = avatarUseStyles();
 
+    const [ isBirthDateValid, setIsBirthDateValid ] = useState(true);
+    const [ isDeathDateValid, setIsDeathDateValid ] = useState(true);
+
     const handleChange = (e) => {
         const { name, value, checked } = e.target;
 
@@ -39,17 +43,42 @@ const InputFields = ({ data, setData, isAvatarUploading, avatarPreview, uploadEr
             : setData({ ...data, enabled: checked });
     }
 
-    const handleChangeBirthDate = (date, value) => {
-        !value 
-            ? setData({ ...data, date_of_birth: format(date, 'yyyy-MM-dd') })
-            : setData({ ...data, date_of_birth: value });
+    const handleChangeBirthDate = (date, value) => 
+    {
+        if (date && ! value) {
+            setData({ ...data, date_of_birth: format(date, 'yyyy-MM-dd') });
+        }
+
+        if (value && isValidKeyboardDatePickerDate(value)) {
+            setIsBirthDateValid(true);
+            setData({ ...data, date_of_birth: value });
+        } 
+        else if (value) {
+            setIsBirthDateValid(false);
+        }
     }
 
-    const handleChangeDateOfDeath = (date, value) => {
-        !value 
-            ? setData({ ...data, date_of_death: format(date, 'yyyy-MM-dd') })
-            : setData({ ...data, date_of_death: value });
+    const handleChangeDateOfDeath = (date, value) => 
+    {
+        if (date && !value) {
+            setData({ ...data, date_of_death: format(date, 'yyyy-MM-dd') });
+        }
+
+        if (value && isValidKeyboardDatePickerDate(value)) {
+            setIsDeathDateValid(true);
+            setData({ ...data, date_of_death: value });
+        } 
+        else if (value) {
+            setIsDeathDateValid(false);
+        }
     }
+    
+    useEffect(() => {
+        return () => {
+            setIsBirthDateValid(true);
+            setIsDeathDateValid(true);
+        }
+    }, []);
     
     return (
         <Container maxWidth='lg'>
@@ -167,8 +196,8 @@ const InputFields = ({ data, setData, isAvatarUploading, avatarPreview, uploadEr
                                     'aria-label': 'change date',
                                 }}
                                 disableFuture={ true }
-                                error={ errors.date_of_birth }
-                                helperText={ errorMessages?.date_of_birth }
+                                error={ errors.date_of_birth || !isBirthDateValid }
+                                helperText={ errorMessages?.date_of_birth || ( !isBirthDateValid && 'Birth date is invalid' ) }
                                 value={ data.date_of_birth }
                                 onChange={ handleChangeBirthDate }
                             />
@@ -182,7 +211,7 @@ const InputFields = ({ data, setData, isAvatarUploading, avatarPreview, uploadEr
                                 fullWidth
                                 multiline
                                 error={ errors.place_of_birth }
-                                helperText={ errorMessages?.place_of_birth }
+                                helperText={ errorMessages?.place_of_birth}
                                 value={ data.place_of_birth ?? '' }
                                 onChange={ handleChange }
                             />
@@ -217,8 +246,8 @@ const InputFields = ({ data, setData, isAvatarUploading, avatarPreview, uploadEr
                                     'aria-label': 'change date',
                                 }}
                                 disableFuture={ true }
-                                error={ errors.date_of_death }
-                                helperText={ errorMessages?.date_of_death }
+                                error={ errors.date_of_death || !isDeathDateValid }
+                                helperText={ errorMessages?.date_of_death || ( !isDeathDateValid && 'Death date is invalid' ) }
                                 value={ data.date_of_death }
                                 onChange={ handleChangeDateOfDeath }
                             />
