@@ -200,7 +200,7 @@ const ComingSoonMovieInputFields = ({ comingSoonMovie, setComingSoonMovie, cardH
             setIsReleaseDateValid(false);
         }
     }
-s
+
     const handleClickCancel = () => history.push(PATH.VIDEO_MANAGEMENT_COMING_SOON_MOVIES);
 
     const handleSelectMultipleOptions = (selectedOptions, nameIDs, name) => 
