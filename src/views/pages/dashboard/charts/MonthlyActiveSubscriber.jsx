@@ -128,7 +128,8 @@ const MonthlyActiveSubscriber = ({ DASHBOARD }) =>
         const sortedSubscribers = DASHBOARD
             .monthly_active_subscribers
             .map(val => parseInt(val))
-            .sort((a, b) => b - a);
+            .sort((a, b) => b - a)
+            .filter(val => val);
 
         const mostActiveCount = sortedSubscribers[0];
         const leastActiveCount = sortedSubscribers[sortedSubscribers.length - 1];
@@ -149,7 +150,7 @@ const MonthlyActiveSubscriber = ({ DASHBOARD }) =>
                     }
                 }
 
-                if (val === parseInt(leastActiveCount)) 
+                if ((val === parseInt(leastActiveCount)) && (val && parseInt(leastActiveCount))) 
                 {
                     return { 
                         y: val,
