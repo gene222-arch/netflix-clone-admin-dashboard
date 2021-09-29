@@ -115,8 +115,8 @@ function* toggleComingSoonMovieReleaseSaga(payload)
     try {
         const { id } = payload;
         
-        yield put(toggleComingSoonMovieReleaseSuccess({ id }));
         const { message, status } = yield call(API.updateStatusAsync, payload);
+        yield put(toggleComingSoonMovieReleaseSuccess({ id }));
         
         yield put(showAlert({ status, message }));
         yield put(fetchAllComingSoonMoviesStart());

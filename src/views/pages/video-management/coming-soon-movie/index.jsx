@@ -6,7 +6,7 @@ import { createStructuredSelector } from 'reselect';
 
 /** Actions */
 import * as COMING_SOON_MOVIE_ACTION from './../../../../redux/modules/coming-soon-movie/actions'; 
-import { selectComingSoonMovie } from './../../../../redux/modules/coming-soon-movie/selector';
+import { selectComingSoonMovie, selectComingSoonMovieHasErrorMessages } from './../../../../redux/modules/coming-soon-movie/selector';
 import StyledNavLink from '../../../../components/styled-components/StyledNavLink';
 import PATH from '../../../../routes/path';
 import MaterialTable from '../../../../components/styled-components/MaterialTable';
@@ -25,7 +25,7 @@ const DATA_PROPS = {
     status: ''
 };
 
-const ComingSoonMovie = ({ COMING_SOON_MOVIE }) => 
+const ComingSoonMovie = ({ COMING_SOON_MOVIE, COMING_SOON_MOVIE_HAS_ERRORS }) => 
 {
     const classes = comingSoonMovieUseStyles();
     const dispatch = useDispatch();
@@ -130,7 +130,9 @@ const ComingSoonMovie = ({ COMING_SOON_MOVIE }) =>
     }, []);
 
     useEffect(() => {
-        setOpen(false);
+        if (! Object.values(COMING_SOON_MOVIE_HAS_ERRORS).filter(boolVal => boolVal).length) {
+            setOpen(false);
+        }
     }, [COMING_SOON_MOVIE.isLoading])
 
     return (
@@ -163,7 +165,8 @@ const ComingSoonMovie = ({ COMING_SOON_MOVIE }) =>
 }
 
 const mapStateToProps = createStructuredSelector({
-    COMING_SOON_MOVIE: selectComingSoonMovie
+    COMING_SOON_MOVIE: selectComingSoonMovie,
+    COMING_SOON_MOVIE_HAS_ERRORS: selectComingSoonMovieHasErrorMessages
 });
 
 export default connect(mapStateToProps)(ComingSoonMovie)

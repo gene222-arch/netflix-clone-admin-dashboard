@@ -187,7 +187,7 @@ export default (state = initialState, { type, payload }) =>
                 trailerError
             }
         
-        case UPDATE_TRAILER_START: 
+        case UPDATE_TRAILER_SUCCESS: 
             return {
                 ...state,
                 isLoading,
