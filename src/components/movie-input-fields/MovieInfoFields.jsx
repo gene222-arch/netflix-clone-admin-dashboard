@@ -24,7 +24,8 @@ const MovieInfoFields = ({
     handleChange, 
     handleChangeVideoFile, 
     handleChangeReleaseDate, 
-    handleSelectSingleOption 
+    handleSelectSingleOption,
+    isReleaseDateValid
 }) => {
     
     const history = useHistory();
@@ -93,8 +94,8 @@ const MovieInfoFields = ({
                                                 'aria-label': 'change date',
                                             }}
                                             disableFuture
-                                            error={ MOVIE_HAS_ERROR_MESSAGES.date_of_release }
-                                            helperText={ MOVIE_ERROR_MESSAGES.date_of_release }
+                                            error={ MOVIE_HAS_ERROR_MESSAGES.date_of_release || !isReleaseDateValid}
+                                            helperText={ MOVIE_ERROR_MESSAGES.date_of_release || (!isReleaseDateValid && 'Release date is invalid') }
                                             value={ movie.date_of_release}
                                             onChange={ handleChangeReleaseDate }
                                         />

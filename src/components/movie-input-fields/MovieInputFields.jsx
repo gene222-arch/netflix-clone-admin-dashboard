@@ -14,6 +14,7 @@ import HumanResourceFields from './HumanResourceFields';
 import MovieFile from './MovieImages';
 import MovieInfoFields from './MovieInfoFields';
 import { getFilePreview } from './../../utils/file';
+import { isValidKeyboardDatePickerDate } from './../../utils/date';
 
 
 const DEFAULT_FILE_PREVIEW_PROPS = {
@@ -35,6 +36,7 @@ const MovieInputFields = ({ movie, setMovie, cardHeaderTitle, saveButtonCallback
     const history = useHistory();
 
     const [ filePreviews, setFilePreviews ] = useState(DEFAULT_FILE_PREVIEW_PROPS);
+    const [ isReleaseDateValid, setIsReleaseDateValid ] = useState(true);
 
     const handleChangeVideoFile = async (e) => 
     {
@@ -217,15 +219,20 @@ const MovieInputFields = ({ movie, setMovie, cardHeaderTitle, saveButtonCallback
 
     const handleChangeReleaseDate = (date, value) => 
     {
-        if (date !== 'Invalid Date' && !value) {
+        if (date && !value) 
+        {
             const date_of_release = format(date, 'yyyy-MM-dd');
             const year_of_release = format(date, 'yyyy');
 
             setMovie({ ...movie, date_of_release, year_of_release });
         }
         
-        if (value) {
+        if (value && isValidKeyboardDatePickerDate(value)) {
+            setIsReleaseDateValid(true);
             setMovie({ ...movie, date_of_release: value, year_of_release: value.substring(0, 4) });
+        } 
+        else if (value) {
+            setIsReleaseDateValid(false);
         }
     }
 
@@ -250,6 +257,7 @@ const MovieInputFields = ({ movie, setMovie, cardHeaderTitle, saveButtonCallback
 
         return () => {
             setFilePreviews(DEFAULT_FILE_PREVIEW_PROPS);
+            setIsReleaseDateValid(true);
             dispatch(MOVIE_ACTION.clearMovieErrors());
         }
     }, []);
@@ -268,6 +276,7 @@ const MovieInputFields = ({ movie, setMovie, cardHeaderTitle, saveButtonCallback
                         isUploading={ filePreviews.isVideoUploading }
                         handleChangeReleaseDate={ handleChangeReleaseDate }
                         handleSelectSingleOption={ handleSelectSingleOption }
+                        isReleaseDateValid={ isReleaseDateValid }
                     />
                 </Grid>
 
