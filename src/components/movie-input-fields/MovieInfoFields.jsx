@@ -8,7 +8,7 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import VideoWithPreview from './../VideoWithPreview';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { createStructuredSelector } from 'reselect';
-import { selectMovieErrorMessages } from '../../redux/modules/movie/selector';
+import { selectMovieErrorMessages, selectMovie } from '../../redux/modules/movie/selector';
 import { selectMovieHasErrorMessages } from './../../redux/modules/movie/selector';
 import { connect } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
@@ -16,6 +16,7 @@ import CardBackButton from './../CardBackButton';
 
 
 const MovieInfoFields = ({
+    MOVIE,
     movie, 
     MOVIE_ERROR_MESSAGES,
     MOVIE_HAS_ERROR_MESSAGES,
@@ -25,6 +26,7 @@ const MovieInfoFields = ({
     handleChangeVideoFile, 
     handleChangeReleaseDate, 
     handleSelectSingleOption,
+    handleSelectMultipleOptions,
     isReleaseDateValid
 }) => {
     
@@ -100,6 +102,17 @@ const MovieInfoFields = ({
                                             onChange={ handleChangeReleaseDate }
                                         />
                                     </Grid>
+                                    <Grid item xs={ 12 } sm={ 12 } lg={ 12 } md={ 12 }>
+                                        <StyledReactSelect 
+                                            data={ MOVIE.movies.map(({ id, title }) => ({ value: id, label: title })) }
+                                            value={ movie.similar_movies }
+                                            isMulti
+                                            placeholder='Select Similar Movies'
+                                            onChange={ selectedOptions => handleSelectMultipleOptions(selectedOptions, 'similar_movie_ids', 'similar_movies') }
+                                            error={ MOVIE_HAS_ERROR_MESSAGES.similar_movies }
+                                            helperText={ MOVIE_ERROR_MESSAGES.similar_movies }
+                                        />
+                                    </Grid>
                                 </Grid>
                             </Grid>
                             <Grid item xs={ 12 } sm={ 12 } lg={ 7 } md={ 7 }>
@@ -172,6 +185,7 @@ const MovieInfoFields = ({
 }
 
 const mapStateToProps = createStructuredSelector({
+    MOVIE: selectMovie,
     MOVIE_ERROR_MESSAGES: selectMovieErrorMessages,
     MOVIE_HAS_ERROR_MESSAGES: selectMovieHasErrorMessages
 });

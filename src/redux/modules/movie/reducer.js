@@ -43,7 +43,9 @@ const MOVIE_DEFAULT_PROPS = {
     wallpaper_path: '',
     video_path: '',
     title_logo_path: '',
-    video_size_in_mb: ''
+    video_size_in_mb: '',
+    similar_movie_ids: [],
+    similar_movies: ''
 };
 
 const initialState = {

@@ -276,6 +276,7 @@ const MovieInputFields = ({ movie, setMovie, cardHeaderTitle, saveButtonCallback
                         isUploading={ filePreviews.isVideoUploading }
                         handleChangeReleaseDate={ handleChangeReleaseDate }
                         handleSelectSingleOption={ handleSelectSingleOption }
+                        handleSelectMultipleOptions={ handleSelectMultipleOptions }
                         isReleaseDateValid={ isReleaseDateValid }
                     />
                 </Grid>

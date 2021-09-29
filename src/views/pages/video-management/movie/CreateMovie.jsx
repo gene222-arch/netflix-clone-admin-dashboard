@@ -12,22 +12,23 @@ const CreateMovie = ({ MOVIE }) =>
 
     const [ movie, setMovie ] = useState(MOVIE.movie)
 
-    const handleClickCreateMovie = () => {
+    const handleClickCreateMovie = () => 
+    {
+        console.log(movie);
+        // const movieOrigData = movie;
+        // const { authors, casts, directors, genres, country, language, ...rest } = movie;
 
-        const movieOrigData = movie;
-        const { authors, casts, directors, genres, country, language, ...rest } = movie;
+        // const movie_ = {
+        //     ...movieOrigData, 
+        //     country: country.value,
+        //     language: language.value,
+        //     authors: concatSelectedOptions(authors),
+        //     casts: concatSelectedOptions(casts),
+        //     directors: concatSelectedOptions(directors),
+        //     genres: concatSelectedOptions(genres)
+        // }
 
-        const movie_ = {
-            ...movieOrigData, 
-            country: country.value,
-            language: language.value,
-            authors: concatSelectedOptions(authors),
-            casts: concatSelectedOptions(casts),
-            directors: concatSelectedOptions(directors),
-            genres: concatSelectedOptions(genres)
-        }
-
-        dispatch(MOVIE_ACTION.createMovieStart(movie_));
+        // dispatch(MOVIE_ACTION.createMovieStart(movie_));
     }
 
     const concatSelectedOptions = (data) => !data ? '' : data.map(({ label }) => label).join(', ');
