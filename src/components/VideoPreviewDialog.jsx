@@ -136,7 +136,7 @@ const VideoPreviewDialog = ({ COMING_SOON_MOVIE, open, setOpen, data, setData, o
                         variant="contained" 
                         className={ classes.saveBtn } 
                         onClick={ onSave }
-                        disabled={ COMING_SOON_MOVIE.isLoading }
+                        disabled={ COMING_SOON_MOVIE.isLoading || !data.video_path || !data.duration_in_minutes }
                     >
                         Save
                     </Button>
@@ -144,7 +144,7 @@ const VideoPreviewDialog = ({ COMING_SOON_MOVIE, open, setOpen, data, setData, o
                         variant="outlined" 
                         color="default" 
                         onClick={ handleClickCancel }
-                        disabled={ COMING_SOON_MOVIE.isLoading }
+                        disabled={ COMING_SOON_MOVIE.isLoading || !data.video_path || !data.duration_in_minutes}
                     >
                         Cancel
                     </Button>

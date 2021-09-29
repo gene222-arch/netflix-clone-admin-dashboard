@@ -60,7 +60,7 @@ const ComingSoonMovie = ({ COMING_SOON_MOVIE }) =>
             title: 'Status', 
             field: 'status',
             render: ({ id, status }) => (
-                <Tooltip title='Update Status'>
+                <Tooltip title={ status === 'Released' ? 'Status updated' : 'Update status' }>
                     <Chip 
                         avatar={
                             <Avatar
@@ -73,7 +73,7 @@ const ComingSoonMovie = ({ COMING_SOON_MOVIE }) =>
                             </Avatar>
                         } 
                         label={ status } 
-                        onClick={ () => handleClickRelease(id, status) } 
+                        onClick={ () => status === 'Released' ? console.log('') : handleClickRelease(id, status) } 
                     />
                 </Tooltip>
             )
@@ -112,9 +112,6 @@ const ComingSoonMovie = ({ COMING_SOON_MOVIE }) =>
 
     const handleClickUpdateStatus = () => {
         dispatch(COMING_SOON_MOVIE_ACTION.toggleComingSoonMovieReleaseStart(data));
-        if (Object.values(COMING_SOON_MOVIE.error).length <= 0) {
-            setOpen(false);
-        }
     }
 
     const handleClickCancelUpdateStatus = () => {
@@ -131,6 +128,10 @@ const ComingSoonMovie = ({ COMING_SOON_MOVIE }) =>
             setData(DATA_PROPS);
         }
     }, []);
+
+    useEffect(() => {
+        setOpen(false);
+    }, [COMING_SOON_MOVIE.isLoading])
 
     return (
         <>
