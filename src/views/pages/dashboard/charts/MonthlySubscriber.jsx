@@ -9,12 +9,9 @@ import Colors from './../../../../constants/Colors';
 
 HighchartsExporting(Highcharts);
 
-const isoStringData = (new Date()).toISOString();
-
 const MonthlySubscriber = ({ DASHBOARD }) => 
 {
     const [ monthlySubscriber, setMonthlySubscriber ] = useState([]);
-    const [ chartKey, setChartKey ] = useState(isoStringData);
 
     const options = 
     {
@@ -167,22 +164,14 @@ const MonthlySubscriber = ({ DASHBOARD }) =>
     }
 
     useEffect(() => {
-        window.addEventListener('resize', () => setChartKey(isoStringData));
         onLoadMapSubscribers();
 
         return () => {
-            setChartKey(isoStringData);
             setMonthlySubscriber([]);
         }
     }, [DASHBOARD]);
 
-    return (
-        <ReactHighcharts 
-            key={ chartKey }
-            highcharts={ Highcharts } 
-            options={ options }
-        />
-    )
+    return <ReactHighcharts highcharts={ Highcharts }  options={ options } />
 }
 
 

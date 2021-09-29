@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { connect, useDispatch } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { selectDashboardData } from './../../../redux/modules/dashboard/selector';
@@ -16,13 +16,20 @@ import MonthlyActiveSubscriber from './charts/MonthlyActiveSubscriber';
 const Dashboard = ({ DASHBOARD_DATA }) => 
 {
     const dispatch = useDispatch();
+    const [ chartKey, setChartKey ] = useState((new Date()).toISOString());
 
     useEffect(() => {
         dispatch(DASHBOARD_DATA_ACTION.fetchDashboardDataStart());
+
+        window.addEventListener('resize', () => setChartKey((new Date()).toISOString()));
+
+        return () => {
+            setChartKey((new Date()).toISOString());
+        }
     }, []);
 
     return (
-        <Container maxWidth="lg">
+        <Container maxWidth="lg" key={ chartKey }>
             <Grid container spacing={ 10 }>
                 <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
                     <DashboardAvatars  generalAnalytics={ DASHBOARD_DATA?.general_analytics }/>
