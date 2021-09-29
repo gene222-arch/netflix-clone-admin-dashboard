@@ -13,6 +13,7 @@ import { format } from 'date-fns';
 import HumanResourceFields from './HumanResourceFields';
 import MovieFile from './ComingSoonMovieImages';
 import ComingSoonMovieInfoFields from './ComingSoonMovieInfoFields';
+import { isValidKeyboardDatePickerDate } from './../../utils/date';
 
 
 const DEFAULT_FILE_PREVIEW_PROPS = {
@@ -26,14 +27,13 @@ const DEFAULT_FILE_PREVIEW_PROPS = {
     isVideoTrailerUploading:false
 };
 
-const TITLE_IS_REQUIRED_FOR_FILE_UPLOAD_MESSAGE = 'Title field is required before uploading a file';
-
 const ComingSoonMovieInputFields = ({ comingSoonMovie, setComingSoonMovie, cardHeaderTitle, saveButtonCallback }) => 
 {
     const dispatch = useDispatch();
     const history = useHistory();
 
     const [ filePreviews, setFilePreviews ] = useState(DEFAULT_FILE_PREVIEW_PROPS);
+    const [ isReleaseDateValid, setIsReleaseDateValid ] = useState(true);
 
     const handleChangeVideoTrailerFile = async (e) => 
     {
@@ -192,11 +192,15 @@ const ComingSoonMovieInputFields = ({ comingSoonMovie, setComingSoonMovie, cardH
             setComingSoonMovie({ ...comingSoonMovie, date_of_release, year_of_release });
         }
         
-        if (value) {
+        if (value && isValidKeyboardDatePickerDate(value)) {
+            setIsReleaseDateValid(true);
             setComingSoonMovie({ ...comingSoonMovie, date_of_release: value, year_of_release: value.substring(0, 4) });
+        } 
+        else if (value) {
+            setIsReleaseDateValid(false);
         }
     }
-
+s
     const handleClickCancel = () => history.push(PATH.VIDEO_MANAGEMENT_COMING_SOON_MOVIES);
 
     const handleSelectMultipleOptions = (selectedOptions, nameIDs, name) => 
@@ -218,6 +222,7 @@ const ComingSoonMovieInputFields = ({ comingSoonMovie, setComingSoonMovie, cardH
 
         return () => {
             setFilePreviews(DEFAULT_FILE_PREVIEW_PROPS);
+            setIsReleaseDateValid(false);
             dispatch(COMING_SOON_MOVIE_ACTION.clearComingSoonMovieErrors());
         }
     }, []);
