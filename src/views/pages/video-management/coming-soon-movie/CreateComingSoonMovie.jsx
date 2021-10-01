@@ -12,10 +12,10 @@ const CreateComingSoonMovie = ({ COMING_SOON_MOVIE }) =>
 
     const [ comingSoonMovie, setComingSoonMovie ] = useState(COMING_SOON_MOVIE.comingSoonMovie)
 
-    const handleClickCreateComingSoonMovie = () => {
-
+    const handleClickCreateComingSoonMovie = () => 
+    {
         const comingSoonMovieOrigData = comingSoonMovie;
-        const { authors, casts, directors, genres, country, language, ...rest } = comingSoonMovie;
+        const { authors, casts, directors, genres, country, language, similar_movies, ...rest } = comingSoonMovie;
 
         const comingSoonMovie_ = {
             ...comingSoonMovieOrigData, 

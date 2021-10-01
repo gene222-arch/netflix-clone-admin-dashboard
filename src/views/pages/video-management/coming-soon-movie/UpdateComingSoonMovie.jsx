@@ -52,7 +52,7 @@ const UpdateComingSoonMovie = ({ COMING_SOON_MOVIE, AUTHOR_NAMES, CAST_NAMES, DI
             setIsComingSoonMovieFound(false);
         }
         else {
-            const { authors, casts, directors, genres, language, country } = findMovie;
+            const { authors, casts, directors, genres, language, country, similar_movies } = findMovie;
 
             const comingSoonMovie_ = {
                 ...findMovie,
@@ -62,7 +62,8 @@ const UpdateComingSoonMovie = ({ COMING_SOON_MOVIE, AUTHOR_NAMES, CAST_NAMES, DI
                 authors: getOptionsFromString(authors, AUTHOR_NAMES),
                 casts: getOptionsFromString(casts, CAST_NAMES),
                 directors:getOptionsFromString(directors, DIRECTOR_NAMES),
-                genres: getOptionsFromString(genres, GENRE_NAMES)
+                genres: getOptionsFromString(genres, GENRE_NAMES),
+                similar_movies: similar_movies.map(({ movie_id, movie }) => ({ value: movie_id, label: movie.title }))
             }
     
             setComingSoonMovie(comingSoonMovie_);

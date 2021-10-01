@@ -241,6 +241,7 @@ const ComingSoonMovieInputFields = ({ comingSoonMovie, setComingSoonMovie, cardH
                         isUploading={ filePreviews.isVideoTrailerUploading }
                         handleChangeReleaseDate={ handleChangeReleaseDate }
                         handleSelectSingleOption={ handleSelectSingleOption }
+                        handleSelectMultipleOptions={ handleSelectMultipleOptions }
                     />
                 </Grid>
 

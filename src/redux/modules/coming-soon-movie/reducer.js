@@ -57,7 +57,9 @@ const COMING_SOON_MOVIE_DEFAULT_PROPS = {
     video_trailer_path: '',
     title_logo_path: '',
     video_size_in_mb: '',
-    status: 'Coming Soon'
+    status: 'Coming Soon',
+    similar_movie_ids: [],
+    similar_movies: ''
 };
 
 const TRAILER_DEFAULT_PROPS = {
