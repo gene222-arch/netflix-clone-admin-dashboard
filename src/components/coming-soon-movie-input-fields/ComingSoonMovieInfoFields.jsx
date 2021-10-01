@@ -18,14 +18,14 @@ import CardBackButton from './../CardBackButton';
 import { selectComingSoonMovie } from './../../redux/modules/coming-soon-movie/selector';
 
 
-const ComingSoonMovieInfoFields = ({ 
-    cardHeaderTitle, 
+const ComingSoonMovieInfoFields = ({  
     comingSoonMovie, 
     COMING_SOON_MOVIE,
     COMING_SOON_MOVIE_ERROR_MESSAGES,
     COMING_SOON_MOVIE_HAS_ERROR_MESSAGES,
     filePreview = null, 
     isUploading = false,
+    isReleaseDateValid,
     handleChange, 
     handleChangeVideoTrailerFile, 
     handleChangeReleaseDate, 
@@ -97,8 +97,8 @@ const ComingSoonMovieInfoFields = ({
                                             KeyboardButtonProps={{
                                                 'aria-label': 'change date',
                                             }}
-                                            error={ COMING_SOON_MOVIE_HAS_ERROR_MESSAGES.date_of_release }
-                                            helperText={ COMING_SOON_MOVIE_ERROR_MESSAGES.date_of_release }
+                                            error={ COMING_SOON_MOVIE_HAS_ERROR_MESSAGES.date_of_release  || !isReleaseDateValid }
+                                            helperText={ COMING_SOON_MOVIE_ERROR_MESSAGES.date_of_release  || (!isReleaseDateValid && 'Release date is invalid') }
                                             value={ comingSoonMovie.date_of_release}
                                             onChange={ handleChangeReleaseDate }
                                         />

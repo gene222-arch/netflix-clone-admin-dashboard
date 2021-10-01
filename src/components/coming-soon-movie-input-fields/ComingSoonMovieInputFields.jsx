@@ -185,7 +185,7 @@ const ComingSoonMovieInputFields = ({ comingSoonMovie, setComingSoonMovie, cardH
 
     const handleChangeReleaseDate = (date, value) => 
     {
-        if (date !== 'Invalid Date' && !value) {
+        if (date && !value) {
             const date_of_release = format(date, 'yyyy-MM-dd');
             const year_of_release = format(date, 'yyyy');
 
@@ -239,6 +239,7 @@ const ComingSoonMovieInputFields = ({ comingSoonMovie, setComingSoonMovie, cardH
                         handleChangeVideoTrailerFile={ handleChangeVideoTrailerFile }
                         filePreview={ filePreviews.video_trailer }
                         isUploading={ filePreviews.isVideoTrailerUploading }
+                        isReleaseDateValid={ isReleaseDateValid }
                         handleChangeReleaseDate={ handleChangeReleaseDate }
                         handleSelectSingleOption={ handleSelectSingleOption }
                         handleSelectMultipleOptions={ handleSelectMultipleOptions }
