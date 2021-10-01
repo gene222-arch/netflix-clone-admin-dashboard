@@ -130,7 +130,7 @@ const ComingSoonMovie = ({ COMING_SOON_MOVIE, COMING_SOON_MOVIE_HAS_ERRORS }) =>
     }, []);
 
     useEffect(() => {
-        if (! Object.values(COMING_SOON_MOVIE_HAS_ERRORS).filter(boolVal => boolVal).length) {
+        if (! (COMING_SOON_MOVIE_HAS_ERRORS.duration_in_minutes && COMING_SOON_MOVIE_HAS_ERRORS.video_path)) {
             setOpen(false);
         }
     }, [COMING_SOON_MOVIE.isLoading])
