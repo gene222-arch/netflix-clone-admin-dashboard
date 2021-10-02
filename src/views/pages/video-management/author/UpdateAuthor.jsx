@@ -72,6 +72,7 @@ const UpdateAuthor = ({ AUTHOR, match, AUTHOR_ERROR_MESSAGES, AUTHOR_HAS_ERROR_M
 
     useEffect(() => {
         onLoadFetchAuthorByID();
+        window.addEventListener('load', () => dispatch(AUTHOR_ACTION.clearAuthorErrors()));
         return () => {
             setAuthor(AUTHOR.author);
             dispatch(AUTHOR_ACTION.clearAuthorErrors());

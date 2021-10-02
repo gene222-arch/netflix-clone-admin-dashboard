@@ -73,6 +73,7 @@ const UpdateCast = ({ CAST, match, CAST_ERROR_MESSAGES, CAST_HAS_ERROR_MESSAGES 
 
 
     useEffect(() => {
+        window.addEventListener('load', () => dispatch(CAST_ACTION.clearCastErrors()));
         onLoadFetchCastByID();
         return () => {
             setCast(CAST.cast);

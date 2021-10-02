@@ -59,6 +59,7 @@ const CreateAuthor = ({ AUTHOR, AUTHOR_ERROR_MESSAGES, AUTHOR_HAS_ERROR_MESSAGES
     }
 
     useEffect(() => {
+        window.addEventListener('load', () => dispatch(AUTHOR_ACTION.clearAuthorErrors()));
         return () => {
             setAuthor(AUTHOR.author);
             dispatch(AUTHOR_ACTION.clearAuthorErrors());

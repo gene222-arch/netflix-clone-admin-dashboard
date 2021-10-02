@@ -73,6 +73,7 @@ const UpdateDirector = ({ DIRECTOR, match, DIRECTOR_ERROR_MESSAGES, DIRECTOR_HAS
     }
 
     useEffect(() => {
+        window.addEventListener('load', () => dispatch(DIRECTOR_ACTION.clearDirectorErrors()));
         onLoadFetchDirectorByID();
         return () => {
             setDirector(DIRECTOR.director);

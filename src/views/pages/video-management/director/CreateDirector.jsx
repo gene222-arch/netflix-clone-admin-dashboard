@@ -59,6 +59,7 @@ const CreateDirector = ({ DIRECTOR, DIRECTOR_ERROR_MESSAGES, DIRECTOR_HAS_ERROR_
     }
 
     useEffect(() => {
+        window.addEventListener('load', () => dispatch(DIRECTOR_ACTION.clearDirectorErrors()));
         return () => {
             setDirector(DIRECTOR.director);
             dispatch(DIRECTOR_ACTION.clearDirectorErrors());
