@@ -42,6 +42,7 @@ const MOVIE_DEFAULT_PROPS = {
     poster_path: '',
     wallpaper_path: '',
     video_path: '',
+    video_preview_path: '',
     title_logo_path: '',
     video_size_in_mb: '',
     similar_movie_ids: [],
