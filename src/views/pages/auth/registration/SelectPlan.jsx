@@ -6,10 +6,8 @@ import { Card, CardContent, CardHeader, Grid } from '@material-ui/core';
 import { makeStyles, Typography, Button } from '@material-ui/core';
 import CheckIcon from '@material-ui/icons/Check';
 import Colors from '../../../../constants/Colors';
-import * as AUTH_ACTION from './../../../../redux/modules/auth/actions'
 import { useDispatch, connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
-import { selectAuth } from './../../../../redux/modules/auth/selector';
+import PATH from './../../../../routes/path';
 
 const PLAN_TYPES = [
     {
@@ -82,13 +80,13 @@ const SelectPlan = ({ AUTH }) =>
     const { state } = useLocation();
 
     const [ cardIndex, setCardIndex ] = useState(0);
-    const [ plantType, setPlanType ] = useState('Basic');
+    const [ planType, setPlanType ] = useState('Basic');
 
     const handleClickContinue = () => {
-        dispatch(AUTH_ACTION.register({
-            ...state?.credentials,
-            plan_type: plantType
-        }));
+        history.push(PATH.REGISTER, {
+            ...state,
+            plan_type: planType
+        });
     }
 
     const handleClickCardPlan = (index, type) => {
@@ -108,7 +106,7 @@ const SelectPlan = ({ AUTH }) =>
             <Container maxWidth="md">
                 <Grid container spacing={1}>
                     <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
-                        <Typography variant="subtitle2" gutterBottom>Step 4 of 4</Typography>
+                        <Typography variant="subtitle2" gutterBottom>Step 3 of 4</Typography>
                         <Typography variant="h5" gutterBottom>Choose the plan the fits your needs</Typography>
                         {
                             MESSAGES.map((message, index) => (
@@ -174,7 +172,7 @@ const SelectPlan = ({ AUTH }) =>
                                                 variant='contained' 
                                                 color='default' 
                                                 className={ classes.continueButton }
-                                                disabled={ index !== cardIndex || AUTH.isLoading }
+                                                disabled={ index !== cardIndex }
                                                 onClick={ handleClickContinue }
                                             >
                                                 Get Started
@@ -191,8 +189,5 @@ const SelectPlan = ({ AUTH }) =>
     )
 }
 
-const mapStateToProps = createStructuredSelector({
-    AUTH: selectAuth
-});
 
-export default connect(mapStateToProps)(SelectPlan)
+export default SelectPlan

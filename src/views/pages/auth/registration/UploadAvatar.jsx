@@ -82,7 +82,7 @@ const UploadAvatar = () =>
     }
 
     const handleClickContinue = () => {
-        history.push(PATH.REGISTER, {
+        history.push(PATH.SELECT_PLAN, {
             ...state,
             avatar_path: avatarPath,
             allow_access_to_location: true

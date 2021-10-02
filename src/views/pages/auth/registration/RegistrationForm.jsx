@@ -58,9 +58,7 @@ const RegistrationForm = ({ AUTH, AUTH_ERROR_MESSAGES, AUTH_HAS_ERROR_MESSAGES }
 
     const onClickSignUp = (e) => {
         e.preventDefault();
-        history.push(PATH.SELECT_PLAN, {
-            credentials
-        });
+        dispatch(AUTH_ACTION.register(credentials));
     }
 
     useEffect(() => {
@@ -76,7 +74,7 @@ const RegistrationForm = ({ AUTH, AUTH_ERROR_MESSAGES, AUTH_HAS_ERROR_MESSAGES }
             <AuthLayoutHeader />
             <div className={classes.paper}>
                 <div className={ classes.description }>
-                    <Typography variant="subtitle2">Step 3 of 4</Typography>
+                    <Typography variant="subtitle2">Step 4 of 4</Typography>
                     <Typography component="h1" variant="h5">Joining Flicklify is Easy.</Typography>
                     <Typography variant="subtitle1" gutterBottom className={ classes.headerLabel}>
                         Enter your password and you'll be watching in no time.
@@ -168,7 +166,7 @@ const RegistrationForm = ({ AUTH, AUTH_ERROR_MESSAGES, AUTH_HAS_ERROR_MESSAGES }
                             disabled={ AUTH.isLoading }
                             onClick={ onClickSignUp }
                         >
-                            Continue
+                            Create Account
                         </Button>
                 </Grid>
                 </Grid>
