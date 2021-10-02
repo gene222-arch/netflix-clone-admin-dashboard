@@ -14,6 +14,7 @@ const PATH =
     GET_STARTED: '/auth/get-started',
     ALLOW_ACCESS_TO_LOCATION: '/auth/allow-access-to-location',
     UPLOAD_AVATAR: '/auth/avatar',
+    SELECT_PLAN: '/auth/planform',
     REGISTER: '/auth/create-an-account',
     RESET_PASSWORD: '/auth/forgot-password/reset',
     VERIFIY_EMAIL: '/auth/email/verify-email/:id/:hash',

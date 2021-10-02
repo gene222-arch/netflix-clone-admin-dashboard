@@ -21,6 +21,7 @@ const PrivateRoute = lazy(() => import('./PrivateRoute'));
 const GetStarted = lazy(() => import('../views/pages/auth/registration/GetStarted'))
 const AllowAccessToLocation = lazy(() => import('../views/pages/auth/registration/AllowAccessToLocation'))
 const UploadAvatar = lazy(() => import('../views/pages/auth/registration/UploadAvatar'))
+const SelectPlan = lazy(() => import('../views/pages/auth/registration/SelectPlan'))
 const RegistrationForm = lazy(() => import('../views/pages/auth/registration/RegistrationForm'))
 const ResetPasswordForm = lazy(() => import('../views/pages/auth/ResetPasswordForm'))
 const EmailVerifiedMessage = lazy(() => import('../views/pages/auth/EmailVerifiedMessage'))
@@ -95,6 +96,15 @@ export const PUBLIC_ROUTES = [
         icon: '',
         exact: true,
         component: UploadAvatar,
+        access: '',
+        restricted: false
+    },
+    {
+        path: PATH.SELECT_PLAN,
+        key: 'SelectPlan',
+        icon: '',
+        exact: true,
+        component: SelectPlan,
         access: '',
         restricted: false
     },
