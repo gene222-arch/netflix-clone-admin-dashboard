@@ -36,7 +36,7 @@ const EmailVerifiedMessage = () =>
             expires: QueryParam.get('expires'),
             signature: QueryParam.get('signature')
         }));
-    }, [])
+    }, []);
 
     return (
         <Container maxWidth="md">

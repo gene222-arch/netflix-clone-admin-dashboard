@@ -242,6 +242,7 @@ function* verifyEmailSaga (payload)
     try {
         yield call(verifyEmailAsync, payload);
         yield put(verifyEmailSuccess());
+        Cookies.remove('email_verification_token')
     } catch ({ message, status }) {
         yield put(resetPasswordFailed({
             errorMessages: message 
