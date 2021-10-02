@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import { format } from 'date-fns';
 import { KeyboardDatePicker } from '@material-ui/pickers';
-import { Card, CardHeader, IconButton, CardActions, Typography, CardContent, TextField, Grid, Container, FormHelperText } from '@material-ui/core';
+import { Card, CardHeader, CardActions, TextField, CardContent, Grid, Container, FormHelperText } from '@material-ui/core';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormLabel from '@material-ui/core/FormLabel';
 import FormControl from '@material-ui/core/FormControl';
-import { MoreVert as MoreVertIcon } from '@material-ui/icons'
 import Divider from '@material-ui/core/Divider';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
@@ -17,6 +16,7 @@ import SaveCancelButtons from './SaveCancelButtons';
 import ImageWithPreview from './ImageWithPreview';
 import { makeStyles } from '@material-ui/core/styles';
 import { isValidKeyboardDatePickerDate } from './../utils/date';
+import CardBackButton from './CardBackButton';
 
 const avatarUseStyles = makeStyles(theme => ({
     avatarImg: {
@@ -96,13 +96,11 @@ const InputFields = ({ data, setData, isAvatarUploading, avatarPreview, uploadEr
         <Container maxWidth='lg'>
             <Card>
                 <CardHeader
-                    action={
-                        <IconButton aria-label=''>
-                            <MoreVertIcon />
-                        </IconButton>
-                    }
                     title={
-                        <Typography variant='h5'>{ cardHeaderTitle }</Typography>
+                        <CardBackButton 
+                            actionName={ cardHeaderTitle } 
+                            title='Authors' 
+                        />
                     }
                 />
 
