@@ -7,7 +7,9 @@ import { makeStyles, Typography, Button } from '@material-ui/core';
 import CheckIcon from '@material-ui/icons/Check';
 import Colors from '../../../../constants/Colors';
 import * as AUTH_ACTION from './../../../../redux/modules/auth/actions'
-import { useDispatch } from 'react-redux';
+import { useDispatch, connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
+import { selectAuth } from './../../../../redux/modules/auth/selector';
 
 const PLAN_TYPES = [
     {
@@ -72,7 +74,7 @@ const selectPlanUseStyles = makeStyles(theme => ({
     }
 }));
 
-const SelectPlan = () => 
+const SelectPlan = ({ AUTH }) => 
 {
     const classes = selectPlanUseStyles();
     const dispatch = useDispatch();
@@ -84,7 +86,7 @@ const SelectPlan = () =>
 
     const handleClickContinue = () => {
         dispatch(AUTH_ACTION.register({
-            ...state,
+            ...state?.credentials,
             plan_type: plantType
         }));
     }
@@ -172,7 +174,7 @@ const SelectPlan = () =>
                                                 variant='contained' 
                                                 color='default' 
                                                 className={ classes.continueButton }
-                                                disabled={ index !== cardIndex }
+                                                disabled={ index !== cardIndex || AUTH.isLoading }
                                                 onClick={ handleClickContinue }
                                             >
                                                 Get Started
@@ -189,4 +191,8 @@ const SelectPlan = () =>
     )
 }
 
-export default SelectPlan
+const mapStateToProps = createStructuredSelector({
+    AUTH: selectAuth
+});
+
+export default connect(mapStateToProps)(SelectPlan)

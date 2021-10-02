@@ -71,6 +71,18 @@ const InputFields = ({ data, setData, isAvatarUploading, avatarPreview, uploadEr
         else if (value) {
             setIsDeathDateValid(false);
         }
+
+        if (!value) {
+            setIsDeathDateValid(true);
+        }
+    }
+
+    const handleClickSave = () => {
+        if (data.date_of_death && !isValidKeyboardDatePickerDate(data.date_of_death)) {
+            delete data.date_of_death
+        }
+
+        saveButtonCallback();
     }
     
     useEffect(() => {
@@ -278,7 +290,7 @@ const InputFields = ({ data, setData, isAvatarUploading, avatarPreview, uploadEr
 
                 <CardActions>
                     <SaveCancelButtons 
-                        saveButtonCallback={ saveButtonCallback }
+                        saveButtonCallback={ handleClickSave }
                         cancelButtonCallback={ cancelButtonCallback }
                         isLoading={ isLoading }
                     />
