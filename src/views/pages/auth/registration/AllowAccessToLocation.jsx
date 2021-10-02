@@ -54,7 +54,7 @@ const AllowAccessToLocation = () =>
             <Container maxWidth="md" className={ classes.subContainer }>
                 <Grid container spacing={2} alignItems='center'>
                     <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
-                        <Typography variant="subtitle2">Step 1 of 3</Typography>
+                        <Typography variant="subtitle2">Step 1 of 4</Typography>
                     </Grid>
                     <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
                         <Typography variant="h4" color="initial" className={ classes.queryText }>
