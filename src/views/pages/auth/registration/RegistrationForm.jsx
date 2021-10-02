@@ -26,6 +26,8 @@ import * as AUTH_ACTION from '../../../../redux/modules/auth/actions'
 import { selectAuth, selectAuthErrorMessages, selectAuthHasErrorMessages } from '../../../../redux/modules/auth/selector';
 import AuthLayoutHeader from '../../../../components/app/AuthLayoutHeader';
 import { useLocation } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
+import PATH from './../../../../routes/path';
 
 
 const CREDENTIALS_PROPS = {
@@ -41,6 +43,7 @@ const RegistrationForm = ({ AUTH, AUTH_ERROR_MESSAGES, AUTH_HAS_ERROR_MESSAGES }
 {
     const dispatch = useDispatch();
     const classes = registrationFormUseStlyes();
+    const history = useHistory();
     const { state } = useLocation();
 
     const credentialsDefaultValue = { 
@@ -55,7 +58,9 @@ const RegistrationForm = ({ AUTH, AUTH_ERROR_MESSAGES, AUTH_HAS_ERROR_MESSAGES }
 
     const onClickSignUp = (e) => {
         e.preventDefault();
-        dispatch(AUTH_ACTION.register(credentials));
+        history.push(PATH.SELECT_PLAN, {
+            credentials
+        });
     }
 
     useEffect(() => {
@@ -163,7 +168,7 @@ const RegistrationForm = ({ AUTH, AUTH_ERROR_MESSAGES, AUTH_HAS_ERROR_MESSAGES }
                             disabled={ AUTH.isLoading }
                             onClick={ onClickSignUp }
                         >
-                            { !AUTH.isLoading ? 'Sign Up' : 'Signing up...' }
+                            Continue
                         </Button>
                 </Grid>
                 </Grid>

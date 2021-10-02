@@ -6,6 +6,8 @@ import { Card, CardContent, CardHeader, Grid } from '@material-ui/core';
 import { makeStyles, Typography, Button } from '@material-ui/core';
 import CheckIcon from '@material-ui/icons/Check';
 import Colors from '../../../../constants/Colors';
+import * as AUTH_ACTION from './../../../../redux/modules/auth/actions'
+import { useDispatch } from 'react-redux';
 
 const PLAN_TYPES = [
     {
@@ -73,6 +75,7 @@ const selectPlanUseStyles = makeStyles(theme => ({
 const SelectPlan = () => 
 {
     const classes = selectPlanUseStyles();
+    const dispatch = useDispatch();
     const history = useHistory();
     const { state } = useLocation();
 
@@ -80,7 +83,10 @@ const SelectPlan = () =>
     const [ plantType, setPlanType ] = useState('Basic');
 
     const handleClickContinue = () => {
-
+        dispatch(AUTH_ACTION.register({
+            ...state,
+            plan_type: plantType
+        }));
     }
 
     const handleClickCardPlan = (index, type) => {
@@ -124,10 +130,11 @@ const SelectPlan = () =>
                         {
                             PLAN_TYPES.map(({ type, cost, servicesOffered }, index) => (
                                 <Grid 
+                                    item
                                     key={ index } 
                                     xs={ 12 } sm={ 6 } md={ 5 } lg={ 5 } 
                                     className={ classes.cardContainer }
-                                    onClick={ () => handleClickCardPlan(type, index) }
+                                    onClick={ () => handleClickCardPlan(index, type) }
                                 >
                                     <Card 
                                         className={ 
@@ -156,8 +163,8 @@ const SelectPlan = () =>
                                         />
                                         <CardContent>
                                             {
-                                                servicesOffered.map(service => (
-                                                    <Typography variant="subtitle1" color="textSecondary" align='center'>{ service }</Typography>
+                                                servicesOffered.map((service, index) => (
+                                                    <Typography key={ index } variant="subtitle1" color="textSecondary" align='center'>{ service }</Typography>
                                                 ))
                                             }
                                         </CardContent>
@@ -166,7 +173,7 @@ const SelectPlan = () =>
                                                 color='default' 
                                                 className={ classes.continueButton }
                                                 disabled={ index !== cardIndex }
-                                                onClick={ () => setPlanType(type) }
+                                                onClick={ handleClickContinue }
                                             >
                                                 Get Started
                                             </Button>
