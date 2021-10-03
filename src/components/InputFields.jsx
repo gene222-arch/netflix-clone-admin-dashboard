@@ -83,11 +83,13 @@ const InputFields = ({ title = '', data, setData, isAvatarUploading, avatarPrevi
         {
             const isADate = data.date_of_death.replaceAll('_', '').replaceAll('-', '');
 
-            console.log(isADate)
-
             if (isADate.length <= 1) {
                 data.date_of_death = null;
             }
+            setData({
+                ...data,
+                date_of_death: null
+            });
         }
 
         saveButtonCallback();
