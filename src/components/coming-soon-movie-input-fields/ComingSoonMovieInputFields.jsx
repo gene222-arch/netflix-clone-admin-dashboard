@@ -180,7 +180,7 @@ const ComingSoonMovieInputFields = ({ comingSoonMovie, setComingSoonMovie, cardH
         
         name !== 'status'
             ? setComingSoonMovie({ ...comingSoonMovie, [name]: value })
-            : setComingSoonMovie({ ...comingSoonMovie, [name]: comingSoonMovie[name] === 'Release' ? 'Coming Soon' : 'Release' });
+            : setComingSoonMovie({ ...comingSoonMovie, [name]: comingSoonMovie.status === 'Released' ? 'Coming Soon' : 'Released' });
     }
 
     const handleChangeReleaseDate = (date, value) => 

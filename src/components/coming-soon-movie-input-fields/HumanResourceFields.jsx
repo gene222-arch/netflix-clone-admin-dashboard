@@ -92,8 +92,9 @@ const HumanResourceFields = ({
                                 <Switch
                                     name='status'
                                     value={ comingSoonMovie.status }
-                                    checked={ comingSoonMovie.status === 'Release' }
+                                    checked={ comingSoonMovie.status === 'Released' }
                                     onChange={ handleChange }
+                                    disabled
                                 />
                             }
                         />
