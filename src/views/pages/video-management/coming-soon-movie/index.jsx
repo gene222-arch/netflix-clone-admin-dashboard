@@ -37,7 +37,15 @@ const ComingSoonMovie = ({ COMING_SOON_MOVIE, COMING_SOON_MOVIE_HAS_ERRORS }) =>
         {
             title: 'Poster', 
             field: 'poster_path',
-            render: ({ poster_path }) => <img src={ poster_path } alt="" width={ 170 } height={ 240 } />
+            render: ({ id, poster_path }) => (
+                <StyledNavLink 
+                    to={{
+                        pathname: PATH.UPDATE_COMING_SOON_MOVIE.replace(':id', id),
+                        actionName: 'Update Movie'
+                    }} 
+                    text={ <img src={ poster_path } alt="" width={ 170 } height={ 240 } /> } 
+                />
+            )
         },
         { 
             title: 'Title', 

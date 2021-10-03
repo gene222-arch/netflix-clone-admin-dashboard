@@ -31,7 +31,12 @@ const Cast = ({ CAST }) =>
         {
             title: 'Avatar', 
             field: 'avatar_path',
-            render: ({ avatar_path }) => <img className={ classes.avatarImg } src={ avatar_path }  width='100' height='120' />
+            render: ({ id, avatar_path }) => (
+                <StyledNavLink 
+                    to={ PATH.UPDATE_CAST.replace(':id', id) } 
+                    text={ <img className={ classes.avatarImg } src={ avatar_path }  width='100' height='120' /> } 
+                />
+            )
         },
         { 
             title: 'Birth Name', 

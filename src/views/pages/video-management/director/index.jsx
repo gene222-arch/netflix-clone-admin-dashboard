@@ -23,7 +23,7 @@ const avatarIndexUseStyles = makeStyles(theme => ({
 const Director = ({ DIRECTOR }) => 
 {
     const classes = avatarIndexUseStyles();
-    
+
     const dispatch = useDispatch();
     const history = useHistory();
     const columns = [
@@ -31,7 +31,12 @@ const Director = ({ DIRECTOR }) =>
         {
             title: 'Avatar', 
             field: 'avatar_path',
-            render: ({ avatar_path }) => <img className={ classes.avatarImg } src={ avatar_path }  width='100' height='120' />
+            render: ({ id, avatar_path }) => (
+                <StyledNavLink 
+                    to={ PATH.UPDATE_DIRECTOR.replace(':id', id) } 
+                    text={ <img className={ classes.avatarImg } src={ avatar_path }  width='100' height='120' /> } 
+                /> 
+            )
         },
         { 
             title: 'Birth Name', 

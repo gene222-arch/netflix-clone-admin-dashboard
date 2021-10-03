@@ -24,7 +24,15 @@ const Movie = ({ MOVIE }) =>
         {
             title: 'Poster', 
             field: 'poster_path',
-            render: ({ poster_path }) => <img src={ poster_path } alt="" width={ 170 } height={ 240 } />
+            render: ({ id, poster_path }) => (
+                <StyledNavLink 
+                    to={{
+                        pathname: PATH.UPDATE_MOVIE.replace(':id', id),
+                        actionName: 'Update Movie'
+                    }} 
+                    text={ <img src={ poster_path } alt="" width={ 170 } height={ 240 } /> } 
+                />
+            )
         },
         { 
             title: 'Title', 
@@ -39,7 +47,7 @@ const Movie = ({ MOVIE }) =>
                 />
             ) 
         },
-        { title: 'Plot', field: 'plot' },
+        { title: 'Plot', field: 'plot', render: ({ plot }) => plot.substring(0, 100) + '...' },
         { title: 'Year of Release', field: 'year_of_release' },
         { title: 'Casts', field: 'casts' },
         { title: 'Country', field: 'country' },
