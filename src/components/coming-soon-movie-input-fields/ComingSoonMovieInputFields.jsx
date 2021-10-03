@@ -175,13 +175,7 @@ const ComingSoonMovieInputFields = ({ comingSoonMovie, setComingSoonMovie, cardH
         e.target.value = null;
     }
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        
-        name !== 'status'
-            ? setComingSoonMovie({ ...comingSoonMovie, [name]: value })
-            : setComingSoonMovie({ ...comingSoonMovie, [name]: comingSoonMovie.status === 'Released' ? 'Coming Soon' : 'Released' });
-    }
+    const handleChange = (e) => setComingSoonMovie({ ...comingSoonMovie, [e.target.name]: e.target.value })
 
     const handleChangeReleaseDate = (date, value) => 
     {
