@@ -91,6 +91,7 @@ const UpdateCast = ({ CAST, match, CAST_ERROR_MESSAGES, CAST_HAS_ERROR_MESSAGES 
         <InputFields 
             cardHeaderTitle='Edit Cast'
             data={ cast }
+            title='Casts'
             setData={ setCast }
             isAvatarUploading={ isAvatarUploading }
             avatarPreview={ avatarPreview }

@@ -28,7 +28,7 @@ const avatarUseStyles = makeStyles(theme => ({
     }
 }));
 
-const InputFields = ({ data, setData, isAvatarUploading, avatarPreview, uploadErrorMessage, handleChangeAvatar, saveButtonCallback, cancelButtonCallback, isLoading = false, cardHeaderTitle = '', errors = null, errorMessages = null }) => 
+const InputFields = ({ title = '', data, setData, isAvatarUploading, avatarPreview, uploadErrorMessage, handleChangeAvatar, saveButtonCallback, cancelButtonCallback, isLoading = false, cardHeaderTitle = '', errors = null, errorMessages = null }) => 
 {
     const classes = avatarUseStyles();
 
@@ -77,9 +77,17 @@ const InputFields = ({ data, setData, isAvatarUploading, avatarPreview, uploadEr
         }
     }
 
-    const handleClickSave = () => {
-        if (data.date_of_death && !isValidKeyboardDatePickerDate(data.date_of_death)) {
-            delete data.date_of_death
+    const handleClickSave = () => 
+    {
+        if (data.date_of_death) 
+        {
+            const isADate = data.date_of_death.replaceAll('_', '').replaceAll('-', '');
+
+            console.log(isADate)
+
+            if (isADate.length <= 1) {
+                data.date_of_death = null;
+            }
         }
 
         saveButtonCallback();
@@ -99,7 +107,7 @@ const InputFields = ({ data, setData, isAvatarUploading, avatarPreview, uploadEr
                     title={
                         <CardBackButton 
                             actionName={ cardHeaderTitle } 
-                            title='Authors' 
+                            title={ title } 
                         />
                     }
                 />

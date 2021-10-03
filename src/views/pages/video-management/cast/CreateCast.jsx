@@ -73,6 +73,7 @@ const CreateCast = ({ CAST, CAST_ERROR_MESSAGES, CAST_HAS_ERROR_MESSAGES }) =>
     return (
         <InputFields 
             data={ cast }
+            title='Casts'
             cardHeaderTitle='Add Cast'
             setData={ setCast }
             isAvatarUploading={ isAvatarUploading }

@@ -72,6 +72,7 @@ const CreateDirector = ({ DIRECTOR, DIRECTOR_ERROR_MESSAGES, DIRECTOR_HAS_ERROR_
     return (
         <InputFields 
             data={ director }
+            title='Directors'
             cardHeaderTitle='Add Director'
             setData={ setDirector }
             isAvatarUploading={ isAvatarUploading }

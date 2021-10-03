@@ -91,6 +91,7 @@ const UpdateDirector = ({ DIRECTOR, match, DIRECTOR_ERROR_MESSAGES, DIRECTOR_HAS
         <InputFields 
             cardHeaderTitle='Edit Director'
             data={ director }
+            title='Directors'
             setData={ setDirector }
             isAvatarUploading={ isAvatarUploading }
             avatarPreview={ avatarPreview }
