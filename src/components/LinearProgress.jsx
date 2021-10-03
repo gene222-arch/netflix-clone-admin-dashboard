@@ -19,7 +19,7 @@ const LinearProgress = ({ value, maxValue }) =>
                 />
             </Box>
             <Box>
-                <Typography variant="body2" color='textSecondary'>{ value }</Typography>
+                <Typography variant="caption" color='textSecondary'>{ value }/{ maxValue }</Typography>
             </Box>
         </Box>
     )

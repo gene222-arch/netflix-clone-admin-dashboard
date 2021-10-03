@@ -1,5 +1,5 @@
 import React,{ useState, useEffect } from 'react'
-import { useDispatch, connect } from 'react-redux';
+import { useDispatch, connect, batch } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
 /** Actions */
@@ -109,7 +109,10 @@ const AccessRight = ({ ACCESS_RIGHT }) =>
     }
 
     useEffect(() => {
-        dispatch(ACCESS_RIGHT_ACTION.fetchAllAccessRightsStart());
+        batch(() => {
+            dispatch(ACCESS_RIGHT_ACTION.fetchAllAccessRightsStart());
+            dispatch(ACCESS_RIGHT_ACTION.fetchAllPermissionsStart());
+        });
     }, []);
 
     return (
