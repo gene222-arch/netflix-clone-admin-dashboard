@@ -9,9 +9,17 @@ import StyledNavLink from '../../../components/styled-components/StyledNavLink';
 import PATH from './../../../routes/path';
 import { selectAuth } from './../../../redux/modules/auth/selector';
 import ToolTipComponent from './../../../components/ToolTipComponent';
+import { makeStyles } from '@material-ui/core';
+
+const dashboardUseStyles = makeStyles(theme => ({
+    icon: {
+        color: theme.palette.info.light
+    }
+}));
 
 const Dashboard = ({ MAIN_LAYOUT, AUTH }) => 
 {
+    const classes = dashboardUseStyles();
     const dispatch = useDispatch();
 
     const handleClickDashboard = () => dispatch(MAIN_LAYOUT_ACTION.selectDashboard());
@@ -30,7 +38,7 @@ const Dashboard = ({ MAIN_LAYOUT, AUTH }) =>
                             selected={ MAIN_LAYOUT.dashboard }
                         >
                             <ListItemIcon>
-                                <DashboardIcon />
+                                <DashboardIcon className={ classes.icon } />
                             </ListItemIcon>
                             <ListItemText primary='Dashboard' />
                         </ListItem>

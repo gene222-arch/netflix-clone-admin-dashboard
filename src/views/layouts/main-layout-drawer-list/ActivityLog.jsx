@@ -9,9 +9,17 @@ import PATH from './../../../routes/path';
 import { selectAuth } from './../../../redux/modules/auth/selector';
 import { ViewList } from '@material-ui/icons';
 import ToolTipComponent from '../../../components/ToolTipComponent';
+import { makeStyles } from '@material-ui/core';
+
+const activityLogsUseStyles = makeStyles(theme => ({
+    icon: {
+        color: theme.palette.info.dark
+    }
+}));
 
 const Dashboard = ({ MAIN_LAYOUT, AUTH }) => 
 {
+    const classes = activityLogsUseStyles();
     const dispatch = useDispatch();
 
     const handleClick = () => dispatch(MAIN_LAYOUT_ACTION.selectActivityLog());
@@ -30,7 +38,7 @@ const Dashboard = ({ MAIN_LAYOUT, AUTH }) =>
                             selected={ MAIN_LAYOUT.activityLog }
                         >
                             <ListItemIcon>
-                                <ViewList />
+                                <ViewList className={ classes.icon } />
                             </ListItemIcon>
                             <ListItemText primary='Activity Logs' />
                         </ListItem>

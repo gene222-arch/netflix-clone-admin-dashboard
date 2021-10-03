@@ -105,6 +105,9 @@ const mainLayoutUseStyles = makeStyles((theme) => ({
     header: {
         marginRight: '2rem'
     },
+    icon: {
+        color: theme.palette.error.dark
+    }
 }));
 
 export default mainLayoutUseStyles

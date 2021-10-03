@@ -51,7 +51,7 @@ const VideoManagement = ({ MAIN_LAYOUT, AUTH }) =>
                 component={ 
                     <ListItem button onClick={ handleToggleVideoMngmt }>
                         <ListItemIcon>
-                            <MovieIcon />
+                            <MovieIcon className={ classes.icon } />
                         </ListItemIcon>
                         <ListItemText primary={'Video Management'} />
                         <DropdownIcon open={ MAIN_LAYOUT.videoManagement } />

@@ -9,9 +9,17 @@ import StyledNavLink from '../../../components/styled-components/StyledNavLink';
 import PATH from './../../../routes/path';
 import { selectAuth } from './../../../redux/modules/auth/selector';
 import ToolTipComponent from '../../../components/ToolTipComponent';
+import { makeStyles } from '@material-ui/core';
 
-const Dashboard = ({ MAIN_LAYOUT, AUTH }) => 
+const accessRightUseStyles = makeStyles(theme => ({
+    icon: {
+        color: theme.palette.warning.main
+    }
+}));
+
+const AccessRigh = ({ MAIN_LAYOUT, AUTH }) => 
 {
+    const classes = accessRightUseStyles();
     const dispatch = useDispatch();
 
     const handleClickAccessRight = () => dispatch(MAIN_LAYOUT_ACTION.selectAccessRight());
@@ -30,7 +38,7 @@ const Dashboard = ({ MAIN_LAYOUT, AUTH }) =>
                             selected={ MAIN_LAYOUT.accessRight }
                         >
                             <ListItemIcon>
-                                <VpnKeyIcon />
+                                <VpnKeyIcon className={ classes.icon } />
                             </ListItemIcon>
                             <ListItemText primary='Access Rights' />
                         </ListItem>
@@ -46,4 +54,4 @@ const mapStateToProps = createStructuredSelector({
     MAIN_LAYOUT: selectMainLayout
 });
 
-export default connect(mapStateToProps)(Dashboard)
+export default connect(mapStateToProps)(AccessRigh)
