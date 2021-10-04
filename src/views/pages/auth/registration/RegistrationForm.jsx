@@ -13,7 +13,6 @@ import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 
 /** Custom Components */
-import Copyright from '../../../../components/Copyright';
 import Error from '../../../../components/Error';
 
 /** Custom material ui styling */
@@ -27,7 +26,7 @@ import { selectAuth, selectAuthErrorMessages, selectAuthHasErrorMessages } from 
 import AuthLayoutHeader from '../../../../components/app/AuthLayoutHeader';
 import { useLocation } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
-import PATH from './../../../../routes/path';
+import { CircularProgress } from '@material-ui/core';
 
 
 const CREDENTIALS_PROPS = {
@@ -77,7 +76,7 @@ const RegistrationForm = ({ AUTH, AUTH_ERROR_MESSAGES, AUTH_HAS_ERROR_MESSAGES }
                     <Typography variant="subtitle2">Step 4 of 4</Typography>
                     <Typography component="h1" variant="h5">Joining Flicklify is Easy.</Typography>
                     <Typography variant="subtitle1" gutterBottom className={ classes.headerLabel}>
-                        Enter your password and you'll be watching in no time.
+                        Fill in your account details and you're ready to go.
                     </Typography>
                 </div>
                 <Error error={ AUTH.error }/>
@@ -166,7 +165,12 @@ const RegistrationForm = ({ AUTH, AUTH_ERROR_MESSAGES, AUTH_HAS_ERROR_MESSAGES }
                             disabled={ AUTH.isLoading }
                             onClick={ onClickSignUp }
                         >
-                            Create Account
+                            { !AUTH.isLoading ? 'Create Account' : (
+                                <>
+                                    <CircularProgress size='1rem' className={ classes.progress } />
+                                    { '  Creating Account. . . .' }
+                                </> 
+                            )}
                         </Button>
                 </Grid>
                 </Grid>

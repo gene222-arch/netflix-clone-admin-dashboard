@@ -1,4 +1,5 @@
 import { makeStyles } from '@material-ui/core/styles';
+import Colors from './../../../constants/Colors';
 
 const registrationFormUseStlyes = makeStyles((theme) => ({
     description: {
@@ -23,8 +24,13 @@ const registrationFormUseStlyes = makeStyles((theme) => ({
         width: '100%', // Fix IE 11 issue.
         marginTop: theme.spacing(3),
     },
+    progress: {
+        marginRight: 10,
+        color: Colors.white
+    },
     submit: {
-        
+        display: 'flex',
+        alignItems: 'center'
     },
 }));
 
