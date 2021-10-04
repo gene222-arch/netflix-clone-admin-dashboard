@@ -150,7 +150,7 @@ function* loginSaga (payload)
         
         const { message, status } = yield call(logoutAsync);
 
-        Cookies.clear();
+        Cookies.removeToken();
 
         yield put(logoutSuccess());
         yield put(ALERT.showAlert({
@@ -242,7 +242,7 @@ function* verifyEmailSaga (payload)
     try {
         yield call(verifyEmailAsync, payload);
         yield put(verifyEmailSuccess());
-        Cookies.clear()
+        Cookies.removeEmailVerificationToken()
     } catch ({ message, status }) {
         yield put(resetPasswordFailed({
             errorMessages: message 

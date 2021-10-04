@@ -58,15 +58,18 @@ export const get = (name) =>
   * @param {string} name 
   * @returns void
   */
- export const remove = (name) => document.cookie = `${name}= ; expires = Thu, 01 Jan 1970 00:00:00 GMT`;
+ export const removeToken = () => document.cookie = "access_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+
+export const removeEmailVerificationToken = () => document.cookie = "email_verification_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 
 export const clear = () => 
 {
     const cookies = document.cookie.split(";");
     
-    for (const cookie of cookies) {
-      const eqPos = cookie.indexOf("=");
-      const name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
-      document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
+    for (const cookie of cookies) 
+    {
+        const eqPos = cookie.indexOf("=");
+        const name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+        document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/;";
     }
 }

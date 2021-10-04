@@ -5,12 +5,12 @@ export default () =>
 {
     const headers = {};
 
-    if (Cookie.has('access_token')) {
-        headers.Authorization = `Bearer ${ Cookie.get('access_token') }`
-    }
-
     if (Cookie.has('email_verification_token')) {
         headers.Authorization = `Bearer ${ Cookie.get('email_verification_token') }`
+    }
+    
+    if (Cookie.has('access_token')) {
+        headers.Authorization = `Bearer ${ Cookie.get('access_token') }`
     }
 
     const axiosInstance = Axios.create({
@@ -27,7 +27,7 @@ export default () =>
                     break;
 
                 case 403:
-                    Cookie.remove('access_token');
+                    Cookie.removeToken();
                     console.log('FORBIDDEN')
                     break;
 
