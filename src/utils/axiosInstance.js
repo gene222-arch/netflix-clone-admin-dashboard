@@ -23,12 +23,12 @@ export default () =>
         error => {
             switch (error.response.status) {
                 case 401:
-                    alert('Unauthorized access');
+                    console.log('Unauthorized access');
                     break;
 
                 case 403:
                     Cookie.remove('access_token');
-                    alert('Forbidden');
+                    console.log('FORBIDDEN')
                     break;
 
                 case 500:
