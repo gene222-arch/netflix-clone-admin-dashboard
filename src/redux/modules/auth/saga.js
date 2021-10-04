@@ -136,7 +136,7 @@ function* loginSaga (payload)
             errorMessages: message
         }));
 
-        yield put(ALERT.showAlert({ status, message: ERROR_MESSAGE_ON_LOGIN }));
+        yield put(ALERT.showAlert({ status, message: 'Please verify your email address' }));
 
     }
 }
@@ -150,7 +150,7 @@ function* loginSaga (payload)
         
         const { message, status } = yield call(logoutAsync);
 
-        Cookies.remove('access_token');
+        Cookies.clear();
 
         yield put(logoutSuccess());
         yield put(ALERT.showAlert({

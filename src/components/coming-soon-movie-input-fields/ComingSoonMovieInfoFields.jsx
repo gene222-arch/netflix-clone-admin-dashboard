@@ -16,11 +16,12 @@ import { connect } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
 import CardBackButton from './../CardBackButton';
 import { selectComingSoonMovie } from './../../redux/modules/coming-soon-movie/selector';
+import { selectMovie } from './../../redux/modules/movie/selector';
 
 
 const ComingSoonMovieInfoFields = ({  
     comingSoonMovie, 
-    COMING_SOON_MOVIE,
+    MOVIE,
     COMING_SOON_MOVIE_ERROR_MESSAGES,
     COMING_SOON_MOVIE_HAS_ERROR_MESSAGES,
     filePreview = null, 
@@ -106,7 +107,7 @@ const ComingSoonMovieInfoFields = ({
                                     <Grid item xs={ 12 } sm={ 12 } lg={ 12 } md={ 12 }>
                                         <Typography variant="subtitle1" color="textSecondary" gutterBottom>Select Similar Movies</Typography>
                                         <StyledReactSelect 
-                                            data={ COMING_SOON_MOVIE.comingSoonMovies.map(({ id, title }) => ({ value: id, label: title })) }
+                                            data={ MOVIE.movies.map(({ id, title }) => ({ value: id, label: title })) }
                                             value={ comingSoonMovie.similar_movies }
                                             isMulti
                                             placeholder='Similar Movies'
@@ -188,6 +189,7 @@ const ComingSoonMovieInfoFields = ({
 }
 
 const mapStateToProps = createStructuredSelector({
+    MOVIE: selectMovie,
     COMING_SOON_MOVIE: selectComingSoonMovie,
     COMING_SOON_MOVIE_ERROR_MESSAGES: selectComingSoonMovieErrorMessages,
     COMING_SOON_MOVIE_HAS_ERROR_MESSAGES: selectComingSoonMovieHasErrorMessages
