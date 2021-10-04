@@ -58,7 +58,7 @@ export const updateAsync = async (payload) =>
 export const updateStatusAsync = async ({ id, ...rest }) => 
 {
     return await axiosInstance()
-        .put(`/coming-soon-movies/${ id }/status`, rest)
+        .put(`/coming-soon-movies/${ id }/release`, rest)
         .then(response => response.data)
         .catch(error => Promise.reject(error.response.data));
 }
