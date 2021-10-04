@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container, Typography, Grid } from '@material-ui/core';
-import APP_LOGO from './../../assets/images/app/LOGO.png'
+import APP_LOGO from './../../assets/images/app/iconflicklify.ico'
 import { Link } from 'react-router-dom';
 import PATH from '../../routes/path'
 import authLayoutHeaderUseStyles from '../../assets/js/material-ui/authLayoutHeaderUseStyles';

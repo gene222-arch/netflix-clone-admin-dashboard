@@ -20,8 +20,9 @@ const authLayoutHeaderUseStyles = makeStyles((theme) => ({
         borderRadius: 4
     },
     logo: {
-        width: '12rem',
-        height: 'auto'
+        width: '3rem',
+        height: 'auto',
+        marginTop: '2rem'
     }
 }));
 
