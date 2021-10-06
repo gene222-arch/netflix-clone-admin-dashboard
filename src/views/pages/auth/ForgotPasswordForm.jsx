@@ -57,59 +57,56 @@ const ForgotPasswordForm = ({ AUTH, AUTH_HAS_ERROR_MESSAGE, AUTH_ERROR_MESSAGE }
     }, []);
 
     return (
-        <>
-            <AuthLayoutHeader />
-            <Container component='main' maxWidth="sm" className={ classes.container }>
-                <Grid container spacing={1} direction='column' alignItems='center' justify='center'>
-                    <Grid item xs={12} sm={12} md={12} lg={12}>
-                        <Typography variant="h4" color="initial" align='center'>
-                            <Key />
-                        </Typography>
-                    </Grid>
-                    <Grid item xs={12} sm={12} md={12} lg={12}>
-                        <Typography variant="h4" color="initial" align='center' gutterBottom={true}>
-                            Forgot your password?
-                        </Typography>
-                    </Grid>
-                    <Grid item xs={12} sm={12} md={12} lg={12}>
-                        <Typography variant="subtitle1" color="textSecondary" align='center'>
-                            Enter your registered email below
-                        </Typography>
-                        <Typography variant="subtitle1" color="textSecondary" align='center' gutterBottom={true}>
-                            to receive password reset notification through gmail
-                        </Typography>
-                    </Grid>
+        <Container component='main' maxWidth="sm" className={ classes.container }>
+            <Grid container spacing={1} direction='column' alignItems='center' justify='center'>
+                <Grid item xs={12} sm={12} md={12} lg={12}>
+                    <Typography variant="h4" color="initial" align='center'>
+                        <Key />
+                    </Typography>
                 </Grid>
-                <Grid container spacing={3} className={ classes.forgotPasswordContainer }>
-                    <Grid item xs={12} sm={12} md={12} lg={12}>
-                        <TextField
-                            label="Your email"
-                            fullWidth
-                            value={ email }
-                            onChange={ handleChangeMail }
-                            error={ AUTH_HAS_ERROR_MESSAGE.email }
-                            helperText={ AUTH_ERROR_MESSAGE.email }
-                        />
-                    </Grid>
-                    <Grid item xs={12} sm={12} md={12} lg={12}>
-                        <Typography variant="subtitle2" color="inherit" align='center'>
-                            Remember password? <Link href={ PATH.LOGIN } color='inherit'>Login</Link>
-                        </Typography>
-                    </Grid>
-                    <Grid item xs={12} sm={12} md={12} lg={12}>
-                        <Button 
-                            variant="contained" 
-                            color="primary"
-                            onClick={ handleClickForgotPassword }
-                            disabled={ AUTH.isLoading }
-                            fullWidth
-                        >
-                            Send mail
-                        </Button>
-                    </Grid>
+                <Grid item xs={12} sm={12} md={12} lg={12}>
+                    <Typography variant="h4" color="initial" align='center' gutterBottom={true}>
+                        Forgot your password?
+                    </Typography>
                 </Grid>
-            </Container>
-        </>
+                <Grid item xs={12} sm={12} md={12} lg={12}>
+                    <Typography variant="subtitle1" color="textSecondary" align='center'>
+                        Enter your registered email below
+                    </Typography>
+                    <Typography variant="subtitle1" color="textSecondary" align='center' gutterBottom={true}>
+                        to receive password reset notification through gmail
+                    </Typography>
+                </Grid>
+            </Grid>
+            <Grid container spacing={3} className={ classes.forgotPasswordContainer }>
+                <Grid item xs={12} sm={12} md={12} lg={12}>
+                    <TextField
+                        label="Your email"
+                        fullWidth
+                        value={ email }
+                        onChange={ handleChangeMail }
+                        error={ AUTH_HAS_ERROR_MESSAGE.email }
+                        helperText={ AUTH_ERROR_MESSAGE.email }
+                    />
+                </Grid>
+                <Grid item xs={12} sm={12} md={12} lg={12}>
+                    <Typography variant="subtitle2" color="inherit" align='center'>
+                        Remember password? <Link href={ PATH.LOGIN } color='inherit'>Login</Link>
+                    </Typography>
+                </Grid>
+                <Grid item xs={12} sm={12} md={12} lg={12}>
+                    <Button 
+                        variant="contained" 
+                        color="primary"
+                        onClick={ handleClickForgotPassword }
+                        disabled={ AUTH.isLoading }
+                        fullWidth
+                    >
+                        Send mail
+                    </Button>
+                </Grid>
+            </Grid>
+        </Container>
     )
 }
 

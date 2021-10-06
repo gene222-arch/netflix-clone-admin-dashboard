@@ -102,7 +102,6 @@ const SelectPlan = ({ AUTH }) =>
 
     return (
         <Container maxWidth="xl">
-            <AuthLayoutHeader />
             <Container maxWidth="md">
                 <Grid container spacing={1}>
                     <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>

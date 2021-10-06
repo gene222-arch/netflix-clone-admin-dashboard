@@ -50,7 +50,6 @@ const AllowAccessToLocation = () =>
 
     return (
         <Container maxWidth="xl">
-            <AuthLayoutHeader />
             <Container maxWidth="md" className={ classes.subContainer }>
                 <Grid container spacing={2} alignItems='center'>
                     <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>

@@ -70,7 +70,6 @@ const RegistrationForm = ({ AUTH, AUTH_ERROR_MESSAGES, AUTH_HAS_ERROR_MESSAGES }
     return (
         <Container component="main" maxWidth="xl">
             <CssBaseline />
-            <AuthLayoutHeader />
             <div className={classes.paper}>
                 <div className={ classes.description }>
                     <Typography variant="subtitle2">Step 4 of 4</Typography>
