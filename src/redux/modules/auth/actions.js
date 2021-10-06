@@ -33,8 +33,8 @@ const {
 
     UPDATE_USER_DETAILS,
 
-    VERIFIY_EMAIL_START,
-    VERIFIY_EMAIL_SUCCESS,
+    VERIFY_EMAIL_START,
+    VERIFY_EMAIL_SUCCESS,
     VERIFY_EMAIL_FAILED,
 
     SELECT_PROFILE_START,
@@ -190,12 +190,12 @@ export const resetPasswordFailed = (payload) => ({
  */
 
 export const verifyEmailStart = (payload) => ({
-    type: VERIFIY_EMAIL_START,
+    type: VERIFY_EMAIL_START,
     payload
 });
 
 export const verifyEmailSuccess = (payload) => ({
-    type: VERIFIY_EMAIL_SUCCESS
+    type: VERIFY_EMAIL_SUCCESS
 });
 
 export const verifyEmailFailed = (payload) => ({

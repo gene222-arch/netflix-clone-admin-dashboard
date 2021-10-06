@@ -53,7 +53,7 @@ const {
     MANAGE_PROFILE_LOCK_START,
     REGISTER_START,
     RESET_PASSWORD_START,
-    VERIFIY_EMAIL_START,
+    VERIFY_EMAIL_START,
     SELECT_PROFILE_START
 } = ACTION_TYPES;
 
@@ -242,7 +242,7 @@ function* verifyEmailSaga (payload)
     try {
         yield call(verifyEmailAsync, payload);
         yield put(verifyEmailSuccess());
-        Cookies.removeEmailVerificationToken()
+        Cookies.removeEmailVerificationToken();
     } catch ({ message, status }) {
         yield put(resetPasswordFailed({
             errorMessages: message 
@@ -340,7 +340,7 @@ function* verifyEmailWatcher ()
 {
     while (true) 
     {
-        const { payload } = yield take(VERIFIY_EMAIL_START);
+        const { payload } = yield take(VERIFY_EMAIL_START);
 
         yield call(verifyEmailSaga, payload);
     }

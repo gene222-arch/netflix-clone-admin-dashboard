@@ -27,26 +27,26 @@ const EmailVerifiedMessage = () =>
     const classes = emailVerifiedMessageUseStyles();
     const { id, hash } = useParams();
 
-    const handleClickLogin = () => history.push(PATH.LOGIN);
+    const handleClickLogin = () => {
+        history.push(PATH.LOGIN, {
+            state: {
+                id: '',
+                hash: ''
+            }
+        });
+    }
 
     const onLoadVerifyEmail = () => 
     {
         const expires = QueryParam.get('expires');
         const signature = QueryParam.get('signature');
 
-        console.log({id, hash, expires, signature});
-
-        // if (id && hash && signature && expires) {
-        //     dispatch(AUTH_ACTION.verifyEmailStart({ id, hash, expires, signature }));
-        // }
+        if (id && hash && signature && expires) {
+            dispatch(AUTH_ACTION.verifyEmailStart({ id, hash, expires, signature }));
+        }
     }
 
     useEffect(() => {
-        onLoadVerifyEmail();
-
-        return () => {
-
-        }
     }, []);
 
     return (

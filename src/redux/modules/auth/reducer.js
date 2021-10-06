@@ -33,8 +33,8 @@ const {
 
     UPDATE_USER_DETAILS,
 
-    VERIFIY_EMAIL_START,
-    VERIFIY_EMAIL_SUCCESS,
+    VERIFY_EMAIL_START,
+    VERIFY_EMAIL_SUCCESS,
     VERIFY_EMAIL_FAILED,
 
     SELECT_PROFILE_START,
@@ -100,7 +100,7 @@ export default (state = initialState, { type, payload }) =>
         case FORGOT_PASSWORD_START:
         case RESET_PASSWORD_START:
         case SELECT_PROFILE_START:
-        case VERIFIY_EMAIL_START:
+        case VERIFY_EMAIL_START:
             return {
                 ...state,
                 isLoading: true,
@@ -184,7 +184,7 @@ export default (state = initialState, { type, payload }) =>
         case FORGOT_PASSWORD_SUCCESS:
         case RESET_PASSWORD_SUCCESS:
         case REGISTRATION_SUCCESS: 
-        case VERIFIY_EMAIL_SUCCESS:
+        case VERIFY_EMAIL_SUCCESS:
             return {
                 ...state,
                 isLoading,
