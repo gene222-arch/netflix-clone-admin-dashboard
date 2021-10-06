@@ -29,13 +29,24 @@ const EmailVerifiedMessage = () =>
 
     const handleClickLogin = () => history.push(PATH.LOGIN);
 
+    const onLoadVerifyEmail = () => 
+    {
+        const expires = QueryParam.get('expires');
+        const signature = QueryParam.get('signature');
+
+        console.log({id, hash, expires, signature});
+
+        // if (id && hash && signature && expires) {
+        //     dispatch(AUTH_ACTION.verifyEmailStart({ id, hash, expires, signature }));
+        // }
+    }
+
     useEffect(() => {
-        dispatch(AUTH_ACTION.verifyEmailStart({  
-            id,
-            hash,
-            expires: QueryParam.get('expires'),
-            signature: QueryParam.get('signature')
-        }));
+        onLoadVerifyEmail();
+
+        return () => {
+
+        }
     }, []);
 
     return (

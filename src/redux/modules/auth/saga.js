@@ -136,7 +136,7 @@ function* loginSaga (payload)
             errorMessages: message
         }));
 
-        yield put(ALERT.showAlert({ status, message: 'Please verify your email address' }));
+        yield put(ALERT.showAlert({ status, message: message.email || message }));
 
     }
 }

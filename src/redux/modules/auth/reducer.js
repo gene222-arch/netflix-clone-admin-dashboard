@@ -86,7 +86,9 @@ const initialState =
 export default (state = initialState, { type, payload }) => 
 {
     const isLoading = false;
-    const error = ERROR_DEFAULT;
+    const {
+        error 
+    } = initialState;
 
     switch (type) 
     {
