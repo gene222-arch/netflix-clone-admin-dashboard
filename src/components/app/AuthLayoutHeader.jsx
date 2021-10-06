@@ -5,12 +5,12 @@ import { Link } from 'react-router-dom';
 import PATH from '../../routes/path'
 import authLayoutHeaderUseStyles from '../../assets/js/material-ui/authLayoutHeaderUseStyles';
 
-const AuthLayoutHeader = () => 
+const AuthLayoutHeader = ({ signInButton = true }) => 
 {
     const classes = authLayoutHeaderUseStyles();
 
     return (
-        <Container maxWidth='xl'>
+        <Container maxWidth='xl' className={ classes.container }>
             <Grid container justify='space-between' alignItems='center'>
                 <Grid item>
                     <img 
@@ -19,14 +19,18 @@ const AuthLayoutHeader = () =>
                     />
                 </Grid>
                 <Grid item>
-                    <Link 
-                        to={ PATH.LOGIN } 
-                        color='inherit' 
-                        variant='body2'
-                        className={ classes.link }
-                    >
-                        <Typography variant="subtitle1" className={ classes.linkText }>Sign In</Typography>
-                    </Link>
+                    {
+                        signInButton && (
+                            <Link 
+                                to={ PATH.LOGIN } 
+                                color='inherit' 
+                                variant='body2'
+                                className={ classes.link }
+                            >
+                                <Typography variant="subtitle1" className={ classes.linkText }>Sign In</Typography>
+                            </Link>
+                        )
+                    }
                 </Grid>
             </Grid>
         </Container>

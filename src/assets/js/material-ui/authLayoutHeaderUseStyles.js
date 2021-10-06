@@ -5,12 +5,10 @@ import Colors from '../../../constants/Colors';
 const authLayoutHeaderUseStyles = makeStyles((theme) => ({
     container: {
         height: '10vh',
+        marginBottom: '3.5rem'
     },
     link: {
-        textDecoration: 'none',
-        '&:hover': {
-            textDecoration: 'underline'
-        }
+        textDecoration: 'none'
     },
     linkText: {
         fontSize: '1rem',

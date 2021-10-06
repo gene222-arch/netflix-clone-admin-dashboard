@@ -14,16 +14,8 @@ import { useHistory } from 'react-router-dom';
 import PATH from './../../../../routes/path'
 
 const useStyles = makeStyles(theme => ({
-    root: {
-        flexGrow: 1,
-        height: '100vh',
-        width: '100%',
-        background: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${ BACKGROUND_IMG })`,
-        backgroundRepeat: 'no-repeat',
-        backgroundSize: 'cover'
-    },
     container: {
-        height: '85vh'
+        marginTop: '3rem'
     },
     email: {
         backgroundColor: Colors.white,
@@ -115,68 +107,81 @@ const GetStarted = () =>
     
 
     return (
-       <Container maxWidth="xl" className={ classes.root }>
-            <AuthLayoutHeader />
+        <Container maxWidth='xl'>
             <Grid container alignItems='center' className={ classes.container }>
                 <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
-                    <Typography variant="h2" color="initial" className={ classes.text }>
-                        <strong>Unlimited</strong>
-                    </Typography>
-                    <Typography variant="h2" color="initial" className={ classes.text }>
-                        <strong>movies, and more.</strong>
-                    </Typography>
-                    <Typography variant="h5" color="textSecondary" className={ classes.text }>
-                        Watch anywhere. Cancel anytime.
-                    </Typography>
+                    <Grid container spacing={3} direction='column'>
+                        <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
+                            <Typography variant="h2" color="initial" className={ classes.text }>
+                                <strong>Unlimited</strong>
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
+                            <Typography variant="h2" color="initial" className={ classes.text }>
+                                <strong>movies, and more.</strong>
+                            </Typography>
+                        </Grid>
+                        <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
+                            <Typography variant="h5" color="textSecondary" className={ classes.text }>
+                                Watch anywhere. Cancel anytime.
+                            </Typography>
+                        </Grid>
+                    </Grid>
                 </Grid>
                 <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
-                    <Typography variant="subtitle1" color="initial" className={ classes.text }>
-                        Ready to watch? Enter your email to create or restart your membership.
-                    </Typography>
-                    <Grid container justify='center' className={ classes.inputContainer }>
-                        <Grid item xs={ 12 } sm={ 10 } md={ 7 } lg={ 7 }>
-                            <TextField
-                                id="email-address"
-                                label="Email address"
-                                variant='filled'
-                                className={ classes.email }
-                                InputLabelProps={{
-                                    style: { 
-                                        color: grey[500]
-                                    }, 
-                                }}
-                                InputProps={{
-                                    style: {
-                                        color: '#000000'
-                                    }
-                                }}
-                                fullWidth
-                                value={ email }
-                                onChange={ handleChangeEmail }
-                            />
-                            <Button 
-                                variant="contained" 
-                                color="default" 
-                                fullWidth
-                                className={ classes.getStartedBtn }
-                                onClick={ handleClickGetStarted }
-                            >
-                                <Typography variant="h6" color="initial">
-                                    <strong>Get Started</strong>
-                                </Typography>
-                            </Button>
-                            {
-                                hasError && (
-                                    <Typography variant="subtitle2" className={ classes.errorText }>
-                                        { errorMessage }
-                                    </Typography>
-                                )
-                            }
+                    <Grid container spacing={3}>
+                        <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
+                            <Typography variant="subtitle1" color="initial" className={ classes.text }>
+                                Ready to watch? Enter your email to create or restart your membership.
+                            </Typography>
                         </Grid>
-                    </Grid>            
+                        <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
+                            <Grid container justify='center' className={ classes.inputContainer }>
+                                <Grid item xs={ 12 } sm={ 10 } md={ 7 } lg={ 7 }>
+                                    <TextField
+                                        id="email-address"
+                                        label="Email address"
+                                        variant='filled'
+                                        className={ classes.email }
+                                        InputLabelProps={{
+                                            style: { 
+                                                color: grey[500]
+                                            }, 
+                                        }}
+                                        InputProps={{
+                                            style: {
+                                                color: '#000000'
+                                            }
+                                        }}
+                                        fullWidth
+                                        value={ email }
+                                        onChange={ handleChangeEmail }
+                                    />
+                                    <Button 
+                                        variant="contained" 
+                                        color="default" 
+                                        fullWidth
+                                        className={ classes.getStartedBtn }
+                                        onClick={ handleClickGetStarted }
+                                    >
+                                        <Typography variant="h6" color="initial">
+                                            <strong>Get Started</strong>
+                                        </Typography>
+                                    </Button>
+                                    {
+                                        hasError && (
+                                            <Typography variant="subtitle2" className={ classes.errorText }>
+                                                { errorMessage }
+                                            </Typography>
+                                        )
+                                    }
+                                </Grid>
+                            </Grid>            
+                        </Grid>
+                    </Grid>
                 </Grid>
             </Grid>
-       </Container>
+        </Container>
     )
 }
 

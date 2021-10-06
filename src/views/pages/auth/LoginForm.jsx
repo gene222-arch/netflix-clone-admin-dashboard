@@ -100,96 +100,99 @@ const LoginForm = ({ AUTH, ERROR_MESSAGE, HAS_ERROR_MESSAGE }) =>
     }, []);
 
     return (
-        <Container component='main' maxWidth='xs'>
-            <div className={ classes.paper }>
-                <Avatar className={ classes.avatar }>
-                    <LockOutlinedIcon />
-                </Avatar>
-                <Typography component='h1' variant='h5'>Sign in</Typography>
-                <Error error={ AUTH.error } />
-                <TextField
-                    id='email'
-                    variant='outlined'
-                    margin='normal'
-                    required
-                    fullWidth
-                    label='Email Address'
-                    name='email'
-                    autoComplete='email'
-                    autoFocus
-                    value={ credentials.email }
-                    onChange={ handleChangeCredentials }
-                    error={ HAS_ERROR_MESSAGE.email }
-                    helperText={ ERROR_MESSAGE.email }
-                />
-                <TextField
-                    variant='outlined'
-                    margin='normal'
-                    required
-                    fullWidth
-                    name='password'
-                    label='Password'
-                    type={ !showPassword ? 'password' : '' }
-                    id='password'
-                    autoComplete='current-password'
-                    value={ credentials.password }
-                    onChange={ handleChangeCredentials }
-                    error={ HAS_ERROR_MESSAGE.password }
-                    helperText={ ERROR_MESSAGE.password }
-                    InputProps={{
-                        endAdornment: (
-                            <InputAdornment position="end">
-                                <IconButton
-                                    aria-label="toggle password visibility"
-                                    onClick={ handleClickTogglePasswordVisibility }
-                                    onMouseDown={ handleMouseDownPassword }
-                                >
-                                { showPassword ? <VisibilityIcon /> : <VisibilityOffIcon /> }
-                                </IconButton>
-                            </InputAdornment>
-                        ),
-                    }}
-                />
-                <FormControlLabel
-                    control={
-                        <Checkbox value='remember' 
-                            color='primary' 
-                            checked={ credentials.remember_me }
-                            onChange={ handleChangeCredentials }
-                        />}
-                    label='Remember me'
-                    className={ classes.rememberMe }
-                />
-                <Button
-                    fullWidth
-                    variant='contained'
-                    color='primary'
-                    className={ classes.submit }
-                    disabled={ AUTH.isLoading }
-                    onClick={ onClickLogin }
-                >
-                    { !AUTH.isLoading ? 'Sign In' : 'Signing In...' }
-                </Button>
-                <Grid container>
-                    <Grid item xs>
-                        <Typography variant="subtitle2" color="initial">
-                            <Link href={ PATH.FORGOT_PASSWORD } color='inherit' variant='body2'>
-                                Forgot password?
+        <Container maxWidth='xl'>
+            <Container component='main' maxWidth='xs' className={ classes.container }>
+                <div className={ classes.paper }>
+                    <Avatar className={ classes.avatar }>
+                        <LockOutlinedIcon />
+                    </Avatar>
+                    <Typography component='h1' variant='h5' gutterBottom>
+                        <strong>Sign in</strong>
+                    </Typography>
+                    <Error error={ AUTH.error } />
+                    <TextField
+                        id='email'
+                        variant='outlined'
+                        margin='normal'
+                        required
+                        fullWidth
+                        label='Email Address'
+                        name='email'
+                        autoComplete='email'
+                        autoFocus
+                        value={ credentials.email }
+                        onChange={ handleChangeCredentials }
+                        error={ HAS_ERROR_MESSAGE.email }
+                        helperText={ ERROR_MESSAGE.email }
+                    />
+                    <TextField
+                        variant='outlined'
+                        margin='normal'
+                        required
+                        fullWidth
+                        name='password'
+                        label='Password'
+                        type={ !showPassword ? 'password' : '' }
+                        id='password'
+                        autoComplete='current-password'
+                        value={ credentials.password }
+                        onChange={ handleChangeCredentials }
+                        error={ HAS_ERROR_MESSAGE.password }
+                        helperText={ ERROR_MESSAGE.password }
+                        InputProps={{
+                            endAdornment: (
+                                <InputAdornment position="end">
+                                    <IconButton
+                                        aria-label="toggle password visibility"
+                                        onClick={ handleClickTogglePasswordVisibility }
+                                        onMouseDown={ handleMouseDownPassword }
+                                    >
+                                    { showPassword ? <VisibilityIcon /> : <VisibilityOffIcon /> }
+                                    </IconButton>
+                                </InputAdornment>
+                            ),
+                        }}
+                    />
+                    <FormControlLabel
+                        control={
+                            <Checkbox value='remember' 
+                                color='primary' 
+                                checked={ credentials.remember_me }
+                                onChange={ handleChangeCredentials }
+                            />}
+                        label='Remember me'
+                        className={ classes.rememberMe }
+                    />
+                    <Button
+                        fullWidth
+                        variant='contained'
+                        color='primary'
+                        className={ classes.submit }
+                        disabled={ AUTH.isLoading }
+                        onClick={ onClickLogin }
+                    >
+                        { !AUTH.isLoading ? 'Sign In' : 'Signing In...' }
+                    </Button>
+                    <Grid container>
+                        <Grid item xs>
+                            <Typography variant="subtitle2" color="initial">
+                                <Link href={ PATH.FORGOT_PASSWORD } color='inherit' variant='body2'>
+                                    Forgot password?
+                                </Link>
+                            </Typography>
+                        </Grid>
+                        <Grid item>
+                        <Typography variant="subtitle2">
+                            <Link href={ PATH.GET_STARTED } color='inherit' variant='body2'>
+                                Don't have an account? Sign Up
                             </Link>
                         </Typography>
+                        </Grid>
                     </Grid>
-                    <Grid item>
-                    <Typography variant="subtitle2">
-                        <Link href={ PATH.GET_STARTED } color='inherit' variant='body2'>
-                            Don't have an account? Sign Up
-                        </Link>
-                    </Typography>
-                    </Grid>
-                </Grid>
-            </div>
-            <Box mt={8}>
-                <Copyright />
-            </Box>
+                </div>
+                <Box mt={8}>
+                </Box>
+            </Container>
         </Container>
     );
 }
