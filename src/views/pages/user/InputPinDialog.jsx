@@ -7,6 +7,8 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { makeStyles, Grid, Typography } from '@material-ui/core';
 import Colors from './../../../constants/Colors';
+import StyledNavLink from './../../../components/styled-components/StyledNavLink';
+import PATH from './../../../routes/path';
 
 const inputDialogUseStyles = makeStyles(theme => ({
     container: {
@@ -45,7 +47,7 @@ const DEFAULT_PIN = {
     num4: ''
 };
 
-const InputPinDialog = ({ open, pin, setPin, handleClickToggleModal, handleClickSave, handleClickCancel, isIncorrectPin = false }) => 
+const InputPinDialog = ({ id, open, pin, setPin, handleClickToggleModal, handleClickSave, handleClickCancel, isIncorrectPin = false }) => 
 {
     const classes = inputDialogUseStyles();
 
@@ -184,6 +186,16 @@ const InputPinDialog = ({ open, pin, setPin, handleClickToggleModal, handleClick
                                     />
                                 </Grid>
                             </Grid>
+                        </Grid>
+                        <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
+                            <StyledNavLink 
+                                to={ PATH.PROFILE_LOCK.replace(':id', id) }
+                                text={ 
+                                    <Typography variant="subtitle1" color="textSecondary">
+                                        Forgot PIN?
+                                    </Typography>
+                                }
+                            />
                         </Grid>
                     </Grid>
                 </DialogContent>

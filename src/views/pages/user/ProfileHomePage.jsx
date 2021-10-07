@@ -42,7 +42,7 @@ const ProfileHomePage = ({ AUTH }) =>
 
     const [ id, setId ] = useState(null);
 
-    const handleClickSetId = (profileId) =>setId(!id ? profileId : null);
+    const handleClickSetId = (profileId) => setId(!id ? profileId : null);
 
     const handleChangePinLock = () => history.push(PATH.PROFILE_LOCK.replace(':id', id));
 

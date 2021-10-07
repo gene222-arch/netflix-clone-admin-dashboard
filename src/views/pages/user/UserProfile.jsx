@@ -105,6 +105,7 @@ const UserProfile = ({ AUTH }) =>
     return (
         <Container maxWidth="md" className={ classes.container }>
             <InputPinDialog
+                id={ id }
                 isIncorrectPin={ isIncorrectPin }
                 open={ showInputPin }
                 pin={ pin }
