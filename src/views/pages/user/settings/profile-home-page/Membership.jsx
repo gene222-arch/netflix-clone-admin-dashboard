@@ -1,6 +1,6 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/styles';
-import { Grid, Typography, List, ListItem, ListItemAvatar, ListItemText, ListItemSecondaryAction } from '@material-ui/core';
+import { Grid, Typography, List, ListItem, ListItemAvatar, ListItemText, ListItemSecondaryAction, Button } from '@material-ui/core';
 import StyledNavLink from './../../../../../components/styled-components/StyledNavLink';
 import { createStructuredSelector } from 'reselect';
 import { selectAuth } from './../../../../../redux/modules/auth/selector';
@@ -9,6 +9,8 @@ import PATH from './../../../../../routes/path';
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import LockOpenIcon from '@material-ui/icons/LockOpen';
 import * as USER_ACTION from './../../../../../redux/modules/user/actions'
+import { useTheme } from '@material-ui/core/styles';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 
 const membershipUseStyles = makeStyles(theme => ({
@@ -23,8 +25,12 @@ const membershipUseStyles = makeStyles(theme => ({
 
 const Membership = ({ AUTH }) => 
 {
+    const theme = useTheme();
+
     const classes = membershipUseStyles();
     const dispatch = useDispatch();
+
+    const isXs = useMediaQuery(theme.breakpoints.only('xs'));
 
     const memberShipActionButtons = 
     [
@@ -70,7 +76,7 @@ const Membership = ({ AUTH }) =>
                                 <ListItemSecondaryAction>
                                     <StyledNavLink 
                                         to={ actionPath }
-                                        text={ actionText }
+                                        text={ isXs ? 'Change' : actionText }
                                         onClick={ onClick }
                                     />
                                 </ListItemSecondaryAction>

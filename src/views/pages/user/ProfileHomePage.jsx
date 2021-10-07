@@ -20,7 +20,7 @@ import Membership from './settings/profile-home-page/Membership';
 
 const profileHomePageUseStyles = makeStyles(theme => ({
     container: {
-        padding: '2rem 0'
+        padding: '2rem 0.5rem'
     },
     divider: {
         marginTop: '1rem',

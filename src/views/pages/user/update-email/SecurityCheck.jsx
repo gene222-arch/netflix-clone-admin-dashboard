@@ -41,6 +41,7 @@ const SecurityCheck = ({ AUTH, USER }) =>
 
     const [ code, setCode ] = useState(CODE_PROPS);
     const [ isCodeVerified, setIsCodeVerified ] = useState(false);
+    const [ errorMessage, setErrorMessage ] = useState('');
 
     const handleChange = (e, elementName) => 
     {
@@ -58,6 +59,9 @@ const SecurityCheck = ({ AUTH, USER }) =>
     const handleClickVerifyCode = () => {
         if (USER.change_email_verification_code === parseInt(Object.values(code).join(''))) {
             setIsCodeVerified(true);
+            setErrorMessage('');
+        } else {
+            setErrorMessage("That wasn’t quite right. Try again or request a new code");
         }
     }
 
@@ -66,6 +70,7 @@ const SecurityCheck = ({ AUTH, USER }) =>
         return () => {
             setCode(CODE_PROPS);
             setIsCodeVerified(false);
+            setErrorMessage('');
         }
     }, []);
 
@@ -91,11 +96,21 @@ const SecurityCheck = ({ AUTH, USER }) =>
                             </Typography>
                         </Grid>
                         <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
-                            <InputCode 
+                            <InputCode
+                                hasError={ Boolean(errorMessage.length) }
                                 code={ code }
                                 handleChange={ handleChange }
                             />
                         </Grid>
+                        {
+                            !isCodeVerified && (
+                                <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
+                                    <Typography variant="subtitle2" color="error">
+                                        { errorMessage }
+                                    </Typography>
+                                </Grid>
+                            )
+                        }
                         <Grid item xs={ 12 } sm={ 10 } md={ 10 } lg={ 10 }>
                             <Button 
                                 variant="contained" 

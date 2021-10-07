@@ -2,7 +2,7 @@ import React from 'react'
 import Grid from '@material-ui/core/Grid'
 import { TextField } from '@material-ui/core'
 
-const InputCode = ({ code, handleChange }) => 
+const InputCode = ({ hasError, code, handleChange }) => 
 {
     return (
         <Grid container spacing={1} justify='center'>
@@ -15,6 +15,7 @@ const InputCode = ({ code, handleChange }) =>
                         style: { textAlign: 'center', fontSize: '2rem' },
                         maxLength: 1
                     }}
+                    error={ hasError }
                     value={ code.num1 }
                     onChange={ (e) => handleChange(e, 'num2') }
                 />
@@ -28,6 +29,7 @@ const InputCode = ({ code, handleChange }) =>
                         style: { textAlign: 'center', fontSize: '2rem' },
                         maxLength: 1
                     }}
+                    error={ hasError }
                     value={ code.num2 }
                     onChange={ (e) => handleChange(e, 'num3') }
                 />
@@ -41,6 +43,7 @@ const InputCode = ({ code, handleChange }) =>
                         style: { textAlign: 'center', fontSize: '2rem' },
                         maxLength: 1
                     }}
+                    error={ hasError }
                     value={ code.num3 }
                     onChange={ (e) => handleChange(e, 'num4') }
                 />
@@ -54,6 +57,7 @@ const InputCode = ({ code, handleChange }) =>
                         style: { textAlign: 'center', fontSize: '2rem' },
                         maxLength: 1
                     }}
+                    error={ hasError }
                     value={ code.num4 }
                     onChange={ (e) => handleChange(e, 'num5') }
                 />
@@ -67,6 +71,7 @@ const InputCode = ({ code, handleChange }) =>
                         style: { textAlign: 'center', fontSize: '2rem' },
                         maxLength: 1
                     }}
+                    error={ hasError }
                     value={ code.num5 }
                     onChange={ (e) => handleChange(e, 'num6') }
                 />
@@ -80,6 +85,7 @@ const InputCode = ({ code, handleChange }) =>
                         style: { textAlign: 'center', fontSize: '2rem' },
                         maxLength: 1
                     }}
+                    error={ hasError }
                     value={ code.num6 }
                     onChange={ (e) => handleChange(e, '') }
                 />
