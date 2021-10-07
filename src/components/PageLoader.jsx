@@ -1,6 +1,7 @@
 import React from 'react'
-import ScaleLoader from 'react-spinners/ScaleLoader'
+import PacmanLoader from 'react-spinners/PacmanLoader'
 import { css } from '@emotion/react'
+import Colors from './../constants/Colors';
 
 const PageLoader = () => 
 {
@@ -11,7 +12,7 @@ const PageLoader = () =>
         transform: translate(-50%, -50%);
     `;
 
-	return <ScaleLoader css={ loaderStyled } size='15' color={ '#90caf9' } />
+	return <PacmanLoader css={ loaderStyled } size={ 40 } margin={ 2 } color={ Colors.netflixRed } />
 }
 
 export default PageLoader;

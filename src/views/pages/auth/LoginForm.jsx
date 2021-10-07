@@ -38,6 +38,7 @@ import { useHistory } from 'react-router-dom';
 import * as USER_API from './../../../services/users/user'
 import * as QueryParam from './../../../utils/queryParams'
 import * as Cookies from './../../../utils/cookies'
+import PageLoader from './../../../components/PageLoader';
 
 
 
@@ -192,8 +193,23 @@ const LoginForm = ({ AUTH, ERROR_MESSAGE, HAS_ERROR_MESSAGE }) =>
                         </Grid>
                     </Grid>
                 </div>
-                <Box mt={8}>
-                </Box>
+                <Typography 
+                    variant="body2" 
+                    color="textSecondary" 
+                    className={ classes.termsAndServices }
+                    align='center'
+                >
+                    By continuing, you agree to Flicklify's
+                    <Link href={ PATH.GET_STARTED } color='textPrimary' variant='body2'>
+                        <strong> Terms and Condition</strong>
+                    </Link>,
+                    <Link href={ PATH.PRIVACY_POLICY } color='textPrimary' variant='body2'>
+                        <strong> Privacy Policy</strong>
+                    </Link> and 
+                    <Link href={ PATH.GET_STARTED } color='textPrimary' variant='body2'>
+                        <strong> Cookie used.</strong>
+                    </Link>
+                </Typography>
             </Container>
         </Container>
     );

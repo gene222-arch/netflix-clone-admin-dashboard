@@ -38,6 +38,11 @@ const loginFormUseStyles = makeStyles((theme) => ({
     },
     rememberMe: {
         alignSelf: 'flex-start'
+    },
+    termsAndServices: {
+        marginTop: '3rem',
+        width: '100%',
+        paddingBottom: '1rem'
     }
 }));
 

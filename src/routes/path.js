@@ -51,7 +51,9 @@ const PATH =
     PROFILE_HOME_PAGE: '/',
     PROFILE_LOCK: '/settings/lock/:id',
     UPDATE_PASSWORD: '/password',
-    UPDATE_EMAIL: '/mfa'
+    UPDATE_EMAIL: '/mfa',
+
+    PRIVACY_POLICY: '/privacy'
 };
 
 

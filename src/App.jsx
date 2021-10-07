@@ -5,7 +5,7 @@ import DateFnsUtils from '@date-io/date-fns';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 
 /** Routes config */
-import { PRIVATE_ROUTES, PUBLIC_ROUTES, RenderRoutes, USER_ROUTES } from './routes'
+import { GLOBAL_ROUTES, PRIVATE_ROUTES, PUBLIC_ROUTES, RenderRoutes, USER_ROUTES } from './routes'
 
 /** Layouts */
 import AuthLayout from './views/layouts/AuthLayout';
@@ -22,6 +22,7 @@ import UserLayout from './views/layouts/UserLayout';
 import { createStructuredSelector } from 'reselect';
 import { selectAuth } from './redux/modules/auth/selector';
 import { connect } from 'react-redux';
+import SecurityLayout from './views/layouts/SecurityLayout';
 
 const App = ({ AUTH, history }) => 
 {
@@ -32,6 +33,12 @@ const App = ({ AUTH, history }) =>
 			<AlertPopUp />
 			<MuiPickersUtilsProvider utils={DateFnsUtils}>
 				<Switch>
+					<Route path='/:path?' exact>
+						<SecurityLayout>
+							<RenderRoutes routes={ GLOBAL_ROUTES } />
+						</SecurityLayout>
+					</Route>
+
 					{
 						!AUTH.isAuthenticated && (
 							<Route path='/auth/:path?'>
@@ -49,6 +56,7 @@ const App = ({ AUTH, history }) =>
 							</Route>
 						)
 					}
+
 					{
 						(AUTH.role && AUTH.role !== 'Subscriber') && (
 							<Route path='/:path?'>

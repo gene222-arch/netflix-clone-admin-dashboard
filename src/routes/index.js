@@ -51,6 +51,8 @@ const ProfileHomePage = lazy(() => import('../views/pages/user/ProfileHomePage')
 const ProfileLock = lazy(() => import('../views/pages/user/settings/profile-lock/ProfileLock'))
 const UpdatePassword = lazy(() => import('../views/pages/user/UpdatePassword'))
 const SecurityCheck = lazy(() => import('../views/pages/user/update-email/SecurityCheck'))
+const PrivacyPolicy = lazy(() => import('./../views/pages/security/privacy-policy'));
+
 
 
 export const PUBLIC_ROUTES = [
@@ -135,6 +137,19 @@ export const PUBLIC_ROUTES = [
         access: '',
         restricted: false
     },
+];
+
+export const GLOBAL_ROUTES = 
+[
+    {
+        path: PATH.PRIVACY_POLICY,
+        key: 'PrivacyPolicy',
+        icon: '',
+        exact: true,
+        component: PrivacyPolicy,
+        access: '',
+        restricted: false
+    }
 ];
 
 export const USER_ROUTES = [
