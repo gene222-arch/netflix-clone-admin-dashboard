@@ -21,6 +21,7 @@ import Dashboard from './main-layout-drawer-list/Dashboard';
 import AppBarContent from './main-layout-header/AppBarContent';
 import AccessRight from './main-layout-drawer-list/AccessRight';
 import ActivityLog from './main-layout-drawer-list/ActivityLog';
+import APP_LOGO from './../../assets/images/app/iconflicklify.ico'
 
 
 
@@ -52,21 +53,22 @@ const MainLayout = ({ children, MAIN_LAYOUT }) =>
                     }),
                 }}
             >
-                {/* Application Logo/Header */}
                 <AppLogo />
-                
-                {/* Drawer list */}
-                <List></List>
                 <List>
                     <Dashboard />
                     <Divider light/>
+                    
                     <VideoManagement /> 
                     <Divider light />   
+                    
                     <AccessRight />   
-                    <Divider light/>    
+                    <Divider light/>  
+                      
                     <ActivityLog />
                     <Divider light/>
+                    
                 </List>
+                <img src={ APP_LOGO } width={ 40 } height={ 40 } className={ classes.appLogo } />
             </Drawer>
 
             <main className={classes.content}>

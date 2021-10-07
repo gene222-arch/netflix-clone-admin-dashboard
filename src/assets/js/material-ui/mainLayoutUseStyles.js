@@ -7,12 +7,18 @@ const mainLayoutUseStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
     },
+    appLogo: {
+        padding: '5rem'
+    },
     avatar: {
         width: '45%',
         height: '7rem',
         objectFit: 'contain',
         margin: '1rem 0',
         boxShadow: theme.shadows['7']
+    },
+    avatarText: {
+        color: Colors.white
     },
     appBar: {
         zIndex: theme.zIndex.drawer + 1,
@@ -44,12 +50,12 @@ const mainLayoutUseStyles = makeStyles((theme) => ({
         ...theme.mixins.toolbar,
     },
     authenticatedUserName: {
-        fontSize: '.9rem',
+        fontSize: '1rem',
         fontWeight: 'bold',
         textAlign: 'center'
     },
     authenticatedUserRole: {
-        fontSize: '.9rem',
+        fontSize: '.75rem',
         textAlign: 'center',
         color: theme.palette.text.disabled
     },
@@ -96,7 +102,7 @@ const mainLayoutUseStyles = makeStyles((theme) => ({
     toolbar: {
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'space-between',
+        justifyContent: 'flex-end',
         padding: theme.spacing(0, 1, 0, 2),
         // necessary for content to be below app bar
         ...theme.mixins.toolbar,
@@ -111,7 +117,7 @@ const mainLayoutUseStyles = makeStyles((theme) => ({
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        marginTop: '1.5rem'
+        margin: '1.5rem 0',
     }
 }));
 
