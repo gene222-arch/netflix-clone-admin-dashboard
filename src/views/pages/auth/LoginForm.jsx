@@ -104,7 +104,7 @@ const LoginForm = ({ AUTH, ERROR_MESSAGE, HAS_ERROR_MESSAGE }) =>
             <Container component='main' maxWidth='xs' className={ classes.container }>
                 <div className={ classes.paper }>
                     <Avatar className={ classes.avatar }>
-                        <LockOutlinedIcon />
+                        <LockOutlinedIcon className={ classes.lockIcon } />
                     </Avatar>
                     <Typography component='h1' variant='h5' gutterBottom>
                         <strong>Sign in</strong>
