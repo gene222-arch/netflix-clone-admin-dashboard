@@ -14,7 +14,7 @@ const customerAlertUseStyles = makeStyles((theme) => ({
 const CustomAlert = ({ status, message }) => 
 {
     const classes = customerAlertUseStyles();
-    const [open, setOpen] = useState(true);
+    const [open, setOpen] = useState( true );
 
     useEffect(() => {
         return () => {
@@ -23,11 +23,19 @@ const CustomAlert = ({ status, message }) =>
     }, []);
 
     return (
-        <Collapse in={ open } className={ classes.root }>
+        <Collapse in={ open } className={ classes.root } timeout={{
+            appear: 10,
+            enter: 10,
+            exit: 2000
+        }}>
             <Alert 
                 severity={ status } 
-                onClose={() => setOpen(false)}
-            >{ message ?? ''}</Alert>
+                onClose={ () => setOpen(false) }
+                elevation={ 6 }
+                variant='outlined'
+            >
+                { message ?? ''}
+            </Alert>
         </Collapse>
     )
 }

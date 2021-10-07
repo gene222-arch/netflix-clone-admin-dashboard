@@ -15,7 +15,7 @@ import Colors from './../constants/Colors';
 const useStyles = makeStyles((theme) => 
 ({
     success: {
-        backgroundColor: Colors.grey
+        backgroundColor: Colors.darkGrey
     },
     root: {
         width: '100%',
