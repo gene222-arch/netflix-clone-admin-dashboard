@@ -8,11 +8,12 @@ import mainLayoutUseStyles from './../../../assets/js/material-ui/mainLayoutUseS
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import CancelIcon from '@material-ui/icons/Cancel';
+import CloseIcon from '@material-ui/icons/Close';
 import { selectMainLayout } from '../../../redux/modules/main-layout/selector';
 import TextContentLoader from '../../../components/content-loader/TextContentLoader';
 import APP_LOGO from './../../../assets/images/app/iconflicklify.ico'
 import { CardContent, Card, Divider } from '@material-ui/core';
+import MUIAvatar from '@material-ui/core/Avatar';
 
 
 const Avatar = ({ AUTH, MAIN_LAYOUT }) => 
@@ -27,8 +28,8 @@ const Avatar = ({ AUTH, MAIN_LAYOUT }) =>
         <>
             <div className={ classes.toolbar }>
                 <img src={ APP_LOGO } alt="" width={ 50 } height={ 50 } />
-                <IconButton onClick={ handleToggleDrawer } onMouseOver={ handleToggleDrawer }>
-                    {theme.direction === 'rtl' ? <ChevronRightIcon /> : <CancelIcon />}
+                <IconButton onClick={ handleToggleDrawer }>
+                    { theme.direction === 'rtl' ? <ChevronRightIcon /> : <CloseIcon /> }
                 </IconButton>
             </div>
             {
@@ -42,20 +43,19 @@ const Avatar = ({ AUTH, MAIN_LAYOUT }) =>
                                 </>
                             )
                             : (
-                                <>
-                                    <Card className={ classes.userInfoContainer }>
-                                    <Divider />
-                                        <CardContent>
-                                            <img src={ AUTH.user.avatar_path } className={ classes.avatar }/>
-                                            <Typography variant='subtitle1' color="initial" className={ classes.authenticatedUserName }>
-                                                { `${ AUTH.user.first_name } ${ AUTH.user.last_name }` }
-                                            </Typography>
-                                            <Typography variant='subtitle2' color="initial" className={ classes.authenticatedUserRole } >
-                                                { AUTH.role }
-                                            </Typography>
-                                        </CardContent>
-                                    </Card>
-                                </>
+                                <div className={ classes.userInfoContainer }>
+                                    <MUIAvatar className={ classes.avatar }>
+                                        <Typography variant="h3" color="initial">
+                                            { AUTH.user.first_name.substring(0, 1) }
+                                        </Typography>
+                                    </MUIAvatar>
+                                    <Typography variant='subtitle1' color="initial" className={ classes.authenticatedUserName }>
+                                        { `${ AUTH.user.first_name } ${ AUTH.user.last_name }` }
+                                    </Typography>
+                                    <Typography variant='subtitle2' color="initial" className={ classes.authenticatedUserRole } >
+                                        { AUTH.role }
+                                    </Typography>
+                                </div>
                             )
                     }
                 </div>

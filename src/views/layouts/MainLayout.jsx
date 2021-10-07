@@ -9,14 +9,13 @@ import mainLayoutUseStyles from './../../assets/js/material-ui/mainLayoutUseStyl
 /** Material UI Components */
 import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
-import { List } from '@material-ui/core';
+import { List, Divider } from '@material-ui/core';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
 /** Selectors */
 import { selectMainLayout } from '../../redux/modules/main-layout/selector';
 
 import VideoManagement from './main-layout-drawer-list/VideoManagement';
-import SecondListItem from './main-layout-drawer-list/SecondListItem';
 import AppLogo from './main-layout-drawer-list/AppLogo';
 import Dashboard from './main-layout-drawer-list/Dashboard';
 import AppBarContent from './main-layout-header/AppBarContent';
@@ -60,9 +59,13 @@ const MainLayout = ({ children, MAIN_LAYOUT }) =>
                 <List></List>
                 <List>
                     <Dashboard />
-                    <VideoManagement />    
-                    <AccessRight />       
+                    <Divider light/>
+                    <VideoManagement /> 
+                    <Divider light />   
+                    <AccessRight />   
+                    <Divider light/>    
                     <ActivityLog />
+                    <Divider light/>
                 </List>
             </Drawer>
 

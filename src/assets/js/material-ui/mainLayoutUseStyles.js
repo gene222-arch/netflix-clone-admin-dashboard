@@ -8,9 +8,11 @@ const mainLayoutUseStyles = makeStyles((theme) => ({
         display: 'flex',
     },
     avatar: {
-        width: '100%',
+        width: '45%',
+        height: '7rem',
         objectFit: 'contain',
-        borderRadius: '100%'
+        margin: '1rem 0',
+        boxShadow: theme.shadows['7']
     },
     appBar: {
         zIndex: theme.zIndex.drawer + 1,
@@ -50,6 +52,13 @@ const mainLayoutUseStyles = makeStyles((theme) => ({
         fontSize: '.9rem',
         textAlign: 'center',
         color: theme.palette.text.disabled
+    },
+    content: {
+        flexGrow: 1,
+        padding: theme.spacing(3),
+    },
+    collapseChildren: {
+        marginLeft: theme.spacing(3)
     },
     menuButton: {
         marginRight: '.9rem',
@@ -92,21 +101,17 @@ const mainLayoutUseStyles = makeStyles((theme) => ({
         // necessary for content to be below app bar
         ...theme.mixins.toolbar,
     },
-    userInfoContainer: {
-        marginTop: '1.25rem'
-    },
-    content: {
-        flexGrow: 1,
-        padding: theme.spacing(3),
-    },
-    collapseChildren: {
-        marginLeft: theme.spacing(3)
-    },
     header: {
         marginRight: '2rem'
     },
     icon: {
         color: theme.palette.error.dark
+    },
+    userInfoContainer: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        marginTop: '1.5rem'
     }
 }));
 

@@ -17,8 +17,8 @@ import CircleContentLoader from '../../../components/content-loader/CircleConten
 
 const useStyles = makeStyles((theme) => ({
     userAvatar: {
-        backgroundColor: '#2c2c2c',
-        color: '#FFF'
+        width: '100%',
+        height: '2.75rem'
     },
 }))
 
@@ -57,7 +57,7 @@ const Header = ({ AUTH }) =>
                 {
                     !AUTH.user
                         ? <CircleContentLoader />
-                        : <Avatar className={ classes.userAvatar }>{ AUTH.user.first_name.substr(0, 1) }</Avatar>
+                        : <Avatar className={ classes.userAvatar } src={ AUTH.user.avatar_path } />
                 }
             </Button>
             <Menu
