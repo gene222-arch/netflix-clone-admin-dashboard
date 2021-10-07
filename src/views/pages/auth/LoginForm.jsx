@@ -55,8 +55,8 @@ const LoginForm = ({ AUTH, ERROR_MESSAGE, HAS_ERROR_MESSAGE }) =>
         const { name, value, checked } = e.target;
 
         name === 'remember_me'
-            ? setCredentials({...credentials, remember_me: checked})
-            : setCredentials({...credentials, [name]: value});
+            ? setCredentials({ ...credentials, remember_me: checked })
+            : setCredentials({ ...credentials, [name]: value });
     };
 
     const handleClickTogglePasswordVisibility = () => setShowPassword(! showPassword);
@@ -155,10 +155,12 @@ const LoginForm = ({ AUTH, ERROR_MESSAGE, HAS_ERROR_MESSAGE }) =>
                     />
                     <FormControlLabel
                         control={
-                            <Checkbox value='remember' 
+                            <Checkbox 
+                                name='remember_me'
                                 color='primary' 
-                                checked={ credentials.remember_me }
+                                checked={ Boolean(credentials.remember_me) }
                                 onChange={ handleChangeCredentials }
+                                style={{ color: '#FFF' }}
                             />}
                         label='Remember me'
                         className={ classes.rememberMe }
