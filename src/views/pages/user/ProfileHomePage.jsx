@@ -53,7 +53,7 @@ const ProfileHomePage = ({ AUTH }) =>
     }, [])
 
     return (
-        <Container maxWidth="md" className={ classes.container } >
+        <Container maxWidth="md" className={ classes.container } style={{ height: AUTH.profiles.length <= 2 ? '90vh' : 'auto' }}>
             <Grid container spacing={1} alignItems='center'>
                 <Grid item>
                     <Typography variant="h4" color="initial" gutterBottom>
@@ -79,11 +79,19 @@ const ProfileHomePage = ({ AUTH }) =>
                     <Typography variant="subtitle1" color="initial">PROFILE & PARENTAL CONTROLS</Typography>
                 </Grid>
                 <Grid item xs={ 12 } sm={ 9 } md={ 9 } lg={ 9 }>
-                    <AvatarList 
-                        id={ id } 
-                        handleClickSetId={ handleClickSetId } 
-                        handleChangePinLock={ handleChangePinLock } 
-                    />
+                    {
+                        !AUTH.profiles.length 
+                            ? (
+                                <Typography variant="h4" color="textSecondary" align='center'>No profile created yet</Typography>
+                            )
+                            : (
+                                <AvatarList 
+                                    id={ id } 
+                                    handleClickSetId={ handleClickSetId } 
+                                    handleChangePinLock={ handleChangePinLock } 
+                                />
+                            )
+                    }
                 </Grid>
             </Grid>
             

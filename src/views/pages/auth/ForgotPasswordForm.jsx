@@ -9,19 +9,12 @@ import Button from '@material-ui/core/Button'
 import { Link } from '@material-ui/core';
 import Key from '@material-ui/icons/VpnKey';
 import { makeStyles } from '@material-ui/core/styles';
-
-/** Actions */
 import * as AUTH_ACTION from '../../../redux/modules/auth/actions'
-
-/** Selector */
 import { selectAuth, selectAuthErrorMessages, selectAuthHasErrorMessages } from './../../../redux/modules/auth/selector';
-
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
-
-/** Routes */
 import PATH from './../../../routes/path';
-import AuthLayoutHeader from '../../../components/app/AuthLayoutHeader';
+import Colors from './../../../constants/Colors';
 
 
 const forgotPasswordUseStyles = makeStyles((theme) => ({
@@ -31,6 +24,14 @@ const forgotPasswordUseStyles = makeStyles((theme) => ({
     forgotPasswordContainer: {
         marginTop: theme.spacing(3)
     },
+    sendMailBtn: {
+        backgroundColor: Colors.netflixRed,
+        '&:hover': {
+            backgroundColor: Colors.white,
+            color: Colors.netflixRed,
+            fontWeight: 'bold'
+        }
+    }
 }))
 
 
@@ -102,6 +103,7 @@ const ForgotPasswordForm = ({ AUTH, AUTH_HAS_ERROR_MESSAGE, AUTH_ERROR_MESSAGE }
                         onClick={ handleClickForgotPassword }
                         disabled={ AUTH.isLoading }
                         fullWidth
+                        className={ classes.sendMailBtn }
                     >
                         Send mail
                     </Button>
