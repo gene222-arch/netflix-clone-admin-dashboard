@@ -220,6 +220,8 @@ function* resetPasswordSaga (payload)
 
         yield put(resetPasswordSuccess());
 
+        Cookies.removeToken();
+
         yield put(ALERT.showAlert({
             status,
             message
@@ -233,7 +235,7 @@ function* resetPasswordSaga (payload)
             errorMessages: message 
         }));
 
-        yield put(ALERT.showAlert({ status, message: message }));
+        yield put(ALERT.showAlert({ status, message }));
     }
 }
 
