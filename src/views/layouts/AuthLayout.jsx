@@ -23,11 +23,11 @@ const AuthLayout = ({ children }) =>
     const classes = authLayoutUseStyles();
 
 
-    if (!PATH.GET_STARTED || !PATH.LOGIN) 
+    if (PATH.LOGIN !== pathname) 
     {
         return (
             <Container maxWidth="xl" className={ classes.container }>
-                <AuthLayoutHeader signInButton={ false } />
+                <AuthLayoutHeader />
                 { children }
             </Container>
         )
@@ -35,7 +35,7 @@ const AuthLayout = ({ children }) =>
 
     return (
         <Container maxWidth="xl" className={ classes.container }>
-            <AuthLayoutHeader/>
+            <AuthLayoutHeader signInButton={ false } />
             { children }
         </Container>
     )

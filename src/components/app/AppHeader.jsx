@@ -55,11 +55,23 @@ const AppHeader = ({ AUTH }) =>
                             <Typography variant="subtitle1" color="initial">{ AUTH.selectedProfile?.name }</Typography>
                         </Grid>
                         <Grid item>
-                            <img 
-                                src={ AUTH.selectedProfile?.avatar }
-                                className={ classes.avatar }
-                                onMouseOver={ e => setAnchorEl(e.currentTarget) }
-                            />
+                            {
+                                AUTH.selectedProfile.avatar 
+                                    ? (
+                                        <img 
+                                            src={ AUTH.selectedProfile?.avatar || AUTH.user.avatar }
+                                            className={ classes.avatar }
+                                            onMouseOver={ e => setAnchorEl(e.currentTarget) }
+                                        />
+                                    )
+                                    : (
+                                        <img 
+                                            src={ AUTH.user.avatar_path }
+                                            className={ classes.avatar }
+                                            onMouseOver={ e => setAnchorEl(e.currentTarget) }
+                                        />
+                                    )
+                            }
                         </Grid>
                     </Grid>
                 </Grid>

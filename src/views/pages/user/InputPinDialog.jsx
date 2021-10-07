@@ -4,10 +4,8 @@ import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { makeStyles, Grid, Typography } from '@material-ui/core';
-import InputAdornment from '@material-ui/core/InputAdornment';
 import Colors from './../../../constants/Colors';
 
 const inputDialogUseStyles = makeStyles(theme => ({
@@ -40,13 +38,30 @@ const inputDialogUseStyles = makeStyles(theme => ({
     }
 }));
 
+const DEFAULT_PIN = {
+    num1: '',
+    num2: '',
+    num3: '',
+    num4: ''
+};
+
 const InputPinDialog = ({ open, pin, setPin, handleClickToggleModal, handleClickSave, handleClickCancel, isIncorrectPin = false }) => 
 {
     const classes = inputDialogUseStyles();
 
+    const handleOnKeyPressDown = (e) => {
+        if (e.keyCode == 8) {
+            setPin(DEFAULT_PIN);
+
+            let nextfield = document.querySelector(`input[name=num1]`);
+            nextfield.focus();
+        }
+    }
+
     const handleChange = (e, nextFieldName) => 
     {
         const { value, name } = e.target;
+
         setPin({ ...pin, [name]: value });
 
         if (value) {
@@ -119,6 +134,7 @@ const InputPinDialog = ({ open, pin, setPin, handleClickToggleModal, handleClick
                                         type='password'
                                         value={ pin.num1 }
                                         onChange={ (e) => handleChange(e, 'num2') }
+                                        onKeyDown={ handleOnKeyPressDown }
                                         focused
                                     />
                                 </Grid>
@@ -133,6 +149,7 @@ const InputPinDialog = ({ open, pin, setPin, handleClickToggleModal, handleClick
                                         }}
                                         type='password'
                                         value={ pin.num2 }
+                                        onKeyDown={ handleOnKeyPressDown }
                                         onChange={ (e) => handleChange(e, 'num3') }
                                     />
                                 </Grid>
@@ -147,6 +164,7 @@ const InputPinDialog = ({ open, pin, setPin, handleClickToggleModal, handleClick
                                         }}
                                         type='password'
                                         value={ pin.num3 }
+                                        onKeyDown={ handleOnKeyPressDown }
                                         onChange={ (e) => handleChange(e, 'num4') }
                                     />
                                 </Grid>
@@ -161,6 +179,7 @@ const InputPinDialog = ({ open, pin, setPin, handleClickToggleModal, handleClick
                                         }}
                                         type='password'
                                         value={ pin.num4 }
+                                        onKeyDown={ handleOnKeyPressDown }
                                         onChange={ (e) => handleChange(e, 'num4') }
                                     />
                                 </Grid>
