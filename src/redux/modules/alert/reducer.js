@@ -6,9 +6,9 @@ const initialState = {
     isOpen: false,
     status: '',
     message: '',
-    autoHideDuration: 2000,
+    autoHideDuration: 3000,
     vertical: 'bottom',
-    horizontal: 'left'
+    horizontal: 'right'
 };
 
 export default (state = initialState, { type, payload }) =>
