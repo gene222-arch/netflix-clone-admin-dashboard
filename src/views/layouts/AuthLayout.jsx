@@ -2,7 +2,7 @@ import React from 'react'
 import Container from '@material-ui/core/Container'
 import AuthLayoutHeader from './../../components/app/AuthLayoutHeader';
 import { makeStyles } from '@material-ui/core/styles';
-import BACKGROUND_IMG from './../../assets/images/app/Netflix-Background.jpg'
+import BACKGROUND_IMG from './../../assets/images/app/auth-background-image.jpg'
 import { useLocation } from 'react-router-dom';
 import PATH from './../../routes/path';
 

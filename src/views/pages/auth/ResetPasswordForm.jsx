@@ -55,74 +55,71 @@ const ResetPasswordForm = ({ auth }) =>
     const handleClickChangePassword = () => dispatch(AUTH.resetPassword(credentials));
 
     return (
-        <>
-            <AuthLayoutHeader />
-            <Container maxWidth="sm" component='main' className={ classes.container }>
-                <Grid container spacing={3}>
-                    <Grid item xs={12} sm={12} md={12} lg={12}>
-                        <Typography variant="h4" color="initial" align="center">
-                            <UpdateIcon className={ classes.updateIcon }/>
-                        </Typography>
-                    </Grid>
-                    <Grid item xs={12} sm={12} md={12} lg={12}>
-                        <Typography variant="h4" color="initial">
-                            Create new password 
-                        </Typography>
-                    </Grid>
-                    <Grid item xs={12} sm={12} md={12} lg={12}>
-                        <Typography variant="subtitle1" color="textSecondary">
-                            You new password must be different from your previous password for security.
-                        </Typography>
-                    </Grid>
+        <Container maxWidth="sm" component='main' className={ classes.container }>
+            <Grid container spacing={3}>
+                <Grid item xs={12} sm={12} md={12} lg={12}>
+                    <Typography variant="h4" color="initial" align="center">
+                        <UpdateIcon className={ classes.updateIcon }/>
+                    </Typography>
                 </Grid>
-                <Grid container spacing={3}>
-                    <Grid item xs={12} sm={12} md={12} lg={12}>
-                        <TextField
-                            error={ Boolean(error.email) }
-                            helperText={ error.email }
-                            label="Your email"
-                            fullWidth
-                            value={ credentials.email }
-                            onChange={ handleChangeCredentials }
-                            disabled
-                        />
-                    </Grid>
-                    <Grid item xs={12} sm={12} md={12} lg={12}>
-                        <TextField
-                            error={ Boolean(error.password) }
-                            helperText={ error.password }
-                            name='password'
-                            label="Password"
-                            type='password'
-                            fullWidth
-                            value={ credentials.password }
-                            onChange={ handleChangeCredentials }
-                        />
-                    </Grid>
-                    <Grid item xs={12} sm={12} md={12} lg={12}>
-                        <TextField
-                            name='password_confirmation'
-                            label="Password Confirmation"
-                            type='password'
-                            fullWidth
-                            value={ credentials.password_confirmation }
-                            onChange={ handleChangeCredentials }
-                        />
-                    </Grid>
-                    <Grid item xs={12} sm={12} md={12} lg={12}>
-                        <Button 
-                            variant="contained" 
-                            color="primary"
-                            fullWidth
-                            onClick={ handleClickChangePassword }
-                            disabled={ auth.isLoading }
-                        >
-                            Change password
-                        </Button>
-                    </Grid>
+                <Grid item xs={12} sm={12} md={12} lg={12}>
+                    <Typography variant="h4" color="initial">
+                        Create new password 
+                    </Typography>
                 </Grid>
-            </Container>
-        </>
+                <Grid item xs={12} sm={12} md={12} lg={12}>
+                    <Typography variant="subtitle1" color="textSecondary">
+                        You new password must be different from your previous password for security.
+                    </Typography>
+                </Grid>
+            </Grid>
+            <Grid container spacing={3}>
+                <Grid item xs={12} sm={12} md={12} lg={12}>
+                    <TextField
+                        error={ Boolean(error.email) }
+                        helperText={ error.email }
+                        label="Your email"
+                        fullWidth
+                        value={ credentials.email }
+                        onChange={ handleChangeCredentials }
+                        disabled
+                    />
+                </Grid>
+                <Grid item xs={12} sm={12} md={12} lg={12}>
+                    <TextField
+                        error={ Boolean(error.password) }
+                        helperText={ error.password }
+                        name='password'
+                        label="Password"
+                        type='password'
+                        fullWidth
+                        value={ credentials.password }
+                        onChange={ handleChangeCredentials }
+                    />
+                </Grid>
+                <Grid item xs={12} sm={12} md={12} lg={12}>
+                    <TextField
+                        name='password_confirmation'
+                        label="Password Confirmation"
+                        type='password'
+                        fullWidth
+                        value={ credentials.password_confirmation }
+                        onChange={ handleChangeCredentials }
+                    />
+                </Grid>
+                <Grid item xs={12} sm={12} md={12} lg={12}>
+                    <Button 
+                        variant="contained" 
+                        color="primary"
+                        fullWidth
+                        onClick={ handleClickChangePassword }
+                        disabled={ auth.isLoading }
+                    >
+                        Change password
+                    </Button>
+                </Grid>
+            </Grid>
+        </Container>
     )
 }
 

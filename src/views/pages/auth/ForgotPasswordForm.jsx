@@ -65,8 +65,8 @@ const ForgotPasswordForm = ({ AUTH, AUTH_HAS_ERROR_MESSAGE, AUTH_ERROR_MESSAGE }
                     </Typography>
                 </Grid>
                 <Grid item xs={12} sm={12} md={12} lg={12}>
-                    <Typography variant="h4" color="initial" align='center' gutterBottom={true}>
-                        Forgot your password?
+                    <Typography variant="h4" color="initial" align='center' gutterBottom>
+                        <strong>Forgot your password?</strong>
                     </Typography>
                 </Grid>
                 <Grid item xs={12} sm={12} md={12} lg={12}>
@@ -81,6 +81,7 @@ const ForgotPasswordForm = ({ AUTH, AUTH_HAS_ERROR_MESSAGE, AUTH_ERROR_MESSAGE }
             <Grid container spacing={3} className={ classes.forgotPasswordContainer }>
                 <Grid item xs={12} sm={12} md={12} lg={12}>
                     <TextField
+                        variant='outlined'
                         label="Your email"
                         fullWidth
                         value={ email }
