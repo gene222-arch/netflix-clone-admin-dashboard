@@ -14,8 +14,10 @@ import AppHeaderMenu from './AppHeaderMenu';
 const appHeaderUseStyles = makeStyles(theme => ({
     avatar: {
         width: '2.5rem',
-        borderRadius: 5,
         padding: theme.spacing(2, 0)
+    },
+    avatarContainer: {
+        
     },
     container: {
         backgroundColor: Colors.dark
@@ -52,7 +54,7 @@ const AppHeader = ({ AUTH }) =>
                 <Grid item>
                     <Grid container spacing={1} alignItems='center' >
                         <Grid item>
-                            <Typography variant="subtitle1" color="initial">{ AUTH.selectedProfile?.name }</Typography>
+                            <Typography variant="subtitle1" color="initial">{ AUTH.selectedProfile.name }</Typography>
                         </Grid>
                         <Grid item>
                             {

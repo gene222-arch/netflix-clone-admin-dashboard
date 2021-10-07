@@ -70,6 +70,15 @@ const ContinueProfileLock = ({ profile, AUTH, AUTH_HAS_ERROR_MESSAGE, AUTH_ERROR
         filterPinValues.length === 4 ?  setIsPinCreated(true) :  setIsPinCreated(false);
     }
 
+    const handleClickKeyDown = (e) => {
+        if (e.keyCode == 8) {
+            setPin(PIN_PROPS);
+
+            let nextfield = document.querySelector(`input[name=num1]`);
+            nextfield.focus();
+        }
+    }
+
     useEffect(() => 
     {
         if (profile.is_profile_locked) 
@@ -131,6 +140,7 @@ const ContinueProfileLock = ({ profile, AUTH, AUTH_HAS_ERROR_MESSAGE, AUTH_ERROR
                                             maxLength: 1
                                         }}
                                         value={ pin.num1 }
+                                        onKeyDown={ handleClickKeyDown }
                                         onChange={ (e) => handleChange(e, 'num2') }
                                         error={ AUTH_HAS_ERROR_MESSAGE.pin_code }
                                     />
@@ -145,6 +155,7 @@ const ContinueProfileLock = ({ profile, AUTH, AUTH_HAS_ERROR_MESSAGE, AUTH_ERROR
                                             maxLength: 1
                                         }}
                                         value={ pin.num2 }
+                                        onKeyDown={ handleClickKeyDown }
                                         onChange={ (e) => handleChange(e, 'num3') }
                                         error={ AUTH_HAS_ERROR_MESSAGE.pin_code }
                                     />
@@ -159,6 +170,7 @@ const ContinueProfileLock = ({ profile, AUTH, AUTH_HAS_ERROR_MESSAGE, AUTH_ERROR
                                             maxLength: 1
                                         }}
                                         value={ pin.num3 }
+                                        onKeyDown={ handleClickKeyDown }
                                         onChange={ (e) => handleChange(e, 'num4') }
                                         error={ AUTH_HAS_ERROR_MESSAGE.pin_code }
                                     />
@@ -173,6 +185,7 @@ const ContinueProfileLock = ({ profile, AUTH, AUTH_HAS_ERROR_MESSAGE, AUTH_ERROR
                                             maxLength: 1
                                         }}
                                         value={ pin.num4 }
+                                        onKeyDown={ handleClickKeyDown }
                                         onChange={ (e) => handleChange(e, 'num4') }
                                         error={ AUTH_HAS_ERROR_MESSAGE.pin_code }
                                     />

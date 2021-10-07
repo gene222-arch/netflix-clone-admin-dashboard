@@ -65,7 +65,7 @@ const ProfileHomePage = ({ AUTH }) =>
                 </Grid>
                 <Grid item>
                     <Typography variant='caption' color="textSecondary">
-                        <strong>MEMBER SINCE DECEMBER 2020</strong>
+                        <strong>MEMBER SINCE { AUTH.user.account_created_at.toUpperCase() }</strong>
                     </Typography>
                 </Grid>
             </Grid>
