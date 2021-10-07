@@ -6,6 +6,7 @@ import { createStructuredSelector } from 'reselect';
 import { selectDashboardData } from './../../../../redux/modules/dashboard/selector';
 import { connect } from 'react-redux';
 import Colors from './../../../../constants/Colors';
+import ROCKET from './../../../../assets/images/app/chart-stoinks.ico'
 
 HighchartsExporting(Highcharts);
 
@@ -142,7 +143,9 @@ const MonthlySubscriber = ({ DASHBOARD }) =>
                     return { 
                         y: val,
                         marker: {
-                            symbol: 'url(https://www.highcharts.com/samples/graphics/sun.png)'
+                            symbol: `url(${ ROCKET })`,
+                            width: 30,
+                            height: 30
                         }
                     }
                 }
@@ -152,7 +155,9 @@ const MonthlySubscriber = ({ DASHBOARD }) =>
                     return { 
                         y: val,
                         marker: {
-                            symbol: 'url(https://www.highcharts.com/samples/graphics/sun.png)'
+                            symbol: 'triangle-down',
+                            width: 30,
+                            height: 30
                         }
                     }
                 }

@@ -27,7 +27,7 @@ const Avatar = ({ AUTH, MAIN_LAYOUT }) =>
     return (
         <>
             <div className={ classes.toolbar }>
-                <img src={ APP_LOGO } alt="" width={ 50 } height={ 50 } />
+                <img src={ APP_LOGO } alt="" width={ 30 } height={ 30 } />
                 <IconButton onClick={ handleToggleDrawer }>
                     { theme.direction === 'rtl' ? <ChevronRightIcon /> : <CloseIcon /> }
                 </IconButton>
