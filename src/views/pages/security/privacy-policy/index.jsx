@@ -7,12 +7,22 @@ import Introduction from './Introduction';
 import Consent from './Consent';
 import InformationWeCollect from './InformationWeCollect';
 import HowWeUseInformation from './HowWeUseInformation';
+import CookiesAndWebBeacons from './CookiesAndWebBeacons';
 
 const privacyPolicyUseStyles = makeStyles(theme => ({
     container: {
         padding: '3rem'
     }
 }));
+
+
+const content = [
+    Introduction,
+    Consent,
+    InformationWeCollect,
+    HowWeUseInformation,
+    CookiesAndWebBeacons
+];
 
 const PrivacyPolicy = () => 
 {
@@ -28,18 +38,13 @@ const PrivacyPolicy = () =>
                 <Divider />
                 <CardContent className={ classes.container }>
                     <Grid container spacing={1}>
-                        <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
-                            <Introduction />
-                        </Grid>
-                        <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
-                            <Consent />
-                        </Grid>
-                        <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
-                            <InformationWeCollect />
-                        </Grid>
-                        <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
-                            <HowWeUseInformation />
-                        </Grid>
+                        {
+                            content.map((ContentComponent, key) => (
+                                <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
+                                    <ContentComponent />
+                                </Grid>
+                            ))
+                        }
                     </Grid>
                 </CardContent>
             </Card>
