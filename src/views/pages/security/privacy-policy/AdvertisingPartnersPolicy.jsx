@@ -7,7 +7,7 @@ const AdvertisingPartnersPolicy = () =>
         <Grid container spacing={2}>
             <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
                 <Typography variant="h6" color="initial">
-                    Advertising Partners Privacy Policies
+                    <strong>Advertising Partners Privacy Policies</strong>
                 </Typography>
             </Grid>
             <Grid item>

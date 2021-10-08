@@ -7,7 +7,7 @@ const GDPRDataProtectionRights = () =>
         <Grid container spacing={2}>
             <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
                 <Typography variant="h6" color="initial">
-                    GDPR Data Protection Rights
+                    <strong>GDPR Data Protection Rights</strong>
                 </Typography>
             </Grid>
             <Grid item>

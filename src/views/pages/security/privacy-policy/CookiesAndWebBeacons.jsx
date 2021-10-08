@@ -17,7 +17,9 @@ const CookiesAndWebBeacons = () =>
     return (
         <Grid container spacing={2}>
             <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
-                <Typography variant="h6" color="initial">Cookies and Web Beacons</Typography>
+                <Typography variant="h6" color="initial">
+                    <strong>Cookies and Web Beacons</strong>
+                </Typography>
             </Grid>
             <Grid item>
                 <Typography variant="body1" color="textSecondary">

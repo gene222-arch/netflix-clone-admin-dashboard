@@ -39,25 +39,19 @@ const PrivacyPolicy = () =>
     const classes = privacyPolicyUseStyles();
 
     return (
-        <Container maxWidth="md">
-            <Card>
-                <CardHeader
-                    title={ <Typography variant="h3" color="textPrimary">Privacy Policy</Typography> }
-                    subheader=""
-                />
-                <Divider />
-                <CardContent className={ classes.container }>
-                    <Grid container spacing={1}>
-                        {
-                            content.map((ContentComponent, key) => (
-                                <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
-                                    <ContentComponent />
-                                </Grid>
-                            ))
-                        }
-                    </Grid>
-                </CardContent>
-            </Card>
+        <Container maxWidth="lg">
+            <Typography variant="h3" color="initial" gutterBottom>
+                Privacy Policy Statement
+            </Typography>
+            <Grid container spacing={1}>
+                {
+                    content.map((ContentComponent, index) => (
+                        <Grid key={ index } item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
+                            <ContentComponent />
+                        </Grid>
+                    ))
+                }
+            </Grid>
         </Container>
     )
 }

@@ -6,7 +6,9 @@ const InformationWeCollect = () =>
     return (
         <Grid container spacing={2}>
             <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
-                <Typography variant="h6" color="initial">Information we collect</Typography>
+                <Typography variant="h6" color="initial">
+                    <strong>Information we collect</strong>
+                </Typography>
             </Grid>
             <Grid item>
                 <Typography variant="body1" color="textSecondary">

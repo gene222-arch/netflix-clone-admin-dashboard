@@ -25,7 +25,9 @@ const HowWeUseInformation = () =>
     return (
         <Grid container spacing={1}>
             <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
-                <Typography variant="h6" color="initial">How we use your information</Typography>
+                <Typography variant="h6" color="initial">
+                    <strong>How we use your information</strong>
+                </Typography>
             </Grid>
             <Grid item>
                 <Typography variant="body1" color="textSecondary">

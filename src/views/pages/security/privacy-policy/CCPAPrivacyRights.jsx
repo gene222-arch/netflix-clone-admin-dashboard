@@ -7,7 +7,7 @@ const CCPAPrivacyRights = () =>
         <Grid container spacing={2}>
             <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
                 <Typography variant="h6" color="initial">
-                    CCPA Privacy Rights (Do Not Sell My Personal Information)
+                    <strong>CCPA Privacy Rights (Do Not Sell My Personal Information)</strong>
                 </Typography>
             </Grid>
             <Grid item>

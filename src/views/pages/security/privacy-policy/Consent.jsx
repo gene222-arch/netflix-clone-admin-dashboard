@@ -8,7 +8,7 @@ const Consent = () =>
     return (
         <Grid container spacing={1}>
             <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
-                <Typography variant="h6" color="initial">Consent</Typography>
+                <Typography variant="h6" color="initial"><strong>Consent</strong></Typography>
             </Grid>
             <Grid item>
                 <Typography variant="body1" color="textSecondary" gutterBottom>
