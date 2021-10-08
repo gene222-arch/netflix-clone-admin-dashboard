@@ -25,7 +25,7 @@ const CookiesAndWebBeacons = () =>
                 </Typography>
             </Grid>
             <Grid item>
-                <Typography variant="body1" color="textSecondary">
+                <Typography variant="body1" color="textSecondary" gutterBottom>
                     For more general information on cookies, please read
                     <Link 
                         className={ classes.link } 

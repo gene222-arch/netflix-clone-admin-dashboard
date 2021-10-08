@@ -11,7 +11,7 @@ const Consent = () =>
                 <Typography variant="h6" color="initial">Consent</Typography>
             </Grid>
             <Grid item>
-                <Typography variant="body1" color="textSecondary">
+                <Typography variant="body1" color="textSecondary" gutterBottom>
                     By using our website, you hereby consent to our Privacy Policy and agree to its terms.
                 </Typography>
             </Grid>

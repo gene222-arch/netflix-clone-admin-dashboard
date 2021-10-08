@@ -8,6 +8,11 @@ import Consent from './Consent';
 import InformationWeCollect from './InformationWeCollect';
 import HowWeUseInformation from './HowWeUseInformation';
 import CookiesAndWebBeacons from './CookiesAndWebBeacons';
+import AdvertisingPartnersPolicy from './AdvertisingPartnersPolicy';
+import ThirdPartyPrivacyPolicy from './ThirdPartyPrivacyPolicy';
+import CCPAPrivacyRights from './CCPAPrivacyRights';
+import GDPRDataProtectionRights from './GDPRDataProtectionRights';
+import ChildrenInformation from './ChildrenInformation';
 
 const privacyPolicyUseStyles = makeStyles(theme => ({
     container: {
@@ -21,7 +26,12 @@ const content = [
     Consent,
     InformationWeCollect,
     HowWeUseInformation,
-    CookiesAndWebBeacons
+    CookiesAndWebBeacons,
+    AdvertisingPartnersPolicy,
+    ThirdPartyPrivacyPolicy,
+    CCPAPrivacyRights,
+    GDPRDataProtectionRights,
+    ChildrenInformation,
 ];
 
 const PrivacyPolicy = () => 

@@ -19,7 +19,7 @@ const InformationWeCollect = () =>
                 </Typography>
             </Grid>
             <Grid item>
-                <Typography variant="body1" color="textSecondary">
+                <Typography variant="body1" color="textSecondary" gutterBottom>
                     When you register for an Account, we may ask for your contact information, including items such as name, company name, address, email address, and telephone number.
                 </Typography>
             </Grid>
