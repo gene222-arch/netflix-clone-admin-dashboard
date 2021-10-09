@@ -33,7 +33,7 @@ const App = ({ AUTH, history }) =>
 			<AlertPopUp />
 			<MuiPickersUtilsProvider utils={DateFnsUtils}>
 				<Switch>
-					<Route path='/:path?' exact>
+					<Route path='/legal/:path?' exact>
 						<SecurityLayout>
 							<RenderRoutes routes={ GLOBAL_ROUTES } />
 						</SecurityLayout>

@@ -53,7 +53,8 @@ const PATH =
     UPDATE_PASSWORD: '/password',
     UPDATE_EMAIL: '/mfa',
 
-    PRIVACY_POLICY: '/privacy'
+    PRIVACY_POLICY: '/legal/privacy',
+    TERMS_AND_CONDITION: '/legal/terms-and-conditions'
 };
 
 

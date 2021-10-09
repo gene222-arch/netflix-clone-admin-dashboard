@@ -200,7 +200,7 @@ const LoginForm = ({ AUTH, ERROR_MESSAGE, HAS_ERROR_MESSAGE }) =>
                     align='center'
                 >
                     By continuing, you agree to Flicklify's
-                    <Link href={ PATH.GET_STARTED } color='textPrimary' variant='body2'>
+                    <Link href={ PATH.TERMS_AND_CONDITION } color='textPrimary' variant='body2'>
                         <strong> Terms and Condition</strong>
                     </Link>,
                     <Link href={ PATH.PRIVACY_POLICY } color='textPrimary' variant='body2'>
