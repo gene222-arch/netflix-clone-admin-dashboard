@@ -52,7 +52,7 @@ const Disclaimer = () =>
                 </Typography>
             </Grid>
             <Grid item>
-                <Typography variant="body1" color="textSecondary">
+                <Typography variant="body1" color="textSecondary" gutterBottom>
                     As long as the website and the information and services on the website are provided free of charge, we will not be liable for any loss or damage of any nature.
                 </Typography>
             </Grid>

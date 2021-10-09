@@ -16,8 +16,13 @@ const Introduction = () =>
     return (
         <Grid container spacing={2} direction='column'>
             <Grid item>
+                <Typography variant="h3" color="initial" gutterBottom>
+                    Terms and Conditions
+                </Typography>
+            </Grid>
+            <Grid item>
                 <Typography variant="body1" color="textSecondary">
-                    Welcome to flicklify!
+                    Welcome to Flicklify!
                 </Typography>
             </Grid>
             <Grid item>
