@@ -45,6 +45,7 @@ function* createEmployeeSaga(payload)
     try {
         yield call(API.createAsync, payload);
         yield put(createEmployeeSuccess());
+        yield put(push(PATH.EMPLOYEE));
     } catch ({ message }) {
         yield put(createEmployeeFailed({ message }));
     }
@@ -55,6 +56,7 @@ function* updateEmployeeSaga(payload)
     try {
         yield call(API.updateAsync, payload);
         yield put(updateEmployeeSuccess());
+        yield put(push(PATH.EMPLOYEE));
     } catch ({ message }) {
         yield put(updateEmployeeFailed({ message }));
     }
