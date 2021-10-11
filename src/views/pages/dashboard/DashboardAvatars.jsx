@@ -38,9 +38,9 @@ const DashboardAvatars = ({ DASHBOARD, generalAnalytics }) =>
         <Grid container spacing={1} justify='center' alignItems='center'>
             <Grid item xs={ 12 } sm={ 4 } md={ 4 } lg={ 4 }>
                 <AvatarWithLabel 
-                    label='Users' 
+                    label='Employees' 
                     Icon={ GroupIcon }
-                    counter={ generalAnalytics.total_number_of_users } 
+                    counter={ generalAnalytics.total_number_of_employees } 
                     avatarStyle={{
                         backgroundColor: Colors.info
                     }}
