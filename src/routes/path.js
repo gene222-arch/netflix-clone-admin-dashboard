@@ -35,6 +35,10 @@ const PATH =
     CREATE_DIRECTOR: '/video-management/directors/create-new-director',
     UPDATE_DIRECTOR: '/video-management/directors/:id/update-director',
 
+    EMPLOYEE: '/employees',
+    CREATE_EMPLOYEE: '/employees/create-new-employee',
+    UPDATE_EMPLOYEE: '/employees/:id/update-employee',
+
     CREATE_GENRE: '/video-management/genres/create-new-genre',
     UPDATE_GENRE: '/video-management/genres/:id/update-genre',
 

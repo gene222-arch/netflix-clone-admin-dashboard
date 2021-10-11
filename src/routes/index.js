@@ -53,7 +53,9 @@ const UpdatePassword = lazy(() => import('../views/pages/user/UpdatePassword'))
 const SecurityCheck = lazy(() => import('../views/pages/user/update-email/SecurityCheck'))
 const PrivacyPolicy = lazy(() => import('./../views/pages/security/privacy-policy'));
 const TermsAndConditions = lazy(() => import('./../views/pages/security/terms-and-conditions'));
-
+const Employee = lazy(() => import('./../views/pages/employee'))
+const CreateEmployee = lazy(() => import('./../views/pages/employee/CreateEmployee'));
+const UpdateEmployee = lazy(() => import('./../views/pages/employee/UpdateEmployee'));
 
 export const PUBLIC_ROUTES = [
     {
@@ -469,6 +471,34 @@ export const PRIVATE_ROUTES = [
         exact: true,
         component: UpdateTrailer,
         access: 'Manage Coming Soon Movies',
+        restricted: true
+    },
+
+    {
+        path: PATH.EMPLOYEE,
+        key: 'Employee',
+        icon: '',
+        exact: true,
+        component: Employee,
+        access: 'Manage Employees',
+        restricted: true
+    },
+    {
+        path: PATH.CREATE_EMPLOYEE,
+        key: 'CreateEmployee',
+        icon: '',
+        exact: true,
+        component: CreateEmployee,
+        access: 'Manage Employees',
+        restricted: true
+    },
+    {
+        path: PATH.UPDATE_EMPLOYEE,
+        key: 'UpdateEmployee',
+        icon: '',
+        exact: true,
+        component: UpdateEmployee,
+        access: 'Manage Employees',
         restricted: true
     },
 ];
