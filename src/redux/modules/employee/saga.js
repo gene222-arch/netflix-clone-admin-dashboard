@@ -15,7 +15,7 @@ import PATH from './../../../routes/path';
 import { ERROR_MESSAGE_ON_UPDATE } from './../../../config/alertMessages';
 
 const {
-    FETCH_ALL_USERS_START,
+    FETCH_ALL_EMPLOYEES_START,
 }  = ACTION_TYPES;
 
 /**
@@ -24,8 +24,8 @@ const {
 function* fetchAllEmployeesSaga()
 {
     try {
-        const { data: users } = yield call(API.fetchAllAsync);
-        yield put(fetchAllEmployeesSuccess({ users }));
+        const { data: employees } = yield call(API.fetchAllAsync);
+        yield put(fetchAllEmployeesSuccess({ employees }));
     } catch ({ message }) {
         yield put(fetchAllEmployeesFailed({ message }));
     }
@@ -37,7 +37,7 @@ function* fetchAllEmployeesSaga()
 function* fetchAllEmployeesWatcher()
 {
     while (true) {
-        yield take(FETCH_ALL_USERS_START);
+        yield take(FETCH_ALL_EMPLOYEES_START);
         yield call(fetchAllEmployeesSaga);
     }
 }

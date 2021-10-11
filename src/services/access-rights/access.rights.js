@@ -24,10 +24,10 @@ export const findByIDAsync = async (id) =>
         .catch(error => Promise.reject(error.response.data));
 }
 
-export const assignRoleAsync = async ({ role_id, user_ids }) => 
+export const assignRoleAsync = async ({ role_id, ids }) => 
 {
     return await axiosInstance()
-        .post(`/access-rights/${ role_id }/assign`, { user_ids })
+        .post(`/access-rights/${ role_id }/assign`, { ids })
         .then(response => response.data)
         .catch(error => Promise.reject(error.response.data));
 }
