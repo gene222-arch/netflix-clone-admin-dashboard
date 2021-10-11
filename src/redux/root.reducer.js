@@ -14,6 +14,7 @@ import comingSoonMovieReducer from './modules/coming-soon-movie/reducer'
 import confirmReducer from './modules/confirm/reducer'
 import dashboardReducer from './modules/dashboard/reducer'
 import directorReducer from './modules/director/reducer'
+import employeeReducer from './modules/employee/reducer'
 import genreReducer from './modules/genre/reducer'
 import mainLayoutReducer from './modules/main-layout/reducer'
 import movieReducer from './modules/movie/reducer'
@@ -42,6 +43,7 @@ const reducers = {
     comingSoonMovie: comingSoonMovieReducer,
     dashboard: dashboardReducer,
     director: directorReducer,
+    employee: employeeReducer,
     genre: genreReducer,
     mainLayout: mainLayoutReducer,
     movie: movieReducer,
