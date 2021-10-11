@@ -26,7 +26,7 @@ const Employee = ({ MAIN_LAYOUT, AUTH }) =>
 
     return AUTH.permissions?.includes('Manage Employees') && (
         <StyledNavLink 
-            to={ PATH.ACTIVITY_LOG }
+            to={ PATH.EMPLOYEE }
             text={
                 <ToolTipComponent 
                     withToolTip={ !MAIN_LAYOUT.drawer }
