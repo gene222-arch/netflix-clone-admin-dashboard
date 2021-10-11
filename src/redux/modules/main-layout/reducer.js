@@ -14,6 +14,7 @@ const {
     TOGGLE_SECOND_LIST_ITEM,
     SELECT_DASHBOARD,
     SELECT_ACTIVITY_LOG,
+    SELECT_EMPLOYEE,
     SELECT_ACCESS_RIGHT
 } = ACTION_TYPES;
 
@@ -22,6 +23,7 @@ const DEFAULT_STATE = {
     activityLog: false,
     dashboard: false,
     drawer: true,
+    employee: false,
     videoManagement: false,
     videoManagementAuthors: false,
     videoManagementCasts: false,
@@ -37,6 +39,7 @@ const initialState = {
     activityLog: false,
     dashboard: false,
     drawer: false,
+    employee: false,
     videoManagement: false,
     videoManagementAuthors: false,
     videoManagementCasts: false,
@@ -58,6 +61,7 @@ export default (state = initialState, { type, payload }) =>
         currentSelectedDropdown, 
         currentSelectedDropdownItem, 
         activityLog,
+        employee,
         drawer, 
         videoManagement, 
         videoManagementAuthors,
@@ -169,13 +173,19 @@ export default (state = initialState, { type, payload }) =>
                 currentSelectedItem: 'Dashboard',
             }
 
-        case SELECT_DASHBOARD: 
+        case SELECT_ACTIVITY_LOG: 
             return {
                 ...DEFAULT_STATE, 
                 activityLog: true,
                 currentSelectedItem: 'Activity Logs',
             }
-
+            
+        case SELECT_EMPLOYEE: 
+            return {
+                ...DEFAULT_STATE, 
+                employee: true,
+                currentSelectedItem: 'Employees',
+            }
 
         case SELECT_ACCESS_RIGHT: 
             return {

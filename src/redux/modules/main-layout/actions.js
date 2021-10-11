@@ -13,6 +13,7 @@ const {
     TOGGLE_SECOND_LIST_ITEM,
     SELECT_DASHBOARD,
     SELECT_ACTIVITY_LOG,
+    SELECT_EMPLOYEE,
     SELECT_ACCESS_RIGHT
 } = ACTION_TYPES;
 
@@ -66,6 +67,11 @@ export const selectDashboard = () => ({
 export const selectActivityLog = () => ({
     type: SELECT_ACTIVITY_LOG
 });
+
+export const selectEmployee = () => ({
+    type: SELECT_EMPLOYEE
+});
+
 
 export const selectAccessRight = () => ({
     type: SELECT_ACCESS_RIGHT

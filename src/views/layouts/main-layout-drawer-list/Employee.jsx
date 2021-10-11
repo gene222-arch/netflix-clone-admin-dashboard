@@ -7,40 +7,40 @@ import { ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
 import StyledNavLink from '../../../components/styled-components/StyledNavLink';
 import PATH from './../../../routes/path';
 import { selectAuth } from './../../../redux/modules/auth/selector';
-import { ViewList } from '@material-ui/icons';
 import ToolTipComponent from '../../../components/ToolTipComponent';
 import { makeStyles } from '@material-ui/core';
+import PeopleRoundedIcon from '@material-ui/icons/PeopleRounded';
 
-const activityLogsUseStyles = makeStyles(theme => ({
+const employeesUseStyles = makeStyles(theme => ({
     icon: {
-        color: theme.palette.info.dark
+        color: '#FFF'
     }
 }));
 
-const ActivityLog = ({ MAIN_LAYOUT, AUTH }) => 
+const Employee = ({ MAIN_LAYOUT, AUTH }) => 
 {
-    const classes = activityLogsUseStyles();
+    const classes = employeesUseStyles();
     const dispatch = useDispatch();
 
-    const handleClick = () => dispatch(MAIN_LAYOUT_ACTION.selectActivityLog());
+    const handleClick = () => dispatch(MAIN_LAYOUT_ACTION.selectEmployee());
 
-    return AUTH.permissions?.includes('Manage Activity Logs') && (
+    return AUTH.permissions?.includes('Manage Employees') && (
         <StyledNavLink 
             to={ PATH.ACTIVITY_LOG }
             text={
                 <ToolTipComponent 
                     withToolTip={ !MAIN_LAYOUT.drawer }
-                    title='Activity Logs'
+                    title='Employees'
                     component={ 
                         <ListItem 
                             button 
                             onClick={ handleClick }
-                            selected={ MAIN_LAYOUT.activityLog }
+                            selected={ MAIN_LAYOUT.employee }
                         >
                             <ListItemIcon>
-                                <ViewList className={ classes.icon } />
+                                <PeopleRoundedIcon className={ classes.icon } />
                             </ListItemIcon>
-                            <ListItemText primary='Activity Logs' />
+                            <ListItemText primary='Employees' />
                         </ListItem>
                     }
                 />
@@ -54,4 +54,4 @@ const mapStateToProps = createStructuredSelector({
     MAIN_LAYOUT: selectMainLayout
 });
 
-export default connect(mapStateToProps)(ActivityLog)
+export default connect(mapStateToProps)(Employee)
