@@ -8,6 +8,14 @@ export const fetchAllAsync = async (payload) =>
         .catch(error => Promise.reject(error.response.data));
 }
 
+export const findByIDAsync = async (id) => 
+{
+    return await axiosInstance()
+        .get(`/employees/${ id }`)
+        .then(response => response.data)
+        .catch(error => Promise.reject(error.response.data));
+}
+
 export const createAsync = async (payload) => 
 {
     return await axiosInstance()
