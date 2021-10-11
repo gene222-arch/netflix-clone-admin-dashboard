@@ -27,6 +27,8 @@ export default (state = initialState, { type, payload }) =>
 {
     const isLoading = false;
     
+    const error = EMPLOYEE_DEFAULT_PROPS;
+
     switch (type) 
     {
         
