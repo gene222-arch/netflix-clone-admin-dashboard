@@ -9,6 +9,12 @@ import ACTION_TYPES from './action.types'
 import { 
     fetchAllEmployeesSuccess,
     fetchAllEmployeesFailed,
+    createEmployeeSuccess,
+    createEmployeeFailed,
+    updateEmployeeSuccess,
+    updateEmployeeFailed,
+    destroyEmployeesSuccess,
+    destroyEmployeesFailed
 } from './actions';
 import { showAlert } from './../alert/actions';
 import PATH from './../../../routes/path';
@@ -16,6 +22,9 @@ import { ERROR_MESSAGE_ON_UPDATE } from './../../../config/alertMessages';
 
 const {
     FETCH_ALL_EMPLOYEES_START,
+    CREATE_EMPLOYEE_START,
+    UPDATE_EMPLOYEE_START,
+    DESTROY_EMPLOYEES_START
 }  = ACTION_TYPES;
 
 /**
@@ -31,6 +40,36 @@ function* fetchAllEmployeesSaga()
     }
 }
 
+function* createEmployeeSaga(payload)
+{
+    try {
+        yield call(API.createAsync, payload);
+        yield put(createEmployeeSuccess());
+    } catch ({ message }) {
+        yield put(createEmployeeFailed({ message }));
+    }
+}
+
+function* updateEmployeeSaga(payload)
+{
+    try {
+        yield call(API.updateAsync, payload);
+        yield put(updateEmployeeSuccess());
+    } catch ({ message }) {
+        yield put(updateEmployeeFailed({ message }));
+    }
+}
+
+function* destroyEmployeeSaga(payload)
+{
+    try {
+        yield call(API.destroyAsync, payload);
+        yield put(destroyEmployeeSuccess());
+    } catch ({ message }) {
+        yield put(destroyEmployeeFailed({ message }));
+    }
+}
+
 /**
  * Watchers
  */
@@ -42,12 +81,39 @@ function* fetchAllEmployeesWatcher()
     }
 }
 
+function* createEmployeeWatcher()
+{
+    while (true) {
+        const { payload } = yield take(CREATE_EMPLOYEE_START);
+        yield call(createEmployeeSaga, payload);
+    }
+}
+
+function* updateEmployeeWatcher()
+{
+    while (true) {
+        const { payload } = yield take(UPDATE_EMPLOYEE_START);
+        yield call(updateEmployeeSaga, payload);
+    }
+}
+
+function* destroyEmployeesWatcher()
+{
+    while (true) {
+        const { payload } = yield take(DESTROY_EMPLOYEES_START);
+        yield call(destroyEmployeeSaga, payload);
+    }
+}
+
 /**
  * 
  */
 export default function*()
 {
     yield all([
-        fetchAllEmployeesWatcher()
+        fetchAllEmployeesWatcher(),
+        createEmployeeWatcher(),
+        updateEmployeeWatcher(),
+        destroyEmployeesWatcher()
     ]);
 }

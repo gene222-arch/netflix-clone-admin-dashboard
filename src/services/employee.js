@@ -7,3 +7,29 @@ export const fetchAllAsync = async (payload) =>
         .then(response => response.data)
         .catch(error => Promise.reject(error.response.data));
 }
+
+export const createAsync = async (payload) => 
+{
+    return await axiosInstance()
+        .post(`/employees`, payload)
+        .then(response => response.data)
+        .catch(error => Promise.reject(error.response.data));
+}
+
+export const updateAsync = async (payload) => 
+{
+    return await axiosInstance()
+        .put(`/employees/${ payload.id }`, payload)
+        .then(response => response.data)
+        .catch(error => Promise.reject(error.response.data));
+}
+
+export const destroyAsync = async (ids) => 
+{
+    return await axiosInstance()
+        .delete(`/employees`, {
+            data: { ids }
+        })
+        .then(response => response.data)
+        .catch(error => Promise.reject(error.response.data));
+}

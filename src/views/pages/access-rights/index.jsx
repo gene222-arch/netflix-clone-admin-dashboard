@@ -65,9 +65,9 @@ const AccessRight = ({ ACCESS_RIGHT }) =>
         {
             title: 'Employees',
             field: 'employees_count',
-            render: ({ employees_count }) => (
+            render: ({ id, employees_count }) => (
                 <Chip 
-                    label={ employees_count } 
+                    label={ id === 1 ? 1 : employees_count } 
                     color='default' 
                     variant="outlined" 
                     className={ classes.userCountChip } 
