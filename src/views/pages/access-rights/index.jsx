@@ -38,11 +38,11 @@ const AccessRight = ({ ACCESS_RIGHT }) =>
     const dispatch = useDispatch();
     const history = useHistory();
 
-    const employeesField = ({ employees }) => 
+    const usersField = ({ users }) => 
     {
-        if ( employees.length <= 0 ) return 'To be assigned';
+        if ( users.length <= 0 ) return 'To be assigned';
         
-        const result = employees
+        const result = users
             .map(({ first_name, last_name }) => `${ first_name } ${ last_name }`)
             .join(', ')
             .substring(0, 70);
@@ -59,15 +59,15 @@ const AccessRight = ({ ACCESS_RIGHT }) =>
         },
         { 
             title: 'Assigned To', 
-            field: 'employees_count',
-            render: employeesField
+            field: 'users_count',
+            render: usersField
         },
         {
             title: 'Employees',
-            field: 'employees_count',
-            render: ({ id, employees_count }) => (
+            field: 'users_count',
+            render: ({ id, users_count }) => (
                 <Chip 
-                    label={ id === 1 ? 1 : employees_count } 
+                    label={ id === 1 ? 1 : users_count } 
                     color='default' 
                     variant="outlined" 
                     className={ classes.userCountChip } 

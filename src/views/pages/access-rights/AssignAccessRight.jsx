@@ -15,8 +15,8 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import BoxContentLoader from './../../../components/content-loader/BoxContentLoader';
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import PATH from './../../../routes/path';
-import { selectEmployee } from './../../../redux/modules/employee/selector';
-import * as EMPLOYEE_ACTION from './../../../redux/modules/employee/actions';
+import { selectUser } from './../../../redux/modules/user/selector';
+import * as USER_ACTION from './../../../redux/modules/user/actions';
 
 const assignAccessRightUseStyles = makeStyles(theme => ({
     checkBoxContainer: {
@@ -40,7 +40,7 @@ const TO_ASSIGN_PROPS = {
 };
 
 
-const AssignAccessRight = ({ ACCESS_RIGHT, EMPLOYEE }) => 
+const AssignAccessRight = ({ ACCESS_RIGHT, USER }) => 
 {
     const classes = assignAccessRightUseStyles();
     const dispatch = useDispatch();
@@ -49,16 +49,16 @@ const AssignAccessRight = ({ ACCESS_RIGHT, EMPLOYEE }) =>
 
 
     const hasEmployeesWithNoRoles = useMemo(() => {
-            const result = EMPLOYEE.employees.filter(employee => !employee.roles_count).length;
+            const result = USER.users.filter(user => !user.roles_count).length;
             return Boolean(result);
-    }, [EMPLOYEE.employees])
+    }, [USER.users])
 
     const currentAccessRight = ACCESS_RIGHT.accessRights.find(({ id: accessRightId }) => accessRightId === parseInt(id));
 
-    const employeeIds = useMemo(() => currentAccessRight.employees.map(({ id }) => id), []);
+    const userIds = useMemo(() => currentAccessRight.users.map(({ id }) => id), []);
 
     const [ isFetching, setIsFetching ] = useState(true);
-    const [ toAssign, setToAssign ] = useState({ role_id: id, ids: employeeIds });
+    const [ toAssign, setToAssign ] = useState({ role_id: id, ids: userIds });
     const [ accessRight, setAccessRight ] = useState(ACCESS_RIGHT.accessRight);
 
     const handeClickAssignRole = () => dispatch(ACCESS_RIGHT_ACTION.assignRoleStart(toAssign));
@@ -66,13 +66,13 @@ const AssignAccessRight = ({ ACCESS_RIGHT, EMPLOYEE }) =>
     const handleChange = (e) =>
     {
         const { value } = e.target;
-        const employeeId = parseInt(value);
+        const userId = parseInt(value);
 
-        const isEmployeeSelected = toAssign.ids.find(id => id === employeeId);
+        const isEmployeeSelected = toAssign.ids.find(id => id === userId);
 
         !isEmployeeSelected
-            ? setToAssign({ ...toAssign, ids: [ ...toAssign.ids, employeeId ] })
-            : setToAssign({ ...toAssign, ids: toAssign.ids.filter(id => id !== employeeId) });
+            ? setToAssign({ ...toAssign, ids: [ ...toAssign.ids, userId ] })
+            : setToAssign({ ...toAssign, ids: toAssign.ids.filter(id => id !== userId) });
     }
  
     const onLoadFetchAccessRightById = async () => 
@@ -90,7 +90,7 @@ const AssignAccessRight = ({ ACCESS_RIGHT, EMPLOYEE }) =>
     const onLoadApiRequests = async () => 
     {
         try {
-            dispatch(EMPLOYEE_ACTION.fetchAllEmployeesStart());
+            dispatch(USER_ACTION.fetchAllUsersStart());
             await onLoadFetchAccessRightById();
         } catch ({ message }) {
             console.log(message);
@@ -177,7 +177,7 @@ const AssignAccessRight = ({ ACCESS_RIGHT, EMPLOYEE }) =>
                                                 color="textSecondary"
                                                 align='center'
                                             >
-                                                All employee`s had already given a role
+                                                All user`s had already given a role
                                             </Typography>
                                         )
                                         : <ListSubheader component="div" id="nested-list-subheader">Employees</ListSubheader>
@@ -186,7 +186,7 @@ const AssignAccessRight = ({ ACCESS_RIGHT, EMPLOYEE }) =>
                             >
                                 <Grid container spacing={1}>
                                 {
-                                    EMPLOYEE.employees.map(({ id, first_name, last_name, email, roles, roles_count }, index) => 
+                                    USER.users.map(({ id, first_name, last_name, email, roles, roles_count }, index) => 
                                     {
                                         return (roles[0]?.name === currentAccessRight.name || !roles_count) && (
                                             <Grid key={ index } item xs={ 12 } sm={ 12 } md={ 6 } lg={ 6 }>
@@ -225,7 +225,7 @@ const AssignAccessRight = ({ ACCESS_RIGHT, EMPLOYEE }) =>
 
 const mapStateToProps = createStructuredSelector({
     ACCESS_RIGHT: selectAccessRight,
-    EMPLOYEE: selectEmployee
+    USER: selectUser
 });
 
 export default connect(mapStateToProps)(AssignAccessRight)
