@@ -57,6 +57,7 @@ const Employee = lazy(() => import('./../views/pages/employee'))
 const CreateEmployee = lazy(() => import('./../views/pages/employee/CreateEmployee'));
 const UpdateEmployee = lazy(() => import('./../views/pages/employee/UpdateEmployee'));
 
+
 export const PUBLIC_ROUTES = [
     {
         path: PATH.FORGOT_PASSWORD,
@@ -160,7 +161,7 @@ export const GLOBAL_ROUTES =
         component: TermsAndConditions,
         access: '',
         restricted: false
-    }
+    },
 ];
 
 export const USER_ROUTES = [
@@ -515,7 +516,8 @@ export const RenderRoutes = ({ routes }) =>
                         path={ path }
                         strict={ strict }
                         exact={ exact }
-                        render={ props => {
+                        render={ props => 
+                        {
                             return (
                                 restricted 
                                     ? <PrivateRoute Component={ component } access={ access } { ...props }/>

@@ -1,28 +1,21 @@
-/** Libraries */
-import React from 'react'
+import React, { lazy } from 'react'
 import { Route, Switch } from 'react-router-dom'
 import DateFnsUtils from '@date-io/date-fns';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
-
-/** Routes config */
-import { GLOBAL_ROUTES, PRIVATE_ROUTES, PUBLIC_ROUTES, RenderRoutes, USER_ROUTES } from './routes'
-
-/** Layouts */
+import { GLOBAL_ROUTES, PRIVATE_ROUTES, PUBLIC_ROUTES, RenderRoutes, USER_ROUTES, VERIFICATION_ROUTES } from './routes'
 import AuthLayout from './views/layouts/AuthLayout';
-import MainLayout from './views/layouts/MainLayout';
-
-/** Components */
 import NotFound from './views/pages/errors/NotFound';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import AlertPopUp from './components/AlertPopUp';
 import THEME from './config/MuiTheme';
 import ConfirmationDialog from './components/ConfirmationDialog';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import UserLayout from './views/layouts/UserLayout';
 import { createStructuredSelector } from 'reselect';
 import { selectAuth } from './redux/modules/auth/selector';
 import { connect } from 'react-redux';
 import SecurityLayout from './views/layouts/SecurityLayout';
+import PATH from './routes/path';
+const EmailVerification = lazy(() => import('./views/pages/employee/EmailVerification'));
 
 const App = ({ AUTH, history }) => 
 {
@@ -38,6 +31,10 @@ const App = ({ AUTH, history }) =>
 							<RenderRoutes routes={ GLOBAL_ROUTES } />
 						</SecurityLayout>
 					</Route>
+
+					<AuthLayout>
+						<Route path={ PATH.VERIFY_EMPLOYEE } exact component={ EmailVerification } />
+					</AuthLayout>
 
 					{
 						!AUTH.isAuthenticated && (

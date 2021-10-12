@@ -38,6 +38,7 @@ const PATH =
     EMPLOYEE: '/employees',
     CREATE_EMPLOYEE: '/employees/create-new-employee',
     UPDATE_EMPLOYEE: '/employees/:id/update-employee',
+    VERIFY_EMPLOYEE: '/employees/verify/email',
 
     CREATE_GENRE: '/video-management/genres/create-new-genre',
     UPDATE_GENRE: '/video-management/genres/:id/update-genre',
