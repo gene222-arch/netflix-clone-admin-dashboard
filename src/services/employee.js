@@ -1,4 +1,5 @@
 import axiosInstance from './../utils/axiosInstance'
+import * as FormDataHelper from './../utils/formData'
 
 export const fetchAllAsync = async (payload) => 
 {
@@ -28,6 +29,18 @@ export const updateAsync = async (payload) =>
 {
     return await axiosInstance()
         .put(`/employees/${ payload.id }`, payload)
+        .then(response => response.data)
+        .catch(error => Promise.reject(error.response.data));
+}
+
+export const uploadAvatarAsync = async (payload) => 
+{
+    return await axiosInstance()
+        .post('/employees/avatar', FormDataHelper.prepareToFormData(payload), {
+            headers: {
+                'content-type': 'multipart/form-data'
+            }
+        })
         .then(response => response.data)
         .catch(error => Promise.reject(error.response.data));
 }

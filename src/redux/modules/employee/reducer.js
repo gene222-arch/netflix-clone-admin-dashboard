@@ -22,7 +22,8 @@ const EMPLOYEE_DEFAULT_PROPS = {
     last_name: '',
     email: '',
     phone: '',
-    pin_code: ''
+    pin_code: '',
+    avatar_path: null
 };
 
 const initialState = {

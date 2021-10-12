@@ -1,17 +1,19 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import Container from '@material-ui/core/Container'
-import { Card, CardContent, Grid, TextField, CardHeader, Typography, Divider, Button } from '@material-ui/core'
+import { Card, CardContent, Grid, TextField, CardHeader, Typography, Divider, Button, makeStyles } from '@material-ui/core'
 import { createStructuredSelector } from 'reselect';
 import { selectEmployee, selectEmployeeErrorMessages, selectEmployeeHasErrorMessages } from './../../redux/modules/employee/selector';
 import { connect, useDispatch } from 'react-redux';
 import CardBackButton from './../CardBackButton';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import EmailIcon from '@material-ui/icons/Email';
-import { PhoneAndroidRounded } from '@material-ui/icons';
+import { AccountCircleRounded, PhoneAndroidRounded } from '@material-ui/icons';
 import StyledReactSelect from './../../components/styled-components/StyledReactSelect';
 import * as ACCESS_RIGHT_ACTIONS from './../../redux/modules/access-rights/actions'
 import * as EMPLOYEE_ACTION from './../../redux/modules/employee/actions'
 import { selectAccessRight } from './../../redux/modules/access-rights/selector';
+import ImageWithPreview from './../ImageWithPreview';
+import * as EMPLOYEE_API from './../../services/employee'
 
 const DEFAULT_PIN_CODE_PROPS = {
     num1: '',
@@ -21,9 +23,28 @@ const DEFAULT_PIN_CODE_PROPS = {
 };
 
 
+const inputFieldUseStyles = makeStyles(theme => ({
+    avatarIcon: {
+        height: '40vh',
+        width: '100%'
+    },
+    avatarImg: {
+        height: '40vh',
+        width: '20vh'
+    }
+}));
+
+
 const InputField = ({ ACCESS_RIGHT, EMPLOYEE, EMPLOYEE_HAS_ERROR, EMPLOYEE_ERROR, employee, setEmployee, pin, setPin, onClickSave }) => 
 {
+    const classes = inputFieldUseStyles();
     const dispatch = useDispatch();
+
+    const [ isUploading, setIsUploading ] = useState(false);
+    const [ hasError, setHasError ] = useState(false);
+    const [ avatarPreview, setAvatarPreview ] = useState(null);
+    const [ errorMessage, setErrorMessage ] = useState('');
+
 
     const handleChange = (e) => setEmployee({ ...employee, [e.target.name]: e.target.value });
 
@@ -49,6 +70,41 @@ const InputField = ({ ACCESS_RIGHT, EMPLOYEE, EMPLOYEE_HAS_ERROR, EMPLOYEE_ERROR
         }
     }
 
+    const handleChangeAvatar = async (e) => 
+    {
+        setIsUploading(true);
+
+        let files = e.target.files || e.dataTransfer.files;
+
+        if (!files.length) return;
+        
+        const file = files[0];
+        const reader = new FileReader();
+
+        try {
+            const { data, status } = await EMPLOYEE_API.uploadAvatarAsync({ avatar: file });
+            
+            if (status === 'success') 
+            {
+                setEmployee({ ...employee, avatar_path: data });
+
+                reader.onload = (e) =>  setAvatarPreview(e.target.result);
+        
+                reader.readAsDataURL(file);
+                
+                setHasError(false);
+                setErrorMessage('');
+            }
+
+        } catch ({ message }) {
+            setHasError(true);
+            setErrorMessage(message.avatar);
+        }
+
+        setIsUploading(false);
+        e.target.value = null;
+    }
+
     useEffect(() => 
     {
         dispatch(ACCESS_RIGHT_ACTIONS.fetchAllAccessRightsStart());
@@ -62,6 +118,36 @@ const InputField = ({ ACCESS_RIGHT, EMPLOYEE, EMPLOYEE_HAS_ERROR, EMPLOYEE_ERROR
     return (
         <Container maxWidth="md">
             <Grid container spacing={1}>
+                <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
+                    <Card>
+                        <CardContent>
+                            <Grid container spacing={1}>
+                                {
+                                    !avatarPreview && (
+                                        <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
+                                            <AccountCircleRounded className={ classes.avatarIcon } />
+                                        </Grid>
+                                    )
+                                }
+                                <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
+                                    <ImageWithPreview 
+                                        name='Avatar'
+                                        inputID='avatar'
+                                        inputName='avatar'
+                                        apiSource={ employee.avatar_path }
+                                        filePreview={ avatarPreview }
+                                        imgClass={ classes.avatarImg }
+                                        handleChangeFile={ handleChangeAvatar }
+                                        error={ hasError }
+                                        helperText={ errorMessage }
+                                        isUploading={ isUploading }
+                                    />
+                                </Grid>
+                            </Grid>
+                        </CardContent>
+                    </Card>
+                </Grid>
+
                 <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
                     <Card>
                         <CardHeader
