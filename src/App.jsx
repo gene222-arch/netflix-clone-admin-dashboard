@@ -32,9 +32,11 @@ const App = ({ AUTH, history }) =>
 						</SecurityLayout>
 					</Route>
 
-					<AuthLayout>
-						<Route path={ PATH.VERIFY_EMPLOYEE } exact component={ EmailVerification } />
-					</AuthLayout>
+					<Route path='/employees/:path'>
+						<AuthLayout>
+							<Route path={ PATH.VERIFY_EMPLOYEE } exact component={ EmailVerification } />
+						</AuthLayout>
+					</Route>
 
 					{
 						!AUTH.isAuthenticated && (

@@ -5,7 +5,8 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const forbiddenUseStyles = makeStyles(theme => ({
     container: {
-        height: '100vh'
+        height: 'auto',
+        marginTop: '10vh'
     }
 }));
 
@@ -17,7 +18,7 @@ const Forbidden = () =>
     return (
         <Container maxWidth="lg">
             <Grid container spacing={1} alignItems='center' justify='center' className={ classes.container }>
-                <Grid item xs={ 12 } sm={ 12 } md={ 6 } lg={ 6 }>
+                <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
                     <Typography variant="h4" color="initial" align='center' gutterBottom>YOU SHALL NOT PASS</Typography>
                     <Typography 
                         variant="h1" 
@@ -38,9 +39,6 @@ const Forbidden = () =>
                     >
                         Go Back
                     </Button>
-                </Grid>
-                <Grid item xs={ 12 } sm={ 12 } md={ 6 } lg={ 6 }>
-                    
                 </Grid>
             </Grid>
         </Container>
