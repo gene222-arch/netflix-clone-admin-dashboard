@@ -34,16 +34,19 @@ const UpdateEmployee = ({ EMPLOYEE }) =>
     const onLoadFetchEmployee = async () =>
     {
         try {
-            const { data } = await EMPLOYEE_API.findByIDAsync(id);
-
-            const [ num1, num2, num3, num4 ] = data.pin_code.split('');
-            const role = data.roles[0];
+            const { 
+                    data: { 
+                        employee: employeeData, role: roleName 
+                    } 
+                } = await EMPLOYEE_API.findByIDAsync(id);
+                
+            const [ num1, num2, num3, num4 ] = employeeData.pin_code.split('');
             
             setEmployee({
-                ...data,
+                ...employeeData,
                 role: {
-                    label: role.name,
-                    value: role.name
+                    label: roleName,
+                    value: roleName
                 }
             });
 

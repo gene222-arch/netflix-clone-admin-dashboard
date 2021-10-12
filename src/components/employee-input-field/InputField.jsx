@@ -112,6 +112,10 @@ const InputField = ({ ACCESS_RIGHT, EMPLOYEE, EMPLOYEE_HAS_ERROR, EMPLOYEE_ERROR
 
         return () => {
             dispatch(EMPLOYEE_ACTION.clearEmployeeErrors());
+            setIsUploading(false);
+            setHasError(false);
+            setAvatarPreview(null);
+            setErrorMessage('');
         }
     }, []);
 
@@ -123,7 +127,7 @@ const InputField = ({ ACCESS_RIGHT, EMPLOYEE, EMPLOYEE_HAS_ERROR, EMPLOYEE_ERROR
                         <CardContent>
                             <Grid container spacing={1}>
                                 {
-                                    !avatarPreview && (
+                                    (!avatarPreview && !employee.avatar_path) && (
                                         <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
                                             <AccountCircleRounded className={ classes.avatarIcon } />
                                         </Grid>
