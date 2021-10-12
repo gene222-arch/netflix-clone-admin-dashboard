@@ -69,8 +69,9 @@ function* updateEmployeeSaga(payload)
 function* destroyEmployeeSaga(payload)
 {
     try {
-        const { status, message } = yield call(API.destroyAsync, payload);
-        yield put(destroyEmployeesSuccess());
+        const { ids } = payload;
+        const { status, message } = yield call(API.destroyAsync, ids);
+        yield put(destroyEmployeesSuccess({ ids }));
         yield put(ALERT.showAlert({ status, message }));
     } catch ({ message }) {
         yield put(destroyEmployeesFailed({ message }));

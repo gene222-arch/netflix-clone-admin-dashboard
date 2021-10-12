@@ -27,16 +27,16 @@ const Employee = ({ EMPLOYEE }) =>
     const history = useHistory();
     const columns = [
         { title: 'id', field: 'id', hidden: true },
-        // {
-        //     title: 'Avatar', 
-        //     field: 'avatar_path',
-        //     render: ({ id, avatar_path }) => (
-        //         <StyledNavLink 
-        //             to={ PATH.UPDATE_EMPLOYEE.replace(':id', id) } 
-        //             text={ <img className={ classes.avatarImg } src={ avatar_path } width='100' height='120' /> } 
-        //         /> 
-        //     )
-        // },
+        {
+            title: 'Avatar', 
+            field: 'avatar_path',
+            render: ({ id, avatar_path }) => (
+                <StyledNavLink 
+                    to={ PATH.UPDATE_EMPLOYEE.replace(':id', id) } 
+                    text={ <img className={ classes.avatarImg } src={ avatar_path } width='100' height='120' /> } 
+                /> 
+            )
+        },
         { 
             title: 'Birth Name', 
             field: 'birth_name',
@@ -81,7 +81,7 @@ const Employee = ({ EMPLOYEE }) =>
                     <MaterialTableActionButton
                         ids={ ids } 
                         addButtonCallback = { () => history.push(PATH.CREATE_EMPLOYEE) }
-                        destroyButtonCallback={ handleClickDestroyEmployee }
+                        deleteButtonCallback={ handleClickDestroyEmployee }
                     /> 
                 }
                 isLoading={ EMPLOYEE.isLoading }
