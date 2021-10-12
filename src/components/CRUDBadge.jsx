@@ -43,7 +43,7 @@ const CRUDBadge = ({ action }) =>
         case CRUD_ACTIONS.DELETE:
             return <Chip label={ <strong>{ CRUD_ACTIONS.DELETE }</strong> } className={ classes.error }/>
         default: 
-            return <Chip label={ <strong>{ CRUD_ACTIONS.DELETE }</strong> } className={ classes.disabled }/>
+            return <Chip label={ <strong>{ CRUD_ACTIONS.DELETE }</strong> } className={ classes.error }/>
     }
 }
 
