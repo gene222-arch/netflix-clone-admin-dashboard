@@ -16,9 +16,9 @@ import {
     destroyEmployeesSuccess,
     destroyEmployeesFailed
 } from './actions';
-import { showAlert } from './../alert/actions';
+import * as ALERT from './../alert/actions';
 import PATH from './../../../routes/path';
-import { ERROR_MESSAGE_ON_UPDATE } from './../../../config/alertMessages';
+import { ERROR_MESSAGE_ON_UPDATE, ERROR_MESSAGE_ON_CREATE } from './../../../config/alertMessages';
 
 const {
     FETCH_ALL_EMPLOYEES_START,
@@ -43,30 +43,35 @@ function* fetchAllEmployeesSaga()
 function* createEmployeeSaga(payload)
 {
     try {
-        yield call(API.createAsync, payload);
+        const { status, message } = yield call(API.createAsync, payload);
         yield put(createEmployeeSuccess());
+        yield put(ALERT.showAlert({ status, message }));
         yield put(push(PATH.EMPLOYEE));
-    } catch ({ message }) {
+    } catch ({ status, message }) {
         yield put(createEmployeeFailed({ message }));
+        yield put(ALERT.showAlert({ status, message: ERROR_MESSAGE_ON_CREATE }));
     }
 }
 
 function* updateEmployeeSaga(payload)
 {
     try {
-        yield call(API.updateAsync, payload);
+        const { status, message } = yield call(API.updateAsync, payload);
         yield put(updateEmployeeSuccess());
+        yield put(ALERT.showAlert({ status, message }));
         yield put(push(PATH.EMPLOYEE));
-    } catch ({ message }) {
+    } catch ({ status, message }) {
         yield put(updateEmployeeFailed({ message }));
+        yield put(ALERT.showAlert({ status, message: ERROR_MESSAGE_ON_CREATE }));
     }
 }
 
 function* destroyEmployeeSaga(payload)
 {
     try {
-        yield call(API.destroyAsync, payload);
+        const { status, message } = yield call(API.destroyAsync, payload);
         yield put(destroyEmployeesSuccess());
+        yield put(ALERT.showAlert({ status, message }));
     } catch ({ message }) {
         yield put(destroyEmployeesFailed({ message }));
     }

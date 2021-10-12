@@ -142,8 +142,8 @@ const InputField = ({ ACCESS_RIGHT, EMPLOYEE, EMPLOYEE_HAS_ERROR, EMPLOYEE_ERROR
                                         filePreview={ avatarPreview }
                                         imgClass={ classes.avatarImg }
                                         handleChangeFile={ handleChangeAvatar }
-                                        error={ hasError }
-                                        helperText={ errorMessage }
+                                        error={ hasError || EMPLOYEE_HAS_ERROR.avatar_path }
+                                        helperText={ errorMessage || EMPLOYEE_ERROR.avatar_path }
                                         isUploading={ isUploading }
                                     />
                                 </Grid>
