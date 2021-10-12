@@ -14,7 +14,9 @@ import {
     updateEmployeeSuccess,
     updateEmployeeFailed,
     destroyEmployeesSuccess,
-    destroyEmployeesFailed
+    destroyEmployeesFailed,
+    verifyEmployeeEmailSuccess,
+    verifyEmployeeEmailFailed
 } from './actions';
 import * as ALERT from './../alert/actions';
 import PATH from './../../../routes/path';
@@ -24,7 +26,8 @@ const {
     FETCH_ALL_EMPLOYEES_START,
     CREATE_EMPLOYEE_START,
     UPDATE_EMPLOYEE_START,
-    DESTROY_EMPLOYEES_START
+    DESTROY_EMPLOYEES_START,
+    VERIFY_EMPLOYEE_EMAIL_START
 }  = ACTION_TYPES;
 
 /**
@@ -78,6 +81,17 @@ function* destroyEmployeeSaga(payload)
     }
 }
 
+function* verifyEmployeeEmailSaga(payload)
+{
+    try {
+        const { status, message } = yield call(API.verifyAsync, payload);
+        yield put(verifyEmployeeEmailSuccess());
+        yield put(ALERT.showAlert({ status, message }));
+    } catch ({ message }) {
+        yield put(verifyEmployeeEmailFailed({ message }));
+    }
+}
+
 /**
  * Watchers
  */
@@ -113,6 +127,14 @@ function* destroyEmployeesWatcher()
     }
 }
 
+
+function* verifyEmployeeEmailWatcher()
+{
+    while (true) {
+        const { payload } = yield take(VERIFY_EMPLOYEE_EMAIL_START);
+        yield call(verifyEmployeeEmailSaga, payload);
+    }
+}
 /**
  * 
  */
@@ -122,6 +144,7 @@ export default function*()
         fetchAllEmployeesWatcher(),
         createEmployeeWatcher(),
         updateEmployeeWatcher(),
-        destroyEmployeesWatcher()
+        destroyEmployeesWatcher(),
+        verifyEmployeeEmailWatcher()
     ]);
 }

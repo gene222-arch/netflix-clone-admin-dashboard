@@ -13,6 +13,9 @@ const {
     DESTROY_EMPLOYEES_START,
     DESTROY_EMPLOYEES_SUCCESS,
     DESTROY_EMPLOYEES_FAILED,
+    VERIFY_EMPLOYEE_EMAIL_START,
+    VERIFY_EMPLOYEE_EMAIL_SUCCESS,
+    VERIFY_EMPLOYEE_EMAIL_FAILED,
     CLEAR_EMPLOYEE_ERRORS
 } = ACTION_TYPES;
 
@@ -79,6 +82,22 @@ export const destroyEmployeesSuccess = (payload) => ({
 
 export const destroyEmployeesFailed = (payload) => ({
     type: DESTROY_EMPLOYEES_FAILED,
+    payload
+});
+
+/** Verify */
+export const verifyEmployeeEmailStart = (payload) => ({
+    type: VERIFY_EMPLOYEE_EMAIL_START,
+    payload
+});
+
+export const verifyEmployeeEmailSuccess = (payload) => ({
+    type: VERIFY_EMPLOYEE_EMAIL_SUCCESS,
+    payload
+});
+
+export const verifyEmployeeEmailFailed = (payload) => ({
+    type: VERIFY_EMPLOYEE_EMAIL_FAILED,
     payload
 });
 

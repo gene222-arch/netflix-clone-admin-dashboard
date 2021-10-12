@@ -54,3 +54,11 @@ export const destroyAsync = async (ids) =>
         .then(response => response.data)
         .catch(error => Promise.reject(error.response.data));
 }
+
+export const verifyAsync = async ({ id, hash }) => 
+{
+    return await axiosInstance()
+        .put(`/employees/verify/email?id=${ id }&hash=${ hash }`)
+        .then(response => response.data)
+        .catch(error => Promise.reject(error.response.data));
+}

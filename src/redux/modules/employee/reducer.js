@@ -13,6 +13,9 @@ const {
     DESTROY_EMPLOYEES_START,
     DESTROY_EMPLOYEES_SUCCESS,
     DESTROY_EMPLOYEES_FAILED,
+    VERIFY_EMPLOYEE_EMAIL_START,
+    VERIFY_EMPLOYEE_EMAIL_SUCCESS,
+    VERIFY_EMPLOYEE_EMAIL_FAILED,
     CLEAR_EMPLOYEE_ERRORS
 } = ACTION_TYPES;
 
@@ -46,6 +49,7 @@ export default (state = initialState, { type, payload }) =>
         case CREATE_EMPLOYEE_START:
         case UPDATE_EMPLOYEE_START:
         case DESTROY_EMPLOYEES_START:
+        case VERIFY_EMPLOYEE_EMAIL_START:
             return {
                 ...state,
                 isLoading: true
@@ -53,6 +57,7 @@ export default (state = initialState, { type, payload }) =>
 
         case CREATE_EMPLOYEE_SUCCESS:
         case UPDATE_EMPLOYEE_SUCCESS:
+        case VERIFY_EMPLOYEE_EMAIL_SUCCESS:
             return {
                 ...state,
                 isLoading,
@@ -86,6 +91,7 @@ export default (state = initialState, { type, payload }) =>
         case CREATE_EMPLOYEE_FAILED:
         case UPDATE_EMPLOYEE_FAILED:
         case DESTROY_EMPLOYEES_FAILED:
+        case VERIFY_EMPLOYEE_EMAIL_FAILED:
             return {
                 ...state,
                 isLoading,
