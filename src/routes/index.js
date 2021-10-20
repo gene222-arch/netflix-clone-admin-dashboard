@@ -53,6 +53,7 @@ const UpdatePassword = lazy(() => import('../views/pages/user/UpdatePassword'))
 const SecurityCheck = lazy(() => import('../views/pages/user/update-email/SecurityCheck'))
 const PrivacyPolicy = lazy(() => import('./../views/pages/security/privacy-policy'));
 const TermsAndConditions = lazy(() => import('./../views/pages/security/terms-and-conditions'));
+const HelpCenter = lazy(() => import('./../views/pages/help-center'));
 const Employee = lazy(() => import('./../views/pages/employee'))
 const CreateEmployee = lazy(() => import('./../views/pages/employee/CreateEmployee'));
 const UpdateEmployee = lazy(() => import('./../views/pages/employee/UpdateEmployee'));
@@ -159,6 +160,15 @@ export const GLOBAL_ROUTES =
         icon: '',
         exact: true,
         component: TermsAndConditions,
+        access: '',
+        restricted: null
+    },
+    {
+        path: PATH.HELP_CENTER,
+        key: 'HelpCenter',
+        icon: '',
+        exact: true,
+        component: HelpCenter,
         access: '',
         restricted: null
     },

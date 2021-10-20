@@ -59,7 +59,8 @@ const PATH =
     UPDATE_EMAIL: '/mfa',
 
     PRIVACY_POLICY: '/legal/privacy',
-    TERMS_AND_CONDITION: '/legal/terms-and-conditions'
+    TERMS_AND_CONDITION: '/legal/terms-and-conditions',
+    HELP_CENTER: '/legal/help',
 };
 
 
