@@ -151,7 +151,7 @@ export const GLOBAL_ROUTES =
         exact: true,
         component: PrivacyPolicy,
         access: '',
-        restricted: false
+        restricted: null
     },
     {
         path: PATH.TERMS_AND_CONDITION,
@@ -160,7 +160,7 @@ export const GLOBAL_ROUTES =
         exact: true,
         component: TermsAndConditions,
         access: '',
-        restricted: false
+        restricted: null
     },
 ];
 
@@ -510,7 +510,7 @@ export const RenderRoutes = ({ routes }) =>
     return (
         <Switch>
             {
-                routes.map(({ key, path, strict, exact, access, restricted, component }) => (
+                routes.map(({ key, path, strict, exact, access, restricted, component: Component }) => (
                     <Route
                         key={ key }
                         path={ path }
@@ -518,11 +518,16 @@ export const RenderRoutes = ({ routes }) =>
                         exact={ exact }
                         render={ props => 
                         {
-                            return (
-                                restricted 
-                                    ? <PrivateRoute Component={ component } access={ access } { ...props }/>
-                                    : <PublicRoute Component={ component } { ...props } />
-                            )
+                            if (typeof restricted === 'object') return <Component { ...props } />
+                            
+                            if (typeof restricted === 'boolean') 
+                            {
+                                return (
+                                    restricted 
+                                        ? <PrivateRoute Component={ Component } access={ access } { ...props }/>
+                                        : <PublicRoute Component={ Component } { ...props } />
+                                )
+                            }
                         }}
                     />
                 ))
