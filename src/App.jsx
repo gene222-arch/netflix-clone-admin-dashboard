@@ -32,9 +32,9 @@ const App = ({ AUTH, history }) =>
 						</SecurityLayout>
 					</Route>
 
-					<Route path='/employees/:path'>
+					<Route path='/employees/verify/email' exact>
 						<AuthLayout>
-							<Route path={ PATH.VERIFY_EMPLOYEE } exact component={ EmailVerification } />
+							<Route path={ PATH.VERIFY_EMPLOYEE } component={ EmailVerification } />
 						</AuthLayout>
 					</Route>
 
@@ -63,6 +63,7 @@ const App = ({ AUTH, history }) =>
 							</Route>
 						)
 					}
+
 					<Route component={ NotFound } />
 				</Switch>
 			</MuiPickersUtilsProvider>

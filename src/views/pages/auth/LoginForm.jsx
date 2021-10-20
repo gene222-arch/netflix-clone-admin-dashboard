@@ -69,7 +69,7 @@ const LoginForm = ({ AUTH, ERROR_MESSAGE, HAS_ERROR_MESSAGE }) =>
         dispatch(AUTH_ACTION.login(credentials));
     }
 
-    const loginUserViaToken = async (profileId) => 
+    const loginUserViaToken = async (profileId, path) => 
     {
         try {
             const { data } = await USER_API.fetchByTokenAsync();
@@ -78,20 +78,26 @@ const LoginForm = ({ AUTH, ERROR_MESSAGE, HAS_ERROR_MESSAGE }) =>
 
             dispatch(AUTH_ACTION.loginViaToken({ ...data, selectedProfile }));
 
-            history.push(PATH.PROFILE_LOCK.replace(':id', profileId));
-        } catch ({ message }) {
-            
-        }
+            if (! path) {
+                history.push(PATH.PROFILE_LOCK.replace(':id', profileId));
+            } 
+
+            if (path === 'home') {
+                history.push(PATH.PROFILE_HOME_PAGE);
+            }
+        } catch ({ message }) {}
     }
 
     useEffect(() => 
     {
+        const path = typeof QueryParam.get('path') === 'string' ? QueryParam.get('path') : '';
         const token = QueryParam.get('token');
         const profileId = QueryParam.get('profileId');
 
-        if (token) {
+        if (token) 
+        {
             Cookies.set('access_token', token);
-            loginUserViaToken(profileId);
+            loginUserViaToken(profileId, path);
         }
         
         window.addEventListener('load', () => dispatch(AUTH_ACTION.clearErrors()));

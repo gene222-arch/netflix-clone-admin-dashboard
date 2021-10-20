@@ -32,17 +32,10 @@ const LoadMessage = ({ isLoading = true, message }) =>
     {
         if (message) return message;
 
-        if (! message) 
-        {
-            return (
-                !isLoading
-                    ? 'Email verified successfully'
-                    : 'Email not successfully verified'
-            )
-        }
+        if (isLoading) return 'Verifying email address...';
     }
 
-    return 'Verifying email address...';
+    return 'Email is verified';
 }
 
 

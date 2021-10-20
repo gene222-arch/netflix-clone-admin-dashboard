@@ -6,7 +6,7 @@ import Grid from '@material-ui/core/Grid'
 const Cookies = () => 
 {
     return (
-        <Grid container spacing={1} direction='column'>
+        <Grid container spacing={1} direction='column' key='cookies'>
             <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
                 <Typography variant="h6" color="initial"><strong>Cookies</strong></Typography>
             </Grid>
