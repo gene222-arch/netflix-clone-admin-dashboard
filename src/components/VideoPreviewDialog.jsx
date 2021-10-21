@@ -83,12 +83,16 @@ const VideoPreviewDialog = ({ COMING_SOON_MOVIE, open, setOpen, data, setData, o
 
     useEffect(() => 
     {
+        if (! open) {
+            setFilePreview(null);
+            setIsUploading(false);
+        }
         return () => {
             setFilePreview(null);
             setIsUploading(false);
             dispatch(COMING_SOON_MOVIE_ACTION.clearComingSoonMovieErrors());
         }
-    }, []);
+    }, [open]);
 
     return (
         <Container maxWidth="xl">
@@ -144,7 +148,7 @@ const VideoPreviewDialog = ({ COMING_SOON_MOVIE, open, setOpen, data, setData, o
                         variant="outlined" 
                         color="default" 
                         onClick={ handleClickCancel }
-                        disabled={ COMING_SOON_MOVIE.isLoading || !data.video_path || !data.duration_in_minutes}
+                        disabled={ COMING_SOON_MOVIE.isLoading }
                     >
                         Cancel
                     </Button>
