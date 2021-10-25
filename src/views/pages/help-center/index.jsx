@@ -3,6 +3,7 @@ import Container from '@material-ui/core/Container'
 import Typography from '@material-ui/core/Typography'
 import { Grid, Card, CardContent, CardHeader, List, ListItem, ListItemText, makeStyles, Link } from '@material-ui/core'
 import { useHistory } from 'react-router-dom';
+import PATH from './../../../routes/path';
 
 
 const helpCenterUseStyles = makeStyles(theme => ({
@@ -23,7 +24,7 @@ const frequentProblems = [
         list: [
             {
                 title: 'Plans and Pricing',
-                path: ''
+                path: PATH.PLANS_AND_PRICING
             },
             {
                 title: 'How to change your plan',
@@ -36,16 +37,16 @@ const frequentProblems = [
         list: [
             {
                 title: 'Billing and Payments',
-                path: ''
+                path: PATH.BILLING_AND_PAYMENTS
             },
         ]
     },
     {
-        title: 'Watching Netflix',
+        title: 'Watching Flicklify',
         list: [
             {
                 title: 'How to create and edit profiles',
-                path: ''
+                path: PATH.HOW_TO_CREATE_A_PROFILE
             },
         ]
     },
@@ -54,18 +55,14 @@ const frequentProblems = [
         list: [
             {
                 title: 'Update email',
-                path: ''
+                path: PATH.UPDATE_EMAIL
             },
             {
                 title: 'Update password',
-                path: ''
+                path: PATH.UPDATE_PASSWORD
             },
             {
                 title: 'Cancel account',
-                path: ''
-            },
-            {
-                title: 'Review payment history',
                 path: ''
             },
         ]
@@ -79,8 +76,8 @@ const HelpCenter = () =>
 
     return (
         <Container maxWidth="lg">
-            <Typography variant="h4" color="initial" gutterBottom>Help Center</Typography>
-            <Grid container spacing={1}>
+            <Typography variant="h4" color="initial" gutterBottom><strong>Help Center</strong></Typography>
+            <Grid container spacing={ 2 }>
                 {
                     frequentProblems.map(({ title, list }, index) => (
                         <Grid item xs={ 12 } sm={ 4 } md={ 4 } lg={ 4 }>

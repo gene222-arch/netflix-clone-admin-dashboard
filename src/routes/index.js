@@ -54,6 +54,9 @@ const SecurityCheck = lazy(() => import('../views/pages/user/update-email/Securi
 const PrivacyPolicy = lazy(() => import('./../views/pages/security/privacy-policy'));
 const TermsAndConditions = lazy(() => import('./../views/pages/security/terms-and-conditions'));
 const HelpCenter = lazy(() => import('./../views/pages/help-center'));
+const HowToCreateAProfile = lazy(() => import('./../views/pages/help-center/HowToCreateAProfile'));
+const BillingsAndPayments = lazy(() => import('./../views/pages/help-center/BillingAndPayments'));
+const PlansAndPricing = lazy(() => import('./../views/pages/help-center/PlansAndPricing'));
 const Employee = lazy(() => import('./../views/pages/employee'))
 const CreateEmployee = lazy(() => import('./../views/pages/employee/CreateEmployee'));
 const UpdateEmployee = lazy(() => import('./../views/pages/employee/UpdateEmployee'));
@@ -172,6 +175,33 @@ export const GLOBAL_ROUTES =
         access: '',
         restricted: null
     },
+    {
+        path: PATH.HOW_TO_CREATE_A_PROFILE,
+        key: 'HowToCreateAProfile',
+        icon: '',
+        exact: true,
+        component: HowToCreateAProfile,
+        access: '',
+        restricted: null
+    },
+    {
+        path: PATH.BILLING_AND_PAYMENTS,
+        key: 'BillingsAndPayments',
+        icon: '',
+        exact: true,
+        component: BillingsAndPayments,
+        access: '',
+        restricted: null
+    },
+    {
+        path: PATH.PLANS_AND_PRICING,
+        key: 'PlansAndPricing',
+        icon: '',
+        exact: true,
+        component: PlansAndPricing,
+        access: '',
+        restricted: null
+    }
 ];
 
 export const USER_ROUTES = [
