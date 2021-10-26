@@ -60,6 +60,7 @@ const PlansAndPricing = lazy(() => import('./../views/pages/help-center/PlansAnd
 const Employee = lazy(() => import('./../views/pages/employee'))
 const CreateEmployee = lazy(() => import('./../views/pages/employee/CreateEmployee'));
 const UpdateEmployee = lazy(() => import('./../views/pages/employee/UpdateEmployee'));
+const Settings = lazy(() => import('./../views/pages/settings'));
 
 
 export const PUBLIC_ROUTES = [
@@ -540,6 +541,17 @@ export const PRIVATE_ROUTES = [
         exact: true,
         component: UpdateEmployee,
         access: 'Manage Employees',
+        restricted: true
+    },
+
+    /** Settings */
+    {
+        path: PATH.SETTINGS,
+        key: 'Settings',
+        icon: '',
+        exact: true,
+        component: Settings,
+        access: '',
         restricted: true
     },
 ];

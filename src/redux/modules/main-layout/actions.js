@@ -14,7 +14,8 @@ const {
     SELECT_DASHBOARD,
     SELECT_ACTIVITY_LOG,
     SELECT_EMPLOYEE,
-    SELECT_ACCESS_RIGHT
+    SELECT_ACCESS_RIGHT,
+    SELECT_SETTINGS
 } = ACTION_TYPES;
 
 
@@ -72,7 +73,10 @@ export const selectEmployee = () => ({
     type: SELECT_EMPLOYEE
 });
 
-
 export const selectAccessRight = () => ({
     type: SELECT_ACCESS_RIGHT
+});
+
+export const selectSettings = () => ({
+    type: SELECT_SETTINGS
 });

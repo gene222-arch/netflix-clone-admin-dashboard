@@ -21,8 +21,8 @@ import Dashboard from './main-layout-drawer-list/Dashboard';
 import AppBarContent from './main-layout-header/AppBarContent';
 import AccessRight from './main-layout-drawer-list/AccessRight';
 import ActivityLog from './main-layout-drawer-list/ActivityLog';
-import APP_LOGO from './../../assets/images/app/iconflicklify.ico'
 import Employee from './main-layout-drawer-list/Employee';
+import Settings from './main-layout-drawer-list/Settings';
 
 
 
@@ -70,8 +70,10 @@ const MainLayout = ({ children, MAIN_LAYOUT }) =>
 
                     <Employee />
                     <Divider light/>
+
+                    <Settings />
+                    <Divider light/>
                 </List>
-                <img src={ APP_LOGO } width={ 40 } height={ 40 } className={ classes.appLogo } />
             </Drawer>
 
             <main className={classes.content}>

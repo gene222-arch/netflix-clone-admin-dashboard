@@ -15,12 +15,14 @@ const {
     SELECT_DASHBOARD,
     SELECT_ACTIVITY_LOG,
     SELECT_EMPLOYEE,
-    SELECT_ACCESS_RIGHT
+    SELECT_ACCESS_RIGHT,
+    SELECT_SETTINGS
 } = ACTION_TYPES;
 
 const DEFAULT_STATE = {
     accessRight: false,
     activityLog: false,
+    settings: false,
     dashboard: false,
     drawer: true,
     employee: false,
@@ -37,6 +39,7 @@ const DEFAULT_STATE = {
 const initialState = {
     accessRight: false,
     activityLog: false,
+    settings: false,
     dashboard: false,
     drawer: false,
     employee: false,
@@ -60,8 +63,7 @@ export default (state = initialState, { type, payload }) =>
         currentSelectedItem, 
         currentSelectedDropdown, 
         currentSelectedDropdownItem, 
-        activityLog,
-        employee,
+        settings,
         drawer, 
         videoManagement, 
         videoManagementAuthors,
@@ -170,6 +172,7 @@ export default (state = initialState, { type, payload }) =>
             return {
                 ...DEFAULT_STATE, 
                 dashboard: true,
+                currentSelectedDropdown: 'dashboard',
                 currentSelectedItem: 'Dashboard',
             }
 
@@ -177,6 +180,7 @@ export default (state = initialState, { type, payload }) =>
             return {
                 ...DEFAULT_STATE, 
                 activityLog: true,
+                currentSelectedDropdown: 'activityLog',
                 currentSelectedItem: 'Activity Logs',
             }
             
@@ -184,6 +188,7 @@ export default (state = initialState, { type, payload }) =>
             return {
                 ...DEFAULT_STATE, 
                 employee: true,
+                currentSelectedDropdown: 'employee',
                 currentSelectedItem: 'Employees',
             }
 
@@ -191,7 +196,16 @@ export default (state = initialState, { type, payload }) =>
             return {
                 ...DEFAULT_STATE, 
                 accessRight: true,
+                currentSelectedDropdown: 'accessRight',
                 currentSelectedItem: 'Access Rights',
+            }
+
+        case SELECT_SETTINGS: 
+            return {
+                ...DEFAULT_STATE, 
+                settings: true,
+                currentSelectedDropdown: 'settings',
+                currentSelectedItem: 'Settings',
             }
 
         default:
