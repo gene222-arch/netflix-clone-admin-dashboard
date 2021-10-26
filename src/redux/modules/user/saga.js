@@ -50,7 +50,7 @@ function* updateUserEmailSaga(payload)
         yield put(updateUserDetails(payload));
         yield put(updateUserEmailSuccess(payload));
         yield put(showAlert({ status, message }));
-        yield put(push(PATH.PROFILE_HOME_PAGE));
+        yield put(push(payload.path));
     } catch ({ message, status }) {
         yield put(updateUserEmailFailed({ message }));
         yield put(showAlert({ status, message: ERROR_MESSAGE_ON_UPDATE }));
@@ -65,7 +65,7 @@ function* updateUserPasswordSaga(payload)
 
         yield put(updateUserPasswordSuccess());
         yield put(showAlert({ status, message }));
-        yield put(push(PATH.PROFILE_HOME_PAGE));
+        yield put(push(payload.path));
     } catch ({ message, status }) {
         yield put(updateUserPasswordFailed({ message }));
         yield put(showAlert({ status, message: ERROR_MESSAGE_ON_UPDATE }));

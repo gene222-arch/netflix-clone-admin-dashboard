@@ -1,10 +1,13 @@
 import React from 'react'
+import Account from './Account';
+import Container from '@material-ui/core/Container'
 
-const Settings = () => {
+const Settings = () =>
+{
     return (
-        <div>
-            
-        </div>
+        <Container maxWidth="lg">
+            <Account />
+        </Container>
     )
 }
 

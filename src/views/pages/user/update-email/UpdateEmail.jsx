@@ -9,6 +9,7 @@ import { selectUser } from './../../../../redux/modules/user/selector';
 import * as USER_ACTION from './../../../../redux/modules/user/actions';
 import { connect, useDispatch } from 'react-redux';
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
+import PATH from './../../../../routes/path';
 
 
 const updateEmailUseStyles = makeStyles(theme => ({
@@ -35,7 +36,7 @@ const UpdateEmail = ({ USER }) =>
 
     const [ email, setEmail ] = useState('');
 
-    const handleClickUpdateEmail = () => dispatch(USER_ACTION.updateUserEmailStart({ email }));
+    const handleClickUpdateEmail = () => dispatch(USER_ACTION.updateUserEmailStart({ email, path: PATH.PROFILE_HOME_PAGE }));
 
     useEffect(() => {
         return () => {

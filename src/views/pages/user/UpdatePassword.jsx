@@ -11,6 +11,7 @@ import * as USER_ACTION from './../../../redux/modules/user/actions'
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import { selectUser, selectUserErrorMessages, selectUserHasErrorMessages } from './../../../redux/modules/user/selector';
+import PATH from './../../../routes/path';
 
 
 const updatePasswordStyles = makeStyles(theme => ({
@@ -42,7 +43,7 @@ const UpdatePassword = ({ USER, USER_HAS_ERROR_MESSAGE, USER_ERROR_MESSAGE }) =>
 
     const handleChangePasswords = (e) => setPasswords({ ...passwords, [e.target.name]: e.target.value });
 
-    const handleClickUpdatePassword = () => dispatch(USER_ACTION.updateUserPasswordStart(passwords));
+    const handleClickUpdatePassword = () => dispatch(USER_ACTION.updateUserPasswordStart({ ...passwords, path: PATH.PROFILE_HOME_PAGE }));
 
     const handleClickCancel = () => history.goBack();
 

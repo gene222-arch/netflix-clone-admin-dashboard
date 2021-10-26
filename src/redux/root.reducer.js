@@ -26,7 +26,7 @@ const persistConfig = {
     key: 'root',
     storage,
     // whitelist: [],
-    blacklist: ['alert', 'mainLayout', 'router', 'confirm']    
+    blacklist: ['alert', 'router', 'confirm']    
 };
 
 const reducers = {
