@@ -23,6 +23,7 @@ import AccessRight from './main-layout-drawer-list/AccessRight';
 import ActivityLog from './main-layout-drawer-list/ActivityLog';
 import Employee from './main-layout-drawer-list/Employee';
 import Settings from './main-layout-drawer-list/Settings';
+import Payments from './main-layout-drawer-list/Payments';
 
 
 
@@ -72,6 +73,9 @@ const MainLayout = ({ children, MAIN_LAYOUT }) =>
                     <Divider light/>
 
                     <Settings />
+                    <Divider light/>
+
+                    <Payments />
                     <Divider light/>
                 </List>
             </Drawer>

@@ -15,7 +15,8 @@ const {
     SELECT_ACTIVITY_LOG,
     SELECT_EMPLOYEE,
     SELECT_ACCESS_RIGHT,
-    SELECT_SETTINGS
+    SELECT_SETTINGS,
+    SELECT_PAYMENTS
 } = ACTION_TYPES;
 
 
@@ -79,4 +80,8 @@ export const selectAccessRight = () => ({
 
 export const selectSettings = () => ({
     type: SELECT_SETTINGS
+});
+
+export const selectPayments = () => ({
+    type: SELECT_PAYMENTS
 });

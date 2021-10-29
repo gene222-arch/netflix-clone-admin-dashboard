@@ -65,7 +65,9 @@ const PATH =
     BILLING_AND_PAYMENTS: '/legal/billings-and-payments',
     PLANS_AND_PRICING: '/legal/plans-and-pricing',
 
-    SETTINGS: '/settings'
+    SETTINGS: '/settings',
+
+    PAYMONGO_WEBHOOK: '/paymongo-webhooks'
 };
 
 

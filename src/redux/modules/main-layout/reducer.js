@@ -16,7 +16,8 @@ const {
     SELECT_ACTIVITY_LOG,
     SELECT_EMPLOYEE,
     SELECT_ACCESS_RIGHT,
-    SELECT_SETTINGS
+    SELECT_SETTINGS,
+    SELECT_PAYMENTS
 } = ACTION_TYPES;
 
 const DEFAULT_STATE = {
@@ -26,6 +27,7 @@ const DEFAULT_STATE = {
     dashboard: false,
     drawer: true,
     employee: false,
+    payments: false,
     videoManagement: false,
     videoManagementAuthors: false,
     videoManagementCasts: false,
@@ -43,6 +45,7 @@ const initialState = {
     dashboard: false,
     drawer: false,
     employee: false,
+    payments: false,
     videoManagement: false,
     videoManagementAuthors: false,
     videoManagementCasts: false,
@@ -64,6 +67,7 @@ export default (state = initialState, { type, payload }) =>
         currentSelectedDropdown, 
         currentSelectedDropdownItem, 
         settings,
+        payments,
         drawer, 
         videoManagement, 
         videoManagementAuthors,
@@ -206,6 +210,14 @@ export default (state = initialState, { type, payload }) =>
                 settings: true,
                 currentSelectedDropdown: 'settings',
                 currentSelectedItem: 'Settings',
+            }
+
+        case SELECT_PAYMENTS: 
+            return {
+                ...DEFAULT_STATE, 
+                payments: true,
+                currentSelectedDropdown: 'payments',
+                currentSelectedItem: 'Payments',
             }
 
         default:
