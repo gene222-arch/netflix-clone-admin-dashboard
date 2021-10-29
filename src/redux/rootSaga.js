@@ -12,6 +12,7 @@ import dashboardSaga from '../redux/modules/dashboard/saga'
 import employeeSaga from '../redux/modules/employee/saga'
 import genreSaga from '../redux/modules/genre/saga'
 import movieSaga from '../redux/modules/movie/saga'
+import paymongoWebhookSaga from '../redux/modules/paymongo-webhook/saga'
 import userSaga from '../redux/modules/user/saga'
 
 export default function* () 
@@ -28,6 +29,7 @@ export default function* ()
         employeeSaga(),
         genreSaga(),
         movieSaga(),
+        paymongoWebhookSaga(),
         userSaga()
     ]);
 }

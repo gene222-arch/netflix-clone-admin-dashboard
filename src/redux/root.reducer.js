@@ -18,6 +18,7 @@ import employeeReducer from './modules/employee/reducer'
 import genreReducer from './modules/genre/reducer'
 import mainLayoutReducer from './modules/main-layout/reducer'
 import movieReducer from './modules/movie/reducer'
+import paymongoWebhookReducer from './modules/paymongo-webhook/reducer'
 import userReducer from './modules/user/reducer'
 
 const history = createBrowserHistory();
@@ -48,6 +49,7 @@ const reducers = {
     genre: genreReducer,
     mainLayout: mainLayoutReducer,
     movie: movieReducer,
+    paymongoWebhook: paymongoWebhookReducer,
     user: userReducer
 };
 
