@@ -9,7 +9,6 @@ import PATH from './../../routes/path';
 const authLayoutUseStyles = makeStyles((theme) => ({
     container: {
         flexGrow: 1,
-        height: '100vh',
         width: '100%',
         background: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${ BACKGROUND_IMG })`,
         backgroundRepeat: 'no-repeat',
@@ -22,11 +21,12 @@ const AuthLayout = ({ children }) =>
     const { pathname } = useLocation();
     const classes = authLayoutUseStyles();
 
+    const height = PATH.SELECT_PLAN === pathname ? 'auto' : '100vh';
 
     if (PATH.LOGIN !== pathname) 
     {
         return (
-            <Container maxWidth="xl" className={ classes.container }>
+            <Container maxWidth="xl" className={ classes.container } style={{ height }}>
                 <AuthLayoutHeader />
                 { children }
             </Container>
@@ -34,7 +34,7 @@ const AuthLayout = ({ children }) =>
     }
 
     return (
-        <Container maxWidth="xl" className={ classes.container }>
+        <Container maxWidth="xl" className={ classes.container } style={{ height }}>
             <AuthLayoutHeader signInButton={ false } />
             { children }
         </Container>

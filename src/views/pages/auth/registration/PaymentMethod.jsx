@@ -213,7 +213,7 @@ const PaymentMethod = ({ amount }) =>
                                         className={ classes.authorizePaymentLink }
                                         style={{ textDecoration: 'none' }}
                                     >
-                                        Authorize Payment
+                                        Authorize { paymentSource.type.toUpperCase() } Payment
                                     </Link>
                                 </Button>
                                 <Typography variant="subtitle2" color="textSecondary">
