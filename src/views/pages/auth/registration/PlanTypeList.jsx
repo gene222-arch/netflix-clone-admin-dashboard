@@ -8,14 +8,14 @@ const PLAN_TYPES =
 [
     {
         type: 'Basic',
-        cost: 'P 100.00',
+        cost: 100.00,
         servicesOffered: [
             '1 (One) month',
         ]
     },
     {
         type: 'Standard',
-        cost: 'P 200.00',
+        cost: 200.00,
         servicesOffered: [
             '2 (Two) months',
             ''
@@ -23,7 +23,7 @@ const PLAN_TYPES =
     },
     {
         type: 'Premium',
-        cost: 'P 600.00',
+        cost: 600.00,
         servicesOffered: [
             '6 (Six) months',
             ''
@@ -78,9 +78,9 @@ const PlanTypeList = ({ cardIndex, handleClickCardPlan, handleClickContinue }) =
                     <Grid 
                         item
                         key={ index } 
-                        xs={ 12 } sm={ 6 } md={ 5 } lg={ 5 } 
+                        xs={ 12 } sm={ 10 } md={ 5 } lg={ 5 } 
                         className={ classes.cardContainer }
-                        onClick={ () => handleClickCardPlan(index, type) }
+                        onClick={ () => handleClickCardPlan(index, type, cost) }
                     >
                         <Card 
                             className={ 
@@ -100,7 +100,7 @@ const PlanTypeList = ({ cardIndex, handleClickCardPlan, handleClickContinue }) =
                                         >
                                             { type }
                                         </Typography>
-                                        <Typography variant="h5" color="initial" align='center'><strong>{ cost }</strong></Typography>
+                                        <Typography variant="h5" color="initial" align='center'><strong>P { cost }</strong></Typography>
                                     </> 
                                 }
                             />
