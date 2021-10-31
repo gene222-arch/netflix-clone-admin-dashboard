@@ -2,7 +2,7 @@ import React, { lazy } from 'react'
 import { Route, Switch } from 'react-router-dom'
 import DateFnsUtils from '@date-io/date-fns';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
-import { GLOBAL_ROUTES, PRIVATE_ROUTES, PUBLIC_ROUTES, RenderRoutes, USER_ROUTES, VERIFICATION_ROUTES } from './routes'
+import { GLOBAL_ROUTES, PRIVATE_ROUTES, PUBLIC_ROUTES, RenderRoutes, USER_ROUTES, SUBSCRIPTION_ROUTES } from './routes'
 import AuthLayout from './views/layouts/AuthLayout';
 import NotFound from './views/pages/errors/NotFound';
 import { MuiThemeProvider } from '@material-ui/core/styles';
@@ -30,6 +30,12 @@ const App = ({ AUTH, history }) =>
 						<SecurityLayout>
 							<RenderRoutes routes={ GLOBAL_ROUTES } />
 						</SecurityLayout>
+					</Route>
+
+					<Route path='/subscriptions/:path?' exact>
+						<AuthLayout>
+							<RenderRoutes routes={ SUBSCRIPTION_ROUTES } />
+						</AuthLayout>
 					</Route>
 
 					<Route path='/employees/verify/email' exact>

@@ -8,10 +8,10 @@ import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button'
 import CardMembeshipIcon from '@material-ui/icons/CardMembership';
 import WarningIcon from '@material-ui/icons/Warning';
-import * as QueryParam from './../../../utils/queryParams'
-import * as SUBSCRIPTION_API from './../../../services/subscription'
+import * as QueryParam from '../../../utils/queryParams'
+import * as SUBSCRIPTION_API from '../../../services/subscription'
 import PropagateLoader from 'react-spinners/PropagateLoader';
-import Colors from './../../../constants/Colors';
+import Colors from '../../../constants/Colors';
 
 
 
