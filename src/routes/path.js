@@ -57,6 +57,8 @@ const PATH =
     PROFILE_LOCK: '/settings/lock/:id',
     UPDATE_PASSWORD: '/password',
     UPDATE_EMAIL: '/mfa',
+    RENEW_SUBSCRIPTION: '/renew-subscription',
+    MANAGE_PLAN: '/manage-plan',
 
     PRIVACY_POLICY: '/legal/privacy',
     TERMS_AND_CONDITION: '/legal/terms-and-conditions',

@@ -63,7 +63,11 @@ const Membership = ({ AUTH }) =>
                         ? 'Account has not been subscribed' 
                         : ( `${ !AUTH.subscription_details.is_expired ? 'Manage Plan' : 'Renew Subscription'  }` ) 
                 }`,
-            actionPath: PATH.UPDATE_PASSWORD,
+            actionPath: `${ 
+                !AUTH.subscription_details.subscribed_at
+                    ? 'An email is sent to you for Payment Authorization' 
+                    : ( `${ !AUTH.subscription_details.is_expired ? PATH.MANAGE_PLAN : PATH.RENEW_SUBSCRIPTION  }` ) 
+            }`,
             isTextSecondary: true,
             onClick: () => console.log('')
         },
