@@ -52,7 +52,7 @@ const SelectPlan = () =>
     if (isPlanTypeSet) 
     {
         return (
-            <PaymentMethod amount={ amount } setIsPlanTypeSet={ setIsPlanTypeSet } />
+            <PaymentMethod planType={ planType } amount={ amount } setIsPlanTypeSet={ setIsPlanTypeSet } />
         )
     }
 

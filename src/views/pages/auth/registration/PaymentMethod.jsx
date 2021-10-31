@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react'
 import Container from '@material-ui/core/Container'
-import { Grid, Card, CardContent, Link } from '@material-ui/core';
+import { Grid, Card, CardContent } from '@material-ui/core';
 import { makeStyles, Typography, Button } from '@material-ui/core';
 import Colors from '../../../../constants/Colors';
 import G_CASH_LOGO from './../../../../assets/images/app/gcash.png'
 import GRAB_PAY_LOGO from './../../../../assets/images/app/grabpay.png'
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import * as PAYMENT_METHOD_API from './../../../../services/payment-method/payment.method'
-import { PulseLoader, PropagateLoader } from 'react-spinners'
-import shadows from '@material-ui/core/styles/shadows';
-import { useHistory } from 'react-router-dom';
+import PropagateLoader from 'react-spinners/PropagateLoader'
+import { useHistory, useLocation } from 'react-router-dom';
+import PATH from './../../../../routes/path';
 
 const paymentMethodUseStyles = makeStyles(theme => ({
     authorizedBtnContainer: {
@@ -20,9 +20,6 @@ const paymentMethodUseStyles = makeStyles(theme => ({
         fontWeight: 'bold',
         backgroundColor: Colors.success,
         marginBottom: '1rem'
-    },
-    authorizePaymentLink: {
-        color: Colors.white
     },
     checkIcon: {
         color: Colors.netflixRed
@@ -71,10 +68,11 @@ const PAYMENT_SOURCE_DEFAULT_PROPS = {
     updated_at: ''
 }
 
-const PaymentMethod = ({ amount }) => 
+const PaymentMethod = ({ planType, amount }) => 
 {
     const classes = paymentMethodUseStyles();
     const history = useHistory();
+    const { state } = useLocation();
 
     const [ paymentSource, setPaymentSource ] = useState(PAYMENT_SOURCE_DEFAULT_PROPS);
     const [ isLoading, setIsLoading ] = useState(false);
@@ -86,7 +84,8 @@ const PaymentMethod = ({ amount }) =>
         try {
             const { data } = await PAYMENT_METHOD_API.ePaymentAsync({ 
                 amount, 
-                type: 'gcash' 
+                type: 'gcash',
+                email: state?.email
             });
 
             setPaymentSource(data);
@@ -104,7 +103,8 @@ const PaymentMethod = ({ amount }) =>
         try {
             const { data } = await PAYMENT_METHOD_API.ePaymentAsync({ 
                 amount, 
-                type: 'grab_pay' 
+                type: 'grab_pay',
+                email: state?.email
             });
 
             setPaymentSource(data);
@@ -114,6 +114,15 @@ const PaymentMethod = ({ amount }) =>
             setIsPaymentProcessed(false);
         }
         setIsLoading(false);
+    }
+
+    const handleClickContinue = () => 
+    {
+        history.push(PATH.REGISTER, { 
+            ...state, 
+            plan_type: planType, 
+            check_out_url: paymentSource.redirect.checkout_url 
+        });
     }
 
     const paymentMethods = 
@@ -207,17 +216,12 @@ const PaymentMethod = ({ amount }) =>
                                     color="default" 
                                     fullWidth 
                                     className={ classes.authorizedPaymentBtn }
+                                    onClick={ handleClickContinue }
                                 >
-                                    <Link 
-                                        href={ paymentSource.redirect.checkout_url } 
-                                        className={ classes.authorizePaymentLink }
-                                        style={{ textDecoration: 'none' }}
-                                    >
-                                        Authorize { paymentSource.type.toUpperCase() } Payment
-                                    </Link>
+                                    Continue
                                 </Button>
                                 <Typography variant="subtitle2" color="textSecondary">
-                                    Just one click away to start streaming unlimited movies.
+                                    An email for payment authorization will be sent to you after account registration.
                                 </Typography>
                             </Grid>
                         )
