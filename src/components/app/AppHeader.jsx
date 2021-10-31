@@ -14,18 +14,23 @@ import AppHeaderMenu from './AppHeaderMenu';
 const appHeaderUseStyles = makeStyles(theme => ({
     avatar: {
         width: '2.5rem',
-        padding: theme.spacing(2, 0)
+        marginTop: '1.5rem',
+        borderRadius: 5
     },
     avatarContainer: {
         
     },
     container: {
-        backgroundColor: Colors.dark
+        backgroundColor: Colors.dark,
+        height: '10vh'
     },
     logo: {
         width: '2.5rem',
         height: 'auto',
-        padding: theme.spacing(2, 0)
+        marginTop: '1.5rem'
+    },
+    profileNameText: {
+        marginTop: '1.5rem'
     }
 }));
 
@@ -52,9 +57,15 @@ const AppHeader = ({ AUTH }) =>
                     />
                 </Grid>
                 <Grid item>
-                    <Grid container spacing={1} alignItems='center' >
+                    <Grid container spacing={1} alignItems='center'>
                         <Grid item>
-                            <Typography variant="subtitle1" color="initial">{ AUTH.selectedProfile.name }</Typography>
+                            <Typography 
+                                variant="subtitle1" 
+                                color="initial"
+                                className={ classes.profileNameText }
+                            >
+                                { AUTH.selectedProfile.name }
+                            </Typography>
                         </Grid>
                         <Grid item>
                             {

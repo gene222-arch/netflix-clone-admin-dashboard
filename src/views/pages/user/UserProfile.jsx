@@ -116,7 +116,7 @@ const UserProfile = ({ AUTH }) =>
             />
             <Grid container justify='center' alignItems='center' className={ classes.subContainer }>
                 <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
-                    <Typography variant="h2" color="initial" align='center' className={ classes.headerTitle }>Profiles</Typography>
+                    <Typography variant="h3" color="initial" align='center' className={ classes.headerTitle }>Who's Watching?</Typography>
                     <Grid container spacing={3} justify='center' className={ classes.avatarContainer }>
                         {
                             AUTH.profiles.map(({ id, name, avatar, is_profile_locked, pin_code }, index) => (
@@ -134,7 +134,7 @@ const UserProfile = ({ AUTH }) =>
                                             />
                                         </Grid>
                                         <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
-                                            <Typography variant="subtitle1" color="textSecondary">
+                                            <Typography variant="subtitle1" color="textSecondary" align='center'>
                                                 { name.toUpperCase() }
                                             </Typography>
                                         </Grid>
