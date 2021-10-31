@@ -67,6 +67,9 @@ const PATH =
 
     SETTINGS: '/settings',
 
+    SUBSCRIBED_SUCCESSFULLY: '/auth/subscribed-successfully',
+    SUBSCRIPTION_FAILED: '/auth/subscribed-failed',
+
     PAYMONGO_WEBHOOK: '/paymongo-webhooks'
 };
 

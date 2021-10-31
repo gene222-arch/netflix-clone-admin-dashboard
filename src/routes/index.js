@@ -62,7 +62,8 @@ const CreateEmployee = lazy(() => import('./../views/pages/employee/CreateEmploy
 const UpdateEmployee = lazy(() => import('./../views/pages/employee/UpdateEmployee'));
 const Settings = lazy(() => import('./../views/pages/settings'));
 const PaymongoWebhook = lazy(() => import('./../views/pages/paymongo-webhook/index'));
-
+const SubscribedSuccessfully = lazy(() => import('./../views/pages/auth/SubscribedSuccessfully'))
+const SubscriptionFailed = lazy(() => import('./../views/pages/auth/SubscriptionFailed'))
 
 export const PUBLIC_ROUTES = [
     {
@@ -146,6 +147,24 @@ export const PUBLIC_ROUTES = [
         access: '',
         restricted: false
     },
+    {
+        path: PATH.SUBSCRIBED_SUCCESSFULLY,
+        key: 'SubscribedSuccessfully',
+        icon: '',
+        exact: true,
+        component: SubscribedSuccessfully,
+        access: '',
+        restricted: false
+    },
+    {
+        path: PATH.SUBSCRIPTION_FAILED,
+        key: 'SubscriptionFailed',
+        icon: '',
+        exact: true,
+        component: SubscriptionFailed,
+        access: '',
+        restricted: false
+    }
 ];
 
 export const GLOBAL_ROUTES = 
