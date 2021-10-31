@@ -216,7 +216,7 @@ export const SUBSCRIPTION_ROUTES = [
         exact: true,
         component: SubscribedSuccessfully,
         access: '',
-        restricted: false
+        restricted: null
     },
     {
         path: PATH.SUBSCRIPTION_FAILED,
@@ -225,7 +225,7 @@ export const SUBSCRIPTION_ROUTES = [
         exact: true,
         component: SubscriptionFailed,
         access: '',
-        restricted: false
+        restricted: null
     }
 ]
 

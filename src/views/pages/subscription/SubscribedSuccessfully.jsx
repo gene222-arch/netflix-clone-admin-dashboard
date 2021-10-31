@@ -12,6 +12,9 @@ import * as QueryParam from '../../../utils/queryParams'
 import * as SUBSCRIPTION_API from '../../../services/subscription'
 import PropagateLoader from 'react-spinners/PropagateLoader';
 import Colors from '../../../constants/Colors';
+import { createStructuredSelector } from 'reselect';
+import { selectAuth } from './../../../redux/modules/auth/selector';
+import { connect } from 'react-redux';
 
 
 
@@ -53,7 +56,7 @@ const subscribedSucessfullyUseStyles = makeStyles(theme => ({
 }));
 
 
-const SubscribedSuccessfully = () => 
+const SubscribedSuccessfully = ({ AUTH }) => 
 {
     const history = useHistory();
     const classes = subscribedSucessfullyUseStyles();
@@ -61,7 +64,9 @@ const SubscribedSuccessfully = () =>
     const [ isLoading, setIsLoading ] = useState(false);
     const [ hasError, setHasError ] = useState(true);
 
-    const handleClickLogin = () => history.push(PATH.LOGIN);
+    const handleClickLogin = () => {
+        !AUTH.isAuthenticated ? history.push(PATH.LOGIN) : history.push(PATH.PROFILE_HOME_PAGE);
+    }
 
     const onLoadSubscribeUser = async (userEmail, type) => 
     {
@@ -134,7 +139,7 @@ const SubscribedSuccessfully = () =>
                                     onClick={ handleClickLogin }
                                     className={ classes.loginBtn }
                                 >
-                                    LOGIN TO YOUR ACCOUNT
+                                    { `${ !AUTH.isAuthenticated ? 'LOGIN TO YOUR ACCOUNT' : 'HOME' }` }
                                 </Button>
                             </>
                         )
@@ -164,4 +169,8 @@ const SubscribedSuccessfully = () =>
     )
 }
 
-export default SubscribedSuccessfully
+const mapStateToProps = createStructuredSelector({
+    AUTH: selectAuth
+});
+
+export default connect(mapStateToProps)(SubscribedSuccessfully)
