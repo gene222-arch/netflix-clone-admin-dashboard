@@ -51,7 +51,7 @@ const ProfileHomePage = lazy(() => import('../views/pages/user/ProfileHomePage')
 const ProfileLock = lazy(() => import('../views/pages/user/settings/profile-lock/ProfileLock'))
 const UpdatePassword = lazy(() => import('../views/pages/user/UpdatePassword'))
 const SecurityCheck = lazy(() => import('../views/pages/user/update-email/SecurityCheck'))
-const RenewSubscription = lazy(() => import('./../views/pages/user/RenewSubscription'))
+const RenewSubscription = lazy(() => import('./../views/pages/user/renew-subscription'))
 const PrivacyPolicy = lazy(() => import('./../views/pages/security/privacy-policy'));
 const TermsAndConditions = lazy(() => import('./../views/pages/security/terms-and-conditions'));
 const HelpCenter = lazy(() => import('./../views/pages/help-center'));

@@ -81,9 +81,7 @@ const ProfileHomePage = ({ AUTH }) =>
                 <Grid item xs={ 12 } sm={ 9 } md={ 9 } lg={ 9 }>
                     {
                         !AUTH.profiles.length 
-                            ? (
-                                <Typography variant="h4" color="textSecondary" align='center'>No profile created yet</Typography>
-                            )
+                            ? <Typography variant="h4" color="textSecondary" align='center'>No profile created yet</Typography>
                             : (
                                 <AvatarList 
                                     id={ id } 
