@@ -45,7 +45,7 @@ const RenewSubscription = () =>
     const [ amount, setAmount ] = useState('');
     const [ isLoading, setIsLoading ] = useState(false);
     const [ cardIndex, setCardIndex ] = useState(0);
-    const [ isPaymentAuthorizationSent, setIsPaymentAuthorizationSent ] = useState(true);
+    const [ isPaymentAuthorizationSent, setIsPaymentAuthorizationSent ] = useState(false);
 
     const handleClickCancel = () => history.goBack();
 

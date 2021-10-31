@@ -1,19 +1,15 @@
 import React, { useState, useEffect } from 'react'
-import Container from '@material-ui/core/Container'
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
 import { createStructuredSelector } from 'reselect';
 import { connect } from 'react-redux';
-import {  useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/styles';
-import Button from '@material-ui/core/Button'
 import G_CASH_LOGO from './../../../../assets/images/app/gcash.png'
 import GRAB_PAY_LOGO from './../../../../assets/images/app/grabpay.png'
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import Colors from '../../../../constants/Colors';
 import { Card, CardContent } from '@material-ui/core';
 import * as PAYMENT_METHOD_API from '../../../../services/payment-method/payment.method'
-import { selectUser } from '../../../../redux/modules/user/selector';
 import PropagateLoader from 'react-spinners/PropagateLoader';
 import { selectAuth } from './../../../../redux/modules/auth/selector';
 
@@ -54,7 +50,6 @@ const paymentMethodStyles = makeStyles(theme => ({
 const PaymentMethod = ({ AUTH, planType, amount, setIsPaymentAuthorizationSent }) => 
 {
     const classes = paymentMethodStyles();
-    const history = useHistory();
 
     const [ isLoading, setIsLoading ] = useState(false);
 
