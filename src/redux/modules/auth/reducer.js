@@ -69,12 +69,26 @@ const PROFILE_PROPS = {
     pin_code: ''
 };
 
+const SUBSCRIPTION_DETAILS_DEFAULT_PROPS = {
+    id: '',
+    user_id: '',
+    type: '',
+    cost: '',
+    is_first_subscription: false,
+    is_cancelled: false,
+    is_expired: false,
+    subscribed_at: null,
+    expired_at: null,
+    cancelled_at: null
+};
+
 const initialState = 
 {
     isAuthenticated: false,
     credentials: CREDENTIALS_DEFAULT,
     permissions: null,
     user: null,
+    subscription_details: SUBSCRIPTION_DETAILS_DEFAULT_PROPS,
     selectedProfile: PROFILE_PROPS,
     profiles: [],
     isLoading: false,
@@ -116,6 +130,7 @@ export default (state = initialState, { type, payload }) =>
                 isAuthenticated: true,
                 user,
                 profiles,
+                subscription_details: payload.subscription_details,
                 role,
                 permissions,
                 error,
@@ -140,6 +155,7 @@ export default (state = initialState, { type, payload }) =>
                 user: payload.user,
                 profiles: payload.profiles,
                 selectedProfile: payload.selectedProfile,
+                subscription_details: payload.subscription_details,
                 role: payload.role,
                 error,
             };

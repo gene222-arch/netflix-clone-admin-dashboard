@@ -11,6 +11,7 @@ import LockOpenIcon from '@material-ui/icons/LockOpen';
 import * as USER_ACTION from './../../../../../redux/modules/user/actions'
 import { useTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
+import SubscriptionIcon from '@material-ui/icons/Subscriptions';
 
 
 const membershipUseStyles = makeStyles(theme => ({
@@ -52,6 +53,20 @@ const Membership = ({ AUTH }) =>
             isTextSecondary: true,
             onClick: () => console.log('')
         },
+        {
+            id: 'billing_details',
+            icon: SubscriptionIcon,
+            primaryText: `Billing Details ${ !AUTH.subscription_details.is_expired ? '' : '(expired)' }`,
+            actionText: 
+                `${ 
+                    !AUTH.subscription_details.subscribed_at
+                        ? 'Account has not been subscribed' 
+                        : ( `${ !AUTH.subscription_details.is_expired ? 'Manage Plan' : 'Renew Subscription'  }` ) 
+                }`,
+            actionPath: PATH.UPDATE_PASSWORD,
+            isTextSecondary: true,
+            onClick: () => console.log('')
+        },
     ];
 
 
@@ -77,7 +92,7 @@ const Membership = ({ AUTH }) =>
                                     <StyledNavLink 
                                         to={ actionPath }
                                         text={ isXs ? 'Change' : actionText }
-                                        onClick={ onClick }
+                                        onClick={ onClick } 
                                     />
                                 </ListItemSecondaryAction>
                             </ListItem>
