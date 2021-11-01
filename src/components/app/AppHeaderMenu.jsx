@@ -13,6 +13,7 @@ import { Divider, makeStyles, useMediaQuery } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import InputPinDialog from './../../views/pages/user/InputPinDialog';
 import { useTheme } from '@material-ui/core/styles';
+import ECHO_UTIL from './../../utils/echo'
 
 const appHeaderMenuUseStyles = makeStyles(theme => ({
     avatar: {
@@ -123,6 +124,7 @@ const AppHeaderMenu = ({ AUTH, anchorEl, setAnchorEl }) =>
     const handleClickLogout = () => {
         dispatch(AUTH_ACTION.logoutStart());
         handleClickToggleMenu();
+        ECHO_UTIL().leave('subscribed.successfully');
     }
 
     useEffect(() => 
