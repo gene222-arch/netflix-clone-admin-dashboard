@@ -43,6 +43,8 @@ const {
 
     LOGIN_VIA_TOKEN,
 
+    UPDATE_SUBSCRIPTION_DETAILS,
+
     CLEAR_ERRORS
 } = ACTION_TYPES;
 
@@ -220,6 +222,11 @@ export const selectProfileFailed = (payload) => ({
 
 export const updateUserDetails = (payload) => ({
     type: UPDATE_USER_DETAILS,
+    payload
+});
+
+export const updateSubscriptionDetails = (payload) => ({
+    type: UPDATE_SUBSCRIPTION_DETAILS,
     payload
 });
 

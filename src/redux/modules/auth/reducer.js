@@ -43,6 +43,8 @@ const {
 
     LOGIN_VIA_TOKEN,
 
+    UPDATE_SUBSCRIPTION_DETAILS,
+
     CLEAR_ERRORS
 } = ACTION_TYPES;
 
@@ -235,6 +237,17 @@ export default (state = initialState, { type, payload }) =>
                 isAuthenticated: false,
                 error: payload.errorMessages
             };
+
+        case UPDATE_SUBSCRIPTION_DETAILS: 
+            return {
+                ...state,
+                subscription_details: {
+                    ...state.subscription_details,
+                    ...payload.subscription_details
+                },
+                isLoading,
+                error
+            }
 
         case CLEAR_ERRORS:
                 return {
