@@ -10,6 +10,10 @@ import PaymentMethod from './PaymentMethod';
 import PlanTypeList from './PlanTypeList';
 import { Send } from '@material-ui/icons';
 import { Link } from '@material-ui/core';
+import { createStructuredSelector } from 'reselect';
+import { selectAuth } from './../../../../redux/modules/auth/selector';
+import { connect } from 'react-redux';
+import Forbidden from './../../errors/Forbidden';
 
 
 const renewSubscriptionStyles = makeStyles(theme => ({
@@ -34,7 +38,7 @@ const renewSubscriptionStyles = makeStyles(theme => ({
     }
 }));
 
-const RenewSubscription = () => 
+const RenewSubscription = ({ AUTH }) => 
 {
     const classes = renewSubscriptionStyles();
     const history = useHistory();
@@ -45,6 +49,7 @@ const RenewSubscription = () =>
     const [ isLoading, setIsLoading ] = useState(false);
     const [ cardIndex, setCardIndex ] = useState(0);
     const [ isPaymentAuthorizationSent, setIsPaymentAuthorizationSent ] = useState(false);
+    const [ isAllowedToAccessPage, setIsAllowedToAccessPage ] = useState(true);
 
     const handleClickCancel = () => history.goBack();
 
@@ -105,15 +110,27 @@ const RenewSubscription = () =>
 
     useEffect(() => 
     {
+        if (AUTH.subscription_details.is_expired || AUTH.subscription_details.subscribed_at || AUTH.subscription_details.expired_at) {
+            setIsAllowedToAccessPage(false);
+        }
+
         return () => {
             setIsLoading(false);
             setPlanType('');
             setAmount('');
             setIsPlanTypeSet(false);
             setIsPaymentAuthorizationSent(false);
+            setIsAllowedToAccessPage(true);
         }
     }, []);
     
+    if (! isAllowedToAccessPage) {
+        return (
+            <Container maxWidth="lg" style={{ height: '80vh' }}>
+                <Forbidden />
+            </Container>
+        )
+    }
 
     return (
         <Container maxWidth="md" className={ classes.container } style={{ height: isPlanTypeSet ? '90.5vh' : 'auto' }}>
@@ -158,4 +175,9 @@ const RenewSubscription = () =>
         </Container>
     )
 }
-export default RenewSubscription
+
+const mapStateToProps = createStructuredSelector({
+    AUTH: selectAuth
+});
+
+export default connect(mapStateToProps)(RenewSubscription)
