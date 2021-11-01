@@ -64,9 +64,9 @@ const Membership = ({ AUTH }) =>
                         : ( `${ !AUTH.subscription_details.is_expired ? 'Manage Plan' : 'Renew Subscription'  }` ) 
                 }`,
             actionPath: `${ 
-                !AUTH.subscription_details.subscribed_at
-                    ? 'An email is sent to you for Payment Authorization' 
-                    : ( `${ !AUTH.subscription_details.is_expired ? PATH.MANAGE_PLAN : PATH.RENEW_SUBSCRIPTION  }` ) 
+                AUTH.subscription_details.subscribed_at && AUTH.subscription_details.is_expired || !AUTH.subscription_details.expired_at
+                    ? PATH.RENEW_SUBSCRIPTION
+                    : PATH.MANAGE_PLAN
             }`,
             isTextSecondary: true,
             onClick: () => console.log('')

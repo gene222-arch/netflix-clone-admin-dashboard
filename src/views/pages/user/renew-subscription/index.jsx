@@ -14,7 +14,6 @@ import { Link } from '@material-ui/core';
 
 const renewSubscriptionStyles = makeStyles(theme => ({
     container: {
-        height: '90vh',
         marginTop: '2.9vh'
     },
     sendIcon: {
@@ -117,7 +116,7 @@ const RenewSubscription = () =>
     
 
     return (
-        <Container maxWidth="md" className={ classes.container } >
+        <Container maxWidth="md" className={ classes.container } style={{ height: isPlanTypeSet ? '90.5vh' : 'auto' }}>
             <Grid container spacing={ 5 }>
                 <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
                     <Typography variant="h4" color="initial" gutterBottom>
