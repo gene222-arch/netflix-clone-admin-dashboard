@@ -110,7 +110,9 @@ const RenewSubscription = ({ AUTH }) =>
 
     useEffect(() => 
     {
-        if (!AUTH.subscription_details.is_expired || !AUTH.subscription_details.is_cancelled) {
+        if ((!AUTH.subscription_details.is_expired || !AUTH.subscription_details.is_cancelled) && 
+            AUTH.subscription_details.status !== 'pending'
+        ) {
             setIsAllowedToAccessPage(false);
         }
 

@@ -81,7 +81,8 @@ const SUBSCRIPTION_DETAILS_DEFAULT_PROPS = {
     is_expired: false,
     subscribed_at: null,
     expired_at: null,
-    cancelled_at: null
+    cancelled_at: null,
+    status: 'subscribed'
 };
 
 const initialState = 

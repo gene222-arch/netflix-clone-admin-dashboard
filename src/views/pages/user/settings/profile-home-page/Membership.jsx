@@ -59,15 +59,14 @@ const Membership = ({ AUTH }) =>
             primaryText: `Billing Details ${ !AUTH.subscription_details.is_expired ? '' : '(expired)' }`,
             actionText: 
                 `${ 
-                    !AUTH.subscription_details.subscribed_at && !AUTH.subscription_details.expired_at && AUTH.subscription_details.is_cancelled
+                    AUTH.subscription_details.status === 'pending' || AUTH.subscription_details.status === 'cancelled'
                         ? 'Account has not been subscribed' 
                         : ( `${ !AUTH.subscription_details.is_expired ? 'Manage Plan' : 'Renew Subscription'  }` ) 
                 }`,
             actionPath: `${ 
                 (
-                    AUTH.subscription_details.subscribed_at && AUTH.subscription_details.is_expired || 
-                    !AUTH.subscription_details.expired_at ||
-                    AUTH.subscription_details.is_cancelled
+                    AUTH.subscription_details.status === 'pending' || 
+                    AUTH.subscription_details.status === 'cancelled'
                 )
                     ? PATH.RENEW_SUBSCRIPTION
                     : PATH.MANAGE_PLAN
