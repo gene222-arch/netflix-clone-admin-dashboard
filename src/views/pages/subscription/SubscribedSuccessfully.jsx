@@ -66,6 +66,7 @@ const SubscribedSuccessfully = ({ AUTH }) =>
 
     const handleClickLogin = () => {
         !AUTH.isAuthenticated ? history.push(PATH.LOGIN) : history.push(PATH.PROFILE_HOME_PAGE);
+        history.go(0);
     }
 
     const onLoadSubscribeUser = async (userEmail, type) => 
