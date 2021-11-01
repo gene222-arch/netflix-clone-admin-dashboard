@@ -69,21 +69,13 @@ const AppHeader = ({ AUTH }) =>
                         </Grid>
                         <Grid item>
                             {
-                                AUTH.selectedProfile.avatar 
-                                    ? (
-                                        <img 
-                                            src={ AUTH.selectedProfile?.avatar || AUTH.user.avatar }
-                                            className={ classes.avatar }
-                                            onMouseOver={ e => setAnchorEl(e.currentTarget) }
-                                        />
-                                    )
-                                    : (
-                                        <img 
-                                            src={ AUTH.user.avatar_path }
-                                            className={ classes.avatar }
-                                            onMouseOver={ e => setAnchorEl(e.currentTarget) }
-                                        />
-                                    )
+                                AUTH.selectedProfile.avatar && (
+                                    <img 
+                                        src={ AUTH.selectedProfile?.avatar || AUTH.user.avatar }
+                                        className={ classes.avatar }
+                                        onMouseOver={ e => setAnchorEl(e.currentTarget) }
+                                    />
+                                )
                             }
                         </Grid>
                     </Grid>
