@@ -110,7 +110,11 @@ const RenewSubscription = ({ AUTH }) =>
 
     useEffect(() => 
     {
-        if (AUTH.subscription_details.is_expired || AUTH.subscription_details.subscribed_at || AUTH.subscription_details.expired_at) {
+        if (AUTH.subscription_details.is_expired || 
+            AUTH.subscription_details.subscribed_at || 
+            AUTH.subscription_details.expired_at && 
+            !AUTH.subscription_details.is_cancelled
+        ) {
             setIsAllowedToAccessPage(false);
         }
 
