@@ -4,15 +4,9 @@ import { selectAuth } from './../../../redux/modules/auth/selector';
 import { connect } from 'react-redux';
 import Container from '@material-ui/core/Container'
 import Typography from '@material-ui/core/Typography'
-import { Avatar, Divider, Grid, List, IconButton, ListItem, ListItemAvatar, ListItemText, Collapse, ListItemIcon } from '@material-ui/core';
+import { Divider, Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 import VideoLibraryIcon from '@material-ui/icons/VideoLibrary';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import MailOutlineIcon from '@material-ui/icons/MailOutline';
-import StyledNavLink from './../../../components/styled-components/StyledNavLink';
-import LockOpenIcon from '@material-ui/icons/LockOpen';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import { useHistory } from 'react-router-dom';
 import PATH from './../../../routes/path';
 import AvatarList from './settings/profile-home-page/AvatarList';
