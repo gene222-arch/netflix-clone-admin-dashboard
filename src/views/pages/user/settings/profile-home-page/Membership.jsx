@@ -37,6 +37,8 @@ const Membership = ({ AUTH, paymentAuthorizationNotif, isFetchingPaymentAuthNoti
     {
         if (isFetchingPaymentAuthNotif) return <CircularProgress />
 
+        if (AUTH.payment_authorization_status === 'sent') return 'Pending email';
+
         if (paymentAuthorizationNotif.status === 'pending' && !paymentAuthorizationNotif.read_at) return 'Pending email';
 
         if (AUTH.subscription_details.status === 'pending' || AUTH.subscription_details.status === 'cancelled') {

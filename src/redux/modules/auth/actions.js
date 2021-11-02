@@ -44,6 +44,7 @@ const {
     LOGIN_VIA_TOKEN,
 
     UPDATE_SUBSCRIPTION_DETAILS,
+    UPDATE_PAYMENT_AUTHORIZATION_STATUS,
 
     CLEAR_ERRORS
 } = ACTION_TYPES;
@@ -227,6 +228,11 @@ export const updateUserDetails = (payload) => ({
 
 export const updateSubscriptionDetails = (payload) => ({
     type: UPDATE_SUBSCRIPTION_DETAILS,
+    payload
+});
+
+export const updatePaymentAuthorizationStatus = (payload) => ({
+    type: UPDATE_PAYMENT_AUTHORIZATION_STATUS,
     payload
 });
 

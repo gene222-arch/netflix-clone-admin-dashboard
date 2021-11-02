@@ -45,6 +45,8 @@ const {
 
     UPDATE_SUBSCRIPTION_DETAILS,
 
+    UPDATE_PAYMENT_AUTHORIZATION_STATUS,
+
     CLEAR_ERRORS
 } = ACTION_TYPES;
 
@@ -90,6 +92,7 @@ const initialState =
     isAuthenticated: false,
     credentials: CREDENTIALS_DEFAULT,
     permissions: null,
+    payment_authorization_status: 'disabled',
     user: null,
     subscription_details: SUBSCRIPTION_DETAILS_DEFAULT_PROPS,
     selectedProfile: PROFILE_PROPS,
@@ -249,6 +252,14 @@ export default (state = initialState, { type, payload }) =>
                 isLoading,
                 error
             }
+
+        case UPDATE_PAYMENT_AUTHORIZATION_STATUS:
+                return {
+                    ...state,
+                    isLoading,
+                    error,
+                    payment_authorization_status: payload.payment_authorization_status
+                }
 
         case CLEAR_ERRORS:
                 return {

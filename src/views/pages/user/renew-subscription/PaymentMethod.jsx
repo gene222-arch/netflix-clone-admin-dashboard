@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
 import { createStructuredSelector } from 'reselect';
-import { connect } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 import { makeStyles } from '@material-ui/styles';
 import G_CASH_LOGO from './../../../../assets/images/app/gcash.png'
 import GRAB_PAY_LOGO from './../../../../assets/images/app/grabpay.png'
@@ -12,6 +12,7 @@ import { Card, CardContent } from '@material-ui/core';
 import * as PAYMENT_METHOD_API from '../../../../services/payment-method/payment.method'
 import PropagateLoader from 'react-spinners/PropagateLoader';
 import { selectAuth } from './../../../../redux/modules/auth/selector';
+import * as AUTH_ACTION from './../../../../redux/modules/auth/actions';
 
 const paymentMethodStyles = makeStyles(theme => ({
     card: {
@@ -50,6 +51,7 @@ const paymentMethodStyles = makeStyles(theme => ({
 const PaymentMethod = ({ AUTH, planType, amount, setIsPaymentAuthorizationSent, isLoading, setIsLoading }) => 
 {
     const classes = paymentMethodStyles();
+    const dispatch = useDispatch();
 
     const handleClickGcash = async () => 
     {
@@ -64,7 +66,7 @@ const PaymentMethod = ({ AUTH, planType, amount, setIsPaymentAuthorizationSent, 
             };
 
             await PAYMENT_METHOD_API.ePaymentAsync(gcashPayload);
-
+            dispatch(AUTH_ACTION.updatePaymentAuthorizationStatus({ payment_authorization_status: 'sent' }));
             setIsPaymentAuthorizationSent(true);
         } catch (error) {
             console.log(error);
@@ -86,6 +88,7 @@ const PaymentMethod = ({ AUTH, planType, amount, setIsPaymentAuthorizationSent, 
             };
 
             await PAYMENT_METHOD_API.ePaymentAsync(grabPayPayload);
+            dispatch(AUTH_ACTION.updatePaymentAuthorizationStatus({ payment_authorization_status: 'sent' }));
 
             setIsPaymentAuthorizationSent(true);
         } catch (error) {

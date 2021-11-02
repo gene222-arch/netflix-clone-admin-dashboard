@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { createStructuredSelector } from 'reselect';
 import { selectAuth } from './../../../redux/modules/auth/selector';
-import { connect } from 'react-redux';
+import * as AUTH_ACTION from './../../../redux/modules/auth/actions';
+import { connect, useDispatch } from 'react-redux';
 import Container from '@material-ui/core/Container'
 import Typography from '@material-ui/core/Typography'
 import { Divider, Grid } from '@material-ui/core';
@@ -41,6 +42,7 @@ const profileHomePageUseStyles = makeStyles(theme => ({
 const ProfileHomePage = ({ AUTH }) => 
 {
     const classes = profileHomePageUseStyles();
+    const dispatch = useDispatch();
     const history = useHistory();
 
     const [ id, setId ] = useState(null);
@@ -71,12 +73,14 @@ const ProfileHomePage = ({ AUTH }) =>
     useEffect(() => 
     {
         onLoadFetchPaymentAuthorization();
+        dispatch(AUTH_ACTION.updatePaymentAuthorizationStatus({ payment_authorization_status: 'disabled' }));
+        
         return () => {
             setId(null);
             setPaymentAuthorizationNotif(NOTIFICATION_DEFAULT_PROPS);
             setIsFetchingPaymentAuthNotif(false);
         }
-    }, [AUTH.subscription_details])
+    }, [AUTH.subscription_details]);
 
     return (
         <Container maxWidth="md" className={ classes.container } style={{ height: AUTH.profiles.length <= 2 ? '90vh' : 'auto' }}>
