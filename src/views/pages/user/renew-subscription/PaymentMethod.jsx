@@ -47,11 +47,9 @@ const paymentMethodStyles = makeStyles(theme => ({
     }
 }));
 
-const PaymentMethod = ({ AUTH, planType, amount, setIsPaymentAuthorizationSent }) => 
+const PaymentMethod = ({ AUTH, planType, amount, setIsPaymentAuthorizationSent, isLoading, setIsLoading }) => 
 {
     const classes = paymentMethodStyles();
-
-    const [ isLoading, setIsLoading ] = useState(false);
 
     const handleClickGcash = async () => 
     {

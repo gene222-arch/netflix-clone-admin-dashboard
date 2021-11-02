@@ -64,10 +64,7 @@ const Membership = ({ AUTH }) =>
                         : ( `${ !AUTH.subscription_details.is_expired ? 'Manage Plan' : 'Renew Subscription'  }` ) 
                 }`,
             actionPath: `${ 
-                (
-                    AUTH.subscription_details.status === 'pending' || 
-                    AUTH.subscription_details.status === 'cancelled'
-                )
+                [ 'expired', 'cancelled', 'pending' ].includes(AUTH.subscription_details.status)
                     ? PATH.RENEW_SUBSCRIPTION
                     : PATH.MANAGE_PLAN
             }`,

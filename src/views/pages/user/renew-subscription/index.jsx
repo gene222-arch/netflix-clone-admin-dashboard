@@ -18,7 +18,7 @@ import Forbidden from './../../errors/Forbidden';
 
 const renewSubscriptionStyles = makeStyles(theme => ({
     container: {
-        marginTop: '2.9vh'
+        marginTop: '4.2vh'
     },
     sendIcon: {
         fontSize: '8rem',
@@ -103,6 +103,8 @@ const RenewSubscription = ({ AUTH }) =>
                     planType={ planType } 
                     amount={ amount } 
                     setIsPaymentAuthorizationSent={ setIsPaymentAuthorizationSent } 
+                    isLoading={ isLoading }
+                    setIsLoading={ setIsLoading }
                 />
             );
         }
@@ -110,9 +112,7 @@ const RenewSubscription = ({ AUTH }) =>
 
     useEffect(() => 
     {
-        if ((!AUTH.subscription_details.is_expired || !AUTH.subscription_details.is_cancelled) && 
-            AUTH.subscription_details.status !== 'pending'
-        ) {
+        if ([ 'subscribed', 'pending' ].includes(AUTH.subscription_details.status)) {
             setIsAllowedToAccessPage(false);
         }
 
@@ -166,7 +166,7 @@ const RenewSubscription = ({ AUTH }) =>
                                         disabled={ isLoading }
                                         onClick={ handleClickResetPlanType }
                                     >
-                                        Previous
+                                        Get back
                                     </Button>
                                 </Grid>
                             )
