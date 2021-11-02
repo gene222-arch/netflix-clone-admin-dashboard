@@ -61,7 +61,7 @@ const SubscribedSuccessfully = ({ AUTH }) =>
     const history = useHistory();
     const classes = subscribedSucessfullyUseStyles();
 
-    const [ isLoading, setIsLoading ] = useState(false);
+    const [ isLoading, setIsLoading ] = useState(true);
     const [ hasError, setHasError ] = useState(true);
 
     const handleClickLogin = () => {
@@ -92,7 +92,7 @@ const SubscribedSuccessfully = ({ AUTH }) =>
         }
 
         return () => {
-            setIsLoading(false);
+            setIsLoading(true);
         }
     }, []);
 
