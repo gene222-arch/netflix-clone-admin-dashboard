@@ -11,6 +11,15 @@ import { useHistory } from 'react-router-dom';
 import PATH from './../../../routes/path';
 import AvatarList from './settings/profile-home-page/AvatarList';
 import Membership from './settings/profile-home-page/Membership';
+import * as NOTIFICATION_API from './../../../services/notification'
+
+const NOTIFICATION_DEFAULT_PROPS = {
+    type: '',
+    user_id: '',
+    message: '',
+    status: '',
+    read_at: null
+};
 
 const profileHomePageUseStyles = makeStyles(theme => ({
     container: {
@@ -35,16 +44,39 @@ const ProfileHomePage = ({ AUTH }) =>
     const history = useHistory();
 
     const [ id, setId ] = useState(null);
+    const [ isFetchingPaymentAuthNotif, setIsFetchingPaymentAuthNotif ] = useState(false);
+    const [ paymentAuthorizationNotif, setPaymentAuthorizationNotif ] = useState(NOTIFICATION_DEFAULT_PROPS);
 
     const handleClickSetId = (profileId) => setId(!id ? profileId : null);
 
     const handleChangePinLock = () => history.push(PATH.PROFILE_LOCK.replace(':id', id));
 
-    useEffect(() => {
+    const onLoadFetchPaymentAuthorization = async () =>
+    {
+        setIsFetchingPaymentAuthNotif(true);
+        try {
+            const { data, status } = await NOTIFICATION_API.findPaymentAuthorizationsByUserIdAsync();
+
+            if (status === 'success') {
+                setPaymentAuthorizationNotif({
+                    ...JSON.parse(data.data).data
+                });
+            }
+        } catch (error) {
+            console.log(error);
+        }
+        setIsFetchingPaymentAuthNotif(false);
+    }
+
+    useEffect(() => 
+    {
+        onLoadFetchPaymentAuthorization();
         return () => {
             setId(null);
+            setPaymentAuthorizationNotif(NOTIFICATION_DEFAULT_PROPS);
+            setIsFetchingPaymentAuthNotif(false);
         }
-    }, [])
+    }, [AUTH.subscription_details])
 
     return (
         <Container maxWidth="md" className={ classes.container } style={{ height: AUTH.profiles.length <= 2 ? '90vh' : 'auto' }}>
@@ -65,7 +97,10 @@ const ProfileHomePage = ({ AUTH }) =>
             </Grid>
             
             <Divider />
-            <Membership />
+                <Membership 
+                    isFetchingPaymentAuthNotif={ isFetchingPaymentAuthNotif }
+                    paymentAuthorizationNotif={ paymentAuthorizationNotif } 
+                />
             <Divider />
 
             <Grid container spacing={1} className={ classes.gridContainer } >

@@ -1,6 +1,6 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/styles';
-import { Grid, Typography, List, ListItem, ListItemAvatar, ListItemText, ListItemSecondaryAction, Button } from '@material-ui/core';
+import { Grid, Typography, List, ListItem, ListItemAvatar, ListItemText, ListItemSecondaryAction, Button, CircularProgress } from '@material-ui/core';
 import StyledNavLink from './../../../../../components/styled-components/StyledNavLink';
 import { createStructuredSelector } from 'reselect';
 import { selectAuth } from './../../../../../redux/modules/auth/selector';
@@ -24,7 +24,7 @@ const membershipUseStyles = makeStyles(theme => ({
 }));
 
 
-const Membership = ({ AUTH }) => 
+const Membership = ({ AUTH, paymentAuthorizationNotif, isFetchingPaymentAuthNotif }) => 
 {
     const theme = useTheme();
 
@@ -32,6 +32,31 @@ const Membership = ({ AUTH }) =>
     const dispatch = useDispatch();
 
     const isXs = useMediaQuery(theme.breakpoints.only('xs'));
+
+    const billingDetailsActionText = () =>
+    {
+        if (isFetchingPaymentAuthNotif) return <CircularProgress />
+
+        if (paymentAuthorizationNotif.status === 'pending' && !paymentAuthorizationNotif.read_at) return 'Pending email';
+
+        if (AUTH.subscription_details.status === 'pending' || AUTH.subscription_details.status === 'cancelled') {
+            return 'Account has not been subscribed';
+        }
+
+        if (! AUTH.subscription_details.is_expired) return 'Manage Plan';
+        
+        if (AUTH.subscription_details.is_expired) return 'Renew Subscription';
+    }
+
+    const billingDetailsPath = () => 
+    {
+        const statuses = [ 'expired', 'cancelled', 'pending' ];
+        const isInStatuses = statuses.includes(AUTH.subscription_details.status);
+
+        if (paymentAuthorizationNotif.status === 'pending') return '';
+
+        return !isInStatuses ? PATH.MANAGE_PLAN : PATH.RENEW_SUBSCRIPTION;
+    }
 
     const memberShipActionButtons = 
     [
@@ -42,6 +67,7 @@ const Membership = ({ AUTH }) =>
             actionText: 'Change account email',
             actionPath: PATH.UPDATE_EMAIL,
             isTextSecondary: false,
+            isNavigatable: true,
             onClick: () => dispatch(USER_ACTION.sendChangeEmailVerificationCodeStart())
         },
         {
@@ -51,24 +77,17 @@ const Membership = ({ AUTH }) =>
             actionText: 'Change account password',
             actionPath: PATH.UPDATE_PASSWORD,
             isTextSecondary: true,
+            isNavigatable: true,
             onClick: () => console.log('')
         },
         {
             id: 'billing_details',
             icon: SubscriptionIcon,
             primaryText: `Billing Details ${ !AUTH.subscription_details.is_expired ? '' : '(expired)' }`,
-            actionText: 
-                `${ 
-                    AUTH.subscription_details.status === 'pending' || AUTH.subscription_details.status === 'cancelled'
-                        ? 'Account has not been subscribed' 
-                        : ( `${ !AUTH.subscription_details.is_expired ? 'Manage Plan' : 'Renew Subscription'  }` ) 
-                }`,
-            actionPath: `${ 
-                [ 'expired', 'cancelled', 'pending' ].includes(AUTH.subscription_details.status)
-                    ? PATH.RENEW_SUBSCRIPTION
-                    : PATH.MANAGE_PLAN
-            }`,
+            actionText: billingDetailsActionText(),
+            actionPath: billingDetailsPath(),
             isTextSecondary: true,
+            isNavigatable: paymentAuthorizationNotif.status !== 'pending',
             onClick: () => console.log('')
         },
     ];
@@ -82,7 +101,7 @@ const Membership = ({ AUTH }) =>
             <Grid item xs={ 12 } sm={ 8 } md={ 8 } lg={ 8 }>
                 <List>
                     {
-                        memberShipActionButtons.map(({ id, icon: Icon, primaryText, actionText, actionPath, isTextSecondary, onClick }) => (
+                        memberShipActionButtons.map(({ id, icon: Icon, primaryText, actionText, actionPath, isTextSecondary, isNavigatable, onClick }) => (
                             <ListItem key={ id }>
                                 <ListItemAvatar>
                                     <Icon color={ isTextSecondary ? 'disabled' : 'action' } />
@@ -93,11 +112,22 @@ const Membership = ({ AUTH }) =>
                                     </Typography>
                                 } />
                                 <ListItemSecondaryAction>
-                                    <StyledNavLink 
-                                        to={ actionPath }
-                                        text={ isXs ? 'Change' : actionText }
-                                        onClick={ onClick } 
-                                    />
+                                    {
+                                        isNavigatable && (
+                                            <StyledNavLink 
+                                                to={ actionPath }
+                                                text={ isXs ? 'Change' : actionText }
+                                                onClick={ onClick } 
+                                            />
+                                        )
+                                    }
+                                    {
+                                        !isNavigatable && (
+                                            <Typography variant="subtitle1" color="initial">
+                                                { actionText }
+                                            </Typography>
+                                        )
+                                    }
                                 </ListItemSecondaryAction>
                             </ListItem>
                         ))
