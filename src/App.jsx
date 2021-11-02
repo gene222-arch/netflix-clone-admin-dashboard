@@ -27,7 +27,7 @@ const App = ({ AUTH, history }) =>
 	useEffect(() => {
 		if (COOKIES_UTIL.get('access_token') && AUTH.isAuthenticated) {
 			ECHO_UTIL()
-				.private('subscribed.successfully')
+				.private(`subscribed.successfully.${ AUTH.user.id }`)
 				.listen('SubscribedSuccessfullyEvent', ({ data }) => {
 					dispatch(AUTH_ACTION.updateSubscriptionDetails({ subscription_details: data }));
 				});
