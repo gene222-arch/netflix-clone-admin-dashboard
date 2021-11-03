@@ -12,7 +12,7 @@ import dashboardSaga from '../redux/modules/dashboard/saga'
 import employeeSaga from '../redux/modules/employee/saga'
 import genreSaga from '../redux/modules/genre/saga'
 import movieSaga from '../redux/modules/movie/saga'
-import notificationSaga from '../redux/modules/notification/saga'
+import notificationSaga from '../redux/modules/notifications/saga'
 import paymongoWebhookSaga from '../redux/modules/paymongo-webhook/saga'
 import userSaga from '../redux/modules/user/saga'
 

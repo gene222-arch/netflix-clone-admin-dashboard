@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect';
 
-const getNotification = state => state.notification;
-const getPaymentAuthorizationNotifications = state => state.notification.paymentAuthorizationNotifications;
+const getNotification = state => state.notifications;
+const getPaymentAuthorizationNotifications = state => state.notifications.paymentAuthorizationNotifications;
 
 export const selectNotification = createSelector(getNotification, notification => notification);  
 
