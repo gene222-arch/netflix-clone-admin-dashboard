@@ -77,9 +77,6 @@ const SubscribedSuccessfully = ({ AUTH }) =>
         try {
             await SUBSCRIPTION_API.storeAsync({ user_email: userEmail, type });
             setHasError(false);
-            dispatch(AUTH_ACTION.updatePaymentAuthorizationStatus({
-                payment_authorization_status: 'disabled'
-            }));
         } catch (error) {
             console.log(error);
             setHasError(true);
