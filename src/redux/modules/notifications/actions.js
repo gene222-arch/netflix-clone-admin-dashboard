@@ -3,7 +3,10 @@ import ACTION_TYPES from './action.types';
 const {
     FETCH_ALL_PAYMENT_AUTHORIZATION_NOTIFICATIONS_START,
     FETCH_ALL_PAYMENT_AUTHORIZATION_NOTIFICATIONS_SUCCESS,
-    FETCH_ALL_PAYMENT_AUTHORIZATION_NOTIFICATIONS_FAILED
+    FETCH_ALL_PAYMENT_AUTHORIZATION_NOTIFICATIONS_FAILED,
+    MARK_ALL_PAYMENT_AUTH_NOTIFICATIONS_AS_READ_START,
+    MARK_ALL_PAYMENT_AUTH_NOTIFICATIONS_AS_READ_SUCCESS,
+    MARK_ALL_PAYMENT_AUTH_NOTIFICATIONS_AS_READ_FAILED
 } = ACTION_TYPES;
 
 
@@ -24,4 +27,18 @@ export const fetchAllPaymentAuthorizationNotificationsFailed = (payload) => ({
 });
 
 
+export const markAllPaymentAuthNotificationsAsReadStart = (payload) => ({
+    type: MARK_ALL_PAYMENT_AUTH_NOTIFICATIONS_AS_READ_START,
+    payload
+});
+
+export const markAllPaymentAuthNotificationsAsReadSuccess = (payload) => ({
+    type: MARK_ALL_PAYMENT_AUTH_NOTIFICATIONS_AS_READ_SUCCESS,
+    payload
+});
+
+export const markAllPaymentAuthNotificationsAsReadFailed = (payload) => ({
+    type: MARK_ALL_PAYMENT_AUTH_NOTIFICATIONS_AS_READ_FAILED,
+    payload
+});
 
