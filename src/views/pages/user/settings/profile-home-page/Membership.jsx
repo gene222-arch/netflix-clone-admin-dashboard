@@ -39,11 +39,11 @@ const Membership = ({ AUTH, paymentAuthorizationNotif, isFetchingPaymentAuthNoti
 
         if (isFetchingPaymentAuthNotif) return <CircularProgress />
 
+        if (subscriptionStatus === 'subscribed') return 'Manage Plan';
+
         if (paymentAuthorizationNotif.status === 'pending' || AUTH.payment_authorization_status === 'sent') return 'Pending email';
         
         if (['expired', 'cancelled'].includes(subscriptionStatus)) return 'Renew Subscription';
-
-        return 'Manage Plan';
     }
 
     const billingDetailsPath = () => 
