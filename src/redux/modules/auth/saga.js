@@ -10,12 +10,15 @@ import { forgotPasswordAsync } from './../../../services/auth/forgot.password';
 import { resetPasswordAsync } from './../../../services/auth/reset.password';
 import { verifyEmailAsync } from './../../../services/auth/verify.email';
 import * as USER_PROFILE_API from './../../../services/users/user.profiles'
+import * as SUBSCRIPTION_API from './../../../services/subscription'
 
 /** Actions and types */
 import ACTION_TYPES from './action.types'
 import { 
     authUserSuccess,
     authUserFailed,
+    cancelSubscriptionSuccess,
+    cancelSubscriptionFailed,
     forgotPasswordSuccess,
     forgotPasswordFailed,
     loginSuccess, 
@@ -47,6 +50,7 @@ import { ERROR_MESSAGE_ON_LOGIN, ERROR_MESSAGE_ON_REGISTER } from './../../../co
 /** Action types */
 const { 
     AUTH_USER_START,
+    CANCEL_SUBSCRIPTION_START,
     FORGOT_PASSWORD_START,
     LOGIN_START,
     LOGOUT_START,
@@ -80,6 +84,20 @@ function* authUserSaga ()
 
     }
 }
+
+ function* cancelSubscriptionSaga ()
+ {
+     try {
+         const { data } = yield call(SUBSCRIPTION_API.cancelAsync);
+ 
+         yield put(cancelSubscriptionSuccess({
+             subscription_details: data
+         }));
+
+     } catch ({ message }) {
+         yield put(cancelSubscriptionFailed({ errorMessages: message }));
+     }
+ }
 
 /**
  * Forgot password request
@@ -278,6 +296,16 @@ function* authUserWatcher ()
     }
 }
 
+function* cancelSubscriptionWatcher () 
+{
+    while (true)
+    {
+        const { payload } = yield take(CANCEL_SUBSCRIPTION_START); 
+
+        yield call(cancelSubscriptionSaga, payload);
+    }
+}
+
 function* forgotPasswordWatcher () 
 {
     while (true)
@@ -366,6 +394,7 @@ export default function* ()
 {
     yield all([
         authUserWatcher(),
+        cancelSubscriptionWatcher(),
         forgotPasswordWatcher(),
         loginWatcher(),
         logoutWatcher(),

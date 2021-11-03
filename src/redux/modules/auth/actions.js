@@ -7,6 +7,10 @@ const {
     AUTH_USER_SUCCESS,
     AUTH_USER_FAILED,
 
+    CANCEL_SUBSCRIPTION_START,
+    CANCEL_SUBSCRIPTION_SUCCESS,
+    CANCEL_SUBSCRIPTION_FAILED,
+
     FORGOT_PASSWORD_START,
     FORGOT_PASSWORD_SUCCESS,
     FORGOT_PASSWORD_FAILED,
@@ -67,6 +71,20 @@ export const authUserSuccess = (payload) => ({
 
 export const authUserFailed = (payload) => ({
     type: AUTH_USER_FAILED,
+    payload
+});
+
+export const cancelSubscriptionStart = () => ({
+    type: CANCEL_SUBSCRIPTION_START
+});
+
+export const cancelSubscriptionSuccess = (payload) => ({
+    type: CANCEL_SUBSCRIPTION_SUCCESS,
+    payload
+});
+
+export const cancelSubscriptionFailed = (payload) => ({
+    type: CANCEL_SUBSCRIPTION_FAILED,
     payload
 });
 

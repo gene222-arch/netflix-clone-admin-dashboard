@@ -7,6 +7,10 @@ const {
     AUTH_USER_SUCCESS,
     AUTH_USER_FAILED,
 
+    CANCEL_SUBSCRIPTION_START,
+    CANCEL_SUBSCRIPTION_SUCCESS,
+    CANCEL_SUBSCRIPTION_FAILED,
+
     FORGOT_PASSWORD_START,
     FORGOT_PASSWORD_SUCCESS,
     FORGOT_PASSWORD_FAILED,
@@ -113,6 +117,7 @@ export default (state = initialState, { type, payload }) =>
     switch (type) 
     {
         case AUTH_USER_START:
+        case CANCEL_SUBSCRIPTION_START:
         case LOGIN_START: 
         case LOGOUT_START:
         case MANAGE_PROFILE_LOCK_START:
@@ -142,6 +147,17 @@ export default (state = initialState, { type, payload }) =>
                 error,
             };
             
+        case CANCEL_SUBSCRIPTION_START:
+            return {
+                ...state,
+                subscription_details: {
+                    ...state.subscription_details,
+                    ...payload.subscription_details
+                },
+                isLoading,
+                error
+            }
+        
         case AUTH_USER_FAILED:
         case LOGIN_FAILED: 
             return {
@@ -213,6 +229,7 @@ export default (state = initialState, { type, payload }) =>
                 error,
             };
             
+        case CANCEL_SUBSCRIPTION_FAILED:
         case FORGOT_PASSWORD_FAILED:
         case MANAGE_PROFILE_LOCK_FAILED:
         case REGISTRATION_FAILED:         
