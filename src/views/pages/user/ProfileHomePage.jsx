@@ -12,6 +12,7 @@ import { useHistory } from 'react-router-dom';
 import PATH from './../../../routes/path';
 import AvatarList from './settings/profile-home-page/AvatarList';
 import Membership from './settings/profile-home-page/Membership';
+import * as NOTIFICATIONS_ACTION from './../../../redux/modules/notifications/actions'
 import * as NOTIFICATION_API from './../../../services/notification'
 
 const NOTIFICATION_DEFAULT_PROPS = {
@@ -72,6 +73,7 @@ const ProfileHomePage = ({ AUTH }) =>
 
     useEffect(() => 
     {
+        dispatch(NOTIFICATIONS_ACTION.fetchAllPaymentAuthorizationNotificationsStart());
         onLoadFetchPaymentAuthorization();
         return () => {
             setId(null);

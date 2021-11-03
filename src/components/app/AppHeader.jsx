@@ -9,7 +9,10 @@ import Typography from '@material-ui/core/Typography'
 import Container from '@material-ui/core/Container'
 import Colors from './../../constants/Colors';
 import AppHeaderMenu from './AppHeaderMenu';
-
+import { Badge, IconButton } from '@material-ui/core';
+import { Notifications } from '@material-ui/icons';
+import { selectPaymentAuthorizationNotifications } from './../../redux/modules/notifications/selector';
+import NotificationMenu from './NotificationMenu';
 
 const appHeaderUseStyles = makeStyles(theme => ({
     avatar: {
@@ -29,26 +32,36 @@ const appHeaderUseStyles = makeStyles(theme => ({
         height: 'auto',
         marginTop: '1.5rem'
     },
+    notifIconButton: {
+        marginTop: '1rem'
+    },
+    notifIcon: {
+        fontSize: '2rem'
+    },
     profileNameText: {
         marginTop: '1.5rem'
     }
 }));
 
-const AppHeader = ({ AUTH }) => 
+const AppHeader = ({ AUTH, PAYMENT_AUTH_NOTIFS }) => 
 {
     const classes = appHeaderUseStyles();
 
-    const [ anchorEl, setAnchorEl ] = useState(null);
+    const paymentAuthorizationNotifCount = PAYMENT_AUTH_NOTIFS.filter(notif => !notif.read_at).length;
+    const [ profileMenu, setProfileMenu ] = useState(null);
+    const [ notifMenu, setNotifMenu ] = useState(null);
 
     useEffect(() => {
         return () => {
-            setAnchorEl(null);
+            setProfileMenu(null);
+            setNotifMenu(null);
         }
     }, []);
 
     return (
         <Container maxWidth="xl" className={ classes.container }>
-            <AppHeaderMenu anchorEl={ anchorEl } setAnchorEl={ setAnchorEl } />
+            <AppHeaderMenu anchorEl={ profileMenu } setAnchorEl={ setProfileMenu } />
+            <NotificationMenu anchorEl={ notifMenu } setAnchorEl={ setNotifMenu } />
             <Grid container spacing={1} justify='space-between'>
                 <Grid item>
                     <img 
@@ -58,6 +71,16 @@ const AppHeader = ({ AUTH }) =>
                 </Grid>
                 <Grid item>
                     <Grid container spacing={1} alignItems='center'>
+                        <Grid item>
+                            <IconButton
+                                className={ classes.notifIconButton }
+                                onClick={ e => setNotifMenu(e.currentTarget) }
+                            >
+                                <Badge badgeContent={ paymentAuthorizationNotifCount } color='error'>
+                                    <Notifications className={ classes.notifIcon } />
+                                </Badge>
+                            </IconButton>
+                        </Grid>
                         <Grid item>
                             <Typography 
                                 variant="subtitle1" 
@@ -73,7 +96,7 @@ const AppHeader = ({ AUTH }) =>
                                     <img 
                                         src={ AUTH.selectedProfile?.avatar || AUTH.user.avatar }
                                         className={ classes.avatar }
-                                        onMouseOver={ e => setAnchorEl(e.currentTarget) }
+                                        onMouseOver={ e => setProfileMenu(e.currentTarget) }
                                     />
                                 )
                             }
@@ -86,7 +109,8 @@ const AppHeader = ({ AUTH }) =>
 }
 
 const mapStateToProps = createStructuredSelector({
-    AUTH: selectAuth
+    AUTH: selectAuth,
+    PAYMENT_AUTH_NOTIFS: selectPaymentAuthorizationNotifications
 });
 
 export default connect(mapStateToProps)(AppHeader)

@@ -50,7 +50,7 @@ const reducers = {
     genre: genreReducer,
     mainLayout: mainLayoutReducer,
     movie: movieReducer,
-    notification: notificationReducer,
+    notifications: notificationReducer,
     paymongoWebhook: paymongoWebhookReducer,
     user: userReducer
 };
