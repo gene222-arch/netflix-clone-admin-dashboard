@@ -266,6 +266,7 @@ export default (state = initialState, { type, payload }) =>
                     ...state.subscription_details,
                     ...payload.subscription_details
                 },
+                payment_authorization_status: 'disabled',
                 isLoading,
                 error
             }

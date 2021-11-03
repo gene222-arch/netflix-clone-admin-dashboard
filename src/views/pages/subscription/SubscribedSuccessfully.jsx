@@ -14,8 +14,7 @@ import PropagateLoader from 'react-spinners/PropagateLoader';
 import Colors from '../../../constants/Colors';
 import { createStructuredSelector } from 'reselect';
 import { selectAuth } from './../../../redux/modules/auth/selector';
-import { connect, useDispatch } from 'react-redux';
-import * as AUTH_ACTION from './../../../redux/modules/auth/actions'
+import { connect } from 'react-redux';
 
 
 
@@ -60,7 +59,6 @@ const subscribedSucessfullyUseStyles = makeStyles(theme => ({
 const SubscribedSuccessfully = ({ AUTH }) => 
 {
     const history = useHistory();
-    const dispatch = useDispatch();
     const classes = subscribedSucessfullyUseStyles();
 
     const [ isLoading, setIsLoading ] = useState(true);
