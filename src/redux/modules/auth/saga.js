@@ -307,9 +307,8 @@ function* cancelSubscriptionWatcher ()
 {
     while (true)
     {
-        const { payload } = yield take(CANCEL_SUBSCRIPTION_START); 
-
-        yield call(cancelSubscriptionSaga, payload);
+        yield take(CANCEL_SUBSCRIPTION_START); 
+        yield call(cancelSubscriptionSaga);
     }
 }
 
