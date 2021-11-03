@@ -147,7 +147,7 @@ export default (state = initialState, { type, payload }) =>
                 error,
             };
             
-        case CANCEL_SUBSCRIPTION_START:
+        case CANCEL_SUBSCRIPTION_SUCCESS:
             return {
                 ...state,
                 subscription_details: {

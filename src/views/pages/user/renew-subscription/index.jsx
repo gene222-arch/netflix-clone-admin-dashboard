@@ -112,7 +112,10 @@ const RenewSubscription = ({ AUTH }) =>
 
     useEffect(() => 
     {
-        if ([ 'subscribed', 'pending' ].includes(AUTH.subscription_details.status)) {
+        if (
+            [ 'subscribed', 'pending' ].includes(AUTH.subscription_details.status) ||
+            AUTH.payment_authorization_status === 'sent'
+        ) {
             setIsAllowedToAccessPage(false);
         }
 

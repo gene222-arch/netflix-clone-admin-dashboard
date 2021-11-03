@@ -72,15 +72,16 @@ const ProfileHomePage = ({ AUTH }) =>
 
     useEffect(() => 
     {
-        onLoadFetchPaymentAuthorization();
-        dispatch(AUTH_ACTION.updatePaymentAuthorizationStatus({ payment_authorization_status: 'disabled' }));
-        
         return () => {
             setId(null);
             setPaymentAuthorizationNotif(NOTIFICATION_DEFAULT_PROPS);
             setIsFetchingPaymentAuthNotif(false);
         }
-    }, [AUTH.subscription_details]);
+    }, []);
+
+    useEffect(() => {
+        onLoadFetchPaymentAuthorization();
+    }, [AUTH]);
 
     return (
         <Container maxWidth="md" className={ classes.container } style={{ height: AUTH.profiles.length <= 2 ? '90vh' : 'auto' }}>
