@@ -57,7 +57,7 @@ const ProfileHomePage = ({ AUTH }) =>
     {
         setIsFetchingPaymentAuthNotif(true);
         try {
-            const { data, status } = await NOTIFICATION_API.findPaymentAuthorizationsByUserIdAsync();
+            const { data, status } = await NOTIFICATION_API.findCurrentPaymentAuthorizationByUserIdAsync();
 
             if (status === 'success') {
                 setPaymentAuthorizationNotif({

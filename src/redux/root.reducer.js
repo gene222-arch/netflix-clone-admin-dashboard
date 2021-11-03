@@ -17,6 +17,7 @@ import directorReducer from './modules/director/reducer'
 import employeeReducer from './modules/employee/reducer'
 import genreReducer from './modules/genre/reducer'
 import mainLayoutReducer from './modules/main-layout/reducer'
+import notificationReducer from './modules/notifications/reducer'
 import movieReducer from './modules/movie/reducer'
 import paymongoWebhookReducer from './modules/paymongo-webhook/reducer'
 import userReducer from './modules/user/reducer'
@@ -49,6 +50,7 @@ const reducers = {
     genre: genreReducer,
     mainLayout: mainLayoutReducer,
     movie: movieReducer,
+    notification: notificationReducer,
     paymongoWebhook: paymongoWebhookReducer,
     user: userReducer
 };
