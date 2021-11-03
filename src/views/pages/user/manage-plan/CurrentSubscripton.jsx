@@ -18,7 +18,7 @@ import { selectAuth } from './../../../../redux/modules/auth/selector';
 import { connect, useDispatch } from 'react-redux';
 import Colors from './../../../../constants/Colors';
 import * as CONFIRM_ACTION from './../../../../redux/modules/confirm/actions'
-
+import * as AUTH_ACTION from './../../../../redux/modules/auth/actions'
 
 const currentSubscriptionUseStyles = makeStyles(theme => ({
     cancelBtn: {
@@ -45,7 +45,6 @@ const CurrentSubscripton = ({ AUTH }) =>
     const [ profileCount, setProfileCount ] = useState(2);
     const [ durationInMonth, setDurationInMonth ] = useState(1);
     const [ uniqueFeature, setUniqueFeature ] = useState('');
-
     const subscriptionDetails = [
         {
             content: `${ profileCount } profiles`,
@@ -90,7 +89,7 @@ const CurrentSubscripton = ({ AUTH }) =>
         dispatch(CONFIRM_ACTION.showConfirmationDialog({
             mainHeader: `Cancel ${ AUTH.subscription_details.type } Subscription?`,
             subHeader: 'Once confirmed, your account subscription will successfully be cancelled and a refund is not possible.',
-            confirmCallback: () => window.alert('Subscription Cancelled')
+            confirmCallback: () => dispatch(AUTH_ACTION.cancelSubscriptionStart())
         }));
     }
 
@@ -160,6 +159,7 @@ const CurrentSubscripton = ({ AUTH }) =>
                         variant="outlined" 
                         className={ classes.cancelBtn }
                         onClick={ handleClickConfirmation }
+                        disabled={ AUTH.isLoading }
                     >
                         Cancel Subscription
                     </Button>

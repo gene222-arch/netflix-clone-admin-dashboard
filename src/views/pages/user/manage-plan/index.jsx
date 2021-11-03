@@ -1,6 +1,10 @@
 import React from 'react'
 import { Container, Grid, makeStyles, Typography } from '@material-ui/core';
 import CurrentSubscripton from './CurrentSubscripton';
+import { createStructuredSelector } from 'reselect';
+import { selectAuth } from './../../../../redux/modules/auth/selector';
+import { connect } from 'react-redux';
+import Forbidden from './../../errors/Forbidden';
 
 const managePlanUseStyles = makeStyles(theme => ({
     container: {
@@ -9,9 +13,17 @@ const managePlanUseStyles = makeStyles(theme => ({
     },
 }));
 
-const index = () => 
+const index = ({ AUTH }) => 
 {
     const classes = managePlanUseStyles();
+
+    if (['expired', 'cancelled'].includes(AUTH.subscription_details.status)) {
+        return (
+            <Container maxWidth="lg" style={{ height: '80vh' }}>
+                <Forbidden />
+            </Container>
+        )
+    }
 
     return (
         <Container maxWidth="md" className={ classes.container }>
@@ -29,5 +41,9 @@ const index = () =>
     )
 }
 
-export default index
+const mapStateToProps = createStructuredSelector({
+    AUTH: selectAuth
+});
+
+export default connect(mapStateToProps)(index)
 

@@ -9,9 +9,10 @@ import { createStructuredSelector } from 'reselect';
 import { selectConfirm } from './../redux/modules/confirm/selector';
 import * as CONFIRM_ACTION from './../redux/modules/confirm/actions';
 import { connect, useDispatch } from 'react-redux';
+import { selectAuth } from './../redux/modules/auth/selector';
 
 
-const ConfirmationDialog = ({ CONFIRM }) => 
+const ConfirmationDialog = ({ CONFIRM, AUTH }) => 
 {
     const dispatch = useDispatch();
 
@@ -39,8 +40,10 @@ const ConfirmationDialog = ({ CONFIRM }) =>
                     <DialogContentText id='alert-dialog-description'>{ CONFIRM.subHeader }</DialogContentText>
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={ handleClose }>{ CONFIRM.cancelText }</Button>
-                    <Button onClick={ handleClickConfirm } autoFocus>{ CONFIRM.confirmText }</Button>
+                    <Button onClick={ handleClose } disabled={ AUTH.isLoading }>{ CONFIRM.cancelText }</Button>
+                    <Button onClick={ handleClickConfirm } autoFocus disabled={ AUTH.isLoading }>
+                        { !AUTH.isLoading ? CONFIRM.confirmText : 'Processing...' }
+                    </Button>
                 </DialogActions>
             </Dialog>
         </div>
@@ -48,6 +51,7 @@ const ConfirmationDialog = ({ CONFIRM }) =>
 }
 
 const mapStateToProps = createStructuredSelector({
+    AUTH: selectAuth,
     CONFIRM: selectConfirm
 });
 

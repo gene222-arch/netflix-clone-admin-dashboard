@@ -8,10 +8,10 @@ export const storeAsync = async (payload) =>
         .catch(error => Promise.reject(error.response.data));
 }
 
-export const cancelAsync = async (payload) => 
+export const cancelAsync = async () => 
 {
     return await axiosInstance()
-        .post('/subscriptions/cancel', payload)
+        .put('/subscriptions/cancel')
         .then(response => response.data)
         .catch(error => Promise.reject(error.response.data));
 }
