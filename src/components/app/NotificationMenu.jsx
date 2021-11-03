@@ -56,7 +56,10 @@ const NotificationMenu = ({ PAYMENT_AUTH_NOTIFS, anchorEl, setAnchorEl }) =>
         setMoreOptionMenu(null);
     }
 
-    const handleClickClearAllNotif = () => console.log('Clear all notif');
+    const handleClickClearAllNotif = () => {
+        dispatch(NOTIFICATIONS_ACTION.clearPaymentAuthNotificationsStart());
+        setMoreOptionMenu(null);
+    }
 
     const moreOptions = [
         {

@@ -7,14 +7,17 @@ import {
     fetchAllPaymentAuthorizationNotificationsSuccess,
     fetchAllPaymentAuthorizationNotificationsFailed,
     markAllPaymentAuthNotificationsAsReadSuccess,
-    markAllPaymentAuthNotificationsAsReadFailed
+    markAllPaymentAuthNotificationsAsReadFailed,
+    clearPaymentAuthNotificationsSuccess,
+    clearPaymentAuthNotificationsFailed
 } from './actions';
 import { showAlert } from '../alert/actions';
 import PATH from '../../../routes/path';
 
 const {
     FETCH_ALL_PAYMENT_AUTHORIZATION_NOTIFICATIONS_START,
-    MARK_ALL_PAYMENT_AUTH_NOTIFICATIONS_AS_READ_START
+    MARK_ALL_PAYMENT_AUTH_NOTIFICATIONS_AS_READ_START,
+    CLEAR_PAYMENT_AUTH_NOTIFICATIONS_START
 }  = ACTION_TYPES;
 
 /**
@@ -39,6 +42,16 @@ function* markAllPaymentAuthNotificationsSaga()
         yield put(markAllPaymentAuthNotificationsAsReadFailed({ message }));
     }
 }
+
+function* clearPaymentAuthNotificationsSaga()
+{
+    try {
+        yield call(API.clearAllPaymentAuthNotifsAsync);
+        yield put(clearPaymentAuthNotificationsSuccess());
+    } catch ({ message }) {
+        yield put(clearPaymentAuthNotificationsFailed({ message }));
+    }
+}
 /**
  * Watchers
  */
@@ -57,6 +70,14 @@ function* markAllPaymentAuthNotificationsWatcher()
         yield call(markAllPaymentAuthNotificationsSaga);
     }
 }
+
+function* clearPaymentAuthNotificationsWatcher()
+{
+    while (true) {
+        yield take(CLEAR_PAYMENT_AUTH_NOTIFICATIONS_START);
+        yield call(clearPaymentAuthNotificationsSaga);
+    }
+}
 /**
  * 
  */
@@ -64,6 +85,7 @@ export default function*()
 {
     yield all([
         fetchAllPaymentAuthorizationNotificationsWatcher(),
-        markAllPaymentAuthNotificationsWatcher()
+        markAllPaymentAuthNotificationsWatcher(),
+        clearPaymentAuthNotificationsWatcher()
     ]);
 }

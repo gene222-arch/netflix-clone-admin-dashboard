@@ -6,7 +6,10 @@ const {
     FETCH_ALL_PAYMENT_AUTHORIZATION_NOTIFICATIONS_FAILED,
     MARK_ALL_PAYMENT_AUTH_NOTIFICATIONS_AS_READ_START,
     MARK_ALL_PAYMENT_AUTH_NOTIFICATIONS_AS_READ_SUCCESS,
-    MARK_ALL_PAYMENT_AUTH_NOTIFICATIONS_AS_READ_FAILED
+    MARK_ALL_PAYMENT_AUTH_NOTIFICATIONS_AS_READ_FAILED,
+    CLEAR_PAYMENT_AUTH_NOTIFICATIONS_START,
+    CLEAR_PAYMENT_AUTH_NOTIFICATIONS_SUCCESS,
+    CLEAR_PAYMENT_AUTH_NOTIFICATIONS_FAILED
 } = ACTION_TYPES;
 
 const initialState = {
@@ -23,6 +26,7 @@ export default (state = initialState, { type, payload }) =>
     switch (type) 
     {
         
+        case CLEAR_PAYMENT_AUTH_NOTIFICATIONS_START:
         case FETCH_ALL_PAYMENT_AUTHORIZATION_NOTIFICATIONS_START:
         case MARK_ALL_PAYMENT_AUTH_NOTIFICATIONS_AS_READ_START:
             return {
@@ -45,6 +49,15 @@ export default (state = initialState, { type, payload }) =>
                 error
             }
             
+        case CLEAR_PAYMENT_AUTH_NOTIFICATIONS_SUCCESS:
+            return {
+                ...state,
+                paymentAuthorizationNotifications: [],
+                isLoading,
+                error
+            }
+        
+        case CLEAR_PAYMENT_AUTH_NOTIFICATIONS_FAILED:
         case FETCH_ALL_PAYMENT_AUTHORIZATION_NOTIFICATIONS_FAILED:
         case MARK_ALL_PAYMENT_AUTH_NOTIFICATIONS_AS_READ_FAILED:
             return {

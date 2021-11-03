@@ -6,7 +6,10 @@ const {
     FETCH_ALL_PAYMENT_AUTHORIZATION_NOTIFICATIONS_FAILED,
     MARK_ALL_PAYMENT_AUTH_NOTIFICATIONS_AS_READ_START,
     MARK_ALL_PAYMENT_AUTH_NOTIFICATIONS_AS_READ_SUCCESS,
-    MARK_ALL_PAYMENT_AUTH_NOTIFICATIONS_AS_READ_FAILED
+    MARK_ALL_PAYMENT_AUTH_NOTIFICATIONS_AS_READ_FAILED,
+    CLEAR_PAYMENT_AUTH_NOTIFICATIONS_START,
+    CLEAR_PAYMENT_AUTH_NOTIFICATIONS_SUCCESS,
+    CLEAR_PAYMENT_AUTH_NOTIFICATIONS_FAILED
 } = ACTION_TYPES;
 
 
@@ -42,3 +45,17 @@ export const markAllPaymentAuthNotificationsAsReadFailed = (payload) => ({
     payload
 });
 
+export const clearPaymentAuthNotificationsStart = (payload) => ({
+    type: CLEAR_PAYMENT_AUTH_NOTIFICATIONS_START,
+    payload
+});
+
+export const clearPaymentAuthNotificationsSuccess = (payload) => ({
+    type: CLEAR_PAYMENT_AUTH_NOTIFICATIONS_SUCCESS,
+    payload
+});
+
+export const clearPaymentAuthNotificationsFailed = (payload) => ({
+    type: CLEAR_PAYMENT_AUTH_NOTIFICATIONS_FAILED,
+    payload
+});
