@@ -88,11 +88,18 @@ function* authUserSaga ()
  function* cancelSubscriptionSaga ()
  {
      try {
-         const { data } = yield call(SUBSCRIPTION_API.cancelAsync);
+         const { data, message } = yield call(SUBSCRIPTION_API.cancelAsync);
  
          yield put(cancelSubscriptionSuccess({
              subscription_details: data
          }));
+
+         yield put(ALERT.showAlert({
+            status: 'success',
+            message
+        }));
+
+        yield put(push(PATH.PROFILE_HOME_PAGE));
 
      } catch ({ message }) {
          yield put(cancelSubscriptionFailed({ errorMessages: message }));
