@@ -26,8 +26,14 @@ const {
 function* fetchAllPaymentAuthorizationNotificationsSaga()
 {
     try {
-        const { data: notifications } = yield call(API.fetchAllPaymentAuthorizationByUserIdAsync);
-        yield put(fetchAllPaymentAuthorizationNotificationsSuccess({ notifications }));
+        const { data: notifications, status } = yield call(API.fetchAllPaymentAuthorizationByUserIdAsync);
+        
+        if (status === 'success') {
+            yield put(fetchAllPaymentAuthorizationNotificationsSuccess({ notifications }));
+        }
+        else {
+            yield put(fetchAllPaymentAuthorizationNotificationsSuccess({ notifications: [] }));
+        }
     } catch ({ message }) {
         yield put(fetchAllPaymentAuthorizationNotificationsFailed({ message }));
     }

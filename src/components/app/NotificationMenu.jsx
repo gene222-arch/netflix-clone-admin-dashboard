@@ -65,12 +65,14 @@ const NotificationMenu = ({ PAYMENT_AUTH_NOTIFS, anchorEl, setAnchorEl }) =>
         {
             label: 'Mark all as read',
             icon: CheckIcon,
-            onClick: handleClickMarkAllAsRead
+            onClick: handleClickMarkAllAsRead,
+            disabled: PAYMENT_AUTH_NOTIFS.length < 1
         },
         {
             label: 'Clear notifications',
             icon: DeleteIcon,
-            onClick: handleClickClearAllNotif
+            onClick: handleClickClearAllNotif,
+            disabled: PAYMENT_AUTH_NOTIFS.length < 1
         }
     ];
 
@@ -93,8 +95,8 @@ const NotificationMenu = ({ PAYMENT_AUTH_NOTIFS, anchorEl, setAnchorEl }) =>
                 }}
             >
                 {
-                    moreOptions.map(({ label, icon: Icon, onClick }, index) => (
-                        <MenuItem key={ index } onClick={ onClick }>
+                    moreOptions.map(({ label, icon: Icon, onClick, disabled }, index) => (
+                        <MenuItem key={ index } onClick={ onClick } disabled={ disabled }>
                             <Grid container spacing={1} alignItems='center' justify='space-between'>
                                 <Grid item>{ label }</Grid>
                                 <Grid item> <Icon /> </Grid>
@@ -131,7 +133,7 @@ const NotificationMenu = ({ PAYMENT_AUTH_NOTIFS, anchorEl, setAnchorEl }) =>
                     </Grid>
                  </Grid>
                 {
-                    PAYMENT_AUTH_NOTIFS?.map(({ data, read_at }, index) => (
+                    PAYMENT_AUTH_NOTIFS.map(({ data, read_at }, index) => (
                         <MenuItem 
                             key={ index } 
                             onClick={ handleClose }
@@ -145,7 +147,7 @@ const NotificationMenu = ({ PAYMENT_AUTH_NOTIFS, anchorEl, setAnchorEl }) =>
                     ))
                 }
                 {
-                    !PAYMENT_AUTH_NOTIFS && (
+                    !PAYMENT_AUTH_NOTIFS.length && (
                         <Typography variant="h6" color="textSecondary" className={ classes.emptyNotifText }>
                             Empty Notifications
                         </Typography>
