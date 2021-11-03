@@ -33,7 +33,7 @@ function* fetchAllPaymentAuthorizationNotificationsSaga()
 function* markAllPaymentAuthNotificationsSaga()
 {
     try {
-        yield call(API.fetchAllPaymentAuthorizationByUserIdAsync);
+        yield call(API.markAllPaymentAuthNotifsAsReadAsync);
         yield put(markAllPaymentAuthNotificationsAsReadSuccess());
     } catch ({ message }) {
         yield put(markAllPaymentAuthNotificationsAsReadFailed({ message }));

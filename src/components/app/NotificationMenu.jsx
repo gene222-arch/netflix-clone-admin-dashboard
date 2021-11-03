@@ -4,7 +4,7 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import { createStructuredSelector } from 'reselect';
 import { selectPaymentAuthorizationNotifications } from '../../redux/modules/notifications/selector';
-import { connect } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 import Colors from './../../constants/Colors';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid'
@@ -13,8 +13,13 @@ import { Tooltip, Typography } from '@material-ui/core'
 import CheckIcon from '@material-ui/icons/Check';
 import MoreVert from '@material-ui/icons/MoreVert';
 import DeleteIcon from '@material-ui/icons/Delete';
+import * as NOTIFICATIONS_ACTION from './../../redux/modules/notifications/actions'
 
 const notificationMenuUseStyles = makeStyles(theme => ({
+    emptyNotifText: {
+        textAlign: 'center',
+        padding: '4rem'
+    },
     mailIcon: {
         marginRight: '1.5rem',
         fontSize: '0.9rem'
@@ -34,6 +39,8 @@ const notificationMenuUseStyles = makeStyles(theme => ({
 const NotificationMenu = ({ PAYMENT_AUTH_NOTIFS, anchorEl, setAnchorEl }) => 
 {
     const classes = notificationMenuUseStyles();
+    const dispatch = useDispatch();
+
     const open = Boolean(anchorEl);
 
     const [ moreOptionMenu, setMoreOptionMenu ] = useState(null);
@@ -44,18 +51,23 @@ const NotificationMenu = ({ PAYMENT_AUTH_NOTIFS, anchorEl, setAnchorEl }) =>
 
     const handleCloseMoreOption = () => setMoreOptionMenu(null);
 
-    const handleClickMarkAllAsRead = () => console.log('Mark all as read');
+    const handleClickMarkAllAsRead = () => {
+        dispatch(NOTIFICATIONS_ACTION.markAllPaymentAuthNotificationsAsReadStart());
+        setMoreOptionMenu(null);
+    }
 
     const handleClickClearAllNotif = () => console.log('Clear all notif');
 
     const moreOptions = [
         {
             label: 'Mark all as read',
-            icon: CheckIcon
+            icon: CheckIcon,
+            onClick: handleClickMarkAllAsRead
         },
         {
             label: 'Clear notifications',
-            icon: DeleteIcon
+            icon: DeleteIcon,
+            onClick: handleClickClearAllNotif
         }
     ];
 
@@ -78,8 +90,8 @@ const NotificationMenu = ({ PAYMENT_AUTH_NOTIFS, anchorEl, setAnchorEl }) =>
                 }}
             >
                 {
-                    moreOptions.map(({ label, icon: Icon }, index) => (
-                        <MenuItem key={ index }>
+                    moreOptions.map(({ label, icon: Icon, onClick }, index) => (
+                        <MenuItem key={ index } onClick={ onClick }>
                             <Grid container spacing={1} alignItems='center' justify='space-between'>
                                 <Grid item>{ label }</Grid>
                                 <Grid item> <Icon /> </Grid>
@@ -97,6 +109,11 @@ const NotificationMenu = ({ PAYMENT_AUTH_NOTIFS, anchorEl, setAnchorEl }) =>
                     'aria-labelledby': 'basic-button',
                 }}
                 className={ classes.notifMenu }
+                PaperProps={{ 
+                    style: {  
+                        width: '40rem'
+                    } 
+                }}
             >
                  <Grid container spacing={1} justify='space-between' alignItems='center' className={ classes.notifHeaderContainer }>
                     <Grid item>
@@ -111,7 +128,7 @@ const NotificationMenu = ({ PAYMENT_AUTH_NOTIFS, anchorEl, setAnchorEl }) =>
                     </Grid>
                  </Grid>
                 {
-                    PAYMENT_AUTH_NOTIFS.map(({ data, read_at }, index) => (
+                    PAYMENT_AUTH_NOTIFS?.map(({ data, read_at }, index) => (
                         <MenuItem 
                             key={ index } 
                             onClick={ handleClose }
@@ -123,6 +140,13 @@ const NotificationMenu = ({ PAYMENT_AUTH_NOTIFS, anchorEl, setAnchorEl }) =>
                             /> { data.type.split(/(?=[A-Z])/).join(" ") }
                         </MenuItem>
                     ))
+                }
+                {
+                    !PAYMENT_AUTH_NOTIFS && (
+                        <Typography variant="h6" color="textSecondary" className={ classes.emptyNotifText }>
+                            Empty Notifications
+                        </Typography>
+                    )
                 }
             </Menu>
         </div>
