@@ -15,3 +15,11 @@ export const cancelAsync = async () =>
         .then(response => response.data)
         .catch(error => Promise.reject(error.response.data));
 }
+
+export const updateAsync = async (payload) => 
+{
+    return await axiosInstance()
+        .put('/subscriptions', payload)
+        .then(response => response.data)
+        .catch(error => Promise.reject(error.response.data));
+}
