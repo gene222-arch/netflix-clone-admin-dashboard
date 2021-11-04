@@ -124,7 +124,8 @@ const AppHeaderMenu = ({ AUTH, anchorEl, setAnchorEl }) =>
     const handleClickLogout = () => {
         dispatch(AUTH_ACTION.logoutStart());
         handleClickToggleMenu();
-        ECHO_UTIL().leave('subscribed.successfully');
+        ECHO_UTIL().leave(`subscribed.successfully.${ AUTH.user.id }`);
+        ECHO_UTIL().leave(`payment.authorization.sent.${ AUTH.user.id }`);
     }
 
     useEffect(() => 

@@ -49,8 +49,6 @@ const Membership = ({ AUTH, paymentAuthorizationNotif, isFetchingPaymentAuthNoti
         const statuses = [ 'expired', 'cancelled', 'pending' ];
         const isInStatuses = statuses.includes(AUTH.subscription_details.status);
 
-        if (paymentAuthorizationNotif.status === 'pending') return '';
-
         return !isInStatuses ? PATH.MANAGE_PLAN : PATH.RENEW_SUBSCRIPTION;
     }
 
@@ -83,7 +81,7 @@ const Membership = ({ AUTH, paymentAuthorizationNotif, isFetchingPaymentAuthNoti
             actionText: billingDetailsActionText(),
             actionPath: billingDetailsPath(),
             isTextSecondary: true,
-            isNavigatable: paymentAuthorizationNotif.status !== 'pending',
+            isNavigatable: (paymentAuthorizationNotif.status === 'pending' || AUTH.payment_authorization_status === 'sent'),
             onClick: () => console.log('')
         },
     ];

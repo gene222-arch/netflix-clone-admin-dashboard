@@ -31,6 +31,12 @@ const App = ({ AUTH, history }) =>
 				.listen('SubscribedSuccessfullyEvent', ({ data }) => {
 					dispatch(AUTH_ACTION.updateSubscriptionDetails({ subscription_details: data }));
 				});
+
+			ECHO_UTIL()
+				.private(`payment.authorization.sent.${ AUTH.user.id }`)
+				.listen('PaymentAuthorizationSentEvent', ({ data }) => {
+					console.log(data);
+				});
 		}
 	}, [AUTH.isAuthenticated]);
 
