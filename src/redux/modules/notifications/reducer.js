@@ -9,7 +9,8 @@ const {
     MARK_ALL_PAYMENT_AUTH_NOTIFICATIONS_AS_READ_FAILED,
     CLEAR_PAYMENT_AUTH_NOTIFICATIONS_START,
     CLEAR_PAYMENT_AUTH_NOTIFICATIONS_SUCCESS,
-    CLEAR_PAYMENT_AUTH_NOTIFICATIONS_FAILED
+    CLEAR_PAYMENT_AUTH_NOTIFICATIONS_FAILED,
+    CREATE_PAYMENT_AUTH_NOTIFICATION,
 } = ACTION_TYPES;
 
 const initialState = {
@@ -45,6 +46,17 @@ export default (state = initialState, { type, payload }) =>
         case MARK_ALL_PAYMENT_AUTH_NOTIFICATIONS_AS_READ_SUCCESS:
             return {
                 ...state,
+                isLoading,
+                error
+            }
+
+        case CREATE_PAYMENT_AUTH_NOTIFICATION:
+            return {
+                ...state,
+                paymentAuthorizationNotifications: [
+                    payload.paymentAuthorizationNotification,
+                    ...state.paymentAuthorizationNotifications,
+                ],
                 isLoading,
                 error
             }

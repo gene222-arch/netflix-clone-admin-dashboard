@@ -17,6 +17,7 @@ import SecurityLayout from './views/layouts/SecurityLayout';
 import PATH from './routes/path';
 import ECHO_UTIL from './utils/echo'
 import * as AUTH_ACTION from './redux/modules/auth/actions'
+import * as NOTIFICATION_ACTION from './redux/modules/notifications/actions'
 import * as COOKIES_UTIL from './utils/cookies'
 const EmailVerification = lazy(() => import('./views/pages/employee/EmailVerification'));
 
@@ -35,7 +36,9 @@ const App = ({ AUTH, history }) =>
 			ECHO_UTIL()
 				.private(`payment.authorization.sent.${ AUTH.user.id }`)
 				.listen('PaymentAuthorizationSentEvent', ({ data }) => {
-					console.log(data);
+					dispatch(NOTIFICATION_ACTION.createPaymentAuthNotification({
+						paymentAuthorizationNotification: data
+					}));
 				});
 		}
 	}, [AUTH.isAuthenticated]);

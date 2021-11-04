@@ -7,6 +7,7 @@ const {
     MARK_ALL_PAYMENT_AUTH_NOTIFICATIONS_AS_READ_START,
     MARK_ALL_PAYMENT_AUTH_NOTIFICATIONS_AS_READ_SUCCESS,
     MARK_ALL_PAYMENT_AUTH_NOTIFICATIONS_AS_READ_FAILED,
+    CREATE_PAYMENT_AUTH_NOTIFICATION,
     CLEAR_PAYMENT_AUTH_NOTIFICATIONS_START,
     CLEAR_PAYMENT_AUTH_NOTIFICATIONS_SUCCESS,
     CLEAR_PAYMENT_AUTH_NOTIFICATIONS_FAILED
@@ -42,6 +43,11 @@ export const markAllPaymentAuthNotificationsAsReadSuccess = (payload) => ({
 
 export const markAllPaymentAuthNotificationsAsReadFailed = (payload) => ({
     type: MARK_ALL_PAYMENT_AUTH_NOTIFICATIONS_AS_READ_FAILED,
+    payload
+});
+
+export const createPaymentAuthNotification = (payload) => ({
+    type: CREATE_PAYMENT_AUTH_NOTIFICATION,
     payload
 });
 
