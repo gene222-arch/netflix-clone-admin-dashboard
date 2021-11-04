@@ -65,6 +65,7 @@ const Settings = lazy(() => import('./../views/pages/settings'));
 const PaymongoWebhook = lazy(() => import('./../views/pages/paymongo-webhook/index'));
 const SubscribedSuccessfully = lazy(() => import('./../views/pages/subscription/SubscribedSuccessfully'))
 const SubscriptionFailed = lazy(() => import('./../views/pages/subscription/SubscriptionFailed'))
+const PlanUpdatedSuccessfully = lazy(() => import('./../views/pages/subscription/PlanUpdatedSuccessfully'))
 const ManagePlan = lazy(() => import('./../views/pages/user/manage-plan'))
 
 export const PUBLIC_ROUTES = [
@@ -227,7 +228,16 @@ export const SUBSCRIPTION_ROUTES = [
         component: SubscriptionFailed,
         access: '',
         restricted: null
-    }
+    },
+    {
+        path: PATH.PLAN_UPDATED_SUCCESSFULLY,
+        key: 'PlanUpdatedSuccessfully',
+        icon: '',
+        exact: true,
+        component: PlanUpdatedSuccessfully,
+        access: '',
+        restricted: null
+    },
 ]
 
 export const USER_ROUTES = [
