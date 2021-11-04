@@ -81,7 +81,7 @@ const Membership = ({ AUTH, paymentAuthorizationNotif, isFetchingPaymentAuthNoti
             actionText: billingDetailsActionText(),
             actionPath: billingDetailsPath(),
             isTextSecondary: true,
-            isNavigatable: (paymentAuthorizationNotif.status === 'pending' || AUTH.payment_authorization_status === 'sent'),
+            isNavigatable: [ 'Renew Subscription', 'Manage Plan' ].includes(billingDetailsActionText()),
             onClick: () => console.log('')
         },
     ];

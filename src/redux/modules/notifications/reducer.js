@@ -44,8 +44,16 @@ export default (state = initialState, { type, payload }) =>
             }
 
         case MARK_ALL_PAYMENT_AUTH_NOTIFICATIONS_AS_READ_SUCCESS:
+            let paymentAuthNotifs = state.paymentAuthorizationNotifications;
+            
+            paymentAuthNotifs = paymentAuthNotifs.map(notif => ({
+                ...notif,
+                read_at: Date.now()
+            }));
+
             return {
                 ...state,
+                paymentAuthorizationNotifications: paymentAuthNotifs,
                 isLoading,
                 error
             }
