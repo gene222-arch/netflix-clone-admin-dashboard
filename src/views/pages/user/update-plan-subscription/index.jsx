@@ -16,9 +16,12 @@ import { connect } from 'react-redux';
 import Forbidden from './../../errors/Forbidden';
 
 
-const renewSubscriptionStyles = makeStyles(theme => ({
+const updatePlanSubscriptionStyles = makeStyles(theme => ({
     container: {
         marginTop: '4.2vh'
+    },
+    currentSubscriptionType: {
+        color: Colors.info
     },
     sendIcon: {
         fontSize: '8rem',
@@ -38,16 +41,22 @@ const renewSubscriptionStyles = makeStyles(theme => ({
     }
 }));
 
-const RenewSubscription = ({ AUTH }) => 
+const planTypes = {
+  basic: 0,
+  standard: 1,
+  premium: 2  
+};
+
+const UpdatePlanSubscription = ({ AUTH }) => 
 {
-    const classes = renewSubscriptionStyles();
+    const classes = updatePlanSubscriptionStyles();
     const history = useHistory();
 
     const [ isPlanTypeSet, setIsPlanTypeSet ] = useState(false);
-    const [ planType, setPlanType ] = useState('');
-    const [ amount, setAmount ] = useState('');
+    const [ planType, setPlanType ] = useState(AUTH.subscription_details.type);
+    const [ amount, setAmount ] = useState(AUTH.subscription_details.cost);
     const [ isLoading, setIsLoading ] = useState(false);
-    const [ cardIndex, setCardIndex ] = useState(0);
+    const [ cardIndex, setCardIndex ] = useState(planTypes[AUTH.subscription_details.type.toLowerCase()]);
     const [ isPaymentAuthorizationSent, setIsPaymentAuthorizationSent ] = useState(false);
     const [ isAllowedToAccessPage, setIsAllowedToAccessPage ] = useState(true);
 
@@ -112,7 +121,7 @@ const RenewSubscription = ({ AUTH }) =>
 
     useEffect(() => 
     {
-        if ([ 'subscribed', 'pending' ].includes(AUTH.subscription_details.status)) {
+        if (AUTH.subscription_details.status !== 'subscribed') {
             setIsAllowedToAccessPage(false);
         }
 
@@ -138,8 +147,11 @@ const RenewSubscription = ({ AUTH }) =>
         <Container maxWidth="md" className={ classes.container } style={{ height: isPlanTypeSet ? '90.5vh' : 'auto' }}>
             <Grid container spacing={ 5 }>
                 <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
-                    <Typography variant="h4" color="initial" gutterBottom>
-                        <strong>Renew Subscription</strong>
+                    <Typography variant="h4" color="initial">
+                        <strong>Change Streaming Plan</strong>
+                    </Typography>
+                    <Typography variant="subtitle2" color="textSecondary">
+                        Current Plan: <strong className={ classes.currentSubscriptionType }>{ AUTH.subscription_details.type }</strong>
                     </Typography>
                 </Grid>
                 <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
@@ -182,4 +194,4 @@ const mapStateToProps = createStructuredSelector({
     AUTH: selectAuth
 });
 
-export default connect(mapStateToProps)(RenewSubscription)
+export default connect(mapStateToProps)(UpdatePlanSubscription)

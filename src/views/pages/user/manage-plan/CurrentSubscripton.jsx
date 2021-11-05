@@ -19,6 +19,7 @@ import { connect, useDispatch } from 'react-redux';
 import Colors from './../../../../constants/Colors';
 import * as CONFIRM_ACTION from './../../../../redux/modules/confirm/actions'
 import * as AUTH_ACTION from './../../../../redux/modules/auth/actions'
+import PATH from './../../../../routes/path';
 
 const currentSubscriptionUseStyles = makeStyles(theme => ({
     cancelBtn: {
@@ -113,7 +114,7 @@ const CurrentSubscripton = ({ AUTH }) =>
                             <Grid item>
                                 <Typography variant="h5" color="initial">
                                     <strong>{ AUTH.subscription_details.type }</strong>
-                                    <Link href='' className={ classes.changeSubsText }>Change</Link>
+                                    <Link href={ PATH.UPDATE_SUBSCRIPTION } className={ classes.changeSubsText }>Change</Link>
                                 </Typography>
                                 <Typography variant="subtitle2" color="textSecondary">
                                     ({ AUTH.subscription_details?.days_left } days left)

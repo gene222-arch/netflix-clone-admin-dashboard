@@ -52,6 +52,7 @@ const ProfileLock = lazy(() => import('../views/pages/user/settings/profile-lock
 const UpdatePassword = lazy(() => import('../views/pages/user/UpdatePassword'))
 const SecurityCheck = lazy(() => import('../views/pages/user/update-email/SecurityCheck'))
 const RenewSubscription = lazy(() => import('./../views/pages/user/renew-subscription'))
+const UpdateSubscription = lazy(() => import('./../views/pages/user/update-plan-subscription'))
 const PrivacyPolicy = lazy(() => import('./../views/pages/security/privacy-policy'));
 const TermsAndConditions = lazy(() => import('./../views/pages/security/terms-and-conditions'));
 const HelpCenter = lazy(() => import('./../views/pages/help-center'));
@@ -304,6 +305,15 @@ export const USER_ROUTES = [
         access: '',
         restricted: true
     },
+    {
+        path: PATH.UPDATE_SUBSCRIPTION,
+        key: 'UpdateSubscription',
+        icon: '',
+        exact: true,
+        component: UpdateSubscription,
+        access: '',
+        restricted: true
+    }
 ];
 
 export const PRIVATE_ROUTES = [

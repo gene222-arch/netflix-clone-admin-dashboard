@@ -58,6 +58,7 @@ const PATH =
     UPDATE_PASSWORD: '/password',
     UPDATE_EMAIL: '/mfa',
     RENEW_SUBSCRIPTION: '/renew-subscription',
+    UPDATE_SUBSCRIPTION: '/update-subscription',
     MANAGE_PLAN: '/manage-plan',
 
     PRIVACY_POLICY: '/legal/privacy',
