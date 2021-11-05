@@ -74,7 +74,8 @@ const PATH =
     SUBSCRIPTION_FAILED: '/subscriptions/subscribed-failed',
     PLAN_UPDATED_SUCCESSFULLY: '/subscriptions/updated-successfully',
 
-    PAYMONGO_WEBHOOK: '/paymongo-webhooks'
+    PAYMONGO_WEBHOOK: '/paymongo-webhooks',
+    SUBSCRIPTIONS: '/subscriptions'
 };
 
 

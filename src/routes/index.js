@@ -68,6 +68,7 @@ const SubscribedSuccessfully = lazy(() => import('./../views/pages/subscription/
 const SubscriptionFailed = lazy(() => import('./../views/pages/subscription/SubscriptionFailed'))
 const PlanUpdatedSuccessfully = lazy(() => import('./../views/pages/subscription/PlanUpdatedSuccessfully'))
 const ManagePlan = lazy(() => import('./../views/pages/user/manage-plan'))
+const Subscriptions = lazy(() => import('./../views/pages/subscription'))
 
 export const PUBLIC_ROUTES = [
     {
@@ -625,6 +626,15 @@ export const PRIVATE_ROUTES = [
         exact: true,
         component: Settings,
         access: '',
+        restricted: true
+    },
+    {
+        path: PATH.SUBSCRIPTIONS,
+        key: 'Subscriptions',
+        icon: '',
+        exact: true,
+        component: Subscriptions,
+        access: 'Manage Subscriptions',
         restricted: true
     },
 ];
