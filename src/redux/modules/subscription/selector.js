@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect';
 
-const getPaymongoWebhook = state => state.paymongoWebhook;
+const getSubscription = state => state.subscriptions;
 
-export const selectPaymongoWebhook = createSelector(getPaymongoWebhook, paymongoWebhook => paymongoWebhook);  
+export const selectSubscription = createSelector(getSubscription, subscriptions => subscriptions);  

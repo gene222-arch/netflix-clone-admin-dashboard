@@ -17,6 +17,7 @@ const {
     SELECT_EMPLOYEE,
     SELECT_ACCESS_RIGHT,
     SELECT_SETTINGS,
+    SELECT_SUBSCRIPTIONS,
     SELECT_PAYMENTS
 } = ACTION_TYPES;
 
@@ -36,6 +37,7 @@ const DEFAULT_STATE = {
     videoManagementMovies: false,
     videoManagementComingSoonMovies: false,
     secondListItem: false,
+    subscripions: false,
 };
 
 const initialState = {
@@ -54,6 +56,7 @@ const initialState = {
     videoManagementMovies: false,
     videoManagementComingSoonMovies: false,
     secondListItem: false,
+    subscripions: false,
 
     currentSelectedItem: 'Dashboard',
     currentSelectedDropdown: '',
@@ -66,8 +69,7 @@ export default (state = initialState, { type, payload }) =>
         currentSelectedItem, 
         currentSelectedDropdown, 
         currentSelectedDropdownItem, 
-        settings,
-        payments,
+        subscripions,
         drawer, 
         videoManagement, 
         videoManagementAuthors,
@@ -210,6 +212,14 @@ export default (state = initialState, { type, payload }) =>
                 settings: true,
                 currentSelectedDropdown: 'settings',
                 currentSelectedItem: 'Settings',
+            }
+
+        case SELECT_SUBSCRIPTIONS: 
+            return {
+                ...DEFAULT_STATE, 
+                subscriptions: true,
+                currentSelectedDropdown: 'subscriptions',
+                currentSelectedItem: 'Subscriptions',
             }
 
         case SELECT_PAYMENTS: 

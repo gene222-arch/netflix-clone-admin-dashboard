@@ -16,6 +16,7 @@ const {
     SELECT_EMPLOYEE,
     SELECT_ACCESS_RIGHT,
     SELECT_SETTINGS,
+    SELECT_SUBSCRIPTIONS,
     SELECT_PAYMENTS
 } = ACTION_TYPES;
 
@@ -80,6 +81,10 @@ export const selectAccessRight = () => ({
 
 export const selectSettings = () => ({
     type: SELECT_SETTINGS
+});
+
+export const selectSubscriptions = () => ({
+    type: SELECT_SUBSCRIPTIONS
 });
 
 export const selectPayments = () => ({
