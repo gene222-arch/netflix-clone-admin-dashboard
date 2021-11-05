@@ -6,3 +6,8 @@ const getPaymentAuthorizationNotifications = state => state.notifications.paymen
 export const selectNotification = createSelector(getNotification, notification => notification);  
 
 export const selectPaymentAuthorizationNotifications = createSelector(getPaymentAuthorizationNotifications, notifications => notifications);  
+
+export const selectUnreadPaymentAuthNotifications = createSelector(
+    selectPaymentAuthorizationNotifications, 
+    notifications => notifications.filter(({ read_at }) => !read_at)
+);

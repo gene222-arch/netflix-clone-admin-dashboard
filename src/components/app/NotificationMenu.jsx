@@ -14,6 +14,7 @@ import CheckIcon from '@material-ui/icons/Check';
 import MoreVert from '@material-ui/icons/MoreVert';
 import DeleteIcon from '@material-ui/icons/Delete';
 import * as NOTIFICATIONS_ACTION from './../../redux/modules/notifications/actions'
+import { selectUnreadPaymentAuthNotifications } from './../../redux/modules/notifications/selector';
 
 const notificationMenuUseStyles = makeStyles(theme => ({
     emptyNotifText: {
@@ -42,7 +43,7 @@ const notificationMenuUseStyles = makeStyles(theme => ({
     }
 }));
 
-const NotificationMenu = ({ PAYMENT_AUTH_NOTIFS, anchorEl, setAnchorEl }) => 
+const NotificationMenu = ({ PAYMENT_AUTH_NOTIFS, UNREAD_PAYMENT_AUTH_NOTIFS, anchorEl, setAnchorEl }) => 
 {
     const classes = notificationMenuUseStyles();
     const dispatch = useDispatch();
@@ -82,13 +83,13 @@ const NotificationMenu = ({ PAYMENT_AUTH_NOTIFS, anchorEl, setAnchorEl }) =>
             label: 'Mark all as read',
             icon: CheckIcon,
             onClick: handleClickMarkAllAsRead,
-            disabled: PAYMENT_AUTH_NOTIFS.length < 1
+            disabled: !Boolean(UNREAD_PAYMENT_AUTH_NOTIFS.length)
         },
         {
             label: 'Clear notifications',
             icon: DeleteIcon,
             onClick: handleClickClearAllNotif,
-            disabled: PAYMENT_AUTH_NOTIFS.length < 1
+            disabled: !Boolean(UNREAD_PAYMENT_AUTH_NOTIFS.length)
         }
     ];
 
@@ -200,7 +201,8 @@ const NotificationMenu = ({ PAYMENT_AUTH_NOTIFS, anchorEl, setAnchorEl }) =>
 }
 
 const mapStateToProps = createStructuredSelector({
-    PAYMENT_AUTH_NOTIFS: selectPaymentAuthorizationNotifications
+    PAYMENT_AUTH_NOTIFS: selectPaymentAuthorizationNotifications,
+    UNREAD_PAYMENT_AUTH_NOTIFS: selectUnreadPaymentAuthNotifications
 });
 
 export default connect(mapStateToProps)(NotificationMenu)
