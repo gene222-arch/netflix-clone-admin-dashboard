@@ -39,11 +39,11 @@ const Membership = ({ AUTH, paymentAuthorizationNotif, isFetchingPaymentAuthNoti
 
         if (AUTH.subscription_details.status === 'subscribed') return 'Manage Plan';
 
-        if (['expired', 'cancelled'].includes(AUTH.subscription_details.status) || AUTH.payment_authorization_status !== 'sent') {
+        if (paymentAuthorizationNotif.status === 'pending' || AUTH.payment_authorization_status === 'sent') return 'Pending email';
+
+        if (['expired', 'cancelled'].includes(AUTH.subscription_details.status) && AUTH.payment_authorization_status !== 'sent') {
             return 'Renew Subscription'
         }
-
-        if (paymentAuthorizationNotif.status === 'pending' || AUTH.payment_authorization_status === 'sent') return 'Pending email';
     }
 
     const billingDetailsPath = () => 

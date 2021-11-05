@@ -29,15 +29,15 @@ const App = ({ AUTH, history }) =>
 		if (COOKIES_UTIL.get('access_token') && AUTH.isAuthenticated) {
 			ECHO_UTIL()
 				.private(`subscribed.successfully.${ AUTH.user.id }`)
-				.listen('SubscribedSuccessfullyEvent', ({ data }) => {
-					dispatch(AUTH_ACTION.updateSubscriptionDetails({ subscription_details: data }));
+				.listen('SubscribedSuccessfullyEvent', (response) => {
+					dispatch(AUTH_ACTION.updateSubscriptionDetails({ subscription_details: response.data }));
 				});
 
 			ECHO_UTIL()
 				.private(`payment.authorization.sent.${ AUTH.user.id }`)
-				.listen('PaymentAuthorizationSentEvent', ({ data }) => {
+				.listen('PaymentAuthorizationSentEvent', (response) => {
 					dispatch(NOTIFICATION_ACTION.createPaymentAuthNotification({
-						paymentAuthorizationNotification: data
+						paymentAuthorizationNotification: response.data
 					}));
 				});
 		}

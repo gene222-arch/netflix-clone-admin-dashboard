@@ -176,6 +176,7 @@ const AppHeaderMenu = ({ AUTH, anchorEl, setAnchorEl }) =>
                 }
                 <Divider />
                 <MenuItem onClick={ handleClickLogout }>Logout</MenuItem>
+                <MenuItem onClick={ () => history.push(PATH.HELP_CENTER) }>Help Center</MenuItem>
             </Menu>
         </div>
     );

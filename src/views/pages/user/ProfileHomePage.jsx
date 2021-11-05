@@ -14,6 +14,7 @@ import AvatarList from './settings/profile-home-page/AvatarList';
 import Membership from './settings/profile-home-page/Membership';
 import * as NOTIFICATIONS_ACTION from './../../../redux/modules/notifications/actions'
 import * as NOTIFICATION_API from './../../../services/notification'
+import { selectNotification } from './../../../redux/modules/notifications/selector';
 
 const NOTIFICATION_DEFAULT_PROPS = {
     type: '',
@@ -40,7 +41,7 @@ const profileHomePageUseStyles = makeStyles(theme => ({
     }
 }));
 
-const ProfileHomePage = ({ AUTH }) => 
+const ProfileHomePage = ({ AUTH, NOTIFICATIONS }) => 
 {
     const classes = profileHomePageUseStyles();
     const dispatch = useDispatch();
@@ -73,8 +74,8 @@ const ProfileHomePage = ({ AUTH }) =>
 
     useEffect(() => 
     {
-        dispatch(NOTIFICATIONS_ACTION.fetchAllPaymentAuthorizationNotificationsStart());
         onLoadFetchPaymentAuthorization();
+        dispatch(NOTIFICATIONS_ACTION.fetchAllPaymentAuthorizationNotificationsStart());
         return () => {
             setId(null);
             setPaymentAuthorizationNotif(NOTIFICATION_DEFAULT_PROPS);
@@ -131,7 +132,8 @@ const ProfileHomePage = ({ AUTH }) =>
 }
 
 const mapStateToProps = createStructuredSelector({
-    AUTH: selectAuth 
+    AUTH: selectAuth,
+    NOTIFICATIONS: selectNotification
 });
 
 export default connect(mapStateToProps)(ProfileHomePage)

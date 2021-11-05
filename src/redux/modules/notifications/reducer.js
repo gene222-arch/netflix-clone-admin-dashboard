@@ -26,7 +26,6 @@ export default (state = initialState, { type, payload }) =>
     
     switch (type) 
     {
-        
         case CLEAR_PAYMENT_AUTH_NOTIFICATIONS_START:
         case FETCH_ALL_PAYMENT_AUTHORIZATION_NOTIFICATIONS_START:
         case MARK_ALL_PAYMENT_AUTH_NOTIFICATIONS_AS_READ_START:

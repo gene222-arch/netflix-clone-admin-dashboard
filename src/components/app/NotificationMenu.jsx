@@ -154,19 +154,23 @@ const NotificationMenu = ({ PAYMENT_AUTH_NOTIFS, anchorEl, setAnchorEl }) =>
                             >
                                 <Mail 
                                     className={ classes.mailIcon } 
-                                    style={{ color: !read_at ? Colors.white : Colors.grey }}
+                                    style={{ color: !read_at ? Colors.info : Colors.grey }}
                                 /> 
                                 <ListItemText 
-                                    primary={ data.type.split(/(?=[A-Z])/).join(" ") } 
+                                    primary={
+                                        <Typography variant="subtitle2" color="initial">
+                                            { data.type.split(/(?=[A-Z])/).join(" ") }
+                                        </Typography>
+                                    } 
                                     secondary={
-                                        <>
+                                        <small>
                                             <Typography variant="subtitle2" color="initial" noWrap>
                                                 { data.data.message }
                                             </Typography>
                                             <Typography variant="subtitle2" color="initial" className={ classes.timeAgo }>
                                                 { time_ago }
                                             </Typography>
-                                        </>
+                                        </small>
                                     } 
                                 />
                             </MenuItem>
