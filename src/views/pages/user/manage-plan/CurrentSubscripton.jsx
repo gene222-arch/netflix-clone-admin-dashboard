@@ -68,7 +68,7 @@ const CurrentSubscripton = ({ AUTH }) =>
         switch (subscriptionType) {
             case 'Standard':
                 setProfileCount(4);
-                setDurationInMonth(1);
+                setDurationInMonth(5);
                 setUniqueFeature('');
                 break;
 
@@ -137,7 +137,7 @@ const CurrentSubscripton = ({ AUTH }) =>
                         </Typography>
                         <List>
                             {
-                                subscriptionDetails.map(({ content, icon: Icon }, index) => (
+                                subscriptionDetails.map(({ content, icon: Icon }, index) => content && (
                                     <ListItem key={ index }>
                                         <ListItemIcon>
                                             <Icon />

@@ -35,9 +35,6 @@ const appHeaderUseStyles = makeStyles(theme => ({
     notifIconButton: {
         marginTop: '1rem'
     },
-    notifIcon: {
-        fontSize: '2rem'
-    },
     profileNameText: {
         marginTop: '1.5rem'
     }
@@ -77,7 +74,12 @@ const AppHeader = ({ AUTH, PAYMENT_AUTH_NOTIFS }) =>
                                 onClick={ e => setNotifMenu(e.currentTarget) }
                             >
                                 <Badge badgeContent={ paymentAuthorizationNotifCount } color='error'>
-                                    <Notifications className={ classes.notifIcon } />
+                                    <Notifications 
+                                        style={{ 
+                                            fontSize: '2rem',
+                                            color: paymentAuthorizationNotifCount ? Colors.gold : Colors.grey
+                                        }}
+                                    />
                                 </Badge>
                             </IconButton>
                         </Grid>

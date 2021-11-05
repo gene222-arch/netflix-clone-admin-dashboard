@@ -8,8 +8,8 @@ import { connect, useDispatch } from 'react-redux';
 import Colors from './../../constants/Colors';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid'
-import { Mail } from '@material-ui/icons';
-import { Tooltip, Typography } from '@material-ui/core'
+import { Mail, MoreHorizRounded, Notifications } from '@material-ui/icons';
+import { Tooltip, Typography, ListItemText } from '@material-ui/core'
 import CheckIcon from '@material-ui/icons/Check';
 import MoreVert from '@material-ui/icons/MoreVert';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -28,11 +28,17 @@ const notificationMenuUseStyles = makeStyles(theme => ({
         width: '30rem'
     },
     notifHeaderTitle: {
+        fontWeight: 'bold'
     },
     notifHeaderContainer: {
         padding: '1rem',
         paddingBottom: '0.5rem',
         paddingRight: '0.5rem'
+    },
+    timeAgo: {
+        color: Colors.info,
+        fontWeight: 'bold',
+        fontSize: '0.75rem'
     }
 }));
 
@@ -122,28 +128,49 @@ const NotificationMenu = ({ PAYMENT_AUTH_NOTIFS, anchorEl, setAnchorEl }) =>
             >
                  <Grid container spacing={1} justify='space-between' alignItems='center' className={ classes.notifHeaderContainer }>
                     <Grid item>
-                        <Typography variant="h5" color="initial" className={ classes.notifHeaderTitle }>Notifications</Typography>
+                        <Grid container spacing={1} alignItems='center'>
+                            <Grid item>
+                                <Notifications />
+                            </Grid>
+                            <Grid item>
+                                <Typography variant="h5" color="initial" className={ classes.notifHeaderTitle }>Notifications</Typography>
+                            </Grid>
+                        </Grid>
                     </Grid>
                     <Grid item>
-                        <Tooltip title='More options'>
+                        <Tooltip title='Options' arrow>
                             <IconButton onClick={ handleClick }>
-                                <MoreVert />
+                                <MoreHorizRounded />
                             </IconButton>
                         </Tooltip>
                     </Grid>
                  </Grid>
                 {
-                    PAYMENT_AUTH_NOTIFS.map(({ data, read_at }, index) => (
-                        <MenuItem 
-                            key={ index } 
-                            onClick={ handleClose }
-                            style={{ color: !read_at ? Colors.white : Colors.grey }}
-                        >
-                            <Mail 
-                                className={ classes.mailIcon } 
+                    PAYMENT_AUTH_NOTIFS.map(({ data, read_at, time_ago }, index) => (
+                        <Tooltip key={ index } title={ data.data.message } placement='top-end' arrow>
+                            <MenuItem 
+                                onClick={ handleClose }
                                 style={{ color: !read_at ? Colors.white : Colors.grey }}
-                            /> { data.type.split(/(?=[A-Z])/).join(" ") }
-                        </MenuItem>
+                            >
+                                <Mail 
+                                    className={ classes.mailIcon } 
+                                    style={{ color: !read_at ? Colors.white : Colors.grey }}
+                                /> 
+                                <ListItemText 
+                                    primary={ data.type.split(/(?=[A-Z])/).join(" ") } 
+                                    secondary={
+                                        <>
+                                            <Typography variant="subtitle2" color="initial" noWrap>
+                                                { data.data.message }
+                                            </Typography>
+                                            <Typography variant="subtitle2" color="initial" className={ classes.timeAgo }>
+                                                { time_ago }
+                                            </Typography>
+                                        </>
+                                    } 
+                                />
+                            </MenuItem>
+                        </Tooltip>
                     ))
                 }
                 {

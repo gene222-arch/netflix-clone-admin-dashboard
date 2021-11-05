@@ -15,7 +15,8 @@ const Colors = {
     warning: '#ffb74d',
     warningMain: '#ff9800',
     warningDark: '#f57c00',
-    success: '#66bb6a'
+    success: '#66bb6a',
+    gold: '#FFD700'
 }
 
 export default Colors
