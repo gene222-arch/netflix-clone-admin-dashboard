@@ -24,7 +24,7 @@ import ActivityLog from './main-layout-drawer-list/ActivityLog';
 import Employee from './main-layout-drawer-list/Employee';
 import Settings from './main-layout-drawer-list/Settings';
 import Payments from './main-layout-drawer-list/Payments';
-import { Subscriptions } from '@material-ui/icons/Subscriptions';
+import Subscriptions from './main-layout-drawer-list/Subscriptions'
 
 
 

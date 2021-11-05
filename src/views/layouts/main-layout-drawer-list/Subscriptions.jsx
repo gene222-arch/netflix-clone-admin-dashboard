@@ -8,22 +8,23 @@ import StyledNavLink from '../../../components/styled-components/StyledNavLink';
 import PATH from './../../../routes/path';
 import ToolTipComponent from '../../../components/ToolTipComponent';
 import { makeStyles } from '@material-ui/core';
-import PaymentIcon from '@material-ui/icons/Payment';
+import SubscriptionIcon from '@material-ui/icons/Subscriptions';
+import { selectAuth } from './../../../redux/modules/auth/selector';
 
 const subscriptionsUseStyles = makeStyles(theme => ({
     icon: {
-        color: theme.palette.success.main
+        color: theme.palette.success.light
     }
 }));
 
-const Subscriptions = ({ MAIN_LAYOUT }) => 
+const Subscriptions = ({ AUTH, MAIN_LAYOUT }) => 
 {
     const classes = subscriptionsUseStyles();
     const dispatch = useDispatch();
 
     const handleClickSubscriptions = () => dispatch(MAIN_LAYOUT_ACTION.selectSubscriptions());
 
-    return (
+    return AUTH.permissions.includes('Manage Subscriptions') && (
         <StyledNavLink 
             to={ PATH.SUBSCRIPTIONS }
             text={
@@ -37,7 +38,7 @@ const Subscriptions = ({ MAIN_LAYOUT }) =>
                             selected={ MAIN_LAYOUT.subscriptions }
                         >
                             <ListItemIcon>
-                                <PaymentIcon className={ classes.icon } />
+                                <SubscriptionIcon className={ classes.icon } />
                             </ListItemIcon>
                             <ListItemText primary='Subscriptions' />
                         </ListItem>
@@ -49,6 +50,7 @@ const Subscriptions = ({ MAIN_LAYOUT }) =>
 }
 
 const mapStateToProps = createStructuredSelector({
+    AUTH: selectAuth,
     MAIN_LAYOUT: selectMainLayout
 });
 

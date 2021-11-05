@@ -79,7 +79,7 @@ const App = ({ AUTH, history }) =>
 					}
 
 					{
-						(!AUTH.role || AUTH.role === 'Subscriber') && (
+						AUTH.role === 'Subscriber' && (
 							<Route path='/:path?'>
 								<RenderRoutes routes={ USER_ROUTES } />
 							</Route>
@@ -87,7 +87,7 @@ const App = ({ AUTH, history }) =>
 					}
 
 					{
-						(AUTH.role && AUTH.role !== 'Subscriber') && (
+						AUTH.role !== 'Subscriber' && (
 							<Route path='/:path?'>
 								<RenderRoutes routes={ PRIVATE_ROUTES } />
 							</Route>
