@@ -13,6 +13,8 @@ import * as PAYMENT_METHOD_API from '../../../../services/payment-method/payment
 import PropagateLoader from 'react-spinners/PropagateLoader';
 import { selectAuth } from './../../../../redux/modules/auth/selector';
 import * as AUTH_ACTION from './../../../../redux/modules/auth/actions';
+import * as CONFIRMATION_ACTION from './../../../../redux/modules/confirm/actions';
+
 
 const paymentMethodStyles = makeStyles(theme => ({
     card: {
@@ -98,19 +100,35 @@ const PaymentMethod = ({ AUTH, planType, amount, setIsPaymentAuthorizationSent, 
         setIsLoading(false);
     }
 
+    const handleClickGcashConfirmation = () => {
+        dispatch(CONFIRMATION_ACTION.showConfirmationDialog({
+            mainHeader: `Pay through Gcash?`,
+            subHeader: 'Once confirmed, a Gcash payment authorization will be sent to you that is valid within an hour. If an hour passes the email sent to you will be rendered useless.',
+            confirmCallback: () => handleClickGcash()
+        }));
+    }
+
+    const handleClickGrabPayConfirmation = () => {
+        dispatch(CONFIRMATION_ACTION.showConfirmationDialog({
+            mainHeader: `Pay through Grab Pay?`,
+            subHeader: 'Once confirmed, a Grab Pay payment authorization will be sent to you that is valid within an hour. If an hour passes the email sent to you will be rendered useless.',
+            confirmCallback: () => handleClickGrabPay()
+        }));
+    }
+
     const paymentMethods = 
     [
         {
             type: 'Gcash',
             logo: G_CASH_LOGO,
             className: classes.gcash,
-            onClick: handleClickGcash
+            onClick: handleClickGcashConfirmation
         },
         {
             type: 'Grab Pay',
             logo: GRAB_PAY_LOGO,
             className: classes.grabPay,
-            onClick: handleClickGrabPay
+            onClick: handleClickGrabPayConfirmation
         }
     ];
 
