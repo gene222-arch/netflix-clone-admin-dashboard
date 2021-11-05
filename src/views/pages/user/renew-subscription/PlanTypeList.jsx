@@ -1,6 +1,5 @@
 import React from 'react'
-import { Grid, Card, CardHeader, CardContent, Button } from '@material-ui/core';
-import { makeStyles } from '@material-ui/styles';
+import { Grid, Card, CardHeader, CardContent, Button, makeStyles } from '@material-ui/core';
 import { Typography } from '@material-ui/core';
 import Colors from '../../../../constants/Colors';
 
@@ -37,8 +36,8 @@ const plantTypeListUseStyles = makeStyles(theme => ({
         height: '26.8vh',
         cursor: 'pointer'
     },
-    cardContainer: {
-
+    gridContainer: {
+        marginBottom: theme.spacing(2)
     },
     continueButton: {
         width: '100%',
@@ -72,6 +71,7 @@ const PlanTypeList = ({ cardIndex, handleClickCardPlan, handleClickContinue }) =
                 container 
                 justify='space-evenly' 
                 className={ classes.planListContainer }
+                spacing={ 2 }
             >
             {
                 PLAN_TYPES.map(({ type, cost, servicesOffered }, index) => (
@@ -79,7 +79,7 @@ const PlanTypeList = ({ cardIndex, handleClickCardPlan, handleClickContinue }) =
                         item
                         key={ index } 
                         xs={ 12 } sm={ 10 } md={ 5 } lg={ 5 } 
-                        className={ classes.cardContainer }
+                        className={ classes.gridContainer }
                         onClick={ () => handleClickCardPlan(index, type, cost) }
                     >
                         <Card 

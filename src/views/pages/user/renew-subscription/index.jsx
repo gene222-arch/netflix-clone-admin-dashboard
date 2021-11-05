@@ -8,8 +8,8 @@ import Button from '@material-ui/core/Button'
 import Colors from '../../../../constants/Colors';
 import PaymentMethod from './PaymentMethod';
 import PlanTypeList from './PlanTypeList';
-import { Send } from '@material-ui/icons';
-import { Link } from '@material-ui/core';
+import { ArrowBack, Send } from '@material-ui/icons';
+import { IconButton, Link } from '@material-ui/core';
 import { createStructuredSelector } from 'reselect';
 import { selectAuth } from './../../../../redux/modules/auth/selector';
 import { connect } from 'react-redux';
@@ -18,7 +18,7 @@ import Forbidden from './../../errors/Forbidden';
 
 const renewSubscriptionStyles = makeStyles(theme => ({
     container: {
-        marginTop: '4.2vh'
+        marginTop: '1vh'
     },
     sendIcon: {
         fontSize: '8rem',
@@ -138,25 +138,38 @@ const RenewSubscription = ({ AUTH }) =>
         <Container maxWidth="md" className={ classes.container } style={{ height: isPlanTypeSet ? '90.5vh' : 'auto' }}>
             <Grid container spacing={ 5 }>
                 <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
-                    <Typography variant="h4" color="initial" gutterBottom>
-                        <strong>Renew Subscription</strong>
-                    </Typography>
+                    <Grid container spacing={1}>
+                        <Grid item>
+                            <IconButton>
+                                <ArrowBack />
+                            </IconButton>
+                        </Grid>
+                        <Grid item>
+                            <Typography variant="h4" color="initial" gutterBottom>
+                                <strong>Renew Subscription</strong>
+                            </Typography>
+                        </Grid>
+                    </Grid>
                 </Grid>
                 <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
                     { displayComponent() }
                 </Grid>
                 <Grid item xs={ 12 } sm={ 12 } md={ 7 } lg={ 7 }>
                     <Grid container spacing={1}>
-                        <Grid item>
-                            <Button 
-                                variant="outlined" 
-                                color="default"
-                                disabled={ isLoading }
-                                onClick={ handleClickCancel }
-                            >
-                                { `${ !isPaymentAuthorizationSent ? 'Cancel' : 'Go back' }` }
-                            </Button>
-                        </Grid>
+                        {
+                            isPaymentAuthorizationSent && (
+                                <Grid item>
+                                    <Button 
+                                        variant="outlined" 
+                                        color="default"
+                                        disabled={ isLoading }
+                                        onClick={ handleClickCancel }
+                                    >
+                                        Go back
+                                    </Button>
+                                </Grid>
+                            )
+                        }
                         {
                             (isPlanTypeSet && !isPaymentAuthorizationSent ) && (
                                 <Grid item>
