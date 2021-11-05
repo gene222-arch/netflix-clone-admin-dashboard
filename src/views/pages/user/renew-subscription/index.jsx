@@ -14,6 +14,8 @@ import { createStructuredSelector } from 'reselect';
 import { selectAuth } from './../../../../redux/modules/auth/selector';
 import { connect } from 'react-redux';
 import Forbidden from './../../errors/Forbidden';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { useTheme } from '@material-ui/core/styles';
 
 
 const renewSubscriptionStyles = makeStyles(theme => ({
@@ -42,6 +44,10 @@ const RenewSubscription = ({ AUTH }) =>
 {
     const classes = renewSubscriptionStyles();
     const history = useHistory();
+    const theme = useTheme();
+    const isUpXs = useMediaQuery(theme.breakpoints.up('xs'));
+    const isXs = useMediaQuery(theme.breakpoints.only('xs'));
+    const isSm = useMediaQuery(theme.breakpoints.only('sm'));
 
     const [ isPlanTypeSet, setIsPlanTypeSet ] = useState(false);
     const [ planType, setPlanType ] = useState('');
@@ -135,7 +141,7 @@ const RenewSubscription = ({ AUTH }) =>
     }
 
     return (
-        <Container maxWidth="md" className={ classes.container } style={{ height: '91vh' }}>
+        <Container maxWidth="md" className={ classes.container } style={{ height: !isUpXs || isXs || isSm ? 'auto' : '91vh' }}>
             <Grid container spacing={ 3 }>
                 <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
                     <Grid container spacing={1}>

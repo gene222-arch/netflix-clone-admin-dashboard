@@ -68,21 +68,25 @@ const AppHeader = ({ AUTH, PAYMENT_AUTH_NOTIFS }) =>
                 </Grid>
                 <Grid item>
                     <Grid container spacing={1} alignItems='center'>
-                        <Grid item>
-                            <IconButton
-                                className={ classes.notifIconButton }
-                                onClick={ e => setNotifMenu(e.currentTarget) }
-                            >
-                                <Badge badgeContent={ paymentAuthorizationNotifCount } color='error'>
-                                    <Notifications 
-                                        style={{ 
-                                            fontSize: '2rem',
-                                            color: paymentAuthorizationNotifCount ? Colors.gold : Colors.grey
-                                        }}
-                                    />
-                                </Badge>
-                            </IconButton>
-                        </Grid>
+                        {
+                            AUTH.selectedProfile?.name && (
+                                <Grid item>
+                                    <IconButton
+                                        className={ classes.notifIconButton }
+                                        onClick={ e => setNotifMenu(e.currentTarget) }
+                                    >
+                                        <Badge badgeContent={ paymentAuthorizationNotifCount } color='error'>
+                                            <Notifications 
+                                                style={{ 
+                                                    fontSize: '2rem',
+                                                    color: paymentAuthorizationNotifCount ? Colors.gold : Colors.grey
+                                                }}
+                                            />
+                                        </Badge>
+                                    </IconButton>
+                                </Grid>
+                            )
+                        }
                         <Grid item>
                             <Typography 
                                 variant="subtitle1" 

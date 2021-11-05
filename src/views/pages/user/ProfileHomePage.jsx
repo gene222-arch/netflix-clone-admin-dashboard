@@ -75,13 +75,16 @@ const ProfileHomePage = ({ AUTH, NOTIFICATIONS }) =>
     useEffect(() => 
     {
         onLoadFetchPaymentAuthorization();
-        dispatch(NOTIFICATIONS_ACTION.fetchAllPaymentAuthorizationNotificationsStart());
         return () => {
             setId(null);
             setPaymentAuthorizationNotif(NOTIFICATION_DEFAULT_PROPS);
             setIsFetchingPaymentAuthNotif(false);
         }
     }, [AUTH.subscription_details]);
+
+    useEffect(() => {
+        dispatch(NOTIFICATIONS_ACTION.fetchAllPaymentAuthorizationNotificationsStart());
+    }, []);
 
     return (
         <Container maxWidth="md" className={ classes.container } style={{ height: AUTH.profiles.length <= 2 ? '90vh' : 'auto' }}>
