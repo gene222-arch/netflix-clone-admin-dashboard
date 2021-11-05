@@ -13,6 +13,7 @@ import { connect } from 'react-redux';
 import BoxContentLoader from './../../../components/content-loader/BoxContentLoader';
 import Subscriptions from '@material-ui/icons/Subscriptions';
 import CheckIcon from '@material-ui/icons/Check';
+import { Home } from '@material-ui/icons';
 
 const DashboardAvatars = ({ DASHBOARD, generalAnalytics }) => 
 {
@@ -36,6 +37,20 @@ const DashboardAvatars = ({ DASHBOARD, generalAnalytics }) =>
 
     return (
         <Grid container spacing={1} justify='center' alignItems='center'>
+            <Grid item xs={ 12 } sm={ 4 } md={ 4 } lg={ 4 }>
+                <AvatarWithLabel 
+                    label='Revenue' 
+                    Icon={ Home }
+                    counter={ generalAnalytics.revenue } 
+                    avatarStyle={{
+                        backgroundColor: Colors.success
+                    }}
+                    counterStyle={{
+                        backgroundColor: Colors.darkMode
+                    }}
+                    onClick={ () => 1 }
+                />
+            </Grid>
             <Grid item xs={ 12 } sm={ 4 } md={ 4 } lg={ 4 }>
                 <AvatarWithLabel 
                     label='Employees' 

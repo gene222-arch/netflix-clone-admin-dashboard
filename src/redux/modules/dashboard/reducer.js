@@ -11,12 +11,14 @@ const DEFAULT_DASHBOARD_DATA =
 {
     monthly_subscribers_per_year: [],
     monthly_active_subscribers: [],
+    monthly_subscription_revenue: [],
     general_analytics: {
         total_number_of_employees: '',
         total_active_subscribers: '',
         total_number_of_subscribers: '',
         total_number_of_movies: '',
-        total_number_of_coming_soon_movies: ''
+        total_number_of_coming_soon_movies: '',
+        revenue: ''
     },
     top_five_most_rated_movies: [],
     top_five_most_liked_movies: [],

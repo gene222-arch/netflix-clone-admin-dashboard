@@ -11,6 +11,7 @@ import DashboardAvatars from './DashboardAvatars';
 import DashboardTopFiveMovies from './../../../components/DashboardTopFiveMovies';
 import MonthlySubscriber from './charts/MonthlySubscriber';
 import MonthlyActiveSubscriber from './charts/MonthlyActiveSubscriber';
+import MonthlySubscriptionRevenue from './charts/MonthlySubscriptionRevenue';
 
 
 const Dashboard = ({ DASHBOARD_DATA }) => 
@@ -39,6 +40,9 @@ const Dashboard = ({ DASHBOARD_DATA }) =>
                 </Grid>
                 <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
                     <MonthlyActiveSubscriber />
+                </Grid>
+                <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
+                    <MonthlySubscriptionRevenue />
                 </Grid>
                 <Grid item xs={ 12 } sm={ 12 } md={ 6 } lg={ 6 }>
                     <DashboardTopFiveMovies 
