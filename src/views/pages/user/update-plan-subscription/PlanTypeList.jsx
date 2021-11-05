@@ -41,7 +41,7 @@ const plantTypeListUseStyles = makeStyles(theme => ({
         cursor: 'pointer'
     },
     cardContainer: {
-
+        marginBlock: theme.spacing(2)
     },
     continueButton: {
         width: '100%',
