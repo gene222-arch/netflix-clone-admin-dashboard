@@ -55,11 +55,11 @@ const frequentProblems = [
         list: [
             {
                 title: 'Update email',
-                path: PATH.UPDATE_EMAIL
+                path: PATH.PROFILE_HOME_PAGE
             },
             {
                 title: 'Update password',
-                path: PATH.UPDATE_PASSWORD
+                path: PATH.PROFILE_HOME_PAGE
             },
             {
                 title: 'Cancel account',
