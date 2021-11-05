@@ -24,6 +24,14 @@ export const markAllPaymentAuthNotifsAsReadAsync = async () =>
         .catch(error => Promise.reject(error.response.data));
 }
 
+export const markPaymentAuthNotifsAsReadAsync = async (id) => 
+{
+    return await axiosInstance()
+        .put(`/notifications/payment-authorizations/mark-as-read/${ id }`)
+        .then(response => response.data)
+        .catch(error => Promise.reject(error.response.data));
+}
+
 export const clearAllPaymentAuthNotifsAsync = async () => 
 {
     return await axiosInstance()

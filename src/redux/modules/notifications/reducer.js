@@ -10,6 +10,9 @@ const {
     CLEAR_PAYMENT_AUTH_NOTIFICATIONS_START,
     CLEAR_PAYMENT_AUTH_NOTIFICATIONS_SUCCESS,
     CLEAR_PAYMENT_AUTH_NOTIFICATIONS_FAILED,
+    MARK_PAYMENT_AUTH_NOTIFICATIONS_AS_READ_START,
+    MARK_PAYMENT_AUTH_NOTIFICATIONS_AS_READ_SUCCESS,
+    MARK_PAYMENT_AUTH_NOTIFICATIONS_AS_READ_FAILED,
     CREATE_PAYMENT_AUTH_NOTIFICATION,
 } = ACTION_TYPES;
 
@@ -29,6 +32,7 @@ export default (state = initialState, { type, payload }) =>
         case CLEAR_PAYMENT_AUTH_NOTIFICATIONS_START:
         case FETCH_ALL_PAYMENT_AUTHORIZATION_NOTIFICATIONS_START:
         case MARK_ALL_PAYMENT_AUTH_NOTIFICATIONS_AS_READ_START:
+        case MARK_PAYMENT_AUTH_NOTIFICATIONS_AS_READ_START:
             return {
                 ...state,
                 isLoading: true
@@ -57,6 +61,25 @@ export default (state = initialState, { type, payload }) =>
                 error
             }
 
+        case MARK_PAYMENT_AUTH_NOTIFICATIONS_AS_READ_SUCCESS:
+            let paymentAuthNotifs_ = state.paymentAuthorizationNotifications;
+            
+            paymentAuthNotifs_ = paymentAuthNotifs_.map(notif => {
+                return notif.id === payload.id 
+                ? ({
+                    ...notif,
+                    read_at: Date.now()
+                })
+                : notif
+            });
+
+            return {
+                ...state,
+                paymentAuthorizationNotifications: paymentAuthNotifs_,
+                isLoading,
+                error
+            }
+
         case CREATE_PAYMENT_AUTH_NOTIFICATION:
             return {
                 ...state,
@@ -79,6 +102,7 @@ export default (state = initialState, { type, payload }) =>
         case CLEAR_PAYMENT_AUTH_NOTIFICATIONS_FAILED:
         case FETCH_ALL_PAYMENT_AUTHORIZATION_NOTIFICATIONS_FAILED:
         case MARK_ALL_PAYMENT_AUTH_NOTIFICATIONS_AS_READ_FAILED:
+        case MARK_PAYMENT_AUTH_NOTIFICATIONS_AS_READ_FAILED:
             return {
                 ...state,
                 isLoading,
