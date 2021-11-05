@@ -55,6 +55,16 @@ const NotificationMenu = ({ PAYMENT_AUTH_NOTIFS, anchorEl, setAnchorEl }) =>
 
     const handleClose = () => setAnchorEl(null);
 
+    const handleClickNotification = (notificationId, readAt) => {
+        if (! readAt) {
+            dispatch(NOTIFICATIONS_ACTION.markPaymentAuthNotificationsAsReadStart({
+                id: notificationId
+            }));
+        }
+
+        window.open('https://mail.google.com/mail/u/0/', '_blank');
+    }
+
     const handleCloseMoreOption = () => setMoreOptionMenu(null);
 
     const handleClickMarkAllAsRead = () => {
@@ -146,10 +156,10 @@ const NotificationMenu = ({ PAYMENT_AUTH_NOTIFS, anchorEl, setAnchorEl }) =>
                     </Grid>
                  </Grid>
                 {
-                    PAYMENT_AUTH_NOTIFS.map(({ data, read_at, time_ago }, index) => (
+                    PAYMENT_AUTH_NOTIFS.map(({ id, data, read_at, time_ago }, index) => (
                         <Tooltip key={ index } title={ data.data.message } placement='top-end' arrow>
                             <MenuItem 
-                                onClick={ handleClose }
+                                onClick={ () => handleClickNotification(id, read_at) }
                                 style={{ color: !read_at ? Colors.white : Colors.grey }}
                             >
                                 <Mail 

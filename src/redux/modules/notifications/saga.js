@@ -58,7 +58,7 @@ function* markPaymentAuthNotificationsSaga(payload)
         const { id } = payload;
 
         yield put(markPaymentAuthNotificationsAsReadSuccess({ id }));
-        yield call(API.markAllPaymentAuthNotifsAsReadAsync, id);
+        yield call(API.markPaymentAuthNotifsAsReadAsync, id);
     } catch ({ message }) {
         yield put(markPaymentAuthNotificationsAsReadSuccess({ message }));
     }
@@ -96,8 +96,8 @@ function* markAllPaymentAuthNotificationsWatcher()
 function* markPaymentAuthNotificationsWatcher()
 {
     while (true) {
-        yield take(MARK_PAYMENT_AUTH_NOTIFICATIONS_AS_READ_START);
-        yield call(markPaymentAuthNotificationsSaga);
+        const { payload } = yield take(MARK_PAYMENT_AUTH_NOTIFICATIONS_AS_READ_START);
+        yield call(markPaymentAuthNotificationsSaga, payload);
     }
 }
 
