@@ -65,7 +65,7 @@ const Subscriptions = ({ SUBSCRIPTION }) =>
     return (
         <Container maxWidth="lg">
             <Grid container spacing={1} className={ classes.generalDataContainer }>
-                <Grid item xs={ 12 } sm={ 4 } md={ 4 } lg={ 4 }>
+                <Grid item xs={ 12 } sm={ 12 } md={ 4 } lg={ 4 }>
                     <Card className={ classes.subscribedCard }>
                         <CardContent>
                             <Grid container spacing={1} justify='space-between' alignItems='center'>
@@ -84,7 +84,7 @@ const Subscriptions = ({ SUBSCRIPTION }) =>
                         </CardContent>
                     </Card>
                 </Grid>
-                <Grid item xs={ 12 } sm={ 4 } md={ 4 } lg={ 4 }>
+                <Grid item xs={ 12 } sm={ 12 } md={ 4 } lg={ 4 }>
                       <Card className={ classes.pendingCard }>
                         <CardContent>
                             <Grid container spacing={1} justify='space-between' alignItems='center'>
@@ -103,7 +103,7 @@ const Subscriptions = ({ SUBSCRIPTION }) =>
                         </CardContent>
                     </Card>
                 </Grid>
-                <Grid item xs={ 12 } sm={ 4 } md={ 4 } lg={ 4 }>
+                <Grid item xs={ 12 } sm={ 12 } md={ 4 } lg={ 4 }>
                       <Card className={ classes.cancelledCard }>
                         <CardContent>
                             <Grid container spacing={1} justify='space-between' alignItems='center'>

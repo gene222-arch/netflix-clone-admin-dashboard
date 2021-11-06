@@ -73,13 +73,10 @@ const MainLayout = ({ children, MAIN_LAYOUT }) =>
                     <Employee />
                     <Divider light/>
 
-                    <Settings />
-                    <Divider light/>
-
-                    <Payments />
-                    <Divider light/>
-
                     <Subscriptions />
+                    <Divider light/>
+
+                    <Settings />
                     <Divider light/>
                 </List>
             </Drawer>
