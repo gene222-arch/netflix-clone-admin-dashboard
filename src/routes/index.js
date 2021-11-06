@@ -46,6 +46,7 @@ const UpdateComingSoonMovie = lazy(() => import('../views/pages/video-management
 const ViewComingSoonMovie = lazy(() => import('../views/pages/video-management/coming-soon-movie/ViewComingSoonMovie'))
 const CreateTrailer = lazy(() => import('../views/pages/video-management/coming-soon-movie/trailer/CreateTrailer'))
 const UpdateTrailer = lazy(() => import('../views/pages/video-management/coming-soon-movie/trailer/UpdateTrailer'))
+const AddProfile = lazy(() => import('../views/pages/user/AddProfile'))
 const UserProfile = lazy(() => import('../views/pages/user/UserProfile'))
 const ProfileHomePage = lazy(() => import('../views/pages/user/ProfileHomePage'))
 const ProfileLock = lazy(() => import('../views/pages/user/settings/profile-lock/ProfileLock'))
@@ -243,6 +244,15 @@ export const SUBSCRIPTION_ROUTES = [
 ]
 
 export const USER_ROUTES = [
+    {
+        path: PATH.ADD_PROFILE,
+        key: 'AddProfile',
+        icon: '',
+        exact: true,
+        component: AddProfile,
+        access: '',
+        restricted: true
+    },
     {
         path: PATH.USER_PROFILE,
         key: 'UserProfile',

@@ -9,9 +9,21 @@ import { makeStyles } from '@material-ui/styles';
 import LockIcon from '@material-ui/icons/Lock';
 import InputPinDialog from './InputPinDialog';
 import * as AUTH_ACTION from '../../../redux/modules/auth/actions';
+import { Add } from '@material-ui/icons';
+import { useHistory } from 'react-router';
+import PATH from './../../../routes/path';
 
 
 const userProfileUseStyles = makeStyles(theme => ({
+    addIcon: {
+        fontSize: '6rem'
+    },
+    addCardContainer: {
+        '&:hover': {
+            opacity: 0.7,
+            cursor: 'pointer'
+        }
+    },
     avatarContainer: {
         textAlign: 'center'
     },
@@ -47,6 +59,27 @@ const PIN_PROPS = {
     num2: '',
     num3: '',
     num4: ''
+}
+
+const AddProfileCard = () => 
+{
+    const classes = userProfileUseStyles();
+    const history = useHistory();
+
+    return (
+        <Grid item xs={ 3 } sm={ 2 } md={ 2 } lg={ 2 } className={ classes.addCardContainer } onClick={ () => history.push(PATH.ADD_PROFILE) }>
+            <Grid container spacing={ 1 } direction='column' justify='center'>
+                <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
+                    <Add className={ classes.addIcon } />
+                </Grid>
+                <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
+                    <Typography variant="subtitle1" color="textSecondary" align='center'>
+                        Add Profile
+                    </Typography>
+                </Grid>
+            </Grid>     
+        </Grid>
+    )
 }
 
 const UserProfile = ({ AUTH }) => 
@@ -145,6 +178,7 @@ const UserProfile = ({ AUTH }) =>
                                 </Grid>
                             ))
                         }
+                        <AddProfileCard />
                     </Grid>
                 </Grid>
             </Grid>

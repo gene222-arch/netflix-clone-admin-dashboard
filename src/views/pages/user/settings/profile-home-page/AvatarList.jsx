@@ -8,6 +8,7 @@ import { selectAuth } from './../../../../../redux/modules/auth/selector';
 import { connect } from 'react-redux';
 import PATH from './../../../../../routes/path';
 import StyledNavLink from './../../../../../components/styled-components/StyledNavLink';
+import { ChildCareRounded } from '@material-ui/icons';
 
 const avatarListUseStyles = makeStyles(theme => ({
     avatar: {
@@ -17,6 +18,11 @@ const avatarListUseStyles = makeStyles(theme => ({
     },
     collapse: {
         paddingLeft: '5rem'
+    },
+    container: {
+        '&:hover': {
+            cursor: 'pointer'
+        }
     },
     divider: {
         marginTop: '1rem',
@@ -31,16 +37,18 @@ const AvatarList = ({ AUTH, id, handleClickSetId, handleChangePinLock }) =>
     const classes = avatarListUseStyles();
 
     return (
-        <List>
+        <List className={ classes.container }>
             {
-                AUTH.profiles.map(({ id: profileId, name, avatar, is_profile_locked }, index) => (
+                AUTH.profiles.map(({ id: profileId, name, avatar, is_profile_locked, is_for_kids }, index) => (
                     <div key={ index }>
                         <List className={classes.profileContainer} onClick={ () => handleClickSetId(profileId) } >
                             <ListItem>
                                 <ListItemAvatar>
                                     <img src={ avatar } className={ classes.avatar } />
                                 </ListItemAvatar>
-                                <ListItemText primary={ name } secondary="All Maturity Ratings" />
+                                <ListItemText primary={ name } secondary={
+                                    !is_for_kids ? "All Maturity Ratings" : <ChildCareRounded /> 
+                                }/>
                                 {
                                     id === profileId 
                                         ? <ExpandLessIcon className={ classes.expandIcon }/> 

@@ -66,14 +66,14 @@ const MainLayout = ({ children, MAIN_LAYOUT }) =>
                     
                     <AccessRight />   
                     <Divider light/>  
-                      
-                    <ActivityLog />
-                    <Divider light/>
 
                     <Employee />
                     <Divider light/>
 
                     <Subscriptions />
+                    <Divider light/>
+                    
+                    <ActivityLog />
                     <Divider light/>
 
                     <Settings />
