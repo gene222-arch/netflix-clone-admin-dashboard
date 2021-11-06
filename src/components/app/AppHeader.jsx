@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 import Typography from '@material-ui/core/Typography'
 import Container from '@material-ui/core/Container'
 import Colors from './../../constants/Colors';
-import AppHeaderMenu from './AppHeaderMenu';
+import SubscriberMenu from './SubscriberMenu';
 import { Badge, IconButton } from '@material-ui/core';
 import { Notifications } from '@material-ui/icons';
 import { selectPaymentAuthorizationNotifications } from './../../redux/modules/notifications/selector';
@@ -20,9 +20,6 @@ const appHeaderUseStyles = makeStyles(theme => ({
         marginTop: '1.5rem',
         borderRadius: 5
     },
-    avatarContainer: {
-        
-    },
     container: {
         backgroundColor: Colors.dark,
         height: '10vh'
@@ -32,11 +29,13 @@ const appHeaderUseStyles = makeStyles(theme => ({
         height: 'auto',
         marginTop: '1.5rem'
     },
+    notifContainer: {
+        marginRight: '1rem'
+    },
     notifIconButton: {
         marginTop: '1rem'
     },
     profileNameText: {
-        marginTop: '1.5rem'
     }
 }));
 
@@ -57,7 +56,7 @@ const AppHeader = ({ AUTH, PAYMENT_AUTH_NOTIFS }) =>
 
     return (
         <Container maxWidth="xl" className={ classes.container }>
-            <AppHeaderMenu anchorEl={ profileMenu } setAnchorEl={ setProfileMenu } />
+            <SubscriberMenu anchorEl={ profileMenu } setAnchorEl={ setProfileMenu } />
             <NotificationMenu anchorEl={ notifMenu } setAnchorEl={ setNotifMenu } />
             <Grid container spacing={1} justify='space-between'>
                 <Grid item>
@@ -67,45 +66,43 @@ const AppHeader = ({ AUTH, PAYMENT_AUTH_NOTIFS }) =>
                     />
                 </Grid>
                 <Grid item>
-                    <Grid container spacing={1} alignItems='center'>
-                        {
-                            AUTH.selectedProfile?.name && (
-                                <Grid item>
-                                    <IconButton
-                                        className={ classes.notifIconButton }
-                                        onClick={ e => setNotifMenu(e.currentTarget) }
-                                    >
-                                        <Badge badgeContent={ paymentAuthorizationNotifCount } color='error'>
-                                            <Notifications 
-                                                style={{ 
-                                                    fontSize: '2rem',
-                                                    color: paymentAuthorizationNotifCount ? Colors.gold : Colors.grey
-                                                }}
-                                            />
-                                        </Badge>
-                                    </IconButton>
-                                </Grid>
+                    <Grid container>
+                    {
+                        AUTH.selectedProfile?.name && (
+                            <Grid item className={ classes.notifContainer }>
+                                <IconButton
+                                    className={ classes.notifIconButton }
+                                    onClick={ e => setNotifMenu(e.currentTarget) }
+                                >
+                                    <Badge badgeContent={ paymentAuthorizationNotifCount } color='error'>
+                                        <Notifications 
+                                            style={{ 
+                                                fontSize: '2rem',
+                                                color: paymentAuthorizationNotifCount ? Colors.gold : Colors.grey
+                                            }}
+                                        />
+                                    </Badge>
+                                </IconButton>
+                            </Grid>
                             )
                         }
                         <Grid item>
-                            <Typography 
+                        {
+                            AUTH.selectedProfile.avatar && (
+                                <img 
+                                    src={ AUTH.selectedProfile?.avatar || AUTH.user.avatar }
+                                    className={ classes.avatar }
+                                    onMouseOver={ e => setProfileMenu(e.currentTarget) }
+                                />
+                            )
+                        }
+                           <Typography 
                                 variant="subtitle1" 
                                 color="initial"
                                 className={ classes.profileNameText }
                             >
                                 { AUTH.selectedProfile.name }
                             </Typography>
-                        </Grid>
-                        <Grid item>
-                            {
-                                AUTH.selectedProfile.avatar && (
-                                    <img 
-                                        src={ AUTH.selectedProfile?.avatar || AUTH.user.avatar }
-                                        className={ classes.avatar }
-                                        onMouseOver={ e => setProfileMenu(e.currentTarget) }
-                                    />
-                                )
-                            }
                         </Grid>
                     </Grid>
                 </Grid>

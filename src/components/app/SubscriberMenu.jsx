@@ -1,19 +1,19 @@
 import React, { useState, useEffect, forwardRef } from 'react';
-import * as AUTH_ACTION from './../../redux/modules/auth/actions'
+import * as AUTH_ACTION from '../../redux/modules/auth/actions'
 import MenuItem from '@material-ui/core/MenuItem';
-import Menu from './../Menu';
+import Menu from '../Menu';
 import { useDispatch, connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import PATH from './../../routes/path';
+import PATH from '../../routes/path';
 import { createStructuredSelector } from 'reselect';
-import { selectAuth } from './../../redux/modules/auth/selector';
+import { selectAuth } from '../../redux/modules/auth/selector';
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
 import { Divider, makeStyles, useMediaQuery } from '@material-ui/core';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import InputPinDialog from './../../views/pages/user/InputPinDialog';
+import InputPinDialog from '../../views/pages/user/InputPinDialog';
 import { useTheme } from '@material-ui/core/styles';
-import ECHO_UTIL from './../../utils/echo'
+import ECHO_UTIL from '../../utils/echo'
 
 const appHeaderMenuUseStyles = makeStyles(theme => ({
     avatar: {
@@ -56,7 +56,7 @@ const AvatarMenu = forwardRef(({ profile, avatarClassName, lockIconClassName, ha
     </MenuItem>
 ));
 
-const AppHeaderMenu = ({ AUTH, anchorEl, setAnchorEl }) => 
+const SubscriberMenu = ({ AUTH, anchorEl, setAnchorEl }) => 
 {
     const classes = appHeaderMenuUseStyles();
     const dispatch = useDispatch();
@@ -70,10 +70,10 @@ const AppHeaderMenu = ({ AUTH, anchorEl, setAnchorEl }) =>
     const [ showInputPin, setShowInputPin ] = useState(false);
 
 
-    const menuStyle = !useMediaQuery(theme.breakpoints.down('sm')) ? 
+    const menuStyle = !useMediaQuery(theme.breakpoints.only('xs')) ? 
     {  
-        width: '12rem',
-        height: '18rem'
+        width: '14rem',
+        height: '20rem'
     } : {
         width: '100%',
         height: '100%',
@@ -158,6 +158,9 @@ const AppHeaderMenu = ({ AUTH, anchorEl, setAnchorEl }) =>
                 }}
             >
                 {
+                    !AUTH.profiles.length && <MenuItem>Profiles</MenuItem>
+                }
+                {
                     AUTH.profiles.map((profile, index) => 
                         AUTH.selectedProfile.id !== profile.id && (
                             <AvatarMenu 
@@ -177,6 +180,7 @@ const AppHeaderMenu = ({ AUTH, anchorEl, setAnchorEl }) =>
                 <Divider />
                 <MenuItem onClick={ handleClickLogout }>Logout</MenuItem>
                 <MenuItem onClick={ () => history.push(PATH.HELP_CENTER) }>Help Center</MenuItem>
+                <MenuItem onClick={ () => history.push(PATH.USER_PROFILE) }>Manage Profile</MenuItem>
             </Menu>
         </div>
     );
@@ -186,4 +190,4 @@ const mapStateToProps = createStructuredSelector({
     AUTH: selectAuth
 });
 
-export default connect(mapStateToProps)(AppHeaderMenu)
+export default connect(mapStateToProps)(SubscriberMenu)
