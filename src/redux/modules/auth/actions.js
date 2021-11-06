@@ -77,8 +77,9 @@ export const authUserFailed = (payload) => ({
     payload
 });
 
-export const addProfileStart = () => ({
-    type: ADD_PROFILE_START
+export const addProfileStart = (payload) => ({
+    type: ADD_PROFILE_START,
+    payload
 });
 
 export const addProfileSuccess = (payload) => ({

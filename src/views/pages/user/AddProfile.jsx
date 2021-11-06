@@ -6,6 +6,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import { createStructuredSelector } from 'reselect';
 import { connect, useDispatch } from 'react-redux';
 import { selectAuth } from './../../../redux/modules/auth/selector';
+import * as AUTH_ACTION from './../../../redux/modules/auth/actions';
 import Colors from './../../../constants/Colors';
 
 
@@ -53,7 +54,7 @@ const AddProfile = ({ AUTH }) =>
 
     const [ profile, setProfile ] = useState({ ...AUTH.selectedProfile, avatar: DEFAULT_AVATAR_URL });
 
-    const handleClickAddProfile = () => console.log(profile);
+    const handleClickAddProfile = () => dispatch(AUTH_ACTION.addProfileStart(profile));
 
     useEffect(() => {
         return () => {

@@ -73,8 +73,8 @@ const {
  function* addProfileSaga (payload)
  {
      try {
-         const { message } = yield call(USER_PROFILE_API.createAsync, payload);
-         yield put(addProfileSuccess({ profile: payload }));
+         const { data, message } = yield call(USER_PROFILE_API.createAsync, payload);
+         yield put(addProfileSuccess({ profile: data }));
 
          yield put(ALERT.showAlert({
             status: 'success',
