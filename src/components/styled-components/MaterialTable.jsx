@@ -45,7 +45,9 @@ const MaterialTable = (props) =>
                 selection: true,
                 actionsColumnIndex: -1,
                 showTextRowsSelected: false,
-                loadingType: 'linear'
+                loadingType: 'linear',
+                search: true,
+                ...props.options
             }} 
             icons={ tableIcons } 
             { ...props }
