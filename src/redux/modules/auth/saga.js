@@ -15,6 +15,8 @@ import * as SUBSCRIPTION_API from './../../../services/subscription'
 /** Actions and types */
 import ACTION_TYPES from './action.types'
 import { 
+    addProfileSuccess,
+    addProfileFailed,
     authUserSuccess,
     authUserFailed,
     cancelSubscriptionSuccess,
@@ -49,6 +51,7 @@ import { ERROR_MESSAGE_ON_LOGIN, ERROR_MESSAGE_ON_REGISTER } from './../../../co
 
 /** Action types */
 const { 
+    ADD_PROFILE_START,
     AUTH_USER_START,
     CANCEL_SUBSCRIPTION_START,
     FORGOT_PASSWORD_START,
@@ -65,6 +68,25 @@ const {
 /**
  * Controllers
  */
+
+
+ function* addProfileSaga (payload)
+ {
+     try {
+         const { message } = yield call(USER_PROFILE_API.createAsync, payload);
+         yield put(addProfileSuccess({ profile: payload }));
+
+         yield put(ALERT.showAlert({
+            status: 'success',
+            message
+        }));
+        yield put(push(PATH.USER_PROFILE));
+     } catch ({ message }) {
+         yield put(addProfileFailed({
+             errorMessages: message
+         }));
+     }
+ }
 
 /**
  * Fetch the authenticated user
@@ -293,6 +315,15 @@ function* selectProfileSaga (payload)
 /**
  * Watchers
  */
+function* addProfileWatcher () 
+{
+    while (true)
+    {
+        const { payload } = yield take(ADD_PROFILE_START); 
+        yield call(addProfileSaga, payload);
+    }
+}
+
 function* authUserWatcher () 
 {
     while (true)
@@ -399,6 +430,7 @@ function* selectProfileWatcher()
 export default function* ()
 {
     yield all([
+        addProfileWatcher(),
         authUserWatcher(),
         cancelSubscriptionWatcher(),
         forgotPasswordWatcher(),

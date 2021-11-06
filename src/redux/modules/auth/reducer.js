@@ -2,7 +2,10 @@ import ACTION_TYPES from './action.types';
 import storage from 'redux-persist/lib/storage'
 
 const { 
-    
+    ADD_PROFILE_START,
+    ADD_PROFILE_SUCCESS,
+    ADD_PROFILE_FAILED,
+
     AUTH_USER_START,
     AUTH_USER_SUCCESS,
     AUTH_USER_FAILED,
@@ -116,6 +119,7 @@ export default (state = initialState, { type, payload }) =>
 
     switch (type) 
     {
+        case ADD_PROFILE_START:
         case AUTH_USER_START:
         case CANCEL_SUBSCRIPTION_START:
         case LOGIN_START: 
@@ -130,6 +134,17 @@ export default (state = initialState, { type, payload }) =>
                 ...state,
                 isLoading: true,
             };
+
+        case ADD_PROFILE_SUCCESS:
+            return {
+                ...state,
+                profiles: [
+                    ...state.profiles,
+                    payload.profile
+                ],
+                isLoading,
+                error
+            }
     
         case AUTH_USER_SUCCESS:
         case LOGIN_SUCCESS: 
@@ -236,6 +251,7 @@ export default (state = initialState, { type, payload }) =>
         case RESET_PASSWORD_FAILED:
         case SELECT_PROFILE_FAILED:
         case VERIFY_EMAIL_FAILED:
+        case ADD_PROFILE_FAILED:
             return {
                 ...state,
                 isLoading,

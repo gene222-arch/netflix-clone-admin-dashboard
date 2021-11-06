@@ -2,6 +2,9 @@ import ACTION_TYPES from './action.types';
 
 
 const { 
+    ADD_PROFILE_START,
+    ADD_PROFILE_SUCCESS,
+    ADD_PROFILE_FAILED,
 
     AUTH_USER_START,
     AUTH_USER_SUCCESS,
@@ -71,6 +74,20 @@ export const authUserSuccess = (payload) => ({
 
 export const authUserFailed = (payload) => ({
     type: AUTH_USER_FAILED,
+    payload
+});
+
+export const addProfileStart = () => ({
+    type: ADD_PROFILE_START
+});
+
+export const addProfileSuccess = (payload) => ({
+    type: ADD_PROFILE_SUCCESS,
+    payload
+});
+
+export const addProfileFailed = (payload) => ({
+    type: ADD_PROFILE_FAILED,
     payload
 });
 
