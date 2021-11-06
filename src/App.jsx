@@ -50,24 +50,14 @@ const App = ({ AUTH, history }) =>
 			<AlertPopUp />
 			<MuiPickersUtilsProvider utils={DateFnsUtils}>
 				<Switch>
+					{/* Global  */}
 					<Route path='/legal/:path?' exact>
 						<SecurityLayout>
 							<RenderRoutes routes={ GLOBAL_ROUTES } />
 						</SecurityLayout>
 					</Route>
 
-					<Route path='/subscriptions/:path?' exact>
-						<AuthLayout>
-							<RenderRoutes routes={ SUBSCRIPTION_ROUTES } />
-						</AuthLayout>
-					</Route>
-
-					<Route path='/employees/verify/email' exact>
-						<AuthLayout>
-							<Route path={ PATH.VERIFY_EMPLOYEE } component={ EmailVerification } />
-						</AuthLayout>
-					</Route>
-
+					{/* Authentication Routes */}
 					{
 						!AUTH.isAuthenticated && (
 							<Route path='/auth/:path?'>
@@ -78,6 +68,23 @@ const App = ({ AUTH, history }) =>
 						)
 					}
 
+					{/* Employees or Super Administrator  */}
+					{
+						AUTH.role !== 'Subscriber' && (
+							<Route path='/:path?'>
+								<RenderRoutes routes={ PRIVATE_ROUTES } />
+							</Route>
+						)
+					}
+
+					{/* Employees */}
+					<Route path='/employees/verify/email' exact>
+						<AuthLayout>
+							<Route path={ PATH.VERIFY_EMPLOYEE } component={ EmailVerification } />
+						</AuthLayout>
+					</Route>
+
+					{/* Subscriber */}
 					{
 						AUTH.role === 'Subscriber' && (
 							<Route path='/:path?'>
@@ -86,13 +93,12 @@ const App = ({ AUTH, history }) =>
 						)
 					}
 
-					{
-						AUTH.role !== 'Subscriber' && (
-							<Route path='/:path?'>
-								<RenderRoutes routes={ PRIVATE_ROUTES } />
-							</Route>
-						)
-					}
+					{/* Subscriber subscription routes */}
+					<Route path='/subscriptions/:path?' exact>
+						<AuthLayout>
+							<RenderRoutes routes={ SUBSCRIPTION_ROUTES } />
+						</AuthLayout>
+					</Route>
 
 					<Route component={ NotFound } />
 				</Switch>
