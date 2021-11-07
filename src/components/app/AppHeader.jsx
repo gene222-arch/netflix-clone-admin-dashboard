@@ -13,6 +13,8 @@ import { Badge, IconButton } from '@material-ui/core';
 import { Notifications } from '@material-ui/icons';
 import { selectPaymentAuthorizationNotifications } from './../../redux/modules/notifications/selector';
 import NotificationMenu from './NotificationMenu';
+import { useLocation } from 'react-router-dom';
+import PATH from './../../routes/path';
 
 const appHeaderUseStyles = makeStyles(theme => ({
     avatar: {
@@ -42,6 +44,9 @@ const appHeaderUseStyles = makeStyles(theme => ({
 const AppHeader = ({ AUTH, PAYMENT_AUTH_NOTIFS }) => 
 {
     const classes = appHeaderUseStyles();
+    const { pathname } = useLocation();
+
+    const isPathNotUserProfileList = PATH.USER_PROFILE !== pathname;
 
     const paymentAuthorizationNotifCount = PAYMENT_AUTH_NOTIFS.filter(notif => !notif.read_at).length;
     const [ profileMenu, setProfileMenu ] = useState(null);
@@ -68,7 +73,7 @@ const AppHeader = ({ AUTH, PAYMENT_AUTH_NOTIFS }) =>
                 <Grid item>
                     <Grid container>
                     {
-                        AUTH.selectedProfile?.name && (
+                        (AUTH.selectedProfile?.name && isPathNotUserProfileList) && (
                             <Grid item className={ classes.notifContainer }>
                                 <IconButton
                                     className={ classes.notifIconButton }
@@ -88,7 +93,7 @@ const AppHeader = ({ AUTH, PAYMENT_AUTH_NOTIFS }) =>
                         }
                         <Grid item>
                         {
-                            AUTH.selectedProfile.avatar && (
+                            (AUTH.selectedProfile.avatar && isPathNotUserProfileList) && (
                                 <img 
                                     src={ AUTH.selectedProfile?.avatar || AUTH.user.avatar }
                                     className={ classes.avatar }
@@ -96,13 +101,17 @@ const AppHeader = ({ AUTH, PAYMENT_AUTH_NOTIFS }) =>
                                 />
                             )
                         }
-                           <Typography 
-                                variant="subtitle1" 
-                                color="initial"
-                                className={ classes.profileNameText }
-                            >
-                                { AUTH.selectedProfile.name }
-                            </Typography>
+                        {
+                            isPathNotUserProfileList && (
+                                <Typography 
+                                    variant="subtitle1" 
+                                    color="initial"
+                                    className={ classes.profileNameText }
+                                >
+                                    { AUTH.selectedProfile.name }
+                                </Typography>
+                            )
+                        }
                         </Grid>
                     </Grid>
                 </Grid>

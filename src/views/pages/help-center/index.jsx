@@ -8,13 +8,16 @@ import PATH from './../../../routes/path';
 
 const helpCenterUseStyles = makeStyles(theme => ({
     card: {
-        height: '30vh'
+        height: '35vh'
     },
     content: {
         '&:hover': {
             cursor: 'pointer',
             textDecoration: 'underline'
         }
+    },
+    headerTitle: {
+        marginBottom: '2rem'
     }
 }));
 
@@ -54,7 +57,7 @@ const frequentProblems = [
             },
             {
                 title: 'Cancel account',
-                path: ''
+                path: PATH.MANAGE_PLAN
             },
         ]
     }
@@ -67,11 +70,13 @@ const HelpCenter = () =>
 
     return (
         <Container maxWidth="lg">
-            <Typography variant="h4" color="initial" gutterBottom><strong>Help Center</strong></Typography>
-            <Grid container spacing={ 2 }>
+            <Typography variant="h4" color="initial" gutterBottom className={ classes.headerTitle }>
+                <strong>Help Center</strong>
+            </Typography>
+            <Grid container spacing={ 2 } justify='center'>
                 {
                     frequentProblems.map(({ title, list }, index) => (
-                        <Grid item xs={ 12 } sm={ 4 } md={ 4 } lg={ 4 }>
+                        <Grid item xs={ 12 } sm={ 6 }  md={ 4 } lg={ 4 }>
                             <Card className={ classes.card }>
                                 <CardHeader 
                                     title={ <Typography variant="h5" color="initial">{ title }</Typography> }
