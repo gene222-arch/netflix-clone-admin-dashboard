@@ -89,7 +89,7 @@ const NotificationMenu = ({ PAYMENT_AUTH_NOTIFS, UNREAD_PAYMENT_AUTH_NOTIFS, anc
             label: 'Clear notifications',
             icon: DeleteIcon,
             onClick: handleClickClearAllNotif,
-            disabled: !Boolean(UNREAD_PAYMENT_AUTH_NOTIFS.length)
+            disabled: !Boolean(PAYMENT_AUTH_NOTIFS.length)
         }
     ];
 
