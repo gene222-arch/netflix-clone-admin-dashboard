@@ -10,11 +10,19 @@ import Container from '@material-ui/core/Container'
 import Grid from '@material-ui/core/Grid'
 import Typography from '@material-ui/core/Typography'
 import CheckIcon from '@material-ui/icons/Check';
+import IconButton from '@material-ui/core/IconButton';
+import { useHistory } from 'react-router';
+import ArrowBack from '@material-ui/icons/ArrowBack';
+import { makeStyles } from '@material-ui/core';
 
-
+const plansAndPricingUseStyles = makeStyles(theme => ({
+    arrowBackLabel: {
+        paddingLeft: '0.5rem',
+        fontSize: '0.85rem'
+    }
+}));
 
 const createData = (name, basic, standard, premium) => ({ name, basic, standard, premium })
-
 
 const rows = [
   createData('Monthly cost (Philippine Peso)', 100, 200, 600),
@@ -25,8 +33,15 @@ const rows = [
 
 const PlansAndPricing = () => 
 {
-  return (
+    const classes = plansAndPricingUseStyles();
+    const history = useHistory();
+
+    return (
         <Container maxWidth="lg">
+            <IconButton onClick={ () => history.goBack() }>
+                <ArrowBack />
+            </IconButton>
+            <small className={ classes.arrowBackLabel }>Go back</small>
             <Grid container spacing={1}>
                 <Grid item xs={ 10 } sm={ 10 } md={ 10 } lg={ 10 }>
                     <Typography variant="h3" color="initial" gutterBottom>Plans And Pricing</Typography>
