@@ -66,7 +66,6 @@ const PATH =
     TERMS_AND_CONDITION: '/legal/terms-and-conditions',
     HELP_CENTER: '/legal/help',
     HOW_TO_CREATE_A_PROFILE: '/legal/how-to-create-a-profile',
-    BILLING_AND_PAYMENTS: '/legal/billings-and-payments',
     PLANS_AND_PRICING: '/legal/plans-and-pricing',
     HOW_TO_CHANGE_YOUR_PLAN: '/help/how-to-change-your-plan',
 

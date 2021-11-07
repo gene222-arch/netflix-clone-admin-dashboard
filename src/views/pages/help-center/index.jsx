@@ -33,15 +33,6 @@ const frequentProblems = [
         ]
     },
     {
-        title: 'Billing Questions',
-        list: [
-            {
-                title: 'Billing and Payments',
-                path: PATH.BILLING_AND_PAYMENTS
-            },
-        ]
-    },
-    {
         title: 'Watching Flicklify',
         list: [
             {
