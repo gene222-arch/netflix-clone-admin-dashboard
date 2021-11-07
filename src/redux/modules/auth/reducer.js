@@ -58,6 +58,10 @@ const {
 
     UPDATE_PAYMENT_AUTHORIZATION_STATUS,
 
+    UPDATE_PROFILE_BY_ID_START,
+    UPDATE_PROFILE_BY_ID_SUCCESS,
+    UPDATE_PROFILE_BY_ID_FAILED,
+
     CLEAR_ERRORS
 } = ACTION_TYPES;
 
@@ -136,6 +140,7 @@ export default (state = initialState, { type, payload }) =>
         case RESET_PASSWORD_START:
         case SELECT_PROFILE_START:
         case VERIFY_EMAIL_START:
+        case UPDATE_PROFILE_BY_ID_START:
             return {
                 ...state,
                 isLoading: true,
@@ -248,6 +253,22 @@ export default (state = initialState, { type, payload }) =>
                 error 
             }
         
+        case UPDATE_PROFILE_BY_ID_SUCCESS:
+            const updateProfiles = state.profiles.map(profile => {
+                return profile.id === payload.profile.id 
+                    ? ({
+                        ...profile,
+                        ...payload.profile
+                    })
+                    : profile
+            });
+
+            return {
+                ...state,
+                profiles: updateProfiles,
+                isLoading,
+                error
+            }
             
         case FORGOT_PASSWORD_SUCCESS:
         case RESET_PASSWORD_SUCCESS:
@@ -259,6 +280,7 @@ export default (state = initialState, { type, payload }) =>
                 error,
             };
             
+        case ADD_PROFILE_FAILED:
         case CANCEL_SUBSCRIPTION_FAILED:
         case DELETE_PROFILE_BY_ID_FAILED:
         case FORGOT_PASSWORD_FAILED:
@@ -267,7 +289,7 @@ export default (state = initialState, { type, payload }) =>
         case RESET_PASSWORD_FAILED:
         case SELECT_PROFILE_FAILED:
         case VERIFY_EMAIL_FAILED:
-        case ADD_PROFILE_FAILED:
+        case UPDATE_PROFILE_BY_ID_FAILED:
             return {
                 ...state,
                 isLoading,

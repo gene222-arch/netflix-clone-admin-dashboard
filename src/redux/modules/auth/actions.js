@@ -57,6 +57,10 @@ const {
     UPDATE_SUBSCRIPTION_DETAILS,
     UPDATE_PAYMENT_AUTHORIZATION_STATUS,
 
+    UPDATE_PROFILE_BY_ID_START,
+    UPDATE_PROFILE_BY_ID_SUCCESS,
+    UPDATE_PROFILE_BY_ID_FAILED,
+
     CLEAR_ERRORS
 } = ACTION_TYPES;
 
@@ -286,6 +290,21 @@ export const updateSubscriptionDetails = (payload) => ({
 
 export const updatePaymentAuthorizationStatus = (payload) => ({
     type: UPDATE_PAYMENT_AUTHORIZATION_STATUS,
+    payload
+});
+
+export const updateProfileByIdStart = (payload) => ({
+    type: UPDATE_PROFILE_BY_ID_START,
+    payload
+});
+
+export const updateProfileByIdSuccess = (payload) => ({
+    type: UPDATE_PROFILE_BY_ID_SUCCESS,
+    payload
+});
+
+export const updateProfileByIdFailed = (payload) => ({
+    type: UPDATE_PROFILE_BY_ID_FAILED,
     payload
 });
 

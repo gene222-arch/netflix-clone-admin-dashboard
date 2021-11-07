@@ -38,7 +38,9 @@ import {
     verifyEmailSuccess,
     verifyEmailFailed,
     selectProfileSuccess,
-    selectProfileFailed
+    selectProfileFailed,
+    updateProfileByIdSuccess,
+    updateProfileByIdFailed
 } from './actions';
 import * as ALERT from './../alert/actions';
 
@@ -64,7 +66,8 @@ const {
     REGISTER_START,
     RESET_PASSWORD_START,
     VERIFY_EMAIL_START,
-    SELECT_PROFILE_START
+    SELECT_PROFILE_START,
+    UPDATE_PROFILE_BY_ID_START
 } = ACTION_TYPES;
 
 
@@ -313,7 +316,7 @@ function* verifyEmailSaga (payload)
         yield put(verifyEmailSuccess());
         Cookies.removeEmailVerificationToken();
     } catch ({ message, status }) {
-        yield put(resetPasswordFailed({
+        yield put(verifyEmailFailed({
             errorMessages: message 
         }));
         yield put(ALERT.showAlert({ status, message: message }));
@@ -328,6 +331,18 @@ function* selectProfileSaga (payload)
         yield put(push(PATH.PROFILE_HOME_PAGE));
     } catch ({ message, status }) {
         yield put(selectProfileFailed({ errorMessages: message }));
+        yield put(ALERT.showAlert({ status, message }));
+    }
+}
+
+function* updateProfileByIdSaga (payload)
+{
+    try {
+        const { data: profile } = yield call(USER_PROFILE_API.updateAsync, payload.profile);
+        yield put(updateProfileByIdSuccess({ profile }));
+        yield put(push(PATH.PROFILE_HOME_PAGE));
+    } catch ({ message, status }) {
+        yield put(updateProfileByIdFailed({ errorMessages: message }));
         yield put(ALERT.showAlert({ status, message }));
     }
 }
@@ -452,6 +467,15 @@ function* selectProfileWatcher()
     }
 }
 
+function* updateProfileByIdWatcher()
+{
+    while (true) 
+    {
+        const { payload } = yield take(UPDATE_PROFILE_BY_ID_START);
+
+        yield call(updateProfileByIdSaga, payload);
+    }
+}
 /**
  * Main
  */
@@ -470,6 +494,7 @@ export default function* ()
         registerWatcher(),
         resetPasswordWatcher(),
         verifyEmailWatcher(),
-        selectProfileWatcher()
+        selectProfileWatcher(),
+        updateProfileByIdWatcher()
     ]);
 }
