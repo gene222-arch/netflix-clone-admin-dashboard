@@ -80,6 +80,7 @@ const ERROR_DEFAULT = {
 };
 
 const PROFILE_PROPS = {
+    id: '',
     user_id: '',
     name: '',
     avatar: null,
@@ -263,9 +264,14 @@ export default (state = initialState, { type, payload }) =>
                     : profile
             });
 
+            const selectedProfile = state.selectedProfile.id === payload.profile.id 
+                ? payload.profile 
+                : state.selectedProfile;
+
             return {
                 ...state,
                 profiles: updateProfiles,
+                selectedProfile,
                 isLoading,
                 error
             }
