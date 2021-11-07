@@ -52,13 +52,13 @@ const AddProfile = ({ AUTH }) =>
     const classes = updateEmailUseStyles();
     const dispatch = useDispatch();
 
-    const [ profile, setProfile ] = useState({ ...AUTH.selectedProfile, avatar: DEFAULT_AVATAR_URL });
+    const [ profile, setProfile ] = useState({ ...AUTH.profile, avatar: DEFAULT_AVATAR_URL });
 
     const handleClickAddProfile = () => dispatch(AUTH_ACTION.addProfileStart(profile));
 
     useEffect(() => {
         return () => {
-            setProfile(AUTH.selectedProfile);
+            setProfile(AUTH.profile);
         }
     }, []);
 

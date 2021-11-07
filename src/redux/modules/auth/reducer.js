@@ -107,6 +107,7 @@ const initialState =
     user: null,
     subscription_details: SUBSCRIPTION_DETAILS_DEFAULT_PROPS,
     selectedProfile: PROFILE_PROPS,
+    profile: PROFILE_PROPS,
     profiles: [],
     isLoading: false,
     error: ERROR_DEFAULT,
