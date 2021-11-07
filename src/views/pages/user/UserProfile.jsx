@@ -61,10 +61,16 @@ const PIN_PROPS = {
     num4: ''
 }
 
-const AddProfileCard = () => 
+const AddProfileCard = ({ planType, profileLimit, totalProfiles }) => 
 {
     const classes = userProfileUseStyles();
     const history = useHistory();
+
+    if (planType === 'Premium' && totalProfiles === 5) return;
+
+    if (planType === 'Standard' && totalProfiles === 4) return;
+
+    if (planType === 'Basic' && totalProfiles === 2) return;
 
     return (
         <Grid item xs={ 3 } sm={ 2 } md={ 2 } lg={ 2 } className={ classes.addCardContainer } onClick={ () => history.push(PATH.ADD_PROFILE) }>
@@ -92,6 +98,7 @@ const UserProfile = ({ AUTH }) =>
     const [ isIncorrectPin, setIsIncorrectPin ] = useState(false);
     const [ selectedProfilePin, setSelectedProfilePin ] = useState('');
     const [ showInputPin, setShowInputPin ] = useState(false);
+    const [ profileLimit, setProfileLimit ] = useState(2);
 
 
     const cleanUp = () => {
@@ -128,8 +135,28 @@ const UserProfile = ({ AUTH }) =>
         setId(!id ? profileId : '');
     }
 
+    const onLoadSetProfileLimit = () => 
+    {
+        const planType = AUTH.subscription_details.type;
+
+        switch (planType) {
+            case 'Premium':
+                setProfileLimit(5);
+                break;
+
+            case 'Standard':
+                setProfileLimit(4);
+                break;
+
+            case 'Basic':
+                setProfileLimit(2);
+                break;
+        }
+    }
+
     useEffect(() => 
     {
+        onLoadSetProfileLimit();
         return () => {
             cleanUp();
         }
