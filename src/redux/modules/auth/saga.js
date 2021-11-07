@@ -134,7 +134,7 @@ function* authUserSaga ()
  function* deleteProfileByIdSaga (payload)
  {
      try {
-         const { message } = yield call(USER_PROFILE_API.deleteAsync, [ payload.id ]);
+         const { message } = yield call(USER_PROFILE_API.deleteAsync, payload.id);
  
          yield put(deleteProfileByIdSuccess({
              profile_id: payload.id
@@ -367,8 +367,8 @@ function* deleteProfileByIdWatcher ()
 {
     while (true)
     {
-        yield take(DELETE_PROFILE_BY_ID_START); 
-        yield call(deleteProfileByIdSaga);
+        const { payload } = yield take(DELETE_PROFILE_BY_ID_START); 
+        yield call(deleteProfileByIdSaga, payload);
     }
 }
 

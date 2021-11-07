@@ -110,8 +110,9 @@ export const cancelSubscriptionFailed = (payload) => ({
     payload
 });
 
-export const deleteProfileByIdStart = () => ({
-    type: DELETE_PROFILE_BY_ID_START
+export const deleteProfileByIdStart = (payload) => ({
+    type: DELETE_PROFILE_BY_ID_START,
+    payload
 });
 
 export const deleteProfileByIdSuccess = (payload) => ({

@@ -41,12 +41,10 @@ export const manageProfileLockAsync = async (payload) =>
 }
 
 
-export const deleteAsync = async (ids) => 
+export const deleteAsync = async (id) => 
 {
     return await axiosInstance()
-        .delete(`/user-profiles`, {
-            data: { ids }
-        })
+        .delete(`/user-profiles/${ id }`)
         .then(response => response.data)
         .catch(error => Promise.reject(error.response.data));
 }

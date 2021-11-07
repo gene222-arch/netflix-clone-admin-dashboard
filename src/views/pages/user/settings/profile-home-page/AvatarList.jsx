@@ -1,14 +1,18 @@
 import React from 'react'
-import { List, ListItem, ListItemAvatar, ListItemText, Collapse, ListItemSecondaryAction, Divider } from '@material-ui/core';
+import { List, ListItem, ListItemAvatar, ListItemText, Collapse, ListItemSecondaryAction, Divider, Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { createStructuredSelector } from 'reselect';
 import { selectAuth } from './../../../../../redux/modules/auth/selector';
-import { connect } from 'react-redux';
+import * as CONFIRMATION_ACTION from './../../../../../redux/modules/confirm/actions';
+import * as AUTH_ACTION from './../../../../../redux/modules/auth/actions';
+import { connect, useDispatch } from 'react-redux';
 import PATH from './../../../../../routes/path';
 import StyledNavLink from './../../../../../components/styled-components/StyledNavLink';
 import { ChildCareRounded } from '@material-ui/icons';
+import DeleteIcon from '@material-ui/icons/Delete';
+import Colors from './../../../../../constants/Colors';
 
 const avatarListUseStyles = makeStyles(theme => ({
     avatar: {
@@ -24,6 +28,11 @@ const avatarListUseStyles = makeStyles(theme => ({
             cursor: 'pointer'
         }
     },
+    deleteIcon: {
+        '&:hover': {
+            color: Colors.error
+        }
+    },
     divider: {
         marginTop: '1rem',
     },
@@ -35,6 +44,17 @@ const avatarListUseStyles = makeStyles(theme => ({
 const AvatarList = ({ AUTH, id, handleClickSetId, handleChangePinLock }) => 
 {
     const classes = avatarListUseStyles();
+    const dispatch = useDispatch();
+
+    const deleteProfileById = (id) => dispatch(AUTH_ACTION.deleteProfileByIdStart({ id }));
+
+    const handleClickDeleteConfirmation = (id, profileName) => {
+        dispatch(CONFIRMATION_ACTION.showConfirmationDialog({
+            mainHeader: `Delete ${ profileName }`,
+            subHeader: 'Once confirmed, saved data in this profile will be deleted permanently and recovery of loss data is not possible',
+            confirmCallback: () => deleteProfileById(id)
+        }));
+    }
 
     return (
         <List className={ classes.container }>
@@ -65,6 +85,12 @@ const AvatarList = ({ AUTH, id, handleClickSetId, handleChangePinLock }) =>
                                             to={ PATH.PROFILE_LOCK.replace(':id', id) }
                                             text={ 'Change' }
                                         />
+                                    </ListItemSecondaryAction>
+                                </ListItem>
+                                <ListItem>
+                                    <ListItemText primary="Delete" />
+                                    <ListItemSecondaryAction onClick={ () => handleClickDeleteConfirmation(profileId, name) }>
+                                        <DeleteIcon className={ classes.deleteIcon } />
                                     </ListItemSecondaryAction>
                                 </ListItem>
                             </List>
