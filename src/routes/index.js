@@ -70,6 +70,7 @@ const SubscriptionFailed = lazy(() => import('./../views/pages/subscription/Subs
 const PlanUpdatedSuccessfully = lazy(() => import('./../views/pages/subscription/PlanUpdatedSuccessfully'))
 const ManagePlan = lazy(() => import('./../views/pages/user/manage-plan'))
 const Subscriptions = lazy(() => import('./../views/pages/subscription'))
+const HowToChangeYourPlan = lazy(() => import('./../views/pages/help-center/HowToChangeYourPlan'))
 
 export const PUBLIC_ROUTES = [
     {
@@ -208,6 +209,19 @@ export const GLOBAL_ROUTES =
         icon: '',
         exact: true,
         component: PlansAndPricing,
+        access: '',
+        restricted: null
+    },
+];
+
+export const HELP_CENTER_ROUTES = 
+[
+    {
+        path: PATH.HOW_TO_CHANGE_YOUR_PLAN,
+        key: 'HowToChangeYourPlan',
+        icon: '',
+        exact: true,
+        component: HowToChangeYourPlan,
         access: '',
         restricted: null
     },

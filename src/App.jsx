@@ -19,6 +19,7 @@ import ECHO_UTIL from './utils/echo'
 import * as AUTH_ACTION from './redux/modules/auth/actions'
 import * as NOTIFICATION_ACTION from './redux/modules/notifications/actions'
 import * as COOKIES_UTIL from './utils/cookies'
+import { HELP_CENTER_ROUTES } from './routes/index';
 const EmailVerification = lazy(() => import('./views/pages/employee/EmailVerification'));
 
 const App = ({ AUTH, history }) => 
@@ -54,6 +55,13 @@ const App = ({ AUTH, history }) =>
 					<Route path='/legal/:path?' exact>
 						<SecurityLayout>
 							<RenderRoutes routes={ GLOBAL_ROUTES } />
+						</SecurityLayout>
+					</Route>
+
+					{/* Help Center Routes  */}
+					<Route path='/help/:path?' exact>
+						<SecurityLayout>
+							<RenderRoutes routes={ HELP_CENTER_ROUTES } />
 						</SecurityLayout>
 					</Route>
 

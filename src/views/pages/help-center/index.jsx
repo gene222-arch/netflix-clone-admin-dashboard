@@ -28,7 +28,7 @@ const frequentProblems = [
             },
             {
                 title: 'How to change your plan',
-                path: ''
+                path: PATH.HOW_TO_CHANGE_YOUR_PLAN
             },
         ]
     },
