@@ -13,6 +13,8 @@ import StyledNavLink from './../../../../../components/styled-components/StyledN
 import { ChildCareRounded } from '@material-ui/icons';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Colors from './../../../../../constants/Colors';
+import { useHistory } from 'react-router';
+import EditIcon from '@material-ui/icons/Edit';
 
 const avatarListUseStyles = makeStyles(theme => ({
     avatar: {
@@ -39,12 +41,18 @@ const avatarListUseStyles = makeStyles(theme => ({
     expandIcon: {
         fontSize: '2rem'
     },
+    updateIcon: {
+        '&:hover': {
+            color: Colors.warning
+        }
+    }
 }));
 
 const AvatarList = ({ AUTH, id, handleClickSetId, handleChangePinLock }) => 
 {
     const classes = avatarListUseStyles();
     const dispatch = useDispatch();
+    const history = useHistory();
 
     const deleteProfileById = (id) => dispatch(AUTH_ACTION.deleteProfileByIdStart({ id }));
 
@@ -54,6 +62,12 @@ const AvatarList = ({ AUTH, id, handleClickSetId, handleChangePinLock }) =>
             subHeader: 'Once confirmed, saved data in this profile will be deleted permanently and recovery of loss data is not possible',
             confirmCallback: () => deleteProfileById(id)
         }));
+    }
+
+    const handleClickUpdateButton = (id) => {
+        history.push(PATH.ADD_PROFILE, {
+            profileId: id
+        })
     }
 
     return (
@@ -91,6 +105,12 @@ const AvatarList = ({ AUTH, id, handleClickSetId, handleChangePinLock }) =>
                                     <ListItemText primary="Delete" />
                                     <ListItemSecondaryAction onClick={ () => handleClickDeleteConfirmation(profileId, name) }>
                                         <DeleteIcon className={ classes.deleteIcon } />
+                                    </ListItemSecondaryAction>
+                                </ListItem>
+                                <ListItem>
+                                    <ListItemText primary="Update Profile" />
+                                    <ListItemSecondaryAction onClick={ () => handleClickUpdateButton(profileId) }>
+                                        <EditIcon className={ classes.updateIcon } />
                                     </ListItemSecondaryAction>
                                 </ListItem>
                             </List>

@@ -79,7 +79,7 @@ const {
  function* addProfileSaga (payload)
  {
      try {
-         const { data, message } = yield call(USER_PROFILE_API.createAsync, payload);
+         const { data, message } = yield call(USER_PROFILE_API.createAsync, payload.profile);
          yield put(addProfileSuccess({ profile: data }));
 
          yield put(ALERT.showAlert({
@@ -338,8 +338,8 @@ function* selectProfileSaga (payload)
 function* updateProfileByIdSaga (payload)
 {
     try {
-        const { data: profile } = yield call(USER_PROFILE_API.updateAsync, payload.profile);
-        yield put(updateProfileByIdSuccess({ profile }));
+        yield call(USER_PROFILE_API.updateAsync, payload.profile);
+        yield put(updateProfileByIdSuccess({ profile: payload.profile }));
         yield put(push(PATH.PROFILE_HOME_PAGE));
     } catch ({ message, status }) {
         yield put(updateProfileByIdFailed({ errorMessages: message }));

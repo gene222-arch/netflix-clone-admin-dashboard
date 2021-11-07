@@ -8,6 +8,7 @@ import { connect, useDispatch } from 'react-redux';
 import { selectAuth } from './../../../redux/modules/auth/selector';
 import * as AUTH_ACTION from './../../../redux/modules/auth/actions';
 import Colors from './../../../constants/Colors';
+import { useLocation } from 'react-router-dom';
 
 
 const updateEmailUseStyles = makeStyles(theme => 
@@ -51,12 +52,36 @@ const AddProfile = ({ AUTH }) =>
 {
     const classes = updateEmailUseStyles();
     const dispatch = useDispatch();
+    const { state } = useLocation();
 
     const [ profile, setProfile ] = useState({ ...AUTH.profile, avatar: DEFAULT_AVATAR_URL });
+    const [ isProfileIdInState, setIsProfileIdInState ] = useState(false);
 
-    const handleClickAddProfile = () => dispatch(AUTH_ACTION.addProfileStart(profile));
+    const handleClickButton = () => 
+    {
+        if (! isProfileIdInState) {
+            dispatch(AUTH_ACTION.addProfileStart({ profile }));
+        }
 
-    useEffect(() => {
+        if (isProfileIdInState) {
+            dispatch(AUTH_ACTION.updateProfileByIdStart({ profile }));
+        }
+    }
+
+    const onLoadCheckProfileIdInState = () => 
+    {
+        if ('profileId' in state) 
+        {
+            setIsProfileIdInState(true);
+
+            const findProfileById = AUTH.profiles.find(({ id }) => id === state.profileId);
+            setProfile(findProfileById);
+        }
+    }
+
+    useEffect(() => 
+    {
+        onLoadCheckProfileIdInState();
         return () => {
             setProfile(AUTH.profile);
         }
@@ -77,7 +102,7 @@ const AddProfile = ({ AUTH }) =>
                     <FormControlLabel 
                         control={
                             <Switch 
-                                checked={ profile.is_for_kids }
+                                checked={ Boolean(profile.is_for_kids) }
                                 onChange={ (e, checked) => setProfile({ ...profile, is_for_kids: checked }) }
                                 className={ classes.isForKids }
                             />
@@ -101,9 +126,9 @@ const AddProfile = ({ AUTH }) =>
                         className={ classes.btn }
                         fullWidth
                         disabled={ AUTH.isLoading }
-                        onClick={ handleClickAddProfile }
+                        onClick={ handleClickButton }
                     >
-                        Create
+                        { !isProfileIdInState ? 'Create' : 'Update' }
                     </Button>
                 </Grid>
             </Grid>
