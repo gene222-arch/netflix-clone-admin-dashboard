@@ -174,6 +174,19 @@ export const GLOBAL_ROUTES =
         component: TermsAndConditions,
         access: '',
         restricted: null
+    }
+];
+
+export const HELP_CENTER_ROUTES = 
+[
+    {
+        path: PATH.HOW_TO_CHANGE_YOUR_PLAN,
+        key: 'HowToChangeYourPlan',
+        icon: '',
+        exact: true,
+        component: HowToChangeYourPlan,
+        access: '',
+        restricted: null
     },
     {
         path: PATH.HELP_CENTER,
@@ -199,19 +212,6 @@ export const GLOBAL_ROUTES =
         icon: '',
         exact: true,
         component: PlansAndPricing,
-        access: '',
-        restricted: null
-    },
-];
-
-export const HELP_CENTER_ROUTES = 
-[
-    {
-        path: PATH.HOW_TO_CHANGE_YOUR_PLAN,
-        key: 'HowToChangeYourPlan',
-        icon: '',
-        exact: true,
-        component: HowToChangeYourPlan,
         access: '',
         restricted: null
     },
