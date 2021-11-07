@@ -13,6 +13,10 @@ const {
     CANCEL_SUBSCRIPTION_START,
     CANCEL_SUBSCRIPTION_SUCCESS,
     CANCEL_SUBSCRIPTION_FAILED,
+    
+    DELETE_PROFILE_BY_ID_START,
+    DELETE_PROFILE_BY_ID_SUCCESS,
+    DELETE_PROFILE_BY_ID_FAILED,
 
     FORGOT_PASSWORD_START,
     FORGOT_PASSWORD_SUCCESS,
@@ -106,7 +110,19 @@ export const cancelSubscriptionFailed = (payload) => ({
     payload
 });
 
+export const deleteProfileByIdStart = () => ({
+    type: DELETE_PROFILE_BY_ID_START
+});
 
+export const deleteProfileByIdSuccess = (payload) => ({
+    type: DELETE_PROFILE_BY_ID_SUCCESS,
+    payload
+});
+
+export const deleteProfileByIdFailed = (payload) => ({
+    type: DELETE_PROFILE_BY_ID_FAILED,
+    payload
+});
 /**
  * Reset password
  */

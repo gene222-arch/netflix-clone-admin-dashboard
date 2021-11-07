@@ -14,6 +14,10 @@ const {
     CANCEL_SUBSCRIPTION_SUCCESS,
     CANCEL_SUBSCRIPTION_FAILED,
 
+    DELETE_PROFILE_BY_ID_START,
+    DELETE_PROFILE_BY_ID_SUCCESS,
+    DELETE_PROFILE_BY_ID_FAILED,
+
     FORGOT_PASSWORD_START,
     FORGOT_PASSWORD_SUCCESS,
     FORGOT_PASSWORD_FAILED,
@@ -122,6 +126,7 @@ export default (state = initialState, { type, payload }) =>
         case ADD_PROFILE_START:
         case AUTH_USER_START:
         case CANCEL_SUBSCRIPTION_START:
+        case DELETE_PROFILE_BY_ID_START:
         case LOGIN_START: 
         case LOGOUT_START:
         case MANAGE_PROFILE_LOCK_START:
@@ -169,6 +174,15 @@ export default (state = initialState, { type, payload }) =>
                     ...state.subscription_details,
                     ...payload.subscription_details
                 },
+                isLoading,
+                error
+            }
+
+        case DELETE_PROFILE_BY_ID_SUCCESS:
+            const filterProfiles = state.profiles.filter(({ id }) => id !== payload.profile_id);
+            return {
+                ...state,
+                profiles: filterProfiles,
                 isLoading,
                 error
             }
@@ -245,6 +259,7 @@ export default (state = initialState, { type, payload }) =>
             };
             
         case CANCEL_SUBSCRIPTION_FAILED:
+        case DELETE_PROFILE_BY_ID_FAILED:
         case FORGOT_PASSWORD_FAILED:
         case MANAGE_PROFILE_LOCK_FAILED:
         case REGISTRATION_FAILED:         
