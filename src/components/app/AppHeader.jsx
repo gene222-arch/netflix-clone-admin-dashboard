@@ -101,17 +101,6 @@ const AppHeader = ({ AUTH, PAYMENT_AUTH_NOTIFS }) =>
                                 />
                             )
                         }
-                        {
-                            shouldShowNotifAndAvatar && (
-                                <Typography 
-                                    variant="subtitle1" 
-                                    color="initial"
-                                    className={ classes.profileNameText }
-                                >
-                                    { AUTH.selectedProfile.name }
-                                </Typography>
-                            )
-                        }
                         </Grid>
                     </Grid>
                 </Grid>
