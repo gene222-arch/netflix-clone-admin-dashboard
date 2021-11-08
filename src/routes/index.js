@@ -68,6 +68,7 @@ const SubscribedSuccessfully = lazy(() => import('./../views/pages/subscription/
 const SubscriptionFailed = lazy(() => import('./../views/pages/subscription/SubscriptionFailed'))
 const PlanUpdatedSuccessfully = lazy(() => import('./../views/pages/subscription/PlanUpdatedSuccessfully'))
 const ManagePlan = lazy(() => import('./../views/pages/user/manage-plan'))
+const PaymentHistory = lazy(() => import('./../views/pages/user/PaymentHistory'))
 const Subscriptions = lazy(() => import('./../views/pages/subscription'))
 const HowToChangeYourPlan = lazy(() => import('./../views/pages/help-center/HowToChangeYourPlan'))
 
@@ -326,6 +327,15 @@ export const USER_ROUTES = [
         icon: '',
         exact: true,
         component: UpdateSubscription,
+        access: '',
+        restricted: true
+    },
+    {
+        path: PATH.PAYMENT_HISTORY,
+        key: 'PaymentHistory',
+        icon: '',
+        exact: true,
+        component: PaymentHistory,
         access: '',
         restricted: true
     }

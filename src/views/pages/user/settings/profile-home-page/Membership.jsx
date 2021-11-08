@@ -86,6 +86,16 @@ const Membership = ({ AUTH, paymentAuthorizationNotif, isFetchingPaymentAuthNoti
             isNavigatable: [ 'Renew Subscription', 'Manage Plan' ].includes(billingDetailsActionText()),
             onClick: () => console.log('')
         },
+        {
+            id: 'payment_history',
+            icon: null,
+            primaryText: '',
+            actionText: 'Payment History',
+            actionPath: PATH.PAYMENT_HISTORY,
+            isTextSecondary: true,
+            isNavigatable: true,
+            onClick: () => console.log('')
+        },
     ];
 
 
@@ -100,7 +110,7 @@ const Membership = ({ AUTH, paymentAuthorizationNotif, isFetchingPaymentAuthNoti
                         memberShipActionButtons.map(({ id, icon: Icon, primaryText, actionText, actionPath, isTextSecondary, isNavigatable, onClick }) => (
                             <ListItem key={ id }>
                                 <ListItemAvatar>
-                                    <Icon color={ isTextSecondary ? 'disabled' : 'action' } />
+                                    { Icon && <Icon color={ isTextSecondary ? 'disabled' : 'action' } /> }
                                 </ListItemAvatar>
                                 <ListItemText primary={ 
                                     <Typography variant="subtitle1" color={ isTextSecondary ? 'textSecondary' : 'inherit' }>

@@ -61,6 +61,7 @@ const PATH =
     RENEW_SUBSCRIPTION: '/renew-subscription',
     UPDATE_SUBSCRIPTION: '/update-subscription',
     MANAGE_PLAN: '/manage-plan',
+    PAYMENT_HISTORY: '/payment-history',
 
     PRIVACY_POLICY: '/legal/privacy',
     TERMS_AND_CONDITION: '/legal/terms-and-conditions',
