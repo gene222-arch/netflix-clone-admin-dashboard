@@ -8,10 +8,10 @@ export const fetchAllAsync = async () =>
         .catch(error => Promise.reject(error.response.data));
 }
 
-export const findByUserIdAsync = async (id) => 
+export const findByUserIdAsync = async () => 
 {
     return await axiosInstance()
-        .get(`/subscriptions/${ id }`)
+        .get('/subscriptions/auth-user')
         .then(response => response.data)
         .catch(error => Promise.reject(error.response.data));
 }

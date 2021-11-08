@@ -27,10 +27,10 @@ function* fetchAllSubscriptionsSaga()
     }
 }
 
-function* fetchSubscriptionByUserIdSaga(payload)
+function* fetchSubscriptionByUserIdSaga()
 {
     try {
-        const { data: subscriptions } = yield call(API.findByUserIdAsync, payload.userId);
+        const { data: subscriptions } = yield call(API.findByUserIdAsync);
         yield put(fetchSubscriptionByUserIdSuccess({ subscriptions }));
     } catch ({ message }) {
         yield put(fetchSubscriptionByUserIdFailed({ message }));
