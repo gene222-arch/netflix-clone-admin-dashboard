@@ -3,11 +3,16 @@ import ACTION_TYPES from './action.types';
 const {
     FETCH_ALL_SUBSCRIPTIONS_START,
     FETCH_ALL_SUBSCRIPTIONS_SUCCESS,
-    FETCH_ALL_SUBSCRIPTIONS_FAILED
+    FETCH_ALL_SUBSCRIPTIONS_FAILED,
+
+    FETCH_SUBSCRIPTION_BY_USER_ID_START,
+    FETCH_SUBSCRIPTION_BY_USER_ID_SUCCESS,
+    FETCH_SUBSCRIPTION_BY_USER_ID_FAILED,
 } = ACTION_TYPES;
 
 const initialState = {
     subscriptions: [],
+    authenticatedUserSubscriptions: [],
     isLoading: false,
     error: null
 };
@@ -21,6 +26,7 @@ export default (state = initialState, { type, payload }) =>
     {
         
         case FETCH_ALL_SUBSCRIPTIONS_START:
+        case FETCH_SUBSCRIPTION_BY_USER_ID_START:
             return {
                 ...state,
                 isLoading: true
@@ -33,12 +39,21 @@ export default (state = initialState, { type, payload }) =>
                 isLoading,
                 error 
             }
+
+        case FETCH_SUBSCRIPTION_BY_USER_ID_SUCCESS:
+            return {
+                ...state,
+                authenticatedUserSubscriptions: payload.subscriptions,
+                isLoading,
+                error
+            }
             
         case FETCH_ALL_SUBSCRIPTIONS_FAILED:
+        case FETCH_SUBSCRIPTION_BY_USER_ID_FAILED:
             return {
                 ...state,
                 isLoading,
-                error
+                error: payload.message
             }
 
         default:

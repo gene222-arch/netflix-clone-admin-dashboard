@@ -41,12 +41,6 @@ const App = ({ AUTH, history }) =>
 						paymentAuthorizationNotification: response.data
 					}));
 				});
-
-			ECHO_UTIL()
-				.private(`subscriber.profile.updated.${ AUTH.user.id }`)
-				.listen('SubscriberProfileUpdatedEvent', (response) => {
-					console.log(response);
-				});
 		}
 	}, [AUTH.isAuthenticated]);
 

@@ -4,11 +4,14 @@ import * as API from '../../../services/subscription';
 import ACTION_TYPES from './action.types'
 import { 
     fetchAllSubscriptionsSuccess,
-    fetchAllSubscriptionsFailed
+    fetchAllSubscriptionsFailed,
+    fetchSubscriptionByUserIdSuccess,
+    fetchSubscriptionByUserIdFailed
 } from './actions';
 
 const {
-    FETCH_ALL_SUBSCRIPTIONS_START
+    FETCH_ALL_SUBSCRIPTIONS_START,
+    FETCH_SUBSCRIPTION_BY_USER_ID_START,
 }  = ACTION_TYPES;
 
 /**
@@ -24,6 +27,15 @@ function* fetchAllSubscriptionsSaga()
     }
 }
 
+function* fetchSubscriptionByUserIdSaga(payload)
+{
+    try {
+        const { data: subscriptions } = yield call(API.findByUserIdAsync, payload.userId);
+        yield put(fetchSubscriptionByUserIdSuccess({ subscriptions }));
+    } catch ({ message }) {
+        yield put(fetchSubscriptionByUserIdFailed({ message }));
+    }
+}
 
 /**
  * Watchers
@@ -36,12 +48,21 @@ function* fetchAllSubscriptionsWatcher()
     }
 }
 
+
+function* findSubscriptionByUserIdWatcher()
+{
+    while (true) {
+        yield take(FETCH_SUBSCRIPTION_BY_USER_ID_START);
+        yield call(fetchSubscriptionByUserIdSaga);
+    }
+}
 /**
  * 
  */
 export default function*()
 {
     yield all([
-        fetchAllSubscriptionsWatcher()
+        fetchAllSubscriptionsWatcher(),
+        findSubscriptionByUserIdWatcher()
     ]);
 }
