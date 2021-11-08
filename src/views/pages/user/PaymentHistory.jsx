@@ -6,16 +6,21 @@ import { connect, useDispatch } from 'react-redux';
 import Container from '@material-ui/core/Container'
 import MaterialTable from './../../../components/styled-components/MaterialTable';
 import SubscriptionChip from './../../../components/SubscriptionChip';
-import { makeStyles, Typography } from '@material-ui/core';
+import { IconButton, makeStyles, Typography } from '@material-ui/core';
 import Colors from './../../../constants/Colors';
 import { selectAuth } from './../../../redux/modules/auth/selector';
+import { ArrowBack } from '@material-ui/icons';
+import { useHistory } from 'react-router';
 
 const paymentHistoryUseStyles = makeStyles(theme => ({
     container: {
-        height: '90vh'
+        height: '83vh'
+    },
+    goBackButtonContainer: {
+        marginTop: '3.5rem'
     },
     headerTitle: {
-        marginBottom: '2rem'
+        margin: '1rem 0 1rem'
     }
 }));
 
@@ -23,11 +28,12 @@ const PaymentHistory = ({ AUTH, SUBSCRIPTION, PAYMENT_HISTORY }) =>
 {
     const classes = paymentHistoryUseStyles();
     const dispatch = useDispatch();
+    const history = useHistory();
 
     const columns = [
         { title: 'id', field: 'id', hidden: true },
         { title: 'Subscription date', field: 'subscribed_at', searchable: false },
-        { title: 'Type', field: 'type' },
+        { title: 'Plan', field: 'type' },
         { title: 'Cost', field: 'cost', render: (({ cost }) => `P${ cost.toFixed(2) }`) },
         { title: 'Expiration date', field: 'expired_at' },
         { 
@@ -43,6 +49,12 @@ const PaymentHistory = ({ AUTH, SUBSCRIPTION, PAYMENT_HISTORY }) =>
 
     return (
         <Container maxWidth="lg" className={ classes.container }>
+            <div className={ classes.goBackButtonContainer }>
+                <IconButton onClick={ () => history.goBack() }>
+                    <ArrowBack />
+                </IconButton>
+                <Typography variant="caption" color="initial">Go back</Typography>
+            </div>
             <Typography variant="h4" color="initial" className={ classes.headerTitle }>
                 <strong>{ AUTH.user.first_name }'s Payment History</strong>
             </Typography>
