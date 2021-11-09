@@ -14,13 +14,19 @@ import PropagateLoader from 'react-spinners/PropagateLoader';
 import { selectAuth } from './../../../../redux/modules/auth/selector';
 import * as AUTH_ACTION from './../../../../redux/modules/auth/actions';
 import * as CONFIRMATION_ACTION from './../../../../redux/modules/confirm/actions';
-
+import CARD_LOGO from './../../../../assets/images/app/card.png';
+import CardPayment from './../update-plan-subscription/CardPayment';
 
 const paymentMethodStyles = makeStyles(theme => ({
     card: {
         '&:hover': {
             cursor: 'pointer'
         }
+    },
+    cardPayment: {
+        backgroundColor: Colors.white,
+        color: Colors.dark,
+        fontWeight: 'bold'
     },
     chevronRightIcon: {
         fontSize: '2.5rem'
@@ -41,8 +47,8 @@ const paymentMethodStyles = makeStyles(theme => ({
         padding: '10rem'
     },
     paymentMethodImg: {
-        width: '100%',
-        height: '4.5rem',
+        width: 130,
+        height: 90,
         objectFit: 'contain'
     },
     processingPaymentText: {
@@ -54,6 +60,22 @@ const PaymentMethod = ({ AUTH, planType, amount, setIsPaymentAuthorizationSent, 
 {
     const classes = paymentMethodStyles();
     const dispatch = useDispatch();
+
+    const [ paymentIntentId, setPaymentIntentId ] = useState('');
+    const [ paymentMethod, setPaymentMethod ] = useState('');
+
+    const handleCardPayment = async () => 
+    {
+        setIsLoading(true);
+        try {
+            const { data } = await PAYMENT_METHOD_API.storePaymentIntentAsync({ amount });
+            setPaymentIntentId(data.id);
+            setPaymentMethod('Card');
+        } catch (error) {
+            console.log(error);
+        }
+        setIsLoading(false);
+    }
 
     const handleClickGcash = async () => 
     {
@@ -102,6 +124,14 @@ const PaymentMethod = ({ AUTH, planType, amount, setIsPaymentAuthorizationSent, 
         setIsLoading(false);
     }
 
+    const handleClickCardConfirmation = () => {
+        dispatch(CONFIRMATION_ACTION.showConfirmationDialog({
+            mainHeader: `Pay through Card?`,
+            subHeader: '',
+            confirmCallback: () => handleCardPayment()
+        }));
+    }
+
     const handleClickGcashConfirmation = () => {
         dispatch(CONFIRMATION_ACTION.showConfirmationDialog({
             mainHeader: `Pay through Gcash?`,
@@ -120,6 +150,12 @@ const PaymentMethod = ({ AUTH, planType, amount, setIsPaymentAuthorizationSent, 
 
     const paymentMethods = 
     [
+        {
+            type: 'Credit or Debit Card',
+            logo: CARD_LOGO,
+            className: classes.cardPayment,
+            onClick: handleClickCardConfirmation
+        },
         {
             type: 'Gcash',
             logo: G_CASH_LOGO,
@@ -156,6 +192,15 @@ const PaymentMethod = ({ AUTH, planType, amount, setIsPaymentAuthorizationSent, 
                     <PropagateLoader size={ 20 } color={ Colors.info } />
                 </Grid>
             </Grid>
+        )
+    }
+
+    if (paymentMethod === 'Card') {
+        return (
+            <CardPayment 
+                planType={ planType }
+                paymentIntentId={ paymentIntentId }
+            />
         )
     }
 
