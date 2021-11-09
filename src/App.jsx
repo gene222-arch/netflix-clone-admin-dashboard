@@ -76,14 +76,12 @@ const App = ({ AUTH, history }) =>
 						)
 					}
 
-					{/* Employees or Super Administrator  */}
-					{
-						AUTH.role !== 'Subscriber' && (
-							<Route path='/:path?'>
-								<RenderRoutes routes={ PRIVATE_ROUTES } />
-							</Route>
-						)
-					}
+					{/* Subscriber subscription routes */}
+					<Route path='/subscriptions/:path?'>
+						<AuthLayout>
+							<RenderRoutes routes={ SUBSCRIPTION_ROUTES } />
+						</AuthLayout>
+					</Route>
 
 					{/* Employees */}
 					<Route path='/employees/verify/email' exact>
@@ -101,13 +99,14 @@ const App = ({ AUTH, history }) =>
 						)
 					}
 
-					{/* Subscriber subscription routes */}
-					<Route path='/subscriptions/:path?' exact>
-						<AuthLayout>
-							<RenderRoutes routes={ SUBSCRIPTION_ROUTES } />
-						</AuthLayout>
-					</Route>
-
+					{/* Employees or Super Administrator  */}
+					{
+						AUTH.role !== 'Subscriber' && (
+							<Route path='/:path?'>
+								<RenderRoutes routes={ PRIVATE_ROUTES } />
+							</Route>
+						)
+					}
 					<Route component={ NotFound } />
 				</Switch>
 			</MuiPickersUtilsProvider>

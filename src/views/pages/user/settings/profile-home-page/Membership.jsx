@@ -109,9 +109,13 @@ const Membership = ({ AUTH, paymentAuthorizationNotif, isFetchingPaymentAuthNoti
                     {
                         memberShipActionButtons.map(({ id, icon: Icon, primaryText, actionText, actionPath, isTextSecondary, isNavigatable, onClick }) => (
                             <ListItem key={ id }>
-                                <ListItemAvatar>
-                                    { Icon && <Icon color={ isTextSecondary ? 'disabled' : 'action' } /> }
-                                </ListItemAvatar>
+                                {
+                                    Icon && (
+                                        <ListItemAvatar>
+                                            <Icon color={ isTextSecondary ? 'disabled' : 'action' } />
+                                        </ListItemAvatar>
+                                    )
+                                }
                                 <ListItemText primary={ 
                                     <Typography variant="subtitle1" color={ isTextSecondary ? 'textSecondary' : 'inherit' }>
                                         { primaryText }
