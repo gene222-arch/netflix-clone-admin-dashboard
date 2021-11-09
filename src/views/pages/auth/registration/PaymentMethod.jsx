@@ -144,7 +144,8 @@ const PaymentMethod = ({ planType, amount }) =>
         history.push(PATH.REGISTER, { 
             ...state, 
             plan_type: planType, 
-            check_out_url: paymentSource.redirect.checkout_url 
+            check_out_url: paymentSource.redirect.checkout_url,
+            payment_method: paymentMethod
         });
     }
 
