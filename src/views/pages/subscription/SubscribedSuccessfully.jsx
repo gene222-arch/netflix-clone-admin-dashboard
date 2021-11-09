@@ -69,11 +69,11 @@ const SubscribedSuccessfully = ({ AUTH }) =>
         history.go(0);
     }
 
-    const onLoadSubscribeUser = async (userEmail, type) => 
+    const onLoadSubscribeUser = async (userEmail, type, paymentMethod) => 
     {
         setIsLoading(true);
         try {
-            await SUBSCRIPTION_API.storeAsync({ user_email: userEmail, type });
+            await SUBSCRIPTION_API.storeAsync({ user_email: userEmail, type, payment_method: paymentMethod });
             setHasError(false);
         } catch (error) {
             console.log(error);
@@ -86,9 +86,10 @@ const SubscribedSuccessfully = ({ AUTH }) =>
     {
         const userEmail = QueryParam.get('email');
         const type = QueryParam.get('type');
+        const paymentMethod = QueryParam.get('paymentMethod');
 
-        if (userEmail && type) {
-            onLoadSubscribeUser(userEmail, type);
+        if (userEmail && type && paymentMethod) {
+            onLoadSubscribeUser(userEmail, type, paymentMethod);
         }
 
         return () => {

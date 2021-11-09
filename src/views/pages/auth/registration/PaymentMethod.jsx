@@ -104,7 +104,8 @@ const PaymentMethod = ({ planType, amount }) =>
             const { data } = await PAYMENT_METHOD_API.ePaymentAsync({ 
                 amount, 
                 type: 'gcash',
-                email: state?.email
+                email: state?.email,
+                payment_method: 'Gcash'
             });
 
             setPaymentSource(data);
@@ -124,7 +125,8 @@ const PaymentMethod = ({ planType, amount }) =>
             const { data } = await PAYMENT_METHOD_API.ePaymentAsync({ 
                 amount, 
                 type: 'grab_pay',
-                email: state?.email
+                email: state?.email,
+                payment_method: 'Grab Pay'
             });
 
             setPaymentSource(data);
