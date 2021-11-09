@@ -12,6 +12,8 @@ import PropagateLoader from 'react-spinners/PropagateLoader'
 import { useHistory, useLocation } from 'react-router-dom';
 import PATH from './../../../../routes/path';
 import CardPayment from './CardPayment';
+import * as CONFIRMATION_ACTION from './../../../../redux/modules/confirm/actions'
+import { useDispatch } from 'react-redux';
 
 const paymentMethodUseStyles = makeStyles(theme => ({
     authorizedBtnContainer: {
@@ -73,6 +75,7 @@ const PAYMENT_SOURCE_DEFAULT_PROPS = {
 const PaymentMethod = ({ planType, amount }) => 
 {
     const classes = paymentMethodUseStyles();
+    const dispatch = useDispatch();
     const history = useHistory();
     const { state } = useLocation();
 
@@ -82,7 +85,7 @@ const PaymentMethod = ({ planType, amount }) =>
     const [ isPaymentProcessed, setIsPaymentProcessed ] = useState(false);
     const [ paymentMethod, setPaymentMethod ] = useState('');
 
-    const handleClickCard = async () => 
+    const handleCardPayment = async () => 
     {
         setIsLoading(true);
         try {
@@ -97,7 +100,7 @@ const PaymentMethod = ({ planType, amount }) =>
         setIsLoading(false);
     }
 
-    const handleClickGcash = async () => 
+    const handleGcashPayment = async () => 
     {
         setIsLoading(true);
         try {
@@ -118,7 +121,7 @@ const PaymentMethod = ({ planType, amount }) =>
         setIsLoading(false);
     }
 
-    const handleClickGrabPay = async () => 
+    const handleGrabPayPayment = async () => 
     {
         setIsLoading(true);
         try {
@@ -138,6 +141,31 @@ const PaymentMethod = ({ planType, amount }) =>
         }
         setIsLoading(false);
     }
+
+    const handleClickCardConfirmation = () => {
+        dispatch(CONFIRMATION_ACTION.showConfirmationDialog({
+            mainHeader: `Pay through Card?`,
+            subHeader: '',
+            confirmCallback: () => handleCardPayment()
+        }));
+    }
+
+    const handleClickGcashConfirmation = () => {
+        dispatch(CONFIRMATION_ACTION.showConfirmationDialog({
+            mainHeader: `Pay through Gcash?`,
+            subHeader: 'Once confirmed, a Gcash payment authorization will be sent to you that is valid within an hour. If an hour passes the email sent to you will be rendered useless.',
+            confirmCallback: () => handleGcashPayment()
+        }));
+    }
+
+    const handleClickGrabPayConfirmation = () => {
+        dispatch(CONFIRMATION_ACTION.showConfirmationDialog({
+            mainHeader: `Pay through Grab Pay?`,
+            subHeader: 'Once confirmed, a Grab Pay payment authorization will be sent to you that is valid within an hour. If an hour passes the email sent to you will be rendered useless.',
+            confirmCallback: () => handleGrabPayPayment()
+        }));
+    }
+
 
     const handleClickContinue = () => 
     {
@@ -159,7 +187,7 @@ const PaymentMethod = ({ planType, amount }) =>
                 color: Colors.dark,
                 fontWeight: 'bold'
             },
-            onClick: handleClickCard,
+            onClick: handleClickCardConfirmation,
             imgStyle: {
                 width: 130,
                 height: 80,
@@ -174,7 +202,7 @@ const PaymentMethod = ({ planType, amount }) =>
                 color: Colors.dark,
                 fontWeight: 'bold'
             },
-            onClick: handleClickGcash,
+            onClick: handleClickGcashConfirmation,
             imgStyle: {
                 width: 130,
                 height: 90,
@@ -189,7 +217,7 @@ const PaymentMethod = ({ planType, amount }) =>
                 color: Colors.dark,
                 fontWeight: 'bold'
             },
-            onClick: handleClickGrabPay,
+            onClick: handleClickGrabPayConfirmation,
             imgStyle: {
                 width: 130,
                 height: 90,
