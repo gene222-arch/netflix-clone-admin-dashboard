@@ -5,11 +5,13 @@ import { makeStyles, Typography, Button } from '@material-ui/core';
 import Colors from '../../../../constants/Colors';
 import G_CASH_LOGO from './../../../../assets/images/app/gcash.png'
 import GRAB_PAY_LOGO from './../../../../assets/images/app/grabpay.png'
+import CARD_LOGO from './../../../../assets/images/app/card.png'
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import * as PAYMENT_METHOD_API from './../../../../services/payment-method/payment.method'
 import PropagateLoader from 'react-spinners/PropagateLoader'
 import { useHistory, useLocation } from 'react-router-dom';
 import PATH from './../../../../routes/path';
+import CardPayment from './CardPayment';
 
 const paymentMethodUseStyles = makeStyles(theme => ({
     authorizedBtnContainer: {
@@ -75,8 +77,24 @@ const PaymentMethod = ({ planType, amount }) =>
     const { state } = useLocation();
 
     const [ paymentSource, setPaymentSource ] = useState(PAYMENT_SOURCE_DEFAULT_PROPS);
+    const [ paymentIntentId, setPaymentIntentId ] = useState('');
     const [ isLoading, setIsLoading ] = useState(false);
     const [ isPaymentProcessed, setIsPaymentProcessed ] = useState(false);
+
+    const handleClickCard = async () => 
+    {
+        setIsLoading(true);
+        try {
+            const { data } = await PAYMENT_METHOD_API.storePaymentIntentAsync({ amount });
+            setPaymentIntentId(data.id);
+            console.log(data.id)
+            setIsPaymentProcessed(true);
+        } catch (error) {
+            console.log(error);
+            setIsPaymentProcessed(false);
+        }
+        setIsLoading(false);
+    }
 
     const handleClickGcash = async () => 
     {
@@ -128,6 +146,21 @@ const PaymentMethod = ({ planType, amount }) =>
     const paymentMethods = 
     [
         {
+            type: 'Credit or Debit Card',
+            logo: CARD_LOGO,
+            style: {
+                backgroundColor: Colors.white,
+                color: Colors.dark,
+                fontWeight: 'bold'
+            },
+            onClick: handleClickCard,
+            imgStyle: {
+                width: 130,
+                height: 80,
+                objectFit: 'contain'
+            }
+        },
+        {
             type: 'Gcash',
             logo: G_CASH_LOGO,
             style: {
@@ -135,7 +168,12 @@ const PaymentMethod = ({ planType, amount }) =>
                 color: Colors.dark,
                 fontWeight: 'bold'
             },
-            onClick: handleClickGcash
+            onClick: handleClickGcash,
+            imgStyle: {
+                width: 130,
+                height: 90,
+                objectFit: 'contain'
+            }
         },
         {
             type: 'Grab Pay',
@@ -145,7 +183,12 @@ const PaymentMethod = ({ planType, amount }) =>
                 color: Colors.dark,
                 fontWeight: 'bold'
             },
-            onClick: handleClickGrabPay
+            onClick: handleClickGrabPay,
+            imgStyle: {
+                width: 130,
+                height: 90,
+                objectFit: 'contain'
+            }
         }
     ];
 
@@ -156,6 +199,16 @@ const PaymentMethod = ({ planType, amount }) =>
             setIsPaymentProcessed(false);
         }
     }, []); 
+
+
+    if (isPaymentProcessed && paymentIntentId) {
+        return (
+            <CardPayment 
+                planType={ planType } 
+                paymentIntentId={ paymentIntentId } 
+            />
+        )
+    }
 
     return (
         <Container maxWidth='xl'>
@@ -172,14 +225,14 @@ const PaymentMethod = ({ planType, amount }) =>
                             <Grid item xs={ 12 } sm={ 10 } md={ 8 } lg={ 8 }>
                                 <Grid container spacing={ 2 }>
                                 {
-                                    paymentMethods.map(({ type, logo, style, onClick }) => (
+                                    paymentMethods.map(({ type, logo, style, imgStyle, onClick }) => (
                                         <Card key={ type } style={ style } className={ classes.card } onClick={ onClick }>
                                             <CardContent>
                                                 <Grid container justify='space-between' alignItems='center'>
                                                     <Grid item>
                                                         <Grid container alignItems='center'>
                                                             <Grid item>
-                                                                <img src={ logo } width={ 100 } height={ 90 } />
+                                                                <img src={ logo } style={ imgStyle } />
                                                             </Grid>
                                                             <Grid item>
                                                                 <Typography variant='h5' color='initial'>

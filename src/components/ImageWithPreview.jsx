@@ -43,9 +43,11 @@ const ImageWithPreview = ({
         if (
             (! defaultImg || typeof defaultImg === 'object') &&
             (!apiSource && !filePreview)
-            ) return defaultImg;
+        ) {
+            return defaultImg;
+        }
 
-        if (apiSource && !filePreview) {
+        if (apiSource) {
             return <img src={ apiSource } className={ imgClass } style={{
                 width: '100%',
                 backgroundSize: 'contain'

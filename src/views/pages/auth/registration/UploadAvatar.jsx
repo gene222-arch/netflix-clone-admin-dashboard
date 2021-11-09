@@ -118,6 +118,7 @@ const UploadAvatar = () =>
                             name='Avatar'
                             inputID='avatar_preview'
                             inputName='avatar_preview'
+                            apiSource={ avatarPath }
                             filePreview={ avatarPreview }
                             imgClass={ classes.avatarImg }
                             handleChangeFile={ handleChangePosterFile }
