@@ -70,7 +70,7 @@ const AddProfile = ({ AUTH }) =>
 
     const onLoadCheckProfileIdInState = () => 
     {
-        if ('profileId' in state) 
+        if (state && 'profileId' in state) 
         {
             setIsProfileIdInState(true);
 
