@@ -80,6 +80,7 @@ const PaymentMethod = ({ planType, amount }) =>
     const [ paymentIntentId, setPaymentIntentId ] = useState('');
     const [ isLoading, setIsLoading ] = useState(false);
     const [ isPaymentProcessed, setIsPaymentProcessed ] = useState(false);
+    const [ paymentMethod, setPaymentMethod ] = useState('');
 
     const handleClickCard = async () => 
     {
@@ -87,8 +88,8 @@ const PaymentMethod = ({ planType, amount }) =>
         try {
             const { data } = await PAYMENT_METHOD_API.storePaymentIntentAsync({ amount });
             setPaymentIntentId(data.id);
-            console.log(data.id)
             setIsPaymentProcessed(true);
+            setPaymentMethod('Card');
         } catch (error) {
             console.log(error);
             setIsPaymentProcessed(false);
@@ -108,6 +109,7 @@ const PaymentMethod = ({ planType, amount }) =>
 
             setPaymentSource(data);
             setIsPaymentProcessed(true);
+            setPaymentMethod('Gcash');
         } catch (error) {
             console.log(error);
             setIsPaymentProcessed(false);
@@ -127,6 +129,7 @@ const PaymentMethod = ({ planType, amount }) =>
 
             setPaymentSource(data);
             setIsPaymentProcessed(true);
+            setPaymentMethod('Grab Pay');
         } catch (error) {
             console.log(error);
             setIsPaymentProcessed(false);
@@ -197,6 +200,7 @@ const PaymentMethod = ({ planType, amount }) =>
             setIsLoading(false);
             setPaymentSource(PAYMENT_SOURCE_DEFAULT_PROPS);
             setIsPaymentProcessed(false);
+            setPaymentMethod('');
         }
     }, []); 
 
@@ -204,6 +208,7 @@ const PaymentMethod = ({ planType, amount }) =>
     if (isPaymentProcessed && paymentIntentId) {
         return (
             <CardPayment 
+                paymentMethod={ paymentMethod }
                 planType={ planType } 
                 paymentIntentId={ paymentIntentId } 
             />

@@ -41,7 +41,7 @@ const CARD_DETAILS_DEFAULT_PROPS =
     plan_type: ''
 }
 
-const CardPayment = ({ planType, paymentIntentId }) => 
+const CardPayment = ({ paymentMethod, planType, paymentIntentId }) => 
 {
     const classes = cardPaymentUseStyles();
     const { state } = useLocation();
@@ -65,12 +65,15 @@ const CardPayment = ({ planType, paymentIntentId }) =>
                 plan_type: planType,
                 email: state?.email 
             });
+
             history.push(PATH.REGISTER, {
                 ...state,
                 first_name,
                 last_name,
-                plan_type: planType
+                plan_type: planType,
+                payment_method: paymentMethod
             });
+            
         } catch (error) {
             console.log(error);
         }
