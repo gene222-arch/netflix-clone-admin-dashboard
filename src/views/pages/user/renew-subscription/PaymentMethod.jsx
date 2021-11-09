@@ -64,7 +64,8 @@ const PaymentMethod = ({ AUTH, planType, amount, setIsPaymentAuthorizationSent, 
                 type: planType, 
                 amount, 
                 type: 'gcash' ,
-                send_payment_authorization_notif: true
+                send_payment_authorization_notif: true,
+                payment_method: 'Gcash'
             };
 
             await PAYMENT_METHOD_API.ePaymentAsync(gcashPayload);
@@ -86,7 +87,8 @@ const PaymentMethod = ({ AUTH, planType, amount, setIsPaymentAuthorizationSent, 
                 type: planType, 
                 amount, 
                 type: 'grab_pay',
-                send_payment_authorization_notif: true 
+                send_payment_authorization_notif: true,
+                payment_method: 'Grab Pay'
             };
 
             await PAYMENT_METHOD_API.ePaymentAsync(grabPayPayload);

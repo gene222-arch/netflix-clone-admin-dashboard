@@ -64,6 +64,7 @@ const PaymentMethod = ({ AUTH, planType, amount, setIsPaymentAuthorizationSent, 
                 amount, 
                 type: 'gcash' ,
                 send_payment_authorization_notif: true,
+                payment_method: 'Gcash',
                 request_type: 'PUT'
             };
 
@@ -87,6 +88,7 @@ const PaymentMethod = ({ AUTH, planType, amount, setIsPaymentAuthorizationSent, 
                 amount, 
                 type: 'grab_pay',
                 send_payment_authorization_notif: true,
+                payment_method: 'Grab Pay',
                 request_type: 'PUT' 
             };
 
