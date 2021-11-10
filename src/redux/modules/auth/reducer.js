@@ -182,11 +182,7 @@ export default (state = initialState, { type, payload }) =>
 
 
            case BROADCAST_CREATE_PROFILE:
-                const toAddProfileExists = state.profiles.find(({ id }) => id === payload.profile.id);
-
-                if (! toAddProfileExists) {
-                    currentProfiles = [ ...profiles, payload.profile ];
-                }
+                currentProfiles = [ ...state.profiles, payload.profile ];
 
                 return {
                     ...state,
@@ -197,23 +193,7 @@ export default (state = initialState, { type, payload }) =>
 
             case BROADCAST_UPDATE_PROFILE:
                 const payloadProfile = payload.profile;
-
-                currentProfiles = currentProfiles.map(profile => {
-                    if (profile.id === payload.profile.id) {
-                        if (
-                            profile.name !== payloadProfile.name ||
-                            profile.avatar !== payloadProfile.avatar ||
-                            profile.previous_avatar !== payloadProfile.previous_avatar ||
-                            profile.is_for_kids !== payloadProfile.is_for_kids ||
-                            profile.is_profile_locked !== payloadProfile.is_profile_locked ||
-                            profile.pin_code !== payloadProfile.pin_code
-                        ) {
-                            return payloadProfile;
-                        }
-                    }
-
-                    return profile;
-                });
+                currentProfiles = currentProfiles.map(profile => profile.id === payload.profile.id ? payloadProfile : profile);
 
                 return {
                     ...state,
@@ -223,11 +203,7 @@ export default (state = initialState, { type, payload }) =>
                 }
 
            case BROADCAST_DELETE_PROFILE_BY_ID:
-                const toDeleteProfileExists = state.profiles.find(({ id }) => id === payload.id);
-
-                if (toDeleteProfileExists) {
-                    currentProfiles = currentProfiles.filter(({ id }) => id !== payload.id)
-                }
+                currentProfiles = currentProfiles.filter(({ id }) => id !== payload.id)
 
                 return {
                     ...state,

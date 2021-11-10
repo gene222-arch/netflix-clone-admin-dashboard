@@ -171,7 +171,7 @@ const AvatarList = ({ AUTH, id, handleClickSetId, handleChangePinLock }) =>
                                 <ListItemAvatar>
                                     <img src={ avatar } className={ classes.avatar } />
                                 </ListItemAvatar>
-                                <ListItemText primary={ name } secondary={
+                                <ListItemText primary={ name.toUpperCase() } secondary={
                                     !is_for_kids ? "All Maturity Ratings" : <ChildCareRounded /> 
                                 }/>
                                 {
@@ -207,7 +207,7 @@ const AvatarList = ({ AUTH, id, handleClickSetId, handleChangePinLock }) =>
                                     <ListItemSecondaryAction onClick={ 
                                         () => is_profile_locked
                                             ? handleClickToggleModal(pin_code, profileId, name, 'UPDATE')
-                                            : handleClickUpdate()
+                                            : handleClickUpdate(profileId)
                                      }>
                                         <EditIcon className={ classes.updateIcon } />
                                     </ListItemSecondaryAction>
