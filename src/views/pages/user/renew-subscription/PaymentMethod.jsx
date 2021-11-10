@@ -15,7 +15,7 @@ import { selectAuth } from './../../../../redux/modules/auth/selector';
 import * as AUTH_ACTION from './../../../../redux/modules/auth/actions';
 import * as CONFIRMATION_ACTION from './../../../../redux/modules/confirm/actions';
 import CARD_LOGO from './../../../../assets/images/app/card.png';
-import CardPayment from './../update-plan-subscription/CardPayment';
+import CardPayment from './../payment-method/CardPayment';
 
 const paymentMethodStyles = makeStyles(theme => ({
     card: {
