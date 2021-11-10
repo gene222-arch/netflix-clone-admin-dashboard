@@ -80,6 +80,24 @@ const AvatarList = ({ AUTH, id, handleClickSetId, handleChangePinLock }) =>
         setSelectedProfileName('');
         setSelectedProfilePinCode('');
     }
+
+    const handleDeleteConfirmation = (profileId, profileName) => {
+        dispatch(CONFIRMATION_ACTION.showConfirmationDialog({
+            mainHeader: (
+                <Typography variant="h6" color="error">
+                    <strong>{ `Delete ${ profileName }` }</strong>
+                </Typography>
+            ),
+            subHeader: 'Once confirmed, saved data in this profile will be deleted permanently and recovery of loss data is not possible',
+            confirmCallback: () => dispatch(AUTH_ACTION.deleteProfileByIdStart({ id: profileId }))
+        }));
+    }
+
+    const handleClickUpdate = (profileId) => {
+        history.push(PATH.ADD_PROFILE, {
+            profileId
+        });
+    }
     
     const handleClickSelect = () => 
     {
@@ -177,14 +195,20 @@ const AvatarList = ({ AUTH, id, handleClickSetId, handleChangePinLock }) =>
                                 <ListItem>
                                     <ListItemText primary="Delete" />
                                     <ListItemSecondaryAction onClick={ 
-                                        () => handleClickToggleModal(pin_code, profileId, name, 'DELETE') 
+                                        () => is_profile_locked
+                                            ? handleClickToggleModal(pin_code, profileId, name, 'DELETE')
+                                            : handleDeleteConfirmation(profileId, name) 
                                     }>
                                         <DeleteIcon className={ classes.deleteIcon } />
                                     </ListItemSecondaryAction>
                                 </ListItem>
                                 <ListItem>
                                     <ListItemText primary="Update Profile" />
-                                    <ListItemSecondaryAction onClick={ () => handleClickToggleModal(pin_code, profileId, name, 'UPDATE') }>
+                                    <ListItemSecondaryAction onClick={ 
+                                        () => is_profile_locked
+                                            ? handleClickToggleModal(pin_code, profileId, name, 'UPDATE')
+                                            : handleClickUpdate()
+                                     }>
                                         <EditIcon className={ classes.updateIcon } />
                                     </ListItemSecondaryAction>
                                 </ListItem>
