@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { List, ListItem, ListItemAvatar, ListItemText, Collapse, ListItemSecondaryAction, Divider, Button, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
@@ -15,6 +15,14 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import Colors from './../../../../../constants/Colors';
 import { useHistory } from 'react-router';
 import EditIcon from '@material-ui/icons/Edit';
+import InputPinDialog from './../../InputPinDialog';
+
+const PIN_PROPS = {
+    num1: '',
+    num2: '',
+    num3: '',
+    num4: ''
+}
 
 const avatarListUseStyles = makeStyles(theme => ({
     avatar: {
@@ -54,28 +62,91 @@ const AvatarList = ({ AUTH, id, handleClickSetId, handleChangePinLock }) =>
     const dispatch = useDispatch();
     const history = useHistory();
 
-    const deleteProfileById = (id) => dispatch(AUTH_ACTION.deleteProfileByIdStart({ id }));
+    const [ isIncorrectPin, setIsIncorrectPin ] = useState(false);
+    const [ pin, setPin ] = useState(PIN_PROPS);
+    const [ showInputPinDialog, setShowInputPinDialog ] = useState(false);
+    const [ selectedProfileId, setSelectedProfileId ] = useState('');
+    const [ selectedProfileName, setSelectedProfileName ] = useState('');
+    const [ selectedProfilePinCode, setSelectedProfilePinCode ] = useState('');
+    const [ action, setAction ] = useState('');
 
-    const handleClickDeleteConfirmation = (id, profileName) => {
-        dispatch(CONFIRMATION_ACTION.showConfirmationDialog({
-            mainHeader: `Delete ${ profileName }`,
-            subHeader: 'Once confirmed, saved data in this profile will be deleted permanently and recovery of loss data is not possible',
-            confirmCallback: () => deleteProfileById(id)
-        }));
+    const cleanUp = () => 
+    {
+        setAction('');
+        setIsIncorrectPin(false);
+        setPin(PIN_PROPS);
+        setShowInputPinDialog(false);
+        setSelectedProfileId('');
+        setSelectedProfileName('');
+        setSelectedProfilePinCode('');
+    }
+    
+    const handleClickSelect = () => 
+    {
+        const pinValue = Object.values(pin).join('');
+
+        if (pinValue === selectedProfilePinCode) 
+        {   
+            if (action === 'DELETE') {
+                dispatch(CONFIRMATION_ACTION.showConfirmationDialog({
+                    mainHeader: (
+                        <Typography variant="h6" color="error">
+                            <strong>{ `Delete ${ selectedProfileName }` }</strong>
+                        </Typography>
+                    ),
+                    subHeader: 'Once confirmed, saved data in this profile will be deleted permanently and recovery of loss data is not possible',
+                    confirmCallback: () => dispatch(AUTH_ACTION.deleteProfileByIdStart({ id: selectedProfileId }))
+                }));
+            }
+
+            if (action === 'UPDATE') {
+                history.push(PATH.ADD_PROFILE, {
+                    profileId: selectedProfileId
+                });
+            }
+
+            cleanUp();
+        }
+        
+        if (pinValue !== selectedProfilePinCode) 
+        {
+            const nextfield = document.querySelector(`input[name=num1]`);
+            nextfield.focus();  
+
+            setIsIncorrectPin(true);
+            setPin(PIN_PROPS);
+        }
     }
 
-    const handleClickUpdateButton = (id) => {
-        history.push(PATH.ADD_PROFILE, {
-            profileId: id
-        })
+    const handleClickToggleModal = (pinCode, profileId, profileName, actionName) => 
+    {
+        setAction(actionName);
+
+        setShowInputPinDialog(! showInputPinDialog);
+        setSelectedProfileId(!selectedProfileId ? profileId : '');
+        setSelectedProfileName(profileName);
+        setSelectedProfilePinCode(!selectedProfilePinCode ? pinCode : '');
     }
+
+    useEffect(() => {
+        return () => {
+            cleanUp();
+        }
+    }, []);
 
     return (
         <List className={ classes.container }>
-            <Typography variant="subtitle1" color="initial">
-            </Typography>
+            <InputPinDialog
+                isIncorrectPin={ isIncorrectPin }
+                open={ showInputPinDialog }
+                pin={ pin }
+                setPin={ setPin }
+                handleClickToggleModal={ handleClickToggleModal } 
+                handleClickCancel={ cleanUp }
+                handleClickSave={ handleClickSelect }
+            />
             {
-                AUTH.profiles.map(({ id: profileId, name, avatar, is_profile_locked, is_for_kids }, index) => (
+                AUTH.profiles.map(({ id: profileId, name, avatar, pin_code, is_profile_locked, is_for_kids }, index) => (
                     <div key={ index }>
                         <List className={classes.profileContainer} onClick={ () => handleClickSetId(profileId) } >
                             <ListItem>
@@ -105,13 +176,15 @@ const AvatarList = ({ AUTH, id, handleClickSetId, handleChangePinLock }) =>
                                 </ListItem>
                                 <ListItem>
                                     <ListItemText primary="Delete" />
-                                    <ListItemSecondaryAction onClick={ () => handleClickDeleteConfirmation(profileId, name) }>
+                                    <ListItemSecondaryAction onClick={ 
+                                        () => handleClickToggleModal(pin_code, profileId, name, 'DELETE') 
+                                    }>
                                         <DeleteIcon className={ classes.deleteIcon } />
                                     </ListItemSecondaryAction>
                                 </ListItem>
                                 <ListItem>
                                     <ListItemText primary="Update Profile" />
-                                    <ListItemSecondaryAction onClick={ () => handleClickUpdateButton(profileId) }>
+                                    <ListItemSecondaryAction onClick={ () => handleClickToggleModal(pin_code, profileId, name, 'UPDATE') }>
                                         <EditIcon className={ classes.updateIcon } />
                                     </ListItemSecondaryAction>
                                 </ListItem>
