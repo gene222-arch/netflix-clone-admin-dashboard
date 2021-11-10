@@ -12,6 +12,7 @@ const {
 
     BROADCAST_CREATE_PROFILE,
     BROADCAST_DELETE_PROFILE_BY_ID,
+    BROADCAST_UPDATE_PROFILE,
 
     CANCEL_SUBSCRIPTION_START,
     CANCEL_SUBSCRIPTION_SUCCESS,
@@ -110,6 +111,11 @@ export const broadcastCreateProfile = (payload) => ({
 
 export const broadcastDeleteProfileById = (payload) => ({
     type: BROADCAST_DELETE_PROFILE_BY_ID,
+    payload
+});
+
+export const broadcastUpdateProfile = (payload) => ({
+    type: BROADCAST_UPDATE_PROFILE,
     payload
 });
 

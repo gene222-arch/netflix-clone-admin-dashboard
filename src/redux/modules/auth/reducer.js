@@ -12,6 +12,7 @@ const {
 
     BROADCAST_CREATE_PROFILE,
     BROADCAST_DELETE_PROFILE_BY_ID,
+    BROADCAST_UPDATE_PROFILE,
 
     CANCEL_SUBSCRIPTION_START,
     CANCEL_SUBSCRIPTION_SUCCESS,
@@ -194,6 +195,33 @@ export default (state = initialState, { type, payload }) =>
                     error
                 }
 
+            case BROADCAST_UPDATE_PROFILE:
+                const payloadProfile = payload.profile;
+
+                currentProfiles = currentProfiles.map(profile => {
+                    if (profile.id === payload.profile.id) {
+                        if (
+                            profile.name === payloadProfile.name ||
+                            profile.avatar === payloadProfile.avatar ||
+                            profile.previous_avatar === payloadProfile.previous_avatar ||
+                            profile.is_for_kids === payloadProfile.is_for_kids ||
+                            profile.is_profile_locked === payloadProfile.is_profile_locked ||
+                            profile.pin_code === payloadProfile.pin_code
+                        ) {
+                            return payloadProfile;
+                        }
+                    }
+
+                    return profile;
+                });
+
+                return {
+                    ...state,
+                    profiles: currentProfiles,
+                    isLoading,
+                    error
+                }
+
            case BROADCAST_DELETE_PROFILE_BY_ID:
                 const toDeleteProfileExists = state.profiles.find(({ id }) => id === payload.id);
 
@@ -207,13 +235,6 @@ export default (state = initialState, { type, payload }) =>
                     isLoading,
                     error
                 }
-                
-                return {
-                    ...state,
-                    isLoading,
-                    error
-                }
-
             
         case CANCEL_SUBSCRIPTION_SUCCESS:
             return {

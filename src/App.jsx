@@ -57,6 +57,14 @@ const App = ({ AUTH, history }) =>
 						id: response.data.id
 					}));
 				});
+
+			ECHO_UTIL()
+				.private(`subscriber.profile.updated.${ AUTH.user.id }`)
+				.listen('SubscriberProfileUpdatedEvent', (response) => {
+					dispatch(AUTH_ACTION.broadcastUpdateProfile({
+						id: response.data
+					}));
+				});
 		}
 	}, [AUTH.isAuthenticated]);
 
