@@ -201,12 +201,12 @@ export default (state = initialState, { type, payload }) =>
                 currentProfiles = currentProfiles.map(profile => {
                     if (profile.id === payload.profile.id) {
                         if (
-                            profile.name === payloadProfile.name ||
-                            profile.avatar === payloadProfile.avatar ||
-                            profile.previous_avatar === payloadProfile.previous_avatar ||
-                            profile.is_for_kids === payloadProfile.is_for_kids ||
-                            profile.is_profile_locked === payloadProfile.is_profile_locked ||
-                            profile.pin_code === payloadProfile.pin_code
+                            profile.name !== payloadProfile.name ||
+                            profile.avatar !== payloadProfile.avatar ||
+                            profile.previous_avatar !== payloadProfile.previous_avatar ||
+                            profile.is_for_kids !== payloadProfile.is_for_kids ||
+                            profile.is_profile_locked !== payloadProfile.is_profile_locked ||
+                            profile.pin_code !== payloadProfile.pin_code
                         ) {
                             return payloadProfile;
                         }

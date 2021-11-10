@@ -62,7 +62,7 @@ const App = ({ AUTH, history }) =>
 				.private(`subscriber.profile.updated.${ AUTH.user.id }`)
 				.listen('SubscriberProfileUpdatedEvent', (response) => {
 					dispatch(AUTH_ACTION.broadcastUpdateProfile({
-						id: response.data
+						profile: response.data
 					}));
 				});
 		}
