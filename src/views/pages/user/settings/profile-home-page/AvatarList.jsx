@@ -1,5 +1,5 @@
 import React from 'react'
-import { List, ListItem, ListItemAvatar, ListItemText, Collapse, ListItemSecondaryAction, Divider, Button } from '@material-ui/core';
+import { List, ListItem, ListItemAvatar, ListItemText, Collapse, ListItemSecondaryAction, Divider, Button, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
@@ -72,6 +72,8 @@ const AvatarList = ({ AUTH, id, handleClickSetId, handleChangePinLock }) =>
 
     return (
         <List className={ classes.container }>
+            <Typography variant="subtitle1" color="initial">
+            </Typography>
             {
                 AUTH.profiles.map(({ id: profileId, name, avatar, is_profile_locked, is_for_kids }, index) => (
                     <div key={ index }>
