@@ -45,25 +45,31 @@ const App = ({ AUTH, history }) =>
 			ECHO_UTIL()
 				.private(`subscriber.profile.created.${ AUTH.user.id }`)
 				.listen('SubscriberProfileCreatedEvent', (response) => {
-					dispatch(AUTH_ACTION.broadcastCreateProfile({
-						profile: response.data
-					}));
+					if (response.platform === 'android') {
+						dispatch(AUTH_ACTION.broadcastCreateProfile({
+							profile: response.data
+						}));
+					}
 				});
 
 			ECHO_UTIL()
 				.private(`subscriber.profile.deleted.${ AUTH.user.id }`)
 				.listen('SubscriberProfileDeletedEvent', (response) => {
-					dispatch(AUTH_ACTION.broadcastDeleteProfileById({
-						id: response.data.id
-					}));
+					if (response.platform === 'android') {
+						dispatch(AUTH_ACTION.broadcastDeleteProfileById({
+							id: response.data.id
+						}));
+					}
 				});
 
 			ECHO_UTIL()
 				.private(`subscriber.profile.updated.${ AUTH.user.id }`)
 				.listen('SubscriberProfileUpdatedEvent', (response) => {
-					dispatch(AUTH_ACTION.broadcastUpdateProfile({
-						profile: response.data
-					}));
+					if (response.platform === 'android') {
+						dispatch(AUTH_ACTION.broadcastUpdateProfile({
+							profile: response.data
+						}));
+					}
 				});
 		}
 	}, [AUTH.isAuthenticated]);
