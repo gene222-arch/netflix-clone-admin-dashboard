@@ -87,7 +87,7 @@ const ProfileHomePage = ({ AUTH, NOTIFICATIONS }) =>
     }, []);
 
     return (
-        <Container maxWidth="md" className={ classes.container } style={{ height: AUTH.profiles.length <= 2 ? '90vh' : 'auto' }}>
+        <Container maxWidth="md" className={ classes.container } style={{ height: (AUTH.profiles.length <= 2) && !id ? '90vh' : 'auto' }}>
             <Grid container spacing={1} alignItems='center'>
                 <Grid item>
                     <Typography variant="h4" color="initial" gutterBottom>
