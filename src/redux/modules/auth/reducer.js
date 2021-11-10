@@ -10,6 +10,9 @@ const {
     AUTH_USER_SUCCESS,
     AUTH_USER_FAILED,
 
+    BROADCAST_CREATE_PROFILE,
+    BROADCAST_DELETE_PROFILE_BY_ID,
+
     CANCEL_SUBSCRIPTION_START,
     CANCEL_SUBSCRIPTION_SUCCESS,
     CANCEL_SUBSCRIPTION_FAILED,
@@ -127,6 +130,8 @@ export default (state = initialState, { type, payload }) =>
         error 
     } = initialState;
 
+    let currentProfiles = [ ...state.profiles ];
+
     switch (type) 
     {
         case ADD_PROFILE_START:
@@ -173,6 +178,42 @@ export default (state = initialState, { type, payload }) =>
                 permissions,
                 error,
             };
+
+
+           case BROADCAST_CREATE_PROFILE:
+                const toAddProfileExists = state.profiles.find(({ id }) => id === payload.profile.id);
+
+                if (! toAddProfileExists) {
+                    currentProfiles = [ ...profiles, payload.profile ];
+                }
+
+                return {
+                    ...state,
+                    profiles: currentProfiles,
+                    isLoading,
+                    error
+                }
+
+           case BROADCAST_DELETE_PROFILE_BY_ID:
+                const toDeleteProfileExists = state.profiles.find(({ id }) => id === payload.id);
+
+                if (toDeleteProfileExists) {
+                    currentProfiles = currentProfiles.filter(({ id }) => id !== payload.id)
+                }
+
+                return {
+                    ...state,
+                    profiles: currentProfiles,
+                    isLoading,
+                    error
+                }
+                
+                return {
+                    ...state,
+                    isLoading,
+                    error
+                }
+
             
         case CANCEL_SUBSCRIPTION_SUCCESS:
             return {

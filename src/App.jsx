@@ -41,6 +41,22 @@ const App = ({ AUTH, history }) =>
 						paymentAuthorizationNotification: response.data
 					}));
 				});
+
+			ECHO_UTIL()
+				.private(`subscriber.profile.created.${ AUTH.user.id }`)
+				.listen('SubscriberProfileCreatedEvent', (response) => {
+					dispatch(AUTH_ACTION.broadcastCreateProfile({
+						profile: response.data
+					}));
+				});
+
+			ECHO_UTIL()
+				.private(`subscriber.profile.deleted.${ AUTH.user.id }`)
+				.listen('SubscriberProfileDeletedEvent', (response) => {
+					dispatch(AUTH_ACTION.broadcastDeleteProfileById({
+						id: response.data.id
+					}));
+				});
 		}
 	}, [AUTH.isAuthenticated]);
 

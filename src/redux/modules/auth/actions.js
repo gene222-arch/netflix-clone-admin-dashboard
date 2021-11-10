@@ -10,10 +10,13 @@ const {
     AUTH_USER_SUCCESS,
     AUTH_USER_FAILED,
 
+    BROADCAST_CREATE_PROFILE,
+    BROADCAST_DELETE_PROFILE_BY_ID,
+
     CANCEL_SUBSCRIPTION_START,
     CANCEL_SUBSCRIPTION_SUCCESS,
     CANCEL_SUBSCRIPTION_FAILED,
-    
+
     DELETE_PROFILE_BY_ID_START,
     DELETE_PROFILE_BY_ID_SUCCESS,
     DELETE_PROFILE_BY_ID_FAILED,
@@ -97,6 +100,16 @@ export const addProfileSuccess = (payload) => ({
 
 export const addProfileFailed = (payload) => ({
     type: ADD_PROFILE_FAILED,
+    payload
+});
+
+export const broadcastCreateProfile = (payload) => ({
+    type: BROADCAST_CREATE_PROFILE,
+    payload
+});
+
+export const broadcastDeleteProfileById = (payload) => ({
+    type: BROADCAST_DELETE_PROFILE_BY_ID,
     payload
 });
 
