@@ -205,7 +205,9 @@ const UserProfile = ({ AUTH }) =>
                                 </Grid>
                             ))
                         }
-                        <AddProfileCard />
+                        {
+                            profileLimit !== AUTH.profiles.length && <AddProfileCard />
+                        }
                     </Grid>
                 </Grid>
             </Grid>
