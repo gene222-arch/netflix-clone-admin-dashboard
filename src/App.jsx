@@ -57,7 +57,7 @@ const App = ({ AUTH, history }) =>
 				.listen('SubscriberProfileDeletedEvent', (response) => {
 					if (response.platform === 'android') {
 						dispatch(AUTH_ACTION.broadcastDeleteProfileById({
-							id: response.data.id
+							id: response.data.profileId
 						}));
 					}
 				});
