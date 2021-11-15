@@ -98,7 +98,7 @@ const MonthlySubscriptionRevenue = ({ DASHBOARD }) =>
         ],
         tooltip: {
             shared: true,
-            pointFormat: '{series.name}: <b>{point.y}</b><br/>',
+            pointFormat: '{series.name}: <b>P{point.y}.00</b><br/>',
             backgroundColor: 'rgba(0, 0, 0, 0.85)',
             style: {
                 color: '#F0F0F0'
@@ -136,7 +136,7 @@ const MonthlySubscriptionRevenue = ({ DASHBOARD }) =>
             .monthly_subscription_revenue
             .map(val => 
             {
-                val = parseInt(val);
+                val = parseFloat(val);
 
                 if (val === parseInt(mostActiveCount)) 
                 {
