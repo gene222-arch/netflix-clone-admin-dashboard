@@ -17,6 +17,13 @@ export const fetchByTokenAsync = async () =>
         .catch(error => Promise.reject(error.response.data));
 }
 
+export const updateNameAsync = async (payload) => 
+{
+    return await axiosInstance()
+        .put('/users/name', payload)
+        .then(response => response.data)
+        .catch(error => Promise.reject(error.response.data));
+}
 
 export const updateEmailAsync = async (payload) => 
 {
