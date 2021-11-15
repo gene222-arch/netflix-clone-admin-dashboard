@@ -24,7 +24,7 @@ const membershipUseStyles = makeStyles(theme => ({
 }));
 
 
-const Membership = ({ AUTH, paymentAuthorizationNotif, isFetchingPaymentAuthNotif }) => 
+const Membership = ({ AUTH, paymentAuthorizationNotif }) => 
 {
     const theme = useTheme();
 
@@ -35,8 +35,6 @@ const Membership = ({ AUTH, paymentAuthorizationNotif, isFetchingPaymentAuthNoti
 
     const billingDetailsActionText = () =>
     {
-        if (isFetchingPaymentAuthNotif) return <CircularProgress />
-
         if (AUTH.subscription_details.status === 'subscribed') return 'Manage Plan';
 
         if (paymentAuthorizationNotif.status === 'pending' || AUTH.payment_authorization_status === 'sent') return 'Pending email';

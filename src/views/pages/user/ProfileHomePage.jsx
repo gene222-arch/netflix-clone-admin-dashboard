@@ -48,7 +48,6 @@ const ProfileHomePage = ({ AUTH, NOTIFICATIONS }) =>
     const history = useHistory();
 
     const [ id, setId ] = useState(null);
-    const [ isFetchingPaymentAuthNotif, setIsFetchingPaymentAuthNotif ] = useState(false);
     const [ paymentAuthorizationNotif, setPaymentAuthorizationNotif ] = useState(NOTIFICATION_DEFAULT_PROPS);
 
     const handleClickSetId = (profileId) => setId(!id ? profileId : null);
@@ -57,7 +56,6 @@ const ProfileHomePage = ({ AUTH, NOTIFICATIONS }) =>
 
     const onLoadFetchPaymentAuthorization = async () =>
     {
-        setIsFetchingPaymentAuthNotif(true);
         try {
             const { data, status } = await NOTIFICATION_API.findCurrentPaymentAuthorizationByUserIdAsync();
 
@@ -69,7 +67,6 @@ const ProfileHomePage = ({ AUTH, NOTIFICATIONS }) =>
         } catch (error) {
             console.log(error);
         }
-        setIsFetchingPaymentAuthNotif(false);
     }
 
     useEffect(() => 
@@ -78,7 +75,6 @@ const ProfileHomePage = ({ AUTH, NOTIFICATIONS }) =>
         return () => {
             setId(null);
             setPaymentAuthorizationNotif(NOTIFICATION_DEFAULT_PROPS);
-            setIsFetchingPaymentAuthNotif(false);
         }
     }, [AUTH.subscription_details]);
 
@@ -105,10 +101,7 @@ const ProfileHomePage = ({ AUTH, NOTIFICATIONS }) =>
             </Grid>
             
             <Divider />
-                <Membership 
-                    isFetchingPaymentAuthNotif={ isFetchingPaymentAuthNotif }
-                    paymentAuthorizationNotif={ paymentAuthorizationNotif } 
-                />
+                <Membership paymentAuthorizationNotif={ paymentAuthorizationNotif } />
             <Divider />
 
             <Grid container spacing={1} className={ classes.gridContainer } >

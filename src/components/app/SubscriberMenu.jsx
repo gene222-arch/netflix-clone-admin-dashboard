@@ -73,7 +73,7 @@ const SubscriberMenu = ({ AUTH, anchorEl, setAnchorEl }) =>
     const menuStyle = !useMediaQuery(theme.breakpoints.only('xs')) ? 
     {  
         width: '14rem',
-        height: '20rem'
+        height: '25rem'
     } : {
         width: '100%',
         height: '100%',
