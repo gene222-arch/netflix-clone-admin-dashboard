@@ -253,6 +253,7 @@ const MovieInputFields = ({ movie, setMovie, cardHeaderTitle, saveButtonCallback
             dispatch(CAST_ACTION.fetchAllCastsStart());
             dispatch(DIRECTOR_ACTION.fetchAllDirectorsStart());
             dispatch(GENRE_ACTION.fetchAllGenresStart());
+            dispatch(MOVIE_ACTION.fetchAllMoviesStart());
         });
 
         return () => {

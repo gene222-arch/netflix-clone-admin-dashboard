@@ -212,6 +212,7 @@ const ComingSoonMovieInputFields = ({ comingSoonMovie, setComingSoonMovie, cardH
             dispatch(CAST_ACTION.fetchAllCastsStart());
             dispatch(DIRECTOR_ACTION.fetchAllDirectorsStart());
             dispatch(GENRE_ACTION.fetchAllGenresStart());
+            dispatch(COMING_SOON_MOVIE_ACTION.fetchAllComingSoonMoviesStart());
         });
 
         return () => {
