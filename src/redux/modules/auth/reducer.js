@@ -283,8 +283,7 @@ export default (state = initialState, { type, payload }) =>
                 selectedProfile: payload.profile
             }
 
-        case UPDATE_USER_DETAILS: 
-        
+        case UPDATE_USER_DETAILS:
             return {
                 ...state,
                 user: { ...state.user, ...payload },

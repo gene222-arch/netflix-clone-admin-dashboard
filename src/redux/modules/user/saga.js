@@ -63,12 +63,13 @@ function* updateUserEmailSaga(payload)
 function* updateUserNameSaga(payload)
 {
     try {
+        const { path, ...name } = payload;
         const { message, status } = yield call(API.updateNameAsync, payload);
 
-        yield put(updateUserDetails(payload));
+        yield put(updateUserDetails(name));
         yield put(updateUserNameSuccess(payload));
         yield put(showAlert({ status, message }));
-        yield put(push(payload.path));
+        yield put(push(path));
     } catch ({ message, status }) {
         yield put(updateUserNameFailed({ message }));
         yield put(showAlert({ status, message: ERROR_MESSAGE_ON_UPDATE }));

@@ -80,7 +80,8 @@ const Account = ({ AUTH, ERROR_MESSAGE, HAS_ERROR_MESSAGE }) =>
     const classes = useStyles();
     const dispatch = useDispatch();
 
-    const [ name, setName ] = useState({ first_name: AUTH.user.first_name, last_name: AUTH.user.last_name });
+    const [ firstName, setFirstName ] = useState(AUTH.user.first_name);
+    const [ lastName, setLastName ] = useState(AUTH.user.last_name);
     const [ email, setEmail ] = useState(AUTH.user.email);
     const [ currentPassword, setCurrentPassword ] = useState('');
     const [ password, setPassword ] = useState('');
@@ -88,7 +89,7 @@ const Account = ({ AUTH, ERROR_MESSAGE, HAS_ERROR_MESSAGE }) =>
     const [ isPasswordEditable, setIsPasswordEditable ] = useState(false);
     const [ isNameEditable, setIsNameEditable ] = useState(false);
 
-    const handleClickSaveName = () => 1;
+    const handleClickSaveName = () => dispatch(USER_ACTION.updateUserNameStart({ first_name: firstName, last_name: lastName, path: PATH.SETTINGS }));;
 
     const handleClickSaveEmail = () => dispatch(USER_ACTION.updateUserEmailStart({ email, path: PATH.SETTINGS }));
 
@@ -105,7 +106,8 @@ const Account = ({ AUTH, ERROR_MESSAGE, HAS_ERROR_MESSAGE }) =>
     {
         return () => 
         {
-            setName({ first_name: AUTH.user.first_name, last_name: AUTH.user.last_name });
+            setFirstName(AUTH.user.first_name);
+            setLastName(AUTH.user.last_name);
             setEmail(AUTH.user.email);
             setCurrentPassword('');
             setPassword('');
@@ -153,8 +155,8 @@ const Account = ({ AUTH, ERROR_MESSAGE, HAS_ERROR_MESSAGE }) =>
                                                                 label="First Name"
                                                                 variant="filled"
                                                                 fullWidth
-                                                                value={ name.first_name }
-                                                                onChange={ e => setName({ ...name, first_name: e.target.value }) }
+                                                                value={ firstName }
+                                                                onChange={ e => setFirstName(e.target.value) }
                                                                 error={ HAS_ERROR_MESSAGE.first_name }
                                                                 helperText={ ERROR_MESSAGE.first_name }
                                                             />
@@ -164,15 +166,15 @@ const Account = ({ AUTH, ERROR_MESSAGE, HAS_ERROR_MESSAGE }) =>
                                                                 label="Last Name"
                                                                 variant="filled"
                                                                 fullWidth
-                                                                value={ name.last_name }
-                                                                onChange={ e => setName({ ...name, last_name: e.target.value }) }
+                                                                value={ lastName }
+                                                                onChange={ e => setLastName(e.target.value) }
                                                                 error={ HAS_ERROR_MESSAGE.last_name }
                                                                 helperText={ ERROR_MESSAGE.last_name }
                                                             />
                                                         </Grid>
                                                     </Grid>
                                                 )
-                                                : <DisplayInfo label='Name' value='Gene Phillip D. Artista' />
+                                                : <DisplayInfo label='Name' value={ `${ AUTH.user.first_name } ${ AUTH.user.last_name }` } />
                                         }
                                     </Grid>
                                     <Grid item xs={ 1 } sm={ 1 } md={ 1 } lg={ 1 }>
