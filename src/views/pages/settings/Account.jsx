@@ -8,9 +8,10 @@ import Colors from './../../../constants/Colors';
 import { createStructuredSelector } from 'reselect';
 import { selectAuth } from './../../../redux/modules/auth/selector';
 import { connect, useDispatch } from 'react-redux';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import * as USER_ACTION from './../../../redux/modules/user/actions'
 import PATH from './../../../routes/path';
+import CloseIcon from '@material-ui/icons/Close';
+import { selectUserHasErrorMessages, selectUserErrorMessages } from './../../../redux/modules/user/selector';
 
 const useStyles = makeStyles(theme => ({
     avatar: {
@@ -22,6 +23,13 @@ const useStyles = makeStyles(theme => ({
         fontSize: '2rem',
         '& :hover': {
             color: Colors.warning,
+            cursor: 'pointer'
+        }
+    },
+    closeIcon: {
+        fontSize: '2rem',
+        '& :hover': {
+            color: Colors.error,
             cursor: 'pointer'
         }
     },
@@ -44,7 +52,7 @@ const DisplayInfo = ({ label, value }) =>
     )
 }
 
-const DisplayActionButton = ({ isEditable, setIsEditable, onSave, isLoading = false }) => 
+const DisplayActionButton = ({ isEditable, setIsEditable, onSave }) => 
 {
     const classes = useStyles();
 
@@ -52,32 +60,29 @@ const DisplayActionButton = ({ isEditable, setIsEditable, onSave, isLoading = fa
 
     if (isEditable) {
         return (
-            <SaveIcon 
-                className={ classes.actionIcon } 
-                onClick={ 
-                    () => { 
-                        onSave(); 
-                        setIsEditable(! isEditable && !isLoading); 
-                    }
-                }
-            />
+           <Grid container spacing={1} justify='center'>
+               <Grid item>
+                    <SaveIcon 
+                        className={ classes.actionIcon } 
+                        onClick={ onSave }
+                    />
+               </Grid>
+               <Grid>
+                <CloseIcon onClick={ () => setIsEditable(! isEditable) } className={ classes.closeIcon } />
+               </Grid>
+           </Grid>
         )
     }
 }
 
-
-const NAME_DEFAULT_PROPS = {
-    first_name: '',
-    last_name: ''
-};
-
-const Account = ({ AUTH }) => 
+const Account = ({ AUTH, ERROR_MESSAGE, HAS_ERROR_MESSAGE }) => 
 {
     const classes = useStyles();
     const dispatch = useDispatch();
 
     const [ name, setName ] = useState({ first_name: AUTH.user.first_name, last_name: AUTH.user.last_name });
     const [ email, setEmail ] = useState(AUTH.user.email);
+    const [ currentPassword, setCurrentPassword ] = useState('');
     const [ password, setPassword ] = useState('');
     const [ isEmailEditable, setIsEmailEditable ] = useState(false);
     const [ isPasswordEditable, setIsPasswordEditable ] = useState(false);
@@ -87,11 +92,14 @@ const Account = ({ AUTH }) =>
 
     const handleClickSaveEmail = () => dispatch(USER_ACTION.updateUserEmailStart({ email, path: PATH.SETTINGS }));
 
-    const handleClickSavePassword = () => dispatch(USER_ACTION.updateUserPasswordStart({ 
-        password, 
-        password_confirmation: password, 
-        path: PATH.SETTINGS 
-    }));
+    const handleClickSavePassword = () => {
+        dispatch(USER_ACTION.updateUserPasswordStart({ 
+            current_password: currentPassword,
+            password,
+            password_confirmation: password,
+            path: PATH.SETTINGS 
+        }));
+    }
     
     useEffect(() => 
     {
@@ -99,12 +107,27 @@ const Account = ({ AUTH }) =>
         {
             setName({ first_name: AUTH.user.first_name, last_name: AUTH.user.last_name });
             setEmail(AUTH.user.email);
+            setCurrentPassword('');
             setPassword('');
             setIsEmailEditable(false);
             setIsPasswordEditable(false);
             setIsNameEditable(false);
+            dispatch(USER_ACTION.clearUserErrors());
         }
     }, []);
+
+    useEffect(() => 
+    {
+        window.addEventListener('load', () => dispatch(USER_ACTION.clearUserErrors()));
+
+        if (HAS_ERROR_MESSAGE.email) {
+            setIsEmailEditable(false);
+        }
+
+        if (HAS_ERROR_MESSAGE.password || HAS_ERROR_MESSAGE.current_password) {
+            setIsPasswordEditable(false);
+        }
+    }, [HAS_ERROR_MESSAGE.email, HAS_ERROR_MESSAGE.password, HAS_ERROR_MESSAGE.current_password])
 
     return (
         <Grid container spacing={1}>
@@ -132,6 +155,8 @@ const Account = ({ AUTH }) =>
                                                                 fullWidth
                                                                 value={ name.first_name }
                                                                 onChange={ e => setName({ ...name, first_name: e.target.value }) }
+                                                                error={ HAS_ERROR_MESSAGE.first_name }
+                                                                helperText={ ERROR_MESSAGE.first_name }
                                                             />
                                                         </Grid>
                                                         <Grid item xs={ 12 } sm={ 6 } md={ 6 } lg={ 6 }>
@@ -141,6 +166,8 @@ const Account = ({ AUTH }) =>
                                                                 fullWidth
                                                                 value={ name.last_name }
                                                                 onChange={ e => setName({ ...name, last_name: e.target.value }) }
+                                                                error={ HAS_ERROR_MESSAGE.last_name }
+                                                                helperText={ ERROR_MESSAGE.last_name }
                                                             />
                                                         </Grid>
                                                     </Grid>
@@ -171,6 +198,8 @@ const Account = ({ AUTH }) =>
                                                         fullWidth
                                                         value={ email }
                                                         onChange={ e => setEmail(e.target.value) }
+                                                        error={ HAS_ERROR_MESSAGE.email }
+                                                        helperText={ ERROR_MESSAGE.email }
                                                     />
                                                 )
                                                 : <DisplayInfo label='Email' value={ email } />
@@ -181,7 +210,7 @@ const Account = ({ AUTH }) =>
                                             isEditable={ isEmailEditable } 
                                             setIsEditable={ setIsEmailEditable }
                                             isLoading={ AUTH.isLoading }
-                                            onSave={ handleClickSaveEmail } 
+                                            onSave={ handleClickSaveEmail }
                                         />
                                     </Grid>
                                 </Grid>
@@ -191,16 +220,34 @@ const Account = ({ AUTH }) =>
                                 <Grid container spacing={1} alignItems='center'>
                                     <Grid item xs={ 11 } sm={ 11 } md={ 11 } lg={ 11 }>
                                         {
-                                            isPasswordEditable
+                                             HAS_ERROR_MESSAGE.password || isPasswordEditable
                                                 ? (
-                                                    <TextField
-                                                        type='password'
-                                                        label="Password"
-                                                        variant="filled"
-                                                        fullWidth
-                                                        value={ password }
-                                                        onChange={ e => setPassword(e.target.value) }
-                                                    />
+                                                    <Grid container spacing={1}>
+                                                        <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
+                                                            <TextField
+                                                                type='password'
+                                                                label="Current Password"
+                                                                variant="filled"
+                                                                fullWidth
+                                                                value={ currentPassword }
+                                                                onChange={ e => setCurrentPassword(e.target.value) }
+                                                                error={ HAS_ERROR_MESSAGE.current_password }
+                                                                helperText={ ERROR_MESSAGE.current_password }
+                                                            />
+                                                        </Grid>
+                                                        <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
+                                                            <TextField
+                                                                type='password'
+                                                                label="New Password"
+                                                                variant="filled"
+                                                                fullWidth
+                                                                value={ password }
+                                                                onChange={ e => setPassword(e.target.value) }
+                                                                error={ HAS_ERROR_MESSAGE.password }
+                                                                helperText={ ERROR_MESSAGE.password }
+                                                            />
+                                                        </Grid>
+                                                    </Grid>
                                                 )
                                                 : <DisplayInfo label='Password' value='*************' />
                                         }
@@ -225,7 +272,9 @@ const Account = ({ AUTH }) =>
 }
 
 const mapStateToProps = createStructuredSelector({
-    AUTH: selectAuth
+    AUTH: selectAuth,
+    ERROR_MESSAGE: selectUserErrorMessages,
+    HAS_ERROR_MESSAGE: selectUserHasErrorMessages
 });
 
 export default connect(mapStateToProps)(Account)
