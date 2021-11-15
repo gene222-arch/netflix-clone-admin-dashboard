@@ -22,15 +22,13 @@ const DashboardAvatars = ({ DASHBOARD, generalAnalytics }) =>
     if (DASHBOARD.isLoading && !DASHBOARD.hasLoaded) {
         return (
             <Grid container spacing={ 10 } justify='center' alignItems='center'>
-                <Grid item xs={ 12 } sm={ 4 } md={ 4 } lg={ 4 }>
-                    <BoxContentLoader width={ '100%' } height={ 200 } />
-                </Grid>
-                <Grid item xs={ 12 } sm={ 4 } md={ 4 } lg={ 4 }>
-                    <BoxContentLoader width={ '100%' } height={ 200 } />
-                </Grid>
-                <Grid item xs={ 12 } sm={ 4 } md={ 4 } lg={ 4 }>
-                    <BoxContentLoader width={ '100%' } height={ 200 } />
-                </Grid>
+                {
+                    [0, 1, 2, 3, 4, 5].map(loading => (
+                        <Grid item xs={ 12 } sm={ 4 } md={ 4 } lg={ 4 }>
+                            <BoxContentLoader width={ '100%' } height={ 200 } />
+                        </Grid>
+                    ))
+                }
             </Grid>
         )
     }
@@ -41,7 +39,7 @@ const DashboardAvatars = ({ DASHBOARD, generalAnalytics }) =>
                 <AvatarWithLabel 
                     label='Revenue' 
                     Icon={ Home }
-                    counter={ generalAnalytics.revenue } 
+                    counter={ `P${ parseFloat(generalAnalytics.revenue).toFixed(2) }` } 
                     avatarStyle={{
                         backgroundColor: Colors.success
                     }}
