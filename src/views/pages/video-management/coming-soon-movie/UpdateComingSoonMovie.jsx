@@ -63,7 +63,7 @@ const UpdateComingSoonMovie = ({ COMING_SOON_MOVIE, AUTHOR_NAMES, CAST_NAMES, DI
                 casts: getOptionsFromString(casts, CAST_NAMES),
                 directors:getOptionsFromString(directors, DIRECTOR_NAMES),
                 genres: getOptionsFromString(genres, GENRE_NAMES),
-                similar_movies: similar_movies.map(({ movie_id, movie }) => ({ value: movie_id, label: movie.title }))
+                similar_movies: similar_movies?.map(({ movie_id, movie }) => ({ value: movie_id, label: movie.title })) ?? []
             }
     
             setComingSoonMovie(comingSoonMovie_);
