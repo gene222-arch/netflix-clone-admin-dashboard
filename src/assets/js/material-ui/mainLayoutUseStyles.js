@@ -1,21 +1,21 @@
 import { makeStyles } from '@material-ui/core/styles';
 import Colors from './../../../constants/Colors';
 
-const drawerWidth = 300;
+const drawerWidth = 350;
 
 const mainLayoutUseStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
     },
     appLogo: {
-        padding: '5rem'
+        padding: '4rem'
     },
     avatar: {
-        width: '45%',
-        height: '7rem',
+        width: '25%',
+        height: '4.5rem',
         objectFit: 'contain',
-        margin: '1rem 0',
-        boxShadow: theme.shadows['7']
+        boxShadow: theme.shadows['7'],
+        marginBottom: '1rem'
     },
     avatarText: {
         color: Colors.white

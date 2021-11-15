@@ -56,8 +56,8 @@ const MainLayout = ({ children, MAIN_LAYOUT }) =>
                     }),
                 }}
             >
-                <AppLogo />
                 <List>
+                <AppLogo />
                     <Dashboard />
                     <Divider light/>
                     

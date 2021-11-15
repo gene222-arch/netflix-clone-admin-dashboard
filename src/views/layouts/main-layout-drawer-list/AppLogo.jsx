@@ -42,7 +42,7 @@ const Avatar = ({ AUTH, MAIN_LAYOUT }) =>
                             : (
                                 <div className={ classes.userInfoContainer }>
                                     <MUIAvatar className={ classes.avatar }>
-                                        <Typography variant="h3" className={ classes.avatarText }>
+                                        <Typography variant="h5" className={ classes.avatarText }>
                                             { AUTH.user.first_name.substring(0, 1) }
                                         </Typography>
                                     </MUIAvatar>
