@@ -11,6 +11,8 @@ import ACTION_TYPES from './action.types'
 import { 
     fetchAllUsersSuccess,
     fetchAllUsersFailed,
+    updateUserNameSuccess,
+    updateUserNameFailed,
     updateUserEmailSuccess,
     updateUserEmailFailed,
     updateUserPasswordSuccess,
@@ -24,6 +26,7 @@ import { ERROR_MESSAGE_ON_UPDATE } from './../../../config/alertMessages';
 
 const {
     FETCH_ALL_USERS_START,
+    UPDATE_USER_NAME_START,
     UPDATE_USER_EMAIL_START,
     UPDATE_USER_PASSWORD_START,
     SEND_CHANGE_EMAIL_VERIFICATION_CODE_START
@@ -53,6 +56,21 @@ function* updateUserEmailSaga(payload)
         yield put(push(payload.path));
     } catch ({ message, status }) {
         yield put(updateUserEmailFailed({ message }));
+        yield put(showAlert({ status, message: ERROR_MESSAGE_ON_UPDATE }));
+    }
+}
+
+function* updateUserNameSaga(payload)
+{
+    try {
+        const { message, status } = yield call(API.updateNameAsync, payload);
+
+        yield put(updateUserDetails(payload));
+        yield put(updateUserNameSuccess(payload));
+        yield put(showAlert({ status, message }));
+        yield put(push(payload.path));
+    } catch ({ message, status }) {
+        yield put(updateUserNameFailed({ message }));
         yield put(showAlert({ status, message: ERROR_MESSAGE_ON_UPDATE }));
     }
 }
@@ -96,6 +114,14 @@ function* fetchAllUsersWatcher()
     }
 }
 
+function* updateUserNameWatcher()
+{
+    while (true) {
+        const { payload } = yield take(UPDATE_USER_NAME_START);
+        yield call(updateUserNameSaga, payload);
+    }
+}
+
 function* updateUserEmailWatcher()
 {
     while (true) {
@@ -127,6 +153,7 @@ export default function*()
 {
     yield all([
         fetchAllUsersWatcher(),
+        updateUserNameWatcher(),
         updateUserEmailWatcher(),
         updateUserPasswordWatcher(),
         sendChangeEmailVerificationCodeWatcher()

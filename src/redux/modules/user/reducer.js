@@ -4,6 +4,9 @@ const {
     FETCH_ALL_USERS_START,
     FETCH_ALL_USERS_SUCCESS,
     FETCH_ALL_USERS_FAILED,
+    UPDATE_USER_NAME_START,
+    UPDATE_USER_NAME_SUCCESS,
+    UPDATE_USER_NAME_FAILED,
     UPDATE_USER_EMAIL_START,
     UPDATE_USER_EMAIL_SUCCESS,
     UPDATE_USER_EMAIL_FAILED,
@@ -46,6 +49,7 @@ export default (state = initialState, { type, payload }) =>
     {
         
         case FETCH_ALL_USERS_START:
+        case UPDATE_USER_NAME_START:
         case UPDATE_USER_EMAIL_START:
         case UPDATE_USER_PASSWORD_START:
         case SEND_CHANGE_EMAIL_VERIFICATION_CODE_START:
@@ -60,6 +64,13 @@ export default (state = initialState, { type, payload }) =>
                 users: payload.users,
                 isLoading,
                 error 
+            }
+
+        case UPDATE_USER_NAME_SUCCESS:
+            return {
+                ...state,
+                isLoading,
+                error
             }
 
         case UPDATE_USER_EMAIL_SUCCESS:
@@ -93,6 +104,7 @@ export default (state = initialState, { type, payload }) =>
             }
 
         case FETCH_ALL_USERS_FAILED:
+        case UPDATE_USER_NAME_FAILED:
         case UPDATE_USER_EMAIL_FAILED:
         case UPDATE_USER_PASSWORD_FAILED:
         case SEND_CHANGE_EMAIL_VERIFICATION_CODE_FAILED:

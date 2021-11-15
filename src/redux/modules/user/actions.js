@@ -4,6 +4,9 @@ const {
     FETCH_ALL_USERS_START,
     FETCH_ALL_USERS_SUCCESS,
     FETCH_ALL_USERS_FAILED,
+    UPDATE_USER_NAME_START,
+    UPDATE_USER_NAME_SUCCESS,
+    UPDATE_USER_NAME_FAILED,
     UPDATE_USER_EMAIL_START,
     UPDATE_USER_EMAIL_SUCCESS,
     UPDATE_USER_EMAIL_FAILED,
@@ -30,6 +33,22 @@ export const fetchAllUsersSuccess = (payload) => ({
 
 export const fetchAllUsersFailed = (payload) => ({
     type: FETCH_ALL_USERS_FAILED,
+    payload
+});
+
+/** Update user name (first_name, last_name) */
+export const updateUserNameStart = (payload) => ({
+    type: UPDATE_USER_NAME_START,
+    payload
+});
+
+export const updateUserNameSuccess = (payload) => ({
+    type: UPDATE_USER_NAME_SUCCESS,
+    payload
+});
+
+export const updateUserNameFailed = (payload) => ({
+    type: UPDATE_USER_NAME_FAILED,
     payload
 });
 
