@@ -1,6 +1,6 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/styles';
-import { Grid, Typography, List, ListItem, ListItemAvatar, ListItemText, ListItemSecondaryAction, Button, CircularProgress } from '@material-ui/core';
+import { Grid, Typography, List, ListItem, ListItemAvatar, ListItemText, ListItemSecondaryAction } from '@material-ui/core';
 import StyledNavLink from './../../../../../components/styled-components/StyledNavLink';
 import { createStructuredSelector } from 'reselect';
 import { selectAuth } from './../../../../../redux/modules/auth/selector';
@@ -60,6 +60,7 @@ const Membership = ({ AUTH, paymentAuthorizationNotif }) =>
             primaryText: AUTH.user.email,
             actionText: 'Change account email',
             actionPath: PATH.UPDATE_EMAIL,
+            mobileSizeTextContent: 'Change',
             isTextSecondary: false,
             isNavigatable: true,
             onClick: () => dispatch(USER_ACTION.sendChangeEmailVerificationCodeStart())
@@ -70,6 +71,7 @@ const Membership = ({ AUTH, paymentAuthorizationNotif }) =>
             primaryText: 'Password: ***********',
             actionText: 'Change account password',
             actionPath: PATH.UPDATE_PASSWORD,
+            mobileSizeTextContent: 'Change',
             isTextSecondary: true,
             isNavigatable: true,
             onClick: () => console.log('')
@@ -80,6 +82,7 @@ const Membership = ({ AUTH, paymentAuthorizationNotif }) =>
             primaryText: `Billing Details ${ !AUTH.subscription_details.is_expired ? '' : '(expired)' }`,
             actionText: billingDetailsActionText(),
             actionPath: billingDetailsPath(),
+            mobileSizeTextContent: billingDetailsActionText().substring(0, 5),
             isTextSecondary: true,
             isNavigatable: [ 'Renew Subscription', 'Manage Plan' ].includes(billingDetailsActionText()),
             onClick: () => console.log('')
@@ -90,6 +93,7 @@ const Membership = ({ AUTH, paymentAuthorizationNotif }) =>
             primaryText: '',
             actionText: 'Payment History',
             actionPath: PATH.PAYMENT_HISTORY,
+            mobileSizeTextContent: 'Payment History',
             isTextSecondary: true,
             isNavigatable: true,
             onClick: () => console.log('')
@@ -105,7 +109,17 @@ const Membership = ({ AUTH, paymentAuthorizationNotif }) =>
             <Grid item xs={ 12 } sm={ 8 } md={ 8 } lg={ 8 }>
                 <List>
                     {
-                        memberShipActionButtons.map(({ id, icon: Icon, primaryText, actionText, actionPath, isTextSecondary, isNavigatable, onClick }) => (
+                        memberShipActionButtons.map(({ 
+                            id, 
+                            icon: Icon, 
+                            primaryText, 
+                            actionText, 
+                            actionPath, 
+                            mobileSizeTextContent,
+                            isTextSecondary, 
+                            isNavigatable, 
+                            onClick 
+                        }) => (
                             <ListItem key={ id }>
                                 {
                                     Icon && (
@@ -124,7 +138,7 @@ const Membership = ({ AUTH, paymentAuthorizationNotif }) =>
                                         isNavigatable && (
                                             <StyledNavLink 
                                                 to={ actionPath }
-                                                text={ isXs ? 'Change' : actionText }
+                                                text={ isXs ? mobileSizeTextContent : actionText }
                                                 onClick={ onClick } 
                                             />
                                         )
