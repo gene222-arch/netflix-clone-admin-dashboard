@@ -120,7 +120,7 @@ const AddProfile = ({ AUTH }) =>
                 <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
                     <div className={ classes.avatarContainer }>
                         <img 
-                            src="https://upload.wikimedia.org/wikipedia/commons/0/0b/Netflix-avatar.png"   
+                            src={ profile.avatar }   
                             className={ classes.avatar }
                         />
                         <EditIcon className={ classes.editIcon } onClick={ toggleAvatarList } />

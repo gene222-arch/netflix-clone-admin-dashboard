@@ -3,6 +3,7 @@ import Container from '@material-ui/core/Container'
 import { Card, CardContent, makeStyles, Typography, Grid } from '@material-ui/core';
 import Colors from './../../../constants/Colors';
 import AvatarList from './AvatarList';
+import UploadAvatar from './UploadAvatar';
 
 
 const avatarOptionsUseStyles = makeStyles(theme => ({
@@ -36,6 +37,11 @@ const AvatarOptions = ({ profile, setProfile, toggleAvatarList }) =>
         toggleAvatarList();
     }
 
+    const handleUpload = (uri) => {
+        setProfile({ ...profile, avatar: uri });
+        toggleAvatarList();
+    }
+
     const options = 
     [
         {
@@ -60,6 +66,8 @@ const AvatarOptions = ({ profile, setProfile, toggleAvatarList }) =>
     }, []);
 
     if (selectedOption === 'avatar') return <AvatarList handleClickAvatar={ handleClickAvatar } />
+
+    if (selectedOption === 'upload') return <UploadAvatar handleUpload={ handleUpload } />
 
     return (
         <Container maxWidth="sm" className={ classes.container }>

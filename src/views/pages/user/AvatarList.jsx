@@ -34,7 +34,7 @@ const AvatarList = ({ handleClickAvatar }) =>
                 [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 5, 6, 7, 8, 9, 10, 11, 2].map(avatar => (
                     <Grid item xs={ 4 } sm={ 4 } md={ 2 } lg={ 2 }>
                         <div className={ classes.imgContainer }>
-                            <img src={ DEFAULT_AVATAR_URL } className={ classes.avatar } onClick={ handleClickAvatar } />
+                            <img src={ DEFAULT_AVATAR_URL } className={ classes.avatar } onClick={ () => handleClickAvatar(DEFAULT_AVATAR_URL) } />
                         </div>
                     </Grid>
                 ))
