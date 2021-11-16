@@ -71,20 +71,24 @@ const CardPayment = ({ paymentMethod, planType, paymentIntentId }) =>
         setErrorMessage(ERROR_MESSAGE_PROPS);
         setIsLoading(true);
         try {
-            const { first_name, last_name, ...restCardDetails } = cardDetails;
             const { status } = await PAYMENT_METHOD_API.attachPaymentMethodToIntentAsync({
                 ...cardDetails,
                 plan_type: planType,
                 email: state?.email 
             });
 
-            if (status === 'success') {
+            if (status === 'success') 
+            {
+                const queryParam = `?email=${ state?.email }&type=${ planType }&paymentMethod=Card`;
+                const path = `${ process.env.REACT_APP_URL }/subscriptions/subscribed-successfully${ queryParam }`;
+
                 history.push(PATH.REGISTER, {
                     ...state,
-                    first_name,
-                    last_name,
+                    first_name: cardDetails.first_name,
+                    last_name: cardDetails.last_name,
                     plan_type: planType,
-                    payment_method: paymentMethod
+                    payment_method: paymentMethod,
+                    check_out_url: path
                 });
             }
         } catch (error) {
