@@ -65,14 +65,19 @@ const CardPayment = ({ AUTH, planType, paymentIntentId }) =>
         try {
             const { first_name, last_name, ...restCardDetails } = cardDetails;
 
-            await PAYMENT_METHOD_API.attachPaymentMethodToIntentAsync({
+            const { status } = await PAYMENT_METHOD_API.attachPaymentMethodToIntentAsync({
                 ...restCardDetails,
                 name: `${ first_name } ${ last_name }`,
                 plan_type: planType,
                 email: user.email
             });
 
-            history.push(PATH.PROFILE_HOME_PAGE);
+            if (status === 'success') {
+                const queryParam = `?email=${ user.email }&type=${ planType }&paymentMethod=Card`;
+                const path = `/subscriptions/subscribed-successfully${ queryParam }`;
+
+                history.push(path);
+            }
         } catch (error) {
             console.log(error);
         }
