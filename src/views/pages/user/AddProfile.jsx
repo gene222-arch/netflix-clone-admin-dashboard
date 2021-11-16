@@ -9,6 +9,8 @@ import { selectAuth } from './../../../redux/modules/auth/selector';
 import * as AUTH_ACTION from './../../../redux/modules/auth/actions';
 import Colors from './../../../constants/Colors';
 import { useLocation } from 'react-router-dom';
+import EditIcon from '@material-ui/icons/Edit';
+import AvatarList from './AvatarList'
 
 
 const updateEmailUseStyles = makeStyles(theme => 
@@ -19,7 +21,8 @@ const updateEmailUseStyles = makeStyles(theme =>
         borderRadius: 5
     },
     avatarContainer: {
-        textAlign: 'center'
+        textAlign: 'center',
+        position: 'relative'
     },
     btn: {
         padding: '1rem 2rem',
@@ -34,6 +37,16 @@ const updateEmailUseStyles = makeStyles(theme =>
     },
     container: {
         height: '92vh'
+    },
+    editIcon: {
+        position: 'absolute',
+        bottom: -2,
+        fontSize: '2.5rem',
+        right: 110,
+        cursor: 'pointer',
+        '&:hover': {
+            opacity: 0.8
+        }
     },
     isForKids: {
         color: Colors.success
@@ -56,6 +69,14 @@ const AddProfile = ({ AUTH }) =>
 
     const [ profile, setProfile ] = useState({ ...AUTH.profile, avatar: DEFAULT_AVATAR_URL });
     const [ isProfileIdInState, setIsProfileIdInState ] = useState(false);
+    const [ showAvatarList, setShowAvatarList ] = useState(false);
+
+    const toggleAvatarList = () => setShowAvatarList(! showAvatarList);
+
+    const handleClickAvatar = (selectedAvatar) => {
+        setProfile({ ...profile, avatar: selectedAvatar });
+        toggleAvatarList();
+    }
 
     const handleClickButton = () => 
     {
@@ -84,8 +105,11 @@ const AddProfile = ({ AUTH }) =>
         onLoadCheckProfileIdInState();
         return () => {
             setProfile(AUTH.profile);
+            setShowAvatarList(false);
         }
     }, []);
+
+    if (showAvatarList) return <AvatarList handleClickAvatar={ handleClickAvatar }/>
 
     return (
         <Container maxWidth="sm" className={ classes.container }>
@@ -96,6 +120,7 @@ const AddProfile = ({ AUTH }) =>
                             src="https://upload.wikimedia.org/wikipedia/commons/0/0b/Netflix-avatar.png"   
                             className={ classes.avatar }
                         />
+                        <EditIcon className={ classes.editIcon } onClick={ toggleAvatarList } />
                     </div>
                 </Grid>
                 <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
