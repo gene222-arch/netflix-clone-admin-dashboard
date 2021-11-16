@@ -5,7 +5,7 @@ import { Redirect, useHistory } from 'react-router-dom'
 import * as Cookies from '../utils/cookies'
 import PATH from './path';
 import { createStructuredSelector } from 'reselect';
-import { selectAuth } from './../redux/modules/auth/selector';
+import { selectAuth } from '../redux/modules/auth/selector';
 import { connect } from 'react-redux';
 
 const PublicRoute = ({ AUTH, Component, ...props }) => 

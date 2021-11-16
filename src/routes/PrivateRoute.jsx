@@ -1,16 +1,16 @@
 import React from 'react'
-import Forbidden from './../views/pages/errors/Forbidden';
+import Forbidden from '../views/pages/errors/Forbidden';
 
 /** Utils */
 import { createStructuredSelector } from 'reselect';
-import { selectAuth } from './../redux/modules/auth/selector';
+import { selectAuth } from '../redux/modules/auth/selector';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import * as Cookies from './../utils/cookies'
+import * as Cookies from '../utils/cookies'
 import PATH from './path';
 import MainLayout from '../views/layouts/MainLayout';
 import UserLayout from '../views/layouts/UserLayout';
-import * as QueryParams from './../utils/queryParams'
+import * as QueryParams from '../utils/queryParams'
 
 const PrivateRoute = ({ AUTH, Component, access, ...props }) => 
 {

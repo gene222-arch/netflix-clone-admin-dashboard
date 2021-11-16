@@ -52,24 +52,24 @@ const ProfileHomePage = lazy(() => import('../views/pages/user/ProfileHomePage')
 const ProfileLock = lazy(() => import('../views/pages/user/settings/profile-lock/ProfileLock'))
 const UpdatePassword = lazy(() => import('../views/pages/user/UpdatePassword'))
 const SecurityCheck = lazy(() => import('../views/pages/user/update-email/SecurityCheck'))
-const RenewSubscription = lazy(() => import('./../views/pages/user/renew-subscription'))
-const UpdateSubscription = lazy(() => import('./../views/pages/user/update-plan-subscription'))
-const PrivacyPolicy = lazy(() => import('./../views/pages/security/privacy-policy'));
-const TermsAndConditions = lazy(() => import('./../views/pages/security/terms-and-conditions'));
-const HelpCenter = lazy(() => import('./../views/pages/help-center'));
-const HowToCreateAProfile = lazy(() => import('./../views/pages/help-center/HowToCreateAProfile'));
-const PlansAndPricing = lazy(() => import('./../views/pages/help-center/PlansAndPricing'));
-const Employee = lazy(() => import('./../views/pages/employee'))
-const CreateEmployee = lazy(() => import('./../views/pages/employee/CreateEmployee'));
-const UpdateEmployee = lazy(() => import('./../views/pages/employee/UpdateEmployee'));
-const Settings = lazy(() => import('./../views/pages/settings'));
-const SubscribedSuccessfully = lazy(() => import('./../views/pages/subscription/SubscribedSuccessfully'))
-const SubscriptionFailed = lazy(() => import('./../views/pages/subscription/SubscriptionFailed'))
-const PlanUpdatedSuccessfully = lazy(() => import('./../views/pages/subscription/PlanUpdatedSuccessfully'))
-const ManagePlan = lazy(() => import('./../views/pages/user/manage-plan'))
-const PaymentHistory = lazy(() => import('./../views/pages/user/PaymentHistory'))
-const Subscriptions = lazy(() => import('./../views/pages/subscription'))
-const HowToChangeYourPlan = lazy(() => import('./../views/pages/help-center/HowToChangeYourPlan'))
+const RenewSubscription = lazy(() => import('../views/pages/user/renew-subscription'))
+const UpdateSubscription = lazy(() => import('../views/pages/user/update-plan-subscription'))
+const PrivacyPolicy = lazy(() => import('../views/pages/security/privacy-policy'));
+const TermsAndConditions = lazy(() => import('../views/pages/security/terms-and-conditions'));
+const HelpCenter = lazy(() => import('../views/pages/help-center'));
+const HowToCreateAProfile = lazy(() => import('../views/pages/help-center/HowToCreateAProfile'));
+const PlansAndPricing = lazy(() => import('../views/pages/help-center/PlansAndPricing'));
+const Employee = lazy(() => import('../views/pages/employee'))
+const CreateEmployee = lazy(() => import('../views/pages/employee/CreateEmployee'));
+const UpdateEmployee = lazy(() => import('../views/pages/employee/UpdateEmployee'));
+const Settings = lazy(() => import('../views/pages/settings'));
+const SubscribedSuccessfully = lazy(() => import('../views/pages/subscription/SubscribedSuccessfully'))
+const SubscriptionFailed = lazy(() => import('../views/pages/subscription/SubscriptionFailed'))
+const PlanUpdatedSuccessfully = lazy(() => import('../views/pages/subscription/PlanUpdatedSuccessfully'))
+const ManagePlan = lazy(() => import('../views/pages/user/manage-plan'))
+const PaymentHistory = lazy(() => import('../views/pages/user/PaymentHistory'))
+const Subscriptions = lazy(() => import('../views/pages/subscription'))
+const HowToChangeYourPlan = lazy(() => import('../views/pages/help-center/HowToChangeYourPlan'))
 
 export const PUBLIC_ROUTES = [
     {

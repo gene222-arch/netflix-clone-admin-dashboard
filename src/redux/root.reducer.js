@@ -20,7 +20,6 @@ import mainLayoutReducer from './modules/main-layout/reducer'
 import notificationReducer from './modules/notifications/reducer'
 import movieReducer from './modules/movie/reducer'
 import subscriptionReducer from './modules/subscription/reducer'
-import paymongoWebhookReducer from './modules/paymongo-webhook/reducer'
 import userReducer from './modules/user/reducer'
 
 const history = createBrowserHistory();
@@ -53,7 +52,6 @@ const reducers = {
     movie: movieReducer,
     notifications: notificationReducer,
     subscription: subscriptionReducer,
-    paymongoWebhook: paymongoWebhookReducer,
     user: userReducer
 };
 

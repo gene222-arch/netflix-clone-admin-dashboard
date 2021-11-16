@@ -14,7 +14,6 @@ import genreSaga from '../redux/modules/genre/saga'
 import movieSaga from '../redux/modules/movie/saga'
 import notificationSaga from '../redux/modules/notifications/saga'
 import subscriptionSaga from '../redux/modules/subscription/saga'
-import paymongoWebhookSaga from '../redux/modules/paymongo-webhook/saga'
 import userSaga from '../redux/modules/user/saga'
 
 export default function* () 
@@ -33,7 +32,6 @@ export default function* ()
         movieSaga(),
         notificationSaga(),
         subscriptionSaga(),
-        paymongoWebhookSaga(),
         userSaga()
     ]);
 }
