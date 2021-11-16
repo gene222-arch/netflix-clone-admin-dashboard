@@ -76,7 +76,11 @@ const CardPayment = ({ AUTH, planType, paymentIntentId }) =>
                 const queryParam = `?email=${ user.email }&type=${ planType }&paymentMethod=Card`;
                 const path = `/subscriptions/subscribed-successfully${ queryParam }`;
 
-                history.push(path);
+                history.push(path, {
+                    email: user.email,
+                    type: planType,
+                    paymentMethod: 'Card'
+                });
             }
         } catch (error) {
             console.log(error);

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Typography from '@material-ui/core/Typography'
 import Grid from '@material-ui/core/Grid'
-import { useHistory } from 'react-router-dom'
+import { useHistory, useLocation } from 'react-router-dom'
 import PATH from '../../../routes/path';
 import Container from '@material-ui/core/Container'
 import { makeStyles } from '@material-ui/core/styles';
@@ -59,6 +59,7 @@ const subscribedSucessfullyUseStyles = makeStyles(theme => ({
 const SubscribedSuccessfully = ({ AUTH }) => 
 {
     const history = useHistory();
+    const { state } = useLocation();
     const classes = subscribedSucessfullyUseStyles();
 
     const [ isLoading, setIsLoading ] = useState(true);
@@ -84,9 +85,9 @@ const SubscribedSuccessfully = ({ AUTH }) =>
 
     useEffect(() => 
     {
-        const userEmail = QueryParam.get('email');
-        const type = QueryParam.get('type');
-        const paymentMethod = QueryParam.get('paymentMethod');
+        const userEmail = state?.email ?? QueryParam.get('email');
+        const type = state?.type ?? QueryParam.get('type');
+        const paymentMethod = state?.paymentMethod ?? QueryParam.get('paymentMethod');
 
         if (userEmail && type && paymentMethod) {
             onLoadSubscribeUser(userEmail, type, paymentMethod);
