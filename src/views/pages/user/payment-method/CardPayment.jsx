@@ -43,7 +43,7 @@ const CARD_DETAILS_DEFAULT_PROPS =
     plan_type: ''
 }
 
-const CardPayment = ({ AUTH, planType, paymentIntentId }) => 
+const CardPayment = ({ AUTH, planType, paymentIntentId, action = 'POST' }) => 
 {
     const user = AUTH.user;
 
@@ -72,9 +72,12 @@ const CardPayment = ({ AUTH, planType, paymentIntentId }) =>
                 email: user.email
             });
 
-            if (status === 'success') {
+            if (status === 'success') 
+            {
+                const subscriptionPath = action === 'POST' ? 'subscribed-successfully' : 'updated-successfully';
+
                 const queryParam = `?email=${ user.email }&type=${ planType }&paymentMethod=Card`;
-                const path = `/subscriptions/subscribed-successfully${ queryParam }`;
+                const path = `/subscriptions/${ subscriptionPath + queryParam }`;
 
                 history.push(path, {
                     email: user.email,

@@ -202,6 +202,7 @@ const PaymentMethod = ({ AUTH, planType, amount, setIsPaymentAuthorizationSent, 
             <CardPayment 
                 planType={ planType }
                 paymentIntentId={ paymentIntentId }
+                action='PUT'
             />
         )
     }

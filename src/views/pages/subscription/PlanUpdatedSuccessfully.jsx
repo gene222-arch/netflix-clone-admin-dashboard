@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Typography from '@material-ui/core/Typography'
 import Grid from '@material-ui/core/Grid'
-import { useHistory } from 'react-router-dom'
+import { useHistory, useLocation } from 'react-router-dom'
 import PATH from '../../../routes/path';
 import Container from '@material-ui/core/Container'
 import { makeStyles } from '@material-ui/core/styles';
@@ -56,6 +56,7 @@ const PlanUpdatedSuccessfully = ({ AUTH }) =>
 {
     const history = useHistory();
     const classes = planUpdatedSucessfullyUseStyles();
+    const { state } = useLocation();
 
     const [ isLoading, setIsLoading ] = useState(true);
     const [ hasError, setHasError ] = useState(false);
@@ -65,11 +66,11 @@ const PlanUpdatedSuccessfully = ({ AUTH }) =>
         history.go(0);
     }
 
-    const onLoadSubscribeUser = async (userEmail, type) => 
+    const onLoadSubscribeUser = async (userEmail, type, paymentMethod) => 
     {
         setIsLoading(true);
         try {
-            await SUBSCRIPTION_API.updateAsync({ user_email: userEmail, type });
+            await SUBSCRIPTION_API.updateAsync({ user_email: userEmail, type, payment_method: paymentMethod });
             setHasError(false);
         } catch (error) {
             console.log(error);
@@ -80,11 +81,12 @@ const PlanUpdatedSuccessfully = ({ AUTH }) =>
 
     useEffect(() => 
     {
-        const userEmail = QueryParam.get('email');
-        const type = QueryParam.get('type');
+        const userEmail = state?.email ?? QueryParam.get('email');
+        const type = state?.type ?? QueryParam.get('type');
+        const paymentMethod = state?.paymentMethod ?? QueryParam.get('paymentMethod');
 
-        if (userEmail && type) {
-            onLoadSubscribeUser(userEmail, type);
+        if (userEmail && type && paymentMethod) {
+            onLoadSubscribeUser(userEmail, type, paymentMethod);
         }
 
         return () => {
