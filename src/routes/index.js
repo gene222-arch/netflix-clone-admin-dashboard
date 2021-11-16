@@ -63,7 +63,6 @@ const Employee = lazy(() => import('./../views/pages/employee'))
 const CreateEmployee = lazy(() => import('./../views/pages/employee/CreateEmployee'));
 const UpdateEmployee = lazy(() => import('./../views/pages/employee/UpdateEmployee'));
 const Settings = lazy(() => import('./../views/pages/settings'));
-const PaymongoWebhook = lazy(() => import('./../views/pages/paymongo-webhook/index'));
 const SubscribedSuccessfully = lazy(() => import('./../views/pages/subscription/SubscribedSuccessfully'))
 const SubscriptionFailed = lazy(() => import('./../views/pages/subscription/SubscriptionFailed'))
 const PlanUpdatedSuccessfully = lazy(() => import('./../views/pages/subscription/PlanUpdatedSuccessfully'))
@@ -629,17 +628,6 @@ export const PRIVATE_ROUTES = [
         exact: true,
         component: UpdateEmployee,
         access: 'Manage Employees',
-        restricted: true
-    },
-
-    /** Paymongo  */
-    {
-        path: PATH.PAYMONGO_WEBHOOK,
-        key: 'PaymongoWebhook',
-        icon: '',
-        exact: true,
-        component: PaymongoWebhook,
-        access: '',
         restricted: true
     },
     /** Settings */
