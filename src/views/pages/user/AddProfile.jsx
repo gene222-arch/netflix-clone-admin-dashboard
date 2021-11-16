@@ -10,7 +10,7 @@ import * as AUTH_ACTION from './../../../redux/modules/auth/actions';
 import Colors from './../../../constants/Colors';
 import { useLocation } from 'react-router-dom';
 import EditIcon from '@material-ui/icons/Edit';
-import AvatarList from './AvatarList'
+import AvatarOptions from './AvatarOptions'
 
 
 const updateEmailUseStyles = makeStyles(theme => 
@@ -69,14 +69,9 @@ const AddProfile = ({ AUTH }) =>
 
     const [ profile, setProfile ] = useState({ ...AUTH.profile, avatar: DEFAULT_AVATAR_URL });
     const [ isProfileIdInState, setIsProfileIdInState ] = useState(false);
-    const [ showAvatarList, setShowAvatarList ] = useState(false);
+    const [ avatarOptions, setShowAvatarOptions ] = useState(false);
 
-    const toggleAvatarList = () => setShowAvatarList(! showAvatarList);
-
-    const handleClickAvatar = (selectedAvatar) => {
-        setProfile({ ...profile, avatar: selectedAvatar });
-        toggleAvatarList();
-    }
+    const toggleAvatarList = () => setShowAvatarOptions(! avatarOptions);
 
     const handleClickButton = () => 
     {
@@ -105,11 +100,19 @@ const AddProfile = ({ AUTH }) =>
         onLoadCheckProfileIdInState();
         return () => {
             setProfile(AUTH.profile);
-            setShowAvatarList(false);
+            setShowAvatarOptions(false);
         }
     }, []);
 
-    if (showAvatarList) return <AvatarList handleClickAvatar={ handleClickAvatar }/>
+    if (avatarOptions) {
+        return (
+            <AvatarOptions 
+                profile={ profile } 
+                setProfile={ setProfile } 
+                toggleAvatarList={ toggleAvatarList }
+            />
+        )
+    }
 
     return (
         <Container maxWidth="sm" className={ classes.container }>
