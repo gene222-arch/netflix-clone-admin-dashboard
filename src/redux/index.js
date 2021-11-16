@@ -12,7 +12,7 @@ import rootSaga from './rootSaga'
 
 const sagaMiddleware = createSagaMiddleware();
 
-const history = createBrowserHistory();
+const history = createBrowserHistory(); // Allow redirection in saga
 
 const middlewares = applyMiddleware(
 	routerMiddleware(history),
@@ -20,13 +20,16 @@ const middlewares = applyMiddleware(
 	/** ...other middlewares */
 );
 
+const enhancers = compose(
+	middlewares,
+	(typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION__) && 
+	window.__REDUX_DEVTOOLS_EXTENSION__()
+);
+
 const store = createStore(
 	rootReducer, 
 	{},
-	compose(
-		middlewares,
-		window.devToolsExtension ? window.devToolsExtension() : f => f
-	)
+	enhancers
 );
 
 sagaMiddleware.run(rootSaga);
