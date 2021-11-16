@@ -43,6 +43,16 @@ const CARD_DETAILS_DEFAULT_PROPS =
     plan_type: ''
 }
 
+const ERROR_MESSAGE_PROPS = {
+    first_name: "",
+    last_name: "",
+    card_number: "",
+    cvc: "",
+    exp_month: "",
+    exp_year: "",
+    phone_number: ""
+};
+
 const CardPayment = ({ AUTH, planType, paymentIntentId, action = 'POST' }) => 
 {
     const user = AUTH.user;
@@ -56,18 +66,17 @@ const CardPayment = ({ AUTH, planType, paymentIntentId, action = 'POST' }) =>
         first_name: user.first_name,
         last_name: user.last_name
     });
+    const [ errorMessage, setErrorMessage ] = useState(ERROR_MESSAGE_PROPS);
 
     const handleChange = (e) => setCardDetails({ ...cardDetails, [e.target.name]: e.target.value });
 
     const handleClickAttachPayment = async () =>
     {
+        setErrorMessage(ERROR_MESSAGE_PROPS);
         setIsLoading(true);
         try {
-            const { first_name, last_name, ...restCardDetails } = cardDetails;
-
             const { status } = await PAYMENT_METHOD_API.attachPaymentMethodToIntentAsync({
-                ...restCardDetails,
-                name: `${ first_name } ${ last_name }`,
+                ...cardDetails,
                 plan_type: planType,
                 email: user.email
             });
@@ -86,7 +95,21 @@ const CardPayment = ({ AUTH, planType, paymentIntentId, action = 'POST' }) =>
                 });
             }
         } catch (error) {
-            console.log(error);
+            if (typeof error.message === 'string') 
+            {
+                const errors = JSON.parse(error.message)
+                    .errors
+                    .map(err => ({
+                        [err.source.attribute]: err.detail.substring(err.detail.indexOf('must'))
+                    }))
+                    .reduce((errs, err) => ({ ...errs, ...err }), {});
+
+                setErrorMessage(errors);
+            }
+
+            if (typeof error.message === 'object') {
+                setErrorMessage(error.message);
+            }
         }
         setIsLoading(false);
     }
@@ -95,6 +118,7 @@ const CardPayment = ({ AUTH, planType, paymentIntentId, action = 'POST' }) =>
         return () => {
             setCardDetails(CARD_DETAILS_DEFAULT_PROPS);
             setIsLoading(false);
+            setErrorMessage(ERROR_MESSAGE_PROPS);
         }
     }, []);
 
@@ -112,6 +136,8 @@ const CardPayment = ({ AUTH, planType, paymentIntentId, action = 'POST' }) =>
                         fullWidth
                         value={ cardDetails.first_name }
                         onChange={ handleChange }
+                        error={ Boolean(errorMessage.first_name) }
+                        helperText={ errorMessage.first_name }
                     />
                 </Grid>
                 <Grid item xs={ 12 } sm={ 6 } md={ 6 } lg={ 6 }>
@@ -122,6 +148,8 @@ const CardPayment = ({ AUTH, planType, paymentIntentId, action = 'POST' }) =>
                         fullWidth
                         value={ cardDetails.last_name }
                         onChange={ handleChange }
+                        error={ Boolean(errorMessage.last_name) }
+                        helperText={ errorMessage.last_name }
                     />
                 </Grid>
                 <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
@@ -132,6 +160,8 @@ const CardPayment = ({ AUTH, planType, paymentIntentId, action = 'POST' }) =>
                         fullWidth
                         value={ cardDetails.phone_number }
                         onChange={ handleChange }
+                        error={ Boolean(errorMessage.phone_number) }
+                        helperText={ errorMessage.phone_number }
                     />
                 </Grid>
                 <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
@@ -142,6 +172,8 @@ const CardPayment = ({ AUTH, planType, paymentIntentId, action = 'POST' }) =>
                         fullWidth
                         value={ cardDetails.card_number }
                         onChange={ handleChange }
+                        error={ Boolean(errorMessage.card_number) }
+                        helperText={ errorMessage.card_number }
                     />
                 </Grid>
                 <Grid item xs={ 12 } sm={ 4 } md={ 4 } lg={ 4 }>
@@ -152,6 +184,8 @@ const CardPayment = ({ AUTH, planType, paymentIntentId, action = 'POST' }) =>
                         fullWidth
                         value={ cardDetails.exp_month }
                         onChange={ handleChange }
+                        error={ Boolean(errorMessage.exp_month) }
+                        helperText={ errorMessage.exp_month }
                     />
                 </Grid>
                 <Grid item xs={ 12 } sm={ 4 } md={ 4 } lg={ 4 }>
@@ -162,6 +196,8 @@ const CardPayment = ({ AUTH, planType, paymentIntentId, action = 'POST' }) =>
                         fullWidth
                         value={ cardDetails.exp_year }
                         onChange={ handleChange }
+                        error={ Boolean(errorMessage.exp_year) }
+                        helperText={ errorMessage.exp_year }
                     />
                 </Grid>
                 <Grid item xs={ 12 } sm={ 4 } md={ 4 } lg={ 4 }>
@@ -172,6 +208,8 @@ const CardPayment = ({ AUTH, planType, paymentIntentId, action = 'POST' }) =>
                         fullWidth
                         value={ cardDetails.cvc }
                         onChange={ handleChange }
+                        error={ Boolean(errorMessage.cvc) }
+                        helperText={ errorMessage.cvc }
                     />
                 </Grid>
                 <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
