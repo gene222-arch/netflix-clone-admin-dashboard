@@ -11,6 +11,7 @@ import Colors from './../../../constants/Colors';
 import { useLocation } from 'react-router-dom';
 import EditIcon from '@material-ui/icons/Edit';
 import AvatarOptions from './AvatarOptions'
+import GetBack from './../../../components/GetBack';
 
 
 const updateEmailUseStyles = makeStyles(theme => 
@@ -69,9 +70,9 @@ const AddProfile = ({ AUTH, AUTH_ERROR_MESSAGES, AUTH_HAS_ERROR_MESSAGES }) =>
 
     const [ profile, setProfile ] = useState({ ...AUTH.profile, avatar: DEFAULT_AVATAR_URL });
     const [ isProfileIdInState, setIsProfileIdInState ] = useState(false);
-    const [ avatarOptions, setShowAvatarOptions ] = useState(false);
+    const [ showAvatarOptions, setShowAvatarOptions ] = useState(false);
 
-    const toggleAvatarList = () => setShowAvatarOptions(! avatarOptions);
+    const toggleAvatarOptions = () => setShowAvatarOptions(! showAvatarOptions);
 
     const handleClickButton = () => 
     {
@@ -106,13 +107,16 @@ const AddProfile = ({ AUTH, AUTH_ERROR_MESSAGES, AUTH_HAS_ERROR_MESSAGES }) =>
         }
     }, []);
 
-    if (avatarOptions) {
+    if (showAvatarOptions) {
         return (
-            <AvatarOptions 
-                profile={ profile } 
-                setProfile={ setProfile } 
-                toggleAvatarList={ toggleAvatarList }
-            />
+            <Container maxWidth="sm">
+                <GetBack onClick={ toggleAvatarOptions } />
+                <AvatarOptions 
+                    profile={ profile } 
+                    setProfile={ setProfile } 
+                    toggleAvatarList={ toggleAvatarOptions }
+                />
+            </Container>
         )
     }
 
@@ -125,7 +129,7 @@ const AddProfile = ({ AUTH, AUTH_ERROR_MESSAGES, AUTH_HAS_ERROR_MESSAGES }) =>
                             src={ profile.avatar }   
                             className={ classes.avatar }
                         />
-                        <EditIcon className={ classes.editIcon } onClick={ toggleAvatarList } />
+                        <EditIcon className={ classes.editIcon } onClick={ toggleAvatarOptions } />
                     </div>
                 </Grid>
                 <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>

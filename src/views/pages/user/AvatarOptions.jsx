@@ -5,7 +5,7 @@ import Colors from './../../../constants/Colors';
 import AvatarList from './AvatarList';
 import UploadAvatar from './UploadAvatar';
 import UploadByCamera from './UploadByCamera';
-
+import GetBack from './../../../components/GetBack';
 
 const avatarOptionsUseStyles = makeStyles(theme => ({
     card: {

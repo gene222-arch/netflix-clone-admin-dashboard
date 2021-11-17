@@ -1,6 +1,6 @@
 import React,{ useEffect, useState } from 'react'
 import { uploadAvatarAsync } from './../../../services/auth/upload.avatar';
-import { Button, FormHelperText, makeStyles, Container, Typography } from '@material-ui/core';
+import { Button, FormHelperText, makeStyles, Container, Typography, IconButton } from '@material-ui/core';
 import { MoonLoader } from 'react-spinners';
 import Colors from './../../../constants/Colors';
 import { PhotoLibrary } from '@material-ui/icons';
