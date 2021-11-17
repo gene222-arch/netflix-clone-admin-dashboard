@@ -3,6 +3,7 @@ import { uploadAvatarAsync } from './../../../services/auth/upload.avatar';
 import { Button, FormHelperText, makeStyles, Container, Typography } from '@material-ui/core';
 import { MoonLoader } from 'react-spinners';
 import Colors from './../../../constants/Colors';
+import { PhotoLibrary } from '@material-ui/icons';
 
 const uploadAvatarUseStyles = makeStyles(theme => 
 ({
@@ -26,7 +27,16 @@ const uploadAvatarUseStyles = makeStyles(theme =>
         display: 'none',
     },
     headerTitle: {
-        margin: '3rem 0 2rem'
+        padding: '0.5rem'
+    },
+    photoLibraryIcon: {
+        fontSize: '6rem',
+        width: '100%',
+        textAlign: 'center',
+        margin: '3rem 0'
+    },
+    startText: {
+        color: Colors.info
     }
 }));
 
@@ -70,8 +80,9 @@ const UploadAvatar = ({ handleUpload }) =>
     return (
         <Container maxWidth="xs" className={ classes.container }>
             <Typography variant="h6" color="initial" align='center' className={ classes.headerTitle }>
-                Click <strong>start</strong> to begin uploading
+                Click <strong className={ classes.startText }>start</strong> to begin uploading
             </Typography>
+            <PhotoLibrary className={ classes.photoLibraryIcon } />
             <input
                 accept='image/*'
                 id='upload_image'
