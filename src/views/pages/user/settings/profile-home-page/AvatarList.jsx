@@ -27,6 +27,7 @@ const PIN_PROPS = {
 const avatarListUseStyles = makeStyles(theme => ({
     avatar: {
         width: '4rem',
+        height: '5rem',
         borderRadius: 5,
         marginRight: '1rem'
     },

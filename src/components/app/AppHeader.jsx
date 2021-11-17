@@ -19,6 +19,7 @@ import PATH from './../../routes/path';
 const appHeaderUseStyles = makeStyles(theme => ({
     avatar: {
         width: '2.5rem',
+        height: '2.5rem',
         marginTop: '1.5rem',
         borderRadius: 5
     },

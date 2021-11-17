@@ -37,7 +37,7 @@ const updateEmailUseStyles = makeStyles(theme =>
         }
     },
     container: {
-        height: '92vh'
+        height: '91vh'
     },
     editIcon: {
         position: 'absolute',
