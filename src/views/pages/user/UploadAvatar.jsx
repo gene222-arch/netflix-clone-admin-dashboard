@@ -13,6 +13,7 @@ const uploadAvatarUseStyles = makeStyles(theme =>
         '&:hover': {
             backgroundColor: Colors.white,
             color: Colors.netflixRed,
+            fontWeight: 'bold'
         }
     },
     container: {

@@ -4,6 +4,7 @@ import { Card, CardContent, makeStyles, Typography, Grid } from '@material-ui/co
 import Colors from './../../../constants/Colors';
 import AvatarList from './AvatarList';
 import UploadAvatar from './UploadAvatar';
+import UploadByCamera from './UploadByCamera';
 
 
 const avatarOptionsUseStyles = makeStyles(theme => ({
@@ -68,6 +69,8 @@ const AvatarOptions = ({ profile, setProfile, toggleAvatarList }) =>
     if (selectedOption === 'avatar') return <AvatarList handleClickAvatar={ handleClickAvatar } />
 
     if (selectedOption === 'upload') return <UploadAvatar handleUpload={ handleUpload } />
+
+    if (selectedOption === 'camera') return <UploadByCamera handleUpload={ handleUpload } />
 
     return (
         <Container maxWidth="sm" className={ classes.container }>
