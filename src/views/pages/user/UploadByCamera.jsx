@@ -48,10 +48,9 @@ const UploadByCamera = ({ handleUpload }) =>
             const imageSrc = webcamRef.current.getScreenshot();
             const file = FILE_UTIL.base64ToFile(imageSrc, 'avatar-cam.jpg');
 
-            const { data, status } = await uploadAvatarAsync({ avatar: file });
+            const { data } = await uploadAvatarAsync({ avatar: file });
 
-            console.log(data);
-            handleUpload(imageSrc);
+            handleUpload(data);
         },
         [ webcamRef ]
     );

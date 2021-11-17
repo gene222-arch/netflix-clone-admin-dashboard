@@ -127,9 +127,7 @@ const initialState =
 export default (state = initialState, { type, payload }) => 
 {
     const isLoading = false;
-    const {
-        error 
-    } = initialState;
+    const error = ERROR_DEFAULT;
 
     let currentProfiles = [ ...state.profiles ];
 

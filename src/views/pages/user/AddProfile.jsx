@@ -5,7 +5,7 @@ import { Button, Container, FormControlLabel, Switch } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { createStructuredSelector } from 'reselect';
 import { connect, useDispatch } from 'react-redux';
-import { selectAuth } from './../../../redux/modules/auth/selector';
+import { selectAuth, selectAuthErrorMessages, selectAuthHasErrorMessages } from './../../../redux/modules/auth/selector';
 import * as AUTH_ACTION from './../../../redux/modules/auth/actions';
 import Colors from './../../../constants/Colors';
 import { useLocation } from 'react-router-dom';
@@ -61,7 +61,7 @@ const updateEmailUseStyles = makeStyles(theme =>
 
 const DEFAULT_AVATAR_URL = 'https://upload.wikimedia.org/wikipedia/commons/0/0b/Netflix-avatar.png';
 
-const AddProfile = ({ AUTH }) => 
+const AddProfile = ({ AUTH, AUTH_ERROR_MESSAGES, AUTH_HAS_ERROR_MESSAGES }) => 
 {
     const classes = updateEmailUseStyles();
     const dispatch = useDispatch();
@@ -97,10 +97,12 @@ const AddProfile = ({ AUTH }) =>
 
     useEffect(() => 
     {
+        window.addEventListener('load', () => dispatch(AUTH_ACTION.clearErrors()));
         onLoadCheckProfileIdInState();
         return () => {
             setProfile(AUTH.profile);
             setShowAvatarOptions(false);
+            dispatch(AUTH_ACTION.clearErrors());
         }
     }, []);
 
@@ -145,6 +147,8 @@ const AddProfile = ({ AUTH }) =>
                         value={ profile.name }
                         onChange={ (e) => setProfile({ ...profile, name: e.target.value }) }
                         fullWidth
+                        error={ AUTH_HAS_ERROR_MESSAGES.name }
+                        helperText={ AUTH_ERROR_MESSAGES.name }
                     />
                 </Grid>
                 <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
@@ -165,7 +169,9 @@ const AddProfile = ({ AUTH }) =>
 }
 
 const mapStateToProps = createStructuredSelector({
-    AUTH: selectAuth
+    AUTH: selectAuth,
+    AUTH_ERROR_MESSAGES: selectAuthErrorMessages,
+    AUTH_HAS_ERROR_MESSAGES: selectAuthHasErrorMessages
 });
 
 export default connect(mapStateToProps)(AddProfile)
