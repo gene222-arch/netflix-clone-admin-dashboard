@@ -26,11 +26,19 @@ const uploadByCameraUseStyles = makeStyles(theme => ({
             fontWeight: 'bold'
         }
     },
+    captureText: {
+        color: Colors.info
+    },
     container: {
         height: '90.5vh'
     },
+    headerTitle: {
+        marginBottom: '2rem'
+    },
     webcam: {
-        borderRadius: 10
+        borderRadius: 10,
+        width: '100%',
+        height: '100%'
     },
     webcamContainer: {
         textAlign: 'center'
@@ -63,16 +71,16 @@ const UploadByCamera = ({ handleUpload }) =>
     
     return (
         <Container maxWidth="md" className={ classes.container }>
-            <Typography variant="h4" color="initial">Click <strong>capture</strong></Typography>
-            <Grid container spacing={1} justify='center'>
+            <Typography variant="h4" color="initial" className={ classes.headerTitle }>
+                Click <strong className={ classes.captureText }>capture</strong>
+            </Typography>
+            <Grid container spacing={ 3 } justify='center'>
                 <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
                     <div className={ classes.webcamContainer }>
                         <Webcam
                             audio={ false }
-                            height={ 500 }
                             ref={ webcamRef }
                             screenshotFormat="image/jpeg"
-                            width={ 780 }
                             videoConstraints={ videoConstraints }
                             className={ classes.webcam }
                         />

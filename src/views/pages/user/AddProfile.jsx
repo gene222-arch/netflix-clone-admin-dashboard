@@ -122,6 +122,7 @@ const AddProfile = ({ AUTH, AUTH_ERROR_MESSAGES, AUTH_HAS_ERROR_MESSAGES }) =>
 
     return (
         <Container maxWidth="sm" className={ classes.container }>
+            <GetBack />
             <Grid container spacing={ 2 } justify='center' alignItems='center'>
                 <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
                     <div className={ classes.avatarContainer }>
