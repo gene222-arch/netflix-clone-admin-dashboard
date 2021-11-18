@@ -1,6 +1,6 @@
 import React,{ useEffect, useState } from 'react'
 import { uploadAvatarAsync } from './../../../services/auth/upload.avatar';
-import { Button, FormHelperText, makeStyles, Container, Typography, IconButton } from '@material-ui/core';
+import { Button, FormHelperText, makeStyles, Container, Typography } from '@material-ui/core';
 import { MoonLoader } from 'react-spinners';
 import Colors from './../../../constants/Colors';
 import { PhotoLibrary } from '@material-ui/icons';
@@ -44,7 +44,6 @@ const UploadAvatar = ({ handleUpload }) =>
 {
     const classes = uploadAvatarUseStyles();
 
-    const [ avatarPath, setAvatarPath ] = useState(null);
     const [ hasError, setHasError ] = useState(false);
     const [ errorMessage, setErrorMessage ] = useState('');
     const [ isUploading, setIsUploading ] = useState(false);
@@ -64,7 +63,6 @@ const UploadAvatar = ({ handleUpload }) =>
             
             if (status === 'success') 
             {
-                setAvatarPath(data);
                 setHasError(false);
                 setErrorMessage('');
                 handleUpload(data);
@@ -76,6 +74,14 @@ const UploadAvatar = ({ handleUpload }) =>
 
         setIsUploading(false);
     }
+
+    useEffect(() => {
+        return () => {
+            setHasError(false);
+            setErrorMessage('');
+            setIsUploading(false);
+        }
+    }, []);
 
     return (
         <Container maxWidth="xs" className={ classes.container }>
