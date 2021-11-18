@@ -16,6 +16,7 @@ const {
     SEND_CHANGE_EMAIL_VERIFICATION_CODE_START,
     SEND_CHANGE_EMAIL_VERIFICATION_CODE_SUCCESS,
     SEND_CHANGE_EMAIL_VERIFICATION_CODE_FAILED,
+    CLEAR_EMAIL_VERIFICATION_CODE,
     CLEAR_USER_ERRORS
 } = ACTION_TYPES;
 
@@ -99,6 +100,11 @@ export const sendChangeEmailVerificationCodeSuccess = (payload) => ({
 export const sendChangeEmailVerificationCodeFailed = (payload) => ({
     type: SEND_CHANGE_EMAIL_VERIFICATION_CODE_FAILED,
     payload
+});
+
+/** Clear User errors */
+export const clearEmailVerificationCode = () => ({
+    type: CLEAR_EMAIL_VERIFICATION_CODE
 });
 
 /** Clear User errors */

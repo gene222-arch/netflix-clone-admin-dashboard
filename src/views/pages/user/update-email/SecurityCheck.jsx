@@ -10,6 +10,9 @@ import InputCode from './InputCode'
 import UpdateEmail from './UpdateEmail';
 import { selectUser } from './../../../../redux/modules/user/selector';
 import * as USER_ACTION from './../../../../redux/modules/user/actions';
+import IconButton from '@material-ui/core/IconButton';
+import RefreshIcon from '@material-ui/icons/Refresh'
+import SendIcon from '@material-ui/icons/Send'
 
 const securityCheckUseStyles = makeStyles(theme => ({
     container: {
@@ -43,6 +46,10 @@ const SecurityCheck = ({ AUTH, USER }) =>
     const [ code, setCode ] = useState(CODE_PROPS);
     const [ isCodeVerified, setIsCodeVerified ] = useState(false);
     const [ errorMessage, setErrorMessage ] = useState('');
+
+    const handleClickSend = () => {
+        dispatch(USER_ACTION.sendChangeEmailVerificationCodeStart());
+    }
 
     const handleChange = (e, elementName) => 
     {
@@ -86,8 +93,10 @@ const SecurityCheck = ({ AUTH, USER }) =>
 
     useEffect(() => 
     {
-        dispatch(USER_ACTION.sendChangeEmailVerificationCodeStart());
-        return () => {
+        window.addEventListener('load', () =>  dispatch(USER_ACTION.clearEmailVerificationCode()));
+        return () => 
+        {
+            dispatch(USER_ACTION.clearEmailVerificationCode());
             setCode(CODE_PROPS);
             setIsCodeVerified(false);
             setErrorMessage('');
@@ -114,6 +123,14 @@ const SecurityCheck = ({ AUTH, USER }) =>
                             <Typography variant="subtitle1" color="textSecondary" align='center' gutterBottom>
                                 Please enter the code we sent to <strong>{ AUTH.user.email }</strong> to help us protect your account.
                             </Typography>
+                            <div style={{ textAlign: 'center' }}>
+                                <IconButton onClick={ handleClickSend }>
+                                    {
+                                        USER.change_email_verification_code ? <RefreshIcon /> : <SendIcon />
+                                    }
+                                </IconButton>
+                                <Typography variant="caption" color="initial">{ USER.change_email_verification_code ? 'Resend' : 'Send' } Code</Typography>
+                            </div>
                         </Grid>
                         <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
                             <InputCode
@@ -141,7 +158,7 @@ const SecurityCheck = ({ AUTH, USER }) =>
                                 disabled={ Object.values(code).filter(num => Boolean(num)).length !== 6 }
                                 onClick={ handleClickVerifyCode }
                             >
-                                { USER.isLoading ? 'Sending email...' : 'Enter Code to Continue' }
+                                { USER.isLoading ? 'Sending verification code...' : 'Enter Code to Continue' }
                             </Button>
                         </Grid>
                     </Grid>

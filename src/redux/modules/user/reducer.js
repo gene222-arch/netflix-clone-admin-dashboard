@@ -16,6 +16,7 @@ const {
     SEND_CHANGE_EMAIL_VERIFICATION_CODE_START,
     SEND_CHANGE_EMAIL_VERIFICATION_CODE_SUCCESS,
     SEND_CHANGE_EMAIL_VERIFICATION_CODE_FAILED,
+    CLEAR_EMAIL_VERIFICATION_CODE,
     CLEAR_USER_ERRORS
 } = ACTION_TYPES;
 
@@ -92,6 +93,15 @@ export default (state = initialState, { type, payload }) =>
             return {
                 ...state, 
                 change_email_verification_code: payload.emailVerificationCode,
+                isLoading,
+                error
+            }
+
+
+        case CLEAR_EMAIL_VERIFICATION_CODE:
+            return {
+                ...state,
+                change_email_verification_code: '',
                 isLoading,
                 error
             }
