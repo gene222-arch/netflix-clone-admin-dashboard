@@ -56,6 +56,24 @@ const SecurityCheck = ({ AUTH, USER }) =>
         }
     }
 
+    const handleChangeBackSpace = (e, elementName) => 
+    {
+        const { name } = e.target;
+
+        if (e.keyCode === 8) {
+            setCode({
+                ...code,
+                [name]: ''
+            });
+            
+            if (elementName) {
+                const nextfield = document.querySelector(`input[name=${ elementName }]`);
+
+                nextfield.focus();
+            }
+        }
+    }
+
     const handleClickVerifyCode = () => {
         if (USER.change_email_verification_code === parseInt(Object.values(code).join(''))) {
             setIsCodeVerified(true);
@@ -100,6 +118,7 @@ const SecurityCheck = ({ AUTH, USER }) =>
                                 hasError={ Boolean(errorMessage.length) }
                                 code={ code }
                                 handleChange={ handleChange }
+                                handleChangeBackSpace={ handleChangeBackSpace }
                             />
                         </Grid>
                         {

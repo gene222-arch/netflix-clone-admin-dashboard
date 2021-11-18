@@ -2,7 +2,7 @@ import React from 'react'
 import Grid from '@material-ui/core/Grid'
 import { TextField } from '@material-ui/core'
 
-const InputCode = ({ hasError, code, handleChange }) => 
+const InputCode = ({ hasError, code, handleChange, handleChangeBackSpace }) => 
 {
     return (
         <Grid container spacing={1} justify='center'>
@@ -18,6 +18,7 @@ const InputCode = ({ hasError, code, handleChange }) =>
                     error={ hasError }
                     value={ code.num1 }
                     onChange={ (e) => handleChange(e, 'num2') }
+                    onKeyDown={ e => handleChangeBackSpace(e, '') }
                 />
             </Grid>
             <Grid item xs={ 3 } sm={ 2 } md={ 2 } lg={ 2 }>
@@ -32,6 +33,7 @@ const InputCode = ({ hasError, code, handleChange }) =>
                     error={ hasError }
                     value={ code.num2 }
                     onChange={ (e) => handleChange(e, 'num3') }
+                    onKeyDown={ e => handleChangeBackSpace(e, 'num1') }
                 />
             </Grid>
             <Grid item xs={ 3 } sm={ 2 } md={ 2 } lg={ 2 }>
@@ -46,6 +48,7 @@ const InputCode = ({ hasError, code, handleChange }) =>
                     error={ hasError }
                     value={ code.num3 }
                     onChange={ (e) => handleChange(e, 'num4') }
+                    onKeyDown={ e => handleChangeBackSpace(e, 'num2') }
                 />
             </Grid>
             <Grid item xs={ 3 } sm={ 2 } md={ 2 } lg={ 2 }>
@@ -60,6 +63,7 @@ const InputCode = ({ hasError, code, handleChange }) =>
                     error={ hasError }
                     value={ code.num4 }
                     onChange={ (e) => handleChange(e, 'num5') }
+                    onKeyDown={ e => handleChangeBackSpace(e, 'num3') }
                 />
             </Grid>
             <Grid item xs={ 3 } sm={ 2 } md={ 2 } lg={ 2 }>
@@ -74,6 +78,7 @@ const InputCode = ({ hasError, code, handleChange }) =>
                     error={ hasError }
                     value={ code.num5 }
                     onChange={ (e) => handleChange(e, 'num6') }
+                    onKeyDown={ e => handleChangeBackSpace(e, 'num4') }
                 />
             </Grid>
             <Grid item xs={ 3 } sm={ 2 } md={ 2 } lg={ 2 }>
@@ -88,6 +93,7 @@ const InputCode = ({ hasError, code, handleChange }) =>
                     error={ hasError }
                     value={ code.num6 }
                     onChange={ (e) => handleChange(e, '') }
+                    onKeyDown={ e => handleChangeBackSpace(e, 'num5') }
                 />
             </Grid>
         </Grid>
