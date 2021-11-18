@@ -27,7 +27,7 @@ const createData = (name, basic, standard, premium) => ({ name, basic, standard,
 const rows = [
   createData('Monthly cost (Philippine Peso)', 100, 200, 600),
   createData('Unlimited movies and TV shows', true, true, true),
-  createData('Number of Profiles', 3, 4, 5),
+  createData('Number of Profiles', 2, 4, 5),
   createData('Customizable Profile Avatar', false, false, true)
 ];
 

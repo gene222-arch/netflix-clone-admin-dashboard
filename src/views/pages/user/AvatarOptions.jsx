@@ -6,6 +6,9 @@ import AvatarList from './AvatarList';
 import UploadAvatar from './UploadAvatar';
 import UploadByCamera from './UploadByCamera';
 import GetBack from './../../../components/GetBack';
+import { createStructuredSelector } from 'reselect';
+import { selectAuth } from './../../../redux/modules/auth/selector';
+import { connect } from 'react-redux';
 
 const avatarOptionsUseStyles = makeStyles(theme => ({
     card: {
@@ -27,7 +30,7 @@ const avatarOptionsUseStyles = makeStyles(theme => ({
 }));
 
 
-const AvatarOptions = ({ profile, setProfile, toggleAvatarList }) => 
+const AvatarOptions = ({ AUTH, profile, setProfile, toggleAvatarList }) => 
 {
     const classes = avatarOptionsUseStyles();
 
@@ -47,15 +50,18 @@ const AvatarOptions = ({ profile, setProfile, toggleAvatarList }) =>
     [
         {
             title: 'Avatars',
-            actionName: 'avatar'
+            actionName: 'avatar',
+            isAvailable: [ 'Basic', 'Standard', 'Premium' ].includes(AUTH.subscription_details.type)
         },
         {
             title: 'Upload Image',
-            actionName: 'upload'
+            actionName: 'upload',
+            isAvailable: AUTH.subscription_details.type === 'Premium'
         },
         {
             title: 'Use Camera',
-            actionName: 'camera'
+            actionName: 'camera',
+            isAvailable: AUTH.subscription_details.type === 'Premium'
         }
     ];
 
@@ -77,7 +83,7 @@ const AvatarOptions = ({ profile, setProfile, toggleAvatarList }) =>
             <Typography variant="h4" color="initial" className={ classes.headerTitle }>Avatar Options</Typography>
             <Grid container spacing={ 3 } alignItems='center' className={ classes.cardGridContainer }>
             {
-                options.map(({ title, actionName }, index) => (
+                options.map(({ title, actionName, isAvailable }, index) => isAvailable && (
                     <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 } key={ index }>
                         <Card className={ classes.card } onClick={ () => setSelectedOption(actionName) }>
                             <CardContent>
@@ -94,4 +100,8 @@ const AvatarOptions = ({ profile, setProfile, toggleAvatarList }) =>
     )
 }
 
-export default AvatarOptions
+const mapStateToProps = createStructuredSelector({
+    AUTH: selectAuth
+});
+
+export default connect(mapStateToProps)(AvatarOptions)
