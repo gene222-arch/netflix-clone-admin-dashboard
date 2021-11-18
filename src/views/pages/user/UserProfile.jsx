@@ -9,7 +9,7 @@ import { makeStyles } from '@material-ui/styles';
 import LockIcon from '@material-ui/icons/Lock';
 import InputPinDialog from './InputPinDialog';
 import * as AUTH_ACTION from '../../../redux/modules/auth/actions';
-import { Add } from '@material-ui/icons';
+import { Add, ChildCareRounded } from '@material-ui/icons';
 import { useHistory } from 'react-router';
 import PATH from './../../../routes/path';
 
@@ -183,7 +183,7 @@ const UserProfile = ({ AUTH }) =>
                     <Typography variant="h3" color="initial" align='center' className={ classes.headerTitle }>Who's Watching?</Typography>
                     <Grid container spacing={3} justify='center' className={ classes.avatarContainer }>
                         {
-                            AUTH.profiles.map(({ id, name, avatar, is_profile_locked, pin_code }, index) => (
+                            AUTH.profiles.map(({ id, name, avatar, is_profile_locked, pin_code, is_for_kids }, index) => (
                                 <Grid key={ index } item xs={ 3 } sm={ 2 } md={ 2 } lg={ 2 } className={ classes.avatarGridContainer }>
                                     <Grid container spacing={ 1 } direction='column' justify='center'>
                                         <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
@@ -200,6 +200,9 @@ const UserProfile = ({ AUTH }) =>
                                         <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
                                             <Typography variant="subtitle1" color="textSecondary" align='center'>
                                                 { name.toUpperCase() }
+                                            </Typography>
+                                            <Typography variant="caption" color="textSecondary">
+                                                { !is_for_kids ? <strong>All Maturity Ratings</strong> : <ChildCareRounded /> }
                                             </Typography>
                                         </Grid>
                                         <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
