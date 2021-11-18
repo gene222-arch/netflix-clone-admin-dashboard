@@ -61,7 +61,7 @@ const PIN_PROPS = {
     num4: ''
 }
 
-const AddProfileCard = ({ planType, profileLimit, totalProfiles }) => 
+const AddProfileCard = ({ planType, totalProfiles }) => 
 {
     const classes = userProfileUseStyles();
     const history = useHistory();
@@ -73,7 +73,11 @@ const AddProfileCard = ({ planType, profileLimit, totalProfiles }) =>
     if (planType === 'Basic' && totalProfiles === 2) return;
 
     return (
-        <Grid item xs={ 3 } sm={ 2 } md={ 2 } lg={ 2 } className={ classes.addCardContainer } onClick={ () => history.push(PATH.ADD_PROFILE) }>
+        <Grid 
+            item xs={ 3 } sm={ 2 } md={ 2 } lg={ 2 } 
+            className={ classes.addCardContainer } 
+            onClick={ () => history.push(PATH.ADD_PROFILE) }
+        >
             <Grid container spacing={ 1 } direction='column' justify='center'>
                 <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
                     <Add className={ classes.addIcon } />
@@ -113,8 +117,7 @@ const UserProfile = ({ AUTH }) =>
     {
         const pinValue = Object.values(pin).join('');
 
-        if (pinValue === selectedProfilePin) 
-        {
+        if (pinValue === selectedProfilePin) {
             dispatch(AUTH_ACTION.selectProfileStart(id));
             cleanUp();
         }
@@ -139,7 +142,8 @@ const UserProfile = ({ AUTH }) =>
     {
         const planType = AUTH.subscription_details.type;
 
-        switch (planType) {
+        switch (planType) 
+        {
             case 'Premium':
                 setProfileLimit(5);
                 break;
