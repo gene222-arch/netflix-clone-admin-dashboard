@@ -141,7 +141,7 @@ const RenewSubscription = ({ AUTH }) =>
     }
 
     return (
-        <Container maxWidth="md" className={ classes.container } style={{ height: !isUpXs || isXs || isSm ? 'auto' : '91vh' }}>
+        <Container maxWidth="md" className={ classes.container } style={{ height: !isUpXs || isXs || isSm ? 'auto' : '112vh' }}>
             <Grid container spacing={ 3 }>
                 <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
                     <Grid container spacing={1}>

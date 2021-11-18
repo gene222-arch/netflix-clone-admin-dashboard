@@ -10,6 +10,9 @@ const PLAN_TYPES =
         cost: 100.00,
         servicesOffered: [
             '1 (One) month',
+            'Unlimited movies',
+            '2 (Two) Profiles',
+            '-'
         ]
     },
     {
@@ -17,7 +20,9 @@ const PLAN_TYPES =
         cost: 200.00,
         servicesOffered: [
             '2 (Two) months',
-            ''
+            'Unlimited movies',
+            '4 (Four) Profiles',
+            '-'
         ]
     },
     {
@@ -25,7 +30,9 @@ const PLAN_TYPES =
         cost: 600.00,
         servicesOffered: [
             '6 (Six) months',
-            ''
+            'Unlimited movies',
+            '5 (Five) Profiles',
+            'Customizable Profile Avatars'
         ]
     },
 ];
@@ -33,7 +40,7 @@ const PLAN_TYPES =
 const plantTypeListUseStyles = makeStyles(theme => ({
     card: {
         marginBottom: theme.spacing(2),
-        height: '26.8vh',
+        height: '40vh',
         cursor: 'pointer'
     },
     gridContainer: {
