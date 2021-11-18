@@ -35,6 +35,8 @@ const Membership = ({ AUTH, paymentAuthorizationNotif }) =>
 
     const billingDetailsActionText = () =>
     {
+        if (AUTH.subscription_details.status === 'pending') return 'Pending Email';
+
         if (AUTH.subscription_details.status === 'subscribed') return 'Manage Plan';
 
         if (paymentAuthorizationNotif.status === 'pending' || AUTH.payment_authorization_status === 'sent') return 'Pending email';
