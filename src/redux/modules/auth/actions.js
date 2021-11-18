@@ -22,6 +22,8 @@ const {
     DELETE_PROFILE_BY_ID_SUCCESS,
     DELETE_PROFILE_BY_ID_FAILED,
 
+    DELETE_SELECTED_PROFILE,
+
     FORGOT_PASSWORD_START,
     FORGOT_PASSWORD_SUCCESS,
     FORGOT_PASSWORD_FAILED,
@@ -145,6 +147,11 @@ export const deleteProfileByIdSuccess = (payload) => ({
 
 export const deleteProfileByIdFailed = (payload) => ({
     type: DELETE_PROFILE_BY_ID_FAILED,
+    payload
+});
+
+export const deletedSelectedProfile = (payload) => ({
+    type: DELETE_SELECTED_PROFILE,
     payload
 });
 /**

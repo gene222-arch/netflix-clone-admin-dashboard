@@ -22,6 +22,8 @@ const {
     DELETE_PROFILE_BY_ID_SUCCESS,
     DELETE_PROFILE_BY_ID_FAILED,
 
+    DELETE_SELECTED_PROFILE,
+
     FORGOT_PASSWORD_START,
     FORGOT_PASSWORD_SUCCESS,
     FORGOT_PASSWORD_FAILED,
@@ -226,6 +228,14 @@ export default (state = initialState, { type, payload }) =>
             return {
                 ...state,
                 profiles: filterProfiles,
+                isLoading,
+                error
+            }
+
+        case DELETE_SELECTED_PROFILE:
+            return {
+                ...state,
+                selectedProfile: PROFILE_PROPS,
                 isLoading,
                 error
             }

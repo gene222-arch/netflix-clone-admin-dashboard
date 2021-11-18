@@ -7,7 +7,7 @@ import { createStructuredSelector } from 'reselect';
 import { selectAuth } from './../../../../../redux/modules/auth/selector';
 import * as CONFIRMATION_ACTION from './../../../../../redux/modules/confirm/actions';
 import * as AUTH_ACTION from './../../../../../redux/modules/auth/actions';
-import { connect, useDispatch } from 'react-redux';
+import { connect, useDispatch, batch } from 'react-redux';
 import PATH from './../../../../../routes/path';
 import StyledNavLink from './../../../../../components/styled-components/StyledNavLink';
 import { ChildCareRounded } from '@material-ui/icons';
@@ -82,6 +82,18 @@ const AvatarList = ({ AUTH, id, handleClickSetId, handleChangePinLock }) =>
         setSelectedProfilePinCode('');
     }
 
+    const handleDispatchDeleteProfile = (profileIdToDelete) => 
+    {
+        batch(() => {
+            dispatch(AUTH_ACTION.deleteProfileByIdStart({ id: profileIdToDelete }));
+
+            if (AUTH.profiles.length === 1) {
+                dispatch(AUTH_ACTION.deletedSelectedProfile());
+                history.push(PATH.USER_PROFILE);
+            }
+        });
+    }
+
     const handleDeleteConfirmation = (profileId, profileName) => {
         dispatch(CONFIRMATION_ACTION.showConfirmationDialog({
             mainHeader: (
@@ -90,7 +102,7 @@ const AvatarList = ({ AUTH, id, handleClickSetId, handleChangePinLock }) =>
                 </Typography>
             ),
             subHeader: 'Once confirmed, saved data in this profile will be deleted permanently and recovery of loss data is not possible',
-            confirmCallback: () => dispatch(AUTH_ACTION.deleteProfileByIdStart({ id: profileId }))
+            confirmCallback: () => handleDispatchDeleteProfile(profileId)
         }));
     }
 
