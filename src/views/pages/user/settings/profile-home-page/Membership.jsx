@@ -12,6 +12,7 @@ import * as USER_ACTION from './../../../../../redux/modules/user/actions'
 import { useTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import SubscriptionIcon from '@material-ui/icons/Subscriptions';
+import { useHistory } from 'react-router';
 
 
 const membershipUseStyles = makeStyles(theme => ({
@@ -30,6 +31,7 @@ const Membership = ({ AUTH, paymentAuthorizationNotif }) =>
 
     const classes = membershipUseStyles();
     const dispatch = useDispatch();
+    const history = useHistory();
 
     const isXs = useMediaQuery(theme.breakpoints.only('xs'));
 
@@ -65,7 +67,7 @@ const Membership = ({ AUTH, paymentAuthorizationNotif }) =>
             mobileSizeTextContent: 'Change',
             isTextSecondary: false,
             isNavigatable: true,
-            onClick: () => dispatch(USER_ACTION.sendChangeEmailVerificationCodeStart())
+            onClick: () => history.push(PATH.UPDATE_EMAIL)
         },
         {
             id: 'password',

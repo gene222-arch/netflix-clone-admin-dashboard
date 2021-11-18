@@ -49,7 +49,7 @@ const frequentProblems = [
         list: [
             {
                 title: 'Update email',
-                path: PATH.PROFILE_HOME_PAGE
+                path: PATH.UPDATE_EMAIL
             },
             {
                 title: 'Update password',

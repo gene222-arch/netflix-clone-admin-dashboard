@@ -205,7 +205,7 @@ const UserProfile = ({ AUTH }) =>
                                                 { !is_for_kids ? <strong>All Maturity Ratings</strong> : <ChildCareRounded /> }
                                             </Typography>
                                         </Grid>
-                                        <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
+                                        <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>W
                                             { Boolean(is_profile_locked) && <LockIcon color='disabled' /> }
                                         </Grid>
                                     </Grid>     
