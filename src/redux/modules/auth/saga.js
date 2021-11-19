@@ -219,16 +219,13 @@ function* loginSaga (payload)
     try {
         
         const { message, status } = yield call(logoutAsync);
-
-        Cookies.removeToken();
-
         yield put(logoutSuccess());
         yield put(ALERT.showAlert({
             status,
             message
         }));
         yield put(push(PATH.LOGIN));
-
+        Cookies.removeToken();
     } catch ({ message }) {
 
         yield put(logoutFailed({

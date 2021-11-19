@@ -73,10 +73,13 @@ const LoginForm = ({ AUTH, ERROR_MESSAGE, HAS_ERROR_MESSAGE }) =>
     {
         try {
             const { data } = await USER_API.fetchByTokenAsync();
+            const { token, ...userData } = data;
 
-            const selectedProfile = data.profiles.find(({ id }) => id === parseInt(profileId));
+            const selectedProfile = userData.profiles.find(({ id }) => id === parseInt(profileId));
 
-            dispatch(AUTH_ACTION.loginViaToken({ ...data, selectedProfile }));
+            Cookies.set('access_token', token);
+
+            dispatch(AUTH_ACTION.loginViaToken({ ...userData, selectedProfile }));
 
             if (! path) {
                 history.push(PATH.PROFILE_LOCK.replace(':id', profileId));
@@ -94,7 +97,7 @@ const LoginForm = ({ AUTH, ERROR_MESSAGE, HAS_ERROR_MESSAGE }) =>
         const token = QueryParam.get('token');
         const profileId = QueryParam.get('profileId');
 
-        if (token) 
+        if (! Cookies.has('access_token') && token)
         {
             Cookies.set('access_token', token);
             loginUserViaToken(profileId, path);
