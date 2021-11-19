@@ -22,8 +22,7 @@ const middlewares = applyMiddleware(
 
 const enhancers = compose(
 	middlewares,
-	(typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION__) && 
-	window.__REDUX_DEVTOOLS_EXTENSION__()
+	window.devToolsExtension ? window.devToolsExtension() : f => f
 );
 
 const store = createStore(
