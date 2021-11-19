@@ -13,6 +13,7 @@ import * as USER_ACTION from './../../../../redux/modules/user/actions';
 import IconButton from '@material-ui/core/IconButton';
 import RefreshIcon from '@material-ui/icons/Refresh'
 import SendIcon from '@material-ui/icons/Send'
+import GetBack from './../../../../components/GetBack';
 
 const securityCheckUseStyles = makeStyles(theme => ({
     container: {
@@ -109,6 +110,7 @@ const SecurityCheck = ({ AUTH, USER }) =>
             !isCodeVerified
                 ? (
                     <Grid container spacing={1} alignItems='center' justify='center'>
+                        <GetBack />
                         <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
                             <Typography variant="caption" color="error" align='center'>
                                 <strong>SECURITY CHECK</strong>
