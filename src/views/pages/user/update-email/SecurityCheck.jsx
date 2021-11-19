@@ -117,7 +117,7 @@ const SecurityCheck = ({ AUTH, USER }) =>
                             </Typography>
                         </Grid>
                         <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
-                            <Typography variant="h4" color="default" align='center' gutterBottom>
+                            <Typography variant="h4" align='center' gutterBottom>
                                 <strong>Check your email for a code</strong>
                             </Typography>
                         </Grid>
@@ -154,7 +154,7 @@ const SecurityCheck = ({ AUTH, USER }) =>
                         <Grid item xs={ 12 } sm={ 10 } md={ 10 } lg={ 10 }>
                             <Button 
                                 variant="contained" 
-                                color="default" 
+                                 
                                 className={ classes.enterCodeBtn }
                                 fullWidth
                                 disabled={ Object.values(code).filter(num => Boolean(num)).length !== 6 }

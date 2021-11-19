@@ -39,7 +39,8 @@ const notificationMenuUseStyles = makeStyles(theme => ({
     timeAgo: {
         color: Colors.info,
         fontWeight: 'bold',
-        fontSize: '0.75rem'
+        fontSize: '0.75rem',
+        display: 'block'
     }
 }));
 
@@ -169,16 +170,16 @@ const NotificationMenu = ({ PAYMENT_AUTH_NOTIFS, UNREAD_PAYMENT_AUTH_NOTIFS, anc
                                 /> 
                                 <ListItemText 
                                     primary={
-                                        <Typography variant="subtitle2" color="initial">
+                                        <Typography variant="subtitle1" color="initial">
                                             { data.type.split(/(?=[A-Z])/).join(" ") }
                                         </Typography>
                                     } 
                                     secondary={
                                         <small>
-                                            <Typography variant="subtitle2" color="initial" noWrap>
-                                                { data.data.message }
+                                            <Typography variant="caption" color="initial" noWrap>
+                                                { data.data.message.substring(0, 60) + '....' }
                                             </Typography>
-                                            <Typography variant="subtitle2" color="initial" className={ classes.timeAgo }>
+                                            <Typography variant="caption" color="initial" className={ classes.timeAgo }>
                                                 { time_ago }
                                             </Typography>
                                         </small>
