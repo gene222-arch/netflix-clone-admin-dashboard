@@ -53,7 +53,7 @@ const frequentProblems = [
             },
             {
                 title: 'Update password',
-                path: PATH.PROFILE_HOME_PAGE
+                path: PATH.UPDATE_PASSWORD
             },
             {
                 title: 'Cancel account',

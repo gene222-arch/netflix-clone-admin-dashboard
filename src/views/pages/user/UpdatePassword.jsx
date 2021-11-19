@@ -12,6 +12,10 @@ import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button'
 import { selectUser, selectUserErrorMessages, selectUserHasErrorMessages } from './../../../redux/modules/user/selector';
 import PATH from './../../../routes/path';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import IconButton from '@material-ui/core/IconButton';
+import VisibilityIcon from '@material-ui/icons/Visibility';
+import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 
 
 const updatePasswordStyles = makeStyles(theme => ({
@@ -40,6 +44,9 @@ const UpdatePassword = ({ USER, USER_HAS_ERROR_MESSAGE, USER_ERROR_MESSAGE }) =>
     const history = useHistory();
 
     const [ passwords, setPasswords ] = useState(PASSWORDS_PROPS);
+    const [ showCurrentPassword, setShowCurrentPassword ] = useState(false);
+    const [ showPassword, setShowPassword ] = useState(false);
+    const [ showConfirmPassword, setShowConfirmPassword ] = useState(false);
 
     const handleChangePasswords = (e) => setPasswords({ ...passwords, [e.target.name]: e.target.value });
 
@@ -47,12 +54,23 @@ const UpdatePassword = ({ USER, USER_HAS_ERROR_MESSAGE, USER_ERROR_MESSAGE }) =>
 
     const handleClickCancel = () => history.goBack();
 
+    const handleClickToggleCurrentPasswordVisibility = () => setShowCurrentPassword(! showCurrentPassword);
+
+    const handleClickTogglePasswordVisibility = () => setShowPassword(! showPassword);
+
+    const handleClickToggleConfirmPasswordVisibility = () => setShowConfirmPassword(! showConfirmPassword);
+
+    const handleMouseDownPassword = (e) => e.preventDefault();
+
     useEffect(() => 
     {
         window.addEventListener('load', () => dispatch(USER_ACTION.clearUserErrors()));
         return () => {
             dispatch(USER_ACTION.clearUserErrors());
             setPasswords(PASSWORDS_PROPS);
+            setShowPassword(false);
+            setShowConfirmPassword(false);
+            setShowCurrentPassword(false);
         }
     }, []);
 
@@ -69,12 +87,25 @@ const UpdatePassword = ({ USER, USER_HAS_ERROR_MESSAGE, USER_ERROR_MESSAGE }) =>
                         name='current_password'
                         label="Current Password"
                         variant='outlined'
-                        type='password'
+                        type={ !showCurrentPassword ? 'password' : '' }
                         value={ passwords.current_password }
                         onChange={ handleChangePasswords }
                         fullWidth
                         error={ USER_HAS_ERROR_MESSAGE?.current_password }
                         helperText={ USER_ERROR_MESSAGE?.current_password }
+                        InputProps={{
+                            endAdornment: (
+                                <InputAdornment position="end">
+                                    <IconButton
+                                        aria-label="toggle password visibility"
+                                        onClick={ handleClickToggleCurrentPasswordVisibility }
+                                        onMouseDown={ handleMouseDownPassword }
+                                    >
+                                    { showPassword ? <VisibilityIcon /> : <VisibilityOffIcon /> }
+                                    </IconButton>
+                                </InputAdornment>
+                            ),
+                        }}
                     />
                 </Grid>
                 <Grid item xs={ 12 } sm={ 12 } md={ 7 } lg={ 7 }>
@@ -82,12 +113,25 @@ const UpdatePassword = ({ USER, USER_HAS_ERROR_MESSAGE, USER_ERROR_MESSAGE }) =>
                         name='password'
                         label="New password (6-60 characters)"
                         variant='outlined'
-                        type='password'
+                        type={ !showPassword ? 'password' : '' }
                         value={ passwords.password }
                         onChange={ handleChangePasswords }
                         fullWidth
                         error={ USER_HAS_ERROR_MESSAGE?.password }
                         helperText={ USER_ERROR_MESSAGE?.password }
+                        InputProps={{
+                            endAdornment: (
+                                <InputAdornment position="end">
+                                    <IconButton
+                                        aria-label="toggle password visibility"
+                                        onClick={ handleClickTogglePasswordVisibility }
+                                        onMouseDown={ handleMouseDownPassword }
+                                    >
+                                    { showPassword ? <VisibilityIcon /> : <VisibilityOffIcon /> }
+                                    </IconButton>
+                                </InputAdornment>
+                            ),
+                        }}
                     />
                 </Grid>
                 <Grid item xs={ 12 } sm={ 12 } md={ 7 } lg={ 7 }>
@@ -95,12 +139,25 @@ const UpdatePassword = ({ USER, USER_HAS_ERROR_MESSAGE, USER_ERROR_MESSAGE }) =>
                         name='password_confirmation'
                         label="Confirm new password"
                         variant='outlined'
-                        type='password'
+                        type={ !showConfirmPassword ? 'password' : '' }
                         value={ passwords.password_confirmation }
                         onChange={ handleChangePasswords }
                         fullWidth
                         error={ USER_HAS_ERROR_MESSAGE?.password_confirmation }
                         helperText={ USER_ERROR_MESSAGE?.password_confirmation }
+                        InputProps={{
+                            endAdornment: (
+                                <InputAdornment position="end">
+                                    <IconButton
+                                        aria-label="toggle password visibility"
+                                        onClick={ handleClickToggleConfirmPasswordVisibility }
+                                        onMouseDown={ handleMouseDownPassword }
+                                    >
+                                    { showConfirmPassword ? <VisibilityIcon /> : <VisibilityOffIcon /> }
+                                    </IconButton>
+                                </InputAdornment>
+                            ),
+                        }}
                     />
                 </Grid>
                 <Grid item xs={ 12 } sm={ 12 } md={ 7 } lg={ 7 }>
