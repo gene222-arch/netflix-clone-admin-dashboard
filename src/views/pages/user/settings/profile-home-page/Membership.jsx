@@ -42,7 +42,7 @@ const Membership = ({ AUTH, paymentAuthorizationNotif }) =>
         if (AUTH.subscription_details.status === 'subscribed') return 'Manage Plan';
 
         if (['expired', 'cancelled'].includes(AUTH.subscription_details.status) && AUTH.payment_authorization_status !== 'sent') {
-            return 'Renew Subscription'
+            return 'Renew Subscription';
         }
 
         if (paymentAuthorizationNotif.status === 'pending' || AUTH.payment_authorization_status === 'sent') return 'Pending email';
@@ -86,7 +86,7 @@ const Membership = ({ AUTH, paymentAuthorizationNotif }) =>
             primaryText: `Billing Details ${ !AUTH.subscription_details.is_expired ? '' : '(expired)' }`,
             actionText: billingDetailsActionText(),
             actionPath: billingDetailsPath(),
-            mobileSizeTextContent: billingDetailsActionText().substring(0, 5),
+            mobileSizeTextContent: billingDetailsActionText().substring(0, 6),
             isTextSecondary: true,
             isNavigatable: [ 'Renew Subscription', 'Manage Plan' ].includes(billingDetailsActionText()),
             onClick: () => console.log('')
