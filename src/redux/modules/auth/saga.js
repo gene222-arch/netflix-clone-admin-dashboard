@@ -49,7 +49,7 @@ import * as Cookies from '../../../utils/cookies'
 import PATH from './../../../routes/path';
 
 /** Error messages */
-import { ERROR_MESSAGE_ON_LOGIN, ERROR_MESSAGE_ON_REGISTER } from './../../../config/alertMessages';
+import { ERROR_MESSAGE_ON_UPDATE, ERROR_MESSAGE_ON_REGISTER } from './../../../config/alertMessages';
 
 
 
@@ -343,7 +343,7 @@ function* updateProfileByIdSaga (payload)
         yield put(push(PATH.PROFILE_HOME_PAGE));
     } catch ({ message, status }) {
         yield put(updateProfileByIdFailed({ errorMessages: message }));
-        yield put(ALERT.showAlert({ status, message }));
+        yield put(ALERT.showAlert({ status, message: ERROR_MESSAGE_ON_UPDATE }));
     }
 }
 
