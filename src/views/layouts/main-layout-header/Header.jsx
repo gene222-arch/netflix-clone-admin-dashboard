@@ -8,11 +8,15 @@ import { createStructuredSelector } from 'reselect';
 import { selectAuth } from './../../../redux/modules/auth/selector';
 import { useDispatch, connect } from 'react-redux';
 import CircleContentLoader from '../../../components/content-loader/CircleContentLoader';
+import { useHistory } from 'react-router';
+import PATH from './../../../routes/path';
+import Colors from './../../../constants/Colors';
 
 const useStyles = makeStyles((theme) => ({
     userAvatar: {
         width: '100%',
-        height: '2.75rem'
+        height: '2.75rem',
+        border: `2px solid ${ Colors.netflixRed }`
     },
 }))
 
@@ -20,6 +24,7 @@ const Header = ({ AUTH }) =>
 {
     const classes = useStyles();
     const dispatch = useDispatch();
+    const history = useHistory();
 
     const [anchorEl, setAnchorEl] = useState(null);
 
@@ -31,6 +36,8 @@ const Header = ({ AUTH }) =>
         handleClose();
         dispatch(AUTH_ACTION.logoutStart());
     }
+
+    const handleClickAccount = () => history.push(PATH.SETTINGS);
 
     useEffect(() => {
         return () => {
@@ -60,7 +67,15 @@ const Header = ({ AUTH }) =>
                 keepMounted
                 open={Boolean(anchorEl)}
                 onClose={ handleClose }
+                PaperProps={{ 
+                    style: {  
+                        width: '15rem',
+                        height: '15rem'
+                    } 
+                }}
             >
+                <MenuItem disabled></MenuItem>
+                <MenuItem onClick={ handleClickAccount }>Account</MenuItem>
                 <MenuItem onClick={ handleClickLogout }>Logout</MenuItem>
             </Menu>
         
