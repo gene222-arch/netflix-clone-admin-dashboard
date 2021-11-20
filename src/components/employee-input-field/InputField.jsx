@@ -282,7 +282,6 @@ const InputField = ({ ACCESS_RIGHT, EMPLOYEE, EMPLOYEE_HAS_ERROR, EMPLOYEE_ERROR
                                         style: { textAlign: 'center' },
                                         maxLength: 1
                                     }}
-                                    type='password'
                                     value={ pin.num1 }
                                     onChange={ e => handleChangePin(e, 'num2') }
                                     onKeyDown={ handleOnKeyPressDown }
@@ -299,7 +298,6 @@ const InputField = ({ ACCESS_RIGHT, EMPLOYEE, EMPLOYEE_HAS_ERROR, EMPLOYEE_ERROR
                                         style: { textAlign: 'center' },
                                         maxLength: 1
                                     }}
-                                    type='password'
                                     value={ pin.num2 }
                                     onChange={ e => handleChangePin(e, 'num3') }
                                     onKeyDown={ handleOnKeyPressDown }
@@ -315,7 +313,6 @@ const InputField = ({ ACCESS_RIGHT, EMPLOYEE, EMPLOYEE_HAS_ERROR, EMPLOYEE_ERROR
                                         style: { textAlign: 'center' },
                                         maxLength: 1
                                     }}
-                                    type='password'
                                     value={ pin.num3 }
                                     onChange={ e => handleChangePin(e, 'num4') }
                                     onKeyDown={ handleOnKeyPressDown }
@@ -331,7 +328,6 @@ const InputField = ({ ACCESS_RIGHT, EMPLOYEE, EMPLOYEE_HAS_ERROR, EMPLOYEE_ERROR
                                         style: { textAlign: 'center' },
                                         maxLength: 1
                                     }}
-                                    type='password'
                                     value={ pin.num4 }
                                     onKeyDown={ handleOnKeyPressDown }
                                     onChange={ e => handleChangePin(e, 'num1') }
