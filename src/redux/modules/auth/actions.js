@@ -24,6 +24,10 @@ const {
 
     DELETE_SELECTED_PROFILE,
 
+    DISABLE_PROFILES_START,
+    DISABLE_PROFILES_SUCCESS,
+    DISABLE_PROFILES_FAILED,
+
     FORGOT_PASSWORD_START,
     FORGOT_PASSWORD_SUCCESS,
     FORGOT_PASSWORD_FAILED,
@@ -154,6 +158,24 @@ export const deletedSelectedProfile = (payload) => ({
     type: DELETE_SELECTED_PROFILE,
     payload
 });
+
+export const disableProfilesStart = (payload) => ({
+    type: DISABLE_PROFILES_START,
+    payload
+});
+
+export const disableProfilesSuccess = (payload) => ({
+    type: DISABLE_PROFILES_SUCCESS,
+    payload
+});
+
+export const disableProfilesFailed = (payload) => ({
+    type: DISABLE_PROFILES_FAILED,
+    payload
+});
+
+
+
 /**
  * Reset password
  */

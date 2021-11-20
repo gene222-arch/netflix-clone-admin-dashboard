@@ -23,6 +23,8 @@ import {
     cancelSubscriptionFailed,
     deleteProfileByIdSuccess,
     deleteProfileByIdFailed,
+    disableProfilesSuccess,
+    disableProfilesFailed,
     forgotPasswordSuccess,
     forgotPasswordFailed,
     loginSuccess, 
@@ -59,6 +61,7 @@ const {
     AUTH_USER_START,
     CANCEL_SUBSCRIPTION_START,
     DELETE_PROFILE_BY_ID_START,
+    DISABLE_PROFILES_START,
     FORGOT_PASSWORD_START,
     LOGIN_START,
     LOGOUT_START,
@@ -151,6 +154,24 @@ function* authUserSaga ()
          yield put(deleteProfileByIdFailed({ errorMessages: message }));
      }
  }
+
+ function* disableProfilesSaga (payload)
+ {
+     try {
+         const { message, status } = yield call(USER_PROFILE_API.disableAsync, payload.profileIds);
+ 
+         yield put(disableProfilesSuccess(payload));
+
+         yield put(ALERT.showAlert({
+            status,
+            message
+        }));
+
+     } catch ({ message }) {
+         yield put(disableProfilesFailed({ errorMessages: message }));
+     }
+ }
+
 /**
  * Forgot password request
  */
@@ -384,6 +405,15 @@ function* deleteProfileByIdWatcher ()
     }
 }
 
+function* disableProfilesWatcher () 
+{
+    while (true)
+    {
+        const { payload } = yield take(DISABLE_PROFILES_START); 
+        yield call(disableProfilesSaga, payload);
+    }
+}
+
 function* forgotPasswordWatcher () 
 {
     while (true)
@@ -484,6 +514,7 @@ export default function* ()
         authUserWatcher(),
         cancelSubscriptionWatcher(),
         deleteProfileByIdWatcher(),
+        disableProfilesWatcher(),
         forgotPasswordWatcher(),
         loginWatcher(),
         logoutWatcher(),

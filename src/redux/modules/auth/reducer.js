@@ -24,6 +24,10 @@ const {
 
     DELETE_SELECTED_PROFILE,
 
+    DISABLE_PROFILES_START,
+    DISABLE_PROFILES_SUCCESS,
+    DISABLE_PROFILES_FAILED,
+
     FORGOT_PASSWORD_START,
     FORGOT_PASSWORD_SUCCESS,
     FORGOT_PASSWORD_FAILED,
@@ -139,6 +143,7 @@ export default (state = initialState, { type, payload }) =>
         case AUTH_USER_START:
         case CANCEL_SUBSCRIPTION_START:
         case DELETE_PROFILE_BY_ID_START:
+        case DISABLE_PROFILES_START:
         case LOGIN_START: 
         case LOGOUT_START:
         case MANAGE_PROFILE_LOCK_START:
@@ -181,36 +186,36 @@ export default (state = initialState, { type, payload }) =>
             };
 
 
-           case BROADCAST_CREATE_PROFILE:
-                currentProfiles = [ ...state.profiles, payload.profile ];
+        case BROADCAST_CREATE_PROFILE:
+            currentProfiles = [ ...state.profiles, payload.profile ];
 
-                return {
-                    ...state,
-                    profiles: currentProfiles,
-                    isLoading,
-                    error
-                }
+            return {
+                ...state,
+                profiles: currentProfiles,
+                isLoading,
+                error
+            }
 
-            case BROADCAST_UPDATE_PROFILE:
-                const payloadProfile = payload.profile;
-                currentProfiles = currentProfiles.map(profile => profile.id === payload.profile.id ? payloadProfile : profile);
+        case BROADCAST_UPDATE_PROFILE:
+            const payloadProfile = payload.profile;
+            currentProfiles = currentProfiles.map(profile => profile.id === payload.profile.id ? payloadProfile : profile);
 
-                return {
-                    ...state,
-                    profiles: currentProfiles,
-                    isLoading,
-                    error
-                }
+            return {
+                ...state,
+                profiles: currentProfiles,
+                isLoading,
+                error
+            }
 
-           case BROADCAST_DELETE_PROFILE_BY_ID:
-                currentProfiles = currentProfiles.filter(({ id }) => id !== payload.id)
+        case BROADCAST_DELETE_PROFILE_BY_ID:
+            currentProfiles = currentProfiles.filter(({ id }) => id !== payload.id)
 
-                return {
-                    ...state,
-                    profiles: currentProfiles,
-                    isLoading,
-                    error
-                }
+            return {
+                ...state,
+                profiles: currentProfiles,
+                isLoading,
+                error
+            }
             
         case CANCEL_SUBSCRIPTION_SUCCESS:
             return {
@@ -236,6 +241,22 @@ export default (state = initialState, { type, payload }) =>
             return {
                 ...state,
                 selectedProfile: PROFILE_PROPS,
+                isLoading,
+                error
+            }
+
+        case DISABLE_PROFILES_SUCCESS:
+            const filterProfileEnabledProp = state
+                .profiles
+                .map(profile => (
+                    payload.profileIds.include(profile.id)
+                        ? { ...profile, enabled: 0 }
+                        : profile
+                ))
+
+            return {
+                ...state,
+                profiles: filterProfileEnabledProp,
                 isLoading,
                 error
             }
@@ -334,6 +355,7 @@ export default (state = initialState, { type, payload }) =>
         case ADD_PROFILE_FAILED:
         case CANCEL_SUBSCRIPTION_FAILED:
         case DELETE_PROFILE_BY_ID_FAILED:
+        case DISABLE_PROFILES_FAILED:
         case FORGOT_PASSWORD_FAILED:
         case MANAGE_PROFILE_LOCK_FAILED:
         case REGISTRATION_FAILED:         
