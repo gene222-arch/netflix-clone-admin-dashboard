@@ -2,8 +2,9 @@ import React from 'react'
 import Container from '@material-ui/core/Container'
 import Typography from '@material-ui/core/Typography'
 import Grid from '@material-ui/core/Grid'
-import { makeStyles } from '@material-ui/core';
+import { IconButton, makeStyles } from '@material-ui/core';
 import Colors from './../../constants/Colors';
+import { Update } from '@material-ui/icons';
 
 const dataNotFoundUseStyles = makeStyles(theme => ({
     icon: {
@@ -19,10 +20,25 @@ const dataNotFoundUseStyles = makeStyles(theme => ({
     },
     mark: {
         color: theme.palette.error.main
+    },
+    updateIcon: {
+        color: Colors.info,
+        fontSize: '3rem',
+        textAlign: 'center'
+    },
+    updateIconBtn: {
+        marginRight: '0.5rem'
+    },
+    updateIconContainer: {
+        textAlign: 'center'
+    },
+    reloadDataText: {
+        color: Colors.info,
+        fontWeight: 'bold'
     }
 }));
 
-const DataNotFound = ({ type, Icon }) => 
+const DataNotFound = ({ type, Icon, handleClickRefresh }) => 
 {
     const classes = dataNotFoundUseStyles();
 
@@ -54,6 +70,18 @@ const DataNotFound = ({ type, Icon }) =>
                         The { type } that you are finding may have been already deleted or yet to be created.
                     </Typography>
                 </Grid>
+                {
+                    typeof handleClickRefresh === 'function' && (
+                        <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
+                            <div className={ classes.updateIconContainer }>
+                                <IconButton onClick={ handleClickRefresh } className={ classes.updateIconBtn }>
+                                    <Update className={ classes.updateIcon } />
+                                </IconButton>
+                                <Typography variant="caption" color="initial" className={ classes.reloadDataText }>Reload Data</Typography>
+                            </div>
+                        </Grid>
+                    )
+                }
             </Grid>
         </Container>
     )

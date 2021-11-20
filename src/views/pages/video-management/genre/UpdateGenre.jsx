@@ -22,13 +22,20 @@ const CreateGenre = ({ GENRE, match }) =>
     const onLoadFetchGenreByID = () => 
     {
         const findGenre = GENRE.genres.find(genre => genre.id === parseInt(id));
-        
-        !findGenre 
-            ? setIsGenreFound(false)
-            : setGenre(findGenre);
+
+        if (! findGenre) {
+            setIsGenreFound(false);
+        }
+
+        if (findGenre) {
+            setIsGenreFound(true);
+            setGenre(findGenre);
+        }
     }
 
-    useEffect(() => {
+    useEffect(() => 
+    {
+        dispatch(GENRE_ACTION.fetchAllGenresStart());
         onLoadFetchGenreByID();
 
         return () => {
@@ -36,7 +43,16 @@ const CreateGenre = ({ GENRE, match }) =>
         }
     }, []);
 
-    if (! isGenreFound) return <DataNotFound type='Genre' Icon={ MoodBadOutlined } />
+    if (! isGenreFound) 
+    {
+        return (
+            <DataNotFound 
+                type='Genre' 
+                Icon={ MoodBadOutlined } 
+                handleClickRefresh={ () => onLoadFetchGenreByID() } 
+            />
+        )
+    }
 
     return (
         <GenreInputFields 

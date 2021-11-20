@@ -29,11 +29,18 @@ const UpdateAuthor = ({ AUTHOR, match, AUTHOR_ERROR_MESSAGES, AUTHOR_HAS_ERROR_M
         dispatch(AUTHOR_ACTION.updateAuthorStart(author));
     }
 
-    const onLoadFetchAuthorByID = () => {
+    const onLoadFetchAuthorByID = () => 
+    {
         const findAuthor = AUTHOR.authors.find(author => author.id === parseInt(id));
-        !findAuthor 
-            ? setIsAuthorFound(false)
-            : setAuthor(findAuthor);
+
+        if (! findAuthor) {
+            setIsAuthorFound(false);
+        }
+
+        if (findAuthor) {
+            setIsAuthorFound(true);
+            setAuthor(findAuthor);
+        }
     }
 
     const handleClickCancel = () => {
@@ -70,7 +77,9 @@ const UpdateAuthor = ({ AUTHOR, match, AUTHOR_ERROR_MESSAGES, AUTHOR_HAS_ERROR_M
         e.target.value = null;
     }
 
-    useEffect(() => {
+    useEffect(() => 
+    {
+        dispatch(AUTHOR_ACTION.fetchAllAuthorsStart());
         onLoadFetchAuthorByID();
         window.addEventListener('load', () => dispatch(AUTHOR_ACTION.clearAuthorErrors()));
         return () => {
@@ -83,7 +92,16 @@ const UpdateAuthor = ({ AUTHOR, match, AUTHOR_ERROR_MESSAGES, AUTHOR_HAS_ERROR_M
         }
     }, []);
 
-    if (! isAuthorFound) return <DataNotFound type='Author' Icon={ PersonAddDisabled } />
+    if (! isAuthorFound) 
+    {
+        return (
+            <DataNotFound 
+                type='Author' 
+                Icon={ PersonAddDisabled } 
+                handleClickRefresh={ onLoadFetchAuthorByID } 
+            />
+        )
+    }
 
     return (
         <InputFields 

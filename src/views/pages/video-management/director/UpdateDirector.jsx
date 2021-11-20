@@ -33,9 +33,14 @@ const UpdateDirector = ({ DIRECTOR, match, DIRECTOR_ERROR_MESSAGES, DIRECTOR_HAS
     {
         const findDirector = DIRECTOR.directors.find(director => director.id === parseInt(id));
 
-        !findDirector
-            ? setIsDirectorFound(false)
-            : setDirector(findDirector);
+        if (! findDirector) {
+            setIsDirectorFound(false);
+        }
+
+        if (findDirector) {
+            setIsDirectorFound(true);
+            setDirector(findDirector);
+        }
     }
 
     const handleClickCancel = () => {
@@ -72,7 +77,9 @@ const UpdateDirector = ({ DIRECTOR, match, DIRECTOR_ERROR_MESSAGES, DIRECTOR_HAS
         e.target.value = null;
     }
 
-    useEffect(() => {
+    useEffect(() => 
+    {
+        dispatch(DIRECTOR_ACTION.fetchAllDirectorsStart());
         window.addEventListener('load', () => dispatch(DIRECTOR_ACTION.clearDirectorErrors()));
         onLoadFetchDirectorByID();
         return () => {
@@ -84,8 +91,17 @@ const UpdateDirector = ({ DIRECTOR, match, DIRECTOR_ERROR_MESSAGES, DIRECTOR_HAS
             setIsDirectorFound(true);
         }
     }, []);
-
-    if (! isDirectorFound) return <DataNotFound type='Director' Icon={ PersonAddDisabled } />
+    
+    if (! isDirectorFound) 
+    {
+        return (
+            <DataNotFound 
+                type='Director' 
+                Icon={ PersonAddDisabled } 
+                handleClickRefresh={ () => onLoadFetchDirectorByID() } 
+            />
+        )
+    }
 
     return (
         <InputFields 

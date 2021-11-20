@@ -29,12 +29,18 @@ const UpdateCast = ({ CAST, match, CAST_ERROR_MESSAGES, CAST_HAS_ERROR_MESSAGES 
         dispatch(CAST_ACTION.updateCastStart(cast));
     }
 
-    const onLoadFetchCastByID = () => {
+    const onLoadFetchCastByID = () => 
+    {
         const findCast = CAST.casts.find(cast => cast.id === parseInt(id));
 
-        !findCast 
-            ? setIsCastFound(false)
-            : setCast(findCast);
+        if (! findCast) {
+            setIsCastFound(false);
+        }
+
+        if (findCast) {
+            setIsCastFound(true);
+            setCast(findCast);
+        }
     }
 
     const handleClickCancel = () => {
@@ -72,7 +78,9 @@ const UpdateCast = ({ CAST, match, CAST_ERROR_MESSAGES, CAST_HAS_ERROR_MESSAGES 
     }
 
 
-    useEffect(() => {
+    useEffect(() => 
+    {
+        dispatch(CAST_ACTION.fetchAllCastsStart());
         window.addEventListener('load', () => dispatch(CAST_ACTION.clearCastErrors()));
         onLoadFetchCastByID();
         return () => {
@@ -85,7 +93,16 @@ const UpdateCast = ({ CAST, match, CAST_ERROR_MESSAGES, CAST_HAS_ERROR_MESSAGES 
         }
     }, []);
 
-    if (! isCastFound) return <DataNotFound type='Cast' Icon={ PersonAddDisabled } />
+    if (! isCastFound) 
+    {
+        return (
+            <DataNotFound 
+                type='Cast' 
+                Icon={ PersonAddDisabled } 
+                handleClickRefresh={ () => onLoadFetchCastByID() } 
+            />
+        )
+    }
 
     return (
         <InputFields 
