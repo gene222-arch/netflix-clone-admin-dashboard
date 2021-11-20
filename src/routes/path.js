@@ -76,7 +76,7 @@ const PATH =
     SUBSCRIPTION_FAILED: '/subscriptions/subscribed-failed',
     PLAN_UPDATED_SUCCESSFULLY: '/subscriptions/updated-successfully',
 
-    SUBSCRIPTIONS: '/subscriptions'
+    SUBSCRIPTIONS: '/view/subscriptions'
 };
 
 
