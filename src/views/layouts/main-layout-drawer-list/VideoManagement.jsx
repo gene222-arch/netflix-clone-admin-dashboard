@@ -23,11 +23,21 @@ import PATH from './../../../routes/path';
 import { selectAuth } from './../../../redux/modules/auth/selector';
 import ToolTipComponent from '../../../components/ToolTipComponent';
 
+const videoManagementPermissions = [
+    'Manage Authors',
+    'Manage Casts',
+    'Manage Directors',
+    'Manage Genres',
+    'Manage Movies',
+    'Manage Coming Soon Movies'
+];
 
 const VideoManagement = ({ MAIN_LAYOUT, AUTH }) => 
 {
     const classes = mainLayoutUseStyles();
     const dispatch = useDispatch();
+    const hasPermissions = videoManagementPermissions.filter(permission => AUTH.permissions.includes(permission)).length;
+
 
     const handleToggleVideoMngmt = () => dispatch(MAIN_LAYOUT_ACTION.toggleVideoManagement());
 
@@ -43,7 +53,7 @@ const VideoManagement = ({ MAIN_LAYOUT, AUTH }) =>
 
     const selectVideoManagementComingSoonMovies = () => dispatch(MAIN_LAYOUT_ACTION.selectVideoManagementComingSoonMovies());
 
-    return (
+    return Boolean(hasPermissions) && (
         <>
             <ToolTipComponent 
                 withToolTip={ !MAIN_LAYOUT.drawer }
