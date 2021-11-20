@@ -40,6 +40,16 @@ export const manageProfileLockAsync = async (payload) =>
         .catch(error => Promise.reject(error.response.data));
 }
 
+export const disableAsync = async (profileIds) => 
+{
+    return await axiosInstance()
+        .put(`/user-profiles/disable`, {
+            ids: profileIds
+        })
+        .then(response => response.data)
+        .catch(error => Promise.reject(error.response.data));
+}
+
 
 export const deleteAsync = async (id) => 
 {
