@@ -114,7 +114,7 @@ const App = ({ AUTH, history }) =>
 					</Route>
 
 					{/* Employees */}
-					<Route path='/employees/verify/email' exact>
+					<Route path='/employees/email/verify' exact>
 						<AuthLayout>
 							<Route path={ PATH.VERIFY_EMPLOYEE } component={ EmailVerification } />
 						</AuthLayout>
