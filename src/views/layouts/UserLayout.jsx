@@ -3,6 +3,7 @@ import Container from '@material-ui/core/Container'
 import AppHeader from '../../components/app/AppHeader'
 import { makeStyles } from '@material-ui/core/styles'
 import Colors from './../../constants/Colors';
+import DisableProfilesDialog from '../../components/DisableProfilesDialog';
 
 const userLayoutUseStyles = makeStyles(theme => ({
     container: {
@@ -18,6 +19,7 @@ const UserLayout = ({ children }) =>
 
     return (
         <Container maxWidth='xl' className={ classes.container }>
+            <DisableProfilesDialog />
             <AppHeader />
             { children }
         </Container>

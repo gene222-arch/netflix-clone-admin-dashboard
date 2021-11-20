@@ -249,7 +249,7 @@ export default (state = initialState, { type, payload }) =>
             const filterProfileEnabledProp = state
                 .profiles
                 .map(profile => (
-                    payload.profileIds.include(profile.id)
+                    payload.profileIds.includes(profile.id)
                         ? { ...profile, enabled: 0 }
                         : profile
                 ))
