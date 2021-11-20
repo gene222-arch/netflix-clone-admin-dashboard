@@ -1,14 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import * as AUTH_ACTION from '../../../redux/modules/auth/actions'
-
-/** Material UI Components */
 import Button from '@material-ui/core/Button';
-import { MenuItem, Typography, makeStyles } from '@material-ui/core';
-
-/** Material UI Icons */
+import { MenuItem, makeStyles } from '@material-ui/core';
 import Avatar from '@material-ui/core/Avatar';
-
-/** Components */
 import Menu from './../../../components/Menu';
 import { createStructuredSelector } from 'reselect';
 import { selectAuth } from './../../../redux/modules/auth/selector';
