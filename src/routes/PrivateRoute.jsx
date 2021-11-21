@@ -17,6 +17,8 @@ const PrivateRoute = ({ AUTH, Component, access, ...props }) =>
 
     if ( access && ! AUTH.permissions.includes(access) ) return <Forbidden />
 
+    /** Admin */
+
     if (AUTH.role !== 'Subscriber') {
         return (
             <MainLayout>
@@ -25,7 +27,9 @@ const PrivateRoute = ({ AUTH, Component, access, ...props }) =>
         )
     }
 
-    if (AUTH.profileCountToDisable) {
+    /** Subscriber */
+
+    if (AUTH.profileCountToDisable || !AUTH.selectedProfile.id) {
         return (
             <UserLayout>
                 <UserProfile { ...props } />
