@@ -400,12 +400,18 @@ export default (state = initialState, { type, payload }) =>
             };
 
         case UPDATE_SUBSCRIPTION_DETAILS: 
+            const profiles_ = state.profiles.map(profile => ({
+                ...profile,
+                enabled: 1
+            }));
+
             return {
                 ...state,
                 subscription_details: {
                     ...state.subscription_details,
                     ...payload.subscription_details
                 },
+                profiles: profiles_,
                 payment_authorization_status: 'disabled',
                 isLoading,
                 error

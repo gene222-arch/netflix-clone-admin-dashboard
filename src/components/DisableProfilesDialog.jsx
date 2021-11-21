@@ -65,7 +65,10 @@ const DisableProfilesDialog = ({ AUTH }) =>
     const handleClose = () => {
     }
 
-    const handleClickConfirm = () => dispatch(AUTH_ACTION.disableProfilesStart({ profileIds: selectedIds }));
+    const handleClickConfirm = () => {
+        dispatch(AUTH_ACTION.disableProfilesStart({ profileIds: selectedIds }));
+        setShow(false);
+    }
 
     const handleClickAvatar = (selectedId) => 
     {
