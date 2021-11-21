@@ -40,6 +40,8 @@ const {
     LOGOUT_SUCCESS,
     LOGOUT_FAILED,
 
+    LOGIN_VIA_TOKEN,
+
     MANAGE_PROFILE_LOCK_START,
     MANAGE_PROFILE_LOCK_SUCCESS,
     MANAGE_PROFILE_LOCK_FAILED,
@@ -52,24 +54,23 @@ const {
     RESET_PASSWORD_SUCCESS,
     RESET_PASSWORD_FAILED,
 
-    UPDATE_USER_DETAILS,
-
-    VERIFY_EMAIL_START,
-    VERIFY_EMAIL_SUCCESS,
-    VERIFY_EMAIL_FAILED,
-
     SELECT_PROFILE_START,
     SELECT_PROFILE_SUCCESS,
     SELECT_PROFILE_FAILED,
 
-    LOGIN_VIA_TOKEN,
+    UPDATE_USER_DETAILS,
 
     UPDATE_SUBSCRIPTION_DETAILS,
+
     UPDATE_PAYMENT_AUTHORIZATION_STATUS,
 
     UPDATE_PROFILE_BY_ID_START,
     UPDATE_PROFILE_BY_ID_SUCCESS,
     UPDATE_PROFILE_BY_ID_FAILED,
+
+    VERIFY_EMAIL_START,
+    VERIFY_EMAIL_SUCCESS,
+    VERIFY_EMAIL_FAILED,
 
     CLEAR_ERRORS
 } = ACTION_TYPES;
@@ -254,7 +255,6 @@ export const manageProfileLockFailed = (payload) => ({
     payload
 });
 
-
 /**
  * Registration
  */
@@ -273,7 +273,6 @@ export const registrationFailed = (payload) => ({
     payload
 });
 
-
 /**
  * Reset password
  */
@@ -289,25 +288,6 @@ export const resetPasswordSuccess = (payload) => ({
 
 export const resetPasswordFailed = (payload) => ({
     type: RESET_PASSWORD_FAILED,
-    payload
-});
-
-
-/**
- * Reset password
- */
-
-export const verifyEmailStart = (payload) => ({
-    type: VERIFY_EMAIL_START,
-    payload
-});
-
-export const verifyEmailSuccess = (payload) => ({
-    type: VERIFY_EMAIL_SUCCESS
-});
-
-export const verifyEmailFailed = (payload) => ({
-    type: VERIFY_EMAIL_FAILED,
     payload
 });
 
@@ -353,6 +333,21 @@ export const updateProfileByIdSuccess = (payload) => ({
 
 export const updateProfileByIdFailed = (payload) => ({
     type: UPDATE_PROFILE_BY_ID_FAILED,
+    payload
+});
+
+
+export const verifyEmailStart = (payload) => ({
+    type: VERIFY_EMAIL_START,
+    payload
+});
+
+export const verifyEmailSuccess = (payload) => ({
+    type: VERIFY_EMAIL_SUCCESS
+});
+
+export const verifyEmailFailed = (payload) => ({
+    type: VERIFY_EMAIL_FAILED,
     payload
 });
 
