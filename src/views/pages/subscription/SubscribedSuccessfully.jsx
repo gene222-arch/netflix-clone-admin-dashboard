@@ -78,9 +78,11 @@ const SubscribedSuccessfully = ({ AUTH }) =>
         try {
             const { data } = await SUBSCRIPTION_API.storeAsync({ user_email: userEmail, type, payment_method: paymentMethod });
             
-            dispatch(AUTH_ACTION.updateSubscriptionDetails({
-                subscription_details: data
-            }));
+            if (AUTH.isAuthenticated) {
+                dispatch(AUTH_ACTION.updateSubscriptionDetails({
+                    subscription_details: data
+                }));
+            }
 
             setHasError(false);
         } catch (error) {

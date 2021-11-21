@@ -14,7 +14,8 @@ import PropagateLoader from 'react-spinners/PropagateLoader';
 import Colors from '../../../constants/Colors';
 import { createStructuredSelector } from 'reselect';
 import { selectAuth } from './../../../redux/modules/auth/selector';
-import { connect } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
+import * as AUTH_ACTION from './../../../redux/modules/auth/actions';
 
 const planUpdatedSucessfullyUseStyles = makeStyles(theme => ({
     container: {
@@ -56,6 +57,7 @@ const PlanUpdatedSuccessfully = ({ AUTH }) =>
 {
     const history = useHistory();
     const classes = planUpdatedSucessfullyUseStyles();
+    const dispatch = useDispatch();
     const { state } = useLocation();
 
     const [ isLoading, setIsLoading ] = useState(true);
@@ -70,7 +72,14 @@ const PlanUpdatedSuccessfully = ({ AUTH }) =>
     {
         setIsLoading(true);
         try {
-            await SUBSCRIPTION_API.updateAsync({ user_email: userEmail, type, payment_method: paymentMethod });
+            const { data } = await SUBSCRIPTION_API.updateAsync({ user_email: userEmail, type, payment_method: paymentMethod });
+
+            if (AUTH.isAuthenticated) {
+                dispatch(AUTH_ACTION.updateSubscriptionDetails({
+                    subscription_details: data
+                }));
+            }
+
             setHasError(false);
         } catch (error) {
             console.log(error);
