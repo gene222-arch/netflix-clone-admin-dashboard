@@ -27,7 +27,6 @@ const history = createBrowserHistory();
 const persistConfig = {
     key: 'root',
     storage,
-    // whitelist: [],
     blacklist: ['alert', 'router', 'confirm']    
 };
 
@@ -61,7 +60,7 @@ const rootReducer = (state, action) =>
 {
     if (action.type === 'LOGOUT_SUCCESS') {
         storage.removeItem('persist:root');
-        return appReducer(undefined, action);
+        // return appReducer(undefined, action);
     }
     
     return appReducer(state, action);
