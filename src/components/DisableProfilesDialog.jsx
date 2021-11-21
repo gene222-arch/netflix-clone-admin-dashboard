@@ -83,7 +83,7 @@ const DisableProfilesDialog = ({ AUTH }) =>
     const onLoadCheckProfileCount = () => 
     {
         let profileCountToDisable_ = 0;
-        const currentProfileCount = AUTH.profiles.length;
+        const currentProfileCount = AUTH.profiles.filter(({ enabled }) => enabled).length;
 
         switch (AUTH.subscription_details.type) 
         {
@@ -196,7 +196,7 @@ const DisableProfilesDialog = ({ AUTH }) =>
                         disabled={ AUTH.isLoading }
                         className={ classes.confirmBtn }
                     >
-                        { ! AUTH.isLoading ? 'Save' : 'Processing...' }
+                        { ! AUTH.isLoading ? 'Save' : 'Saving...' }
                     </Button>
                 </DialogActions>
             </Dialog>

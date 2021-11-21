@@ -74,7 +74,7 @@ const AppHeader = ({ AUTH, PAYMENT_AUTH_NOTIFS }) =>
                 <Grid item>
                     <Grid container>
                     {
-                        shouldHideNotifAndAvatar && (
+                        !shouldHideNotifAndAvatar && (
                             <Grid item className={ classes.notifContainer }>
                                 <IconButton
                                     className={ classes.notifIconButton }
@@ -94,7 +94,7 @@ const AppHeader = ({ AUTH, PAYMENT_AUTH_NOTIFS }) =>
                         }
                         <Grid item>
                         {
-                            shouldHideNotifAndAvatar && (
+                            !shouldHideNotifAndAvatar && (
                                 <img 
                                     src={ AUTH.selectedProfile?.avatar || AUTH.user.avatar }
                                     className={ classes.avatar }

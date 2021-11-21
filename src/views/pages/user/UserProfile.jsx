@@ -190,13 +190,16 @@ const UserProfile = ({ AUTH }) =>
                     <Typography variant="h3" color="initial" align='center' className={ classes.headerTitle }>Who's Watching?</Typography>
                     <Grid container spacing={3} justify='center' className={ classes.avatarContainer }>
                         {
-                            AUTH.profiles.map(({ id, name, avatar, is_profile_locked, pin_code, is_for_kids }, index) => (
+                            AUTH.profiles.map(({ id, name, avatar, is_profile_locked, pin_code, is_for_kids, enabled }, index) => (
                                 <Grid key={ index } item xs={ 3 } sm={ 2 } md={ 2 } lg={ 2 } className={ classes.avatarGridContainer }>
                                     <Grid container spacing={ 1 } direction='column' justify='center'>
                                         <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
                                             <img 
                                                 src={ avatar } 
                                                 className={ classes.avatarImg } 
+                                                style={{ 
+                                                    opacity: !enabled ? 0.7 : 1
+                                                }} 
                                                 onClick={ 
                                                     () => is_profile_locked 
                                                             ? handleClickToggleModal(pin_code, id) 
