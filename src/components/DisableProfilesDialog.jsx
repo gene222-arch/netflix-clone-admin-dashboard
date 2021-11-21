@@ -14,13 +14,19 @@ import Colors from './../constants/Colors';
 
 
 const confirmationDialogUseStyles = makeStyles(theme => ({
-    avatar: {
+    enabledAvatar: {
         borderRadius: 5,
+        height: 100,
+        width: 100,
+        display: 'block',
         '&:hover': {
             cursor: 'pointer',
             opacity: 0.7,
             border: `0.5px solid ${ Colors.white }`
-        },
+        }
+    },
+    disabledAvatar: {
+        borderRadius: 5,
         height: 100,
         width: 100,
         display: 'block'
@@ -157,18 +163,20 @@ const DisableProfilesDialog = ({ AUTH }) =>
                     </DialogContentText>
                 <Grid container spacing={2} justify='center'>
                 {
-                    AUTH.profiles.map(({ id, name, avatar }, index) => 
+                    AUTH.profiles.map(({ id, name, avatar, enabled }, index) => 
                     (
                         <Grid item xs={ 4 } sm={ 4 } md={ 3 } lg={ 3 } key={ index } className={ classes.avatarContainer }>
                             <Grid container spacing={1} direction='column' alignItems='center'>
                                 <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
                                     <img 
                                         src={ avatar }
-                                        className={ classes.avatar }
-                                        onClick={ () => handleClickAvatar(id) }
+                                        className={ !enabled ? classes.disabledAvatar : classes.enabledAvatar }
+                                        onClick={ () => enabled && handleClickAvatar(id) }
                                         style={{ 
-                                            border: selectedIds.includes(id) ? `2px solid ${ Colors.info }` : ''
+                                            border: selectedIds.includes(id) ? `2px solid ${ Colors.info }` : '',
+                                            opacity: !enabled ? 0.3 : 1
                                         }}
+                                    
                                     />
                                     <Typography variant="subtitle2" color="textSecondary" align='center'>
                                         { name }
@@ -178,7 +186,7 @@ const DisableProfilesDialog = ({ AUTH }) =>
                                     <FormControlLabel 
                                         control={
                                             <Checkbox 
-                                                checked={ Boolean(selectedIds.includes(id)) }
+                                                checked={ Boolean(selectedIds.includes(id)) || !enabled }
                                                 disabled
                                             />
                                         }
@@ -193,10 +201,10 @@ const DisableProfilesDialog = ({ AUTH }) =>
                 </DialogContent>
                 <DialogActions>
                     <Button 
-                        onClick={ handleClickConfirm } 
+                        onClick={ () => selectedIds.length === AUTH.profileCountToDisable && handleClickConfirm() } 
                         variant='contained' 
                         autoFocus 
-                        disabled={ AUTH.isLoading }
+                        disabled={ AUTH.isLoading || selectedIds.length !== AUTH.profileCountToDisable }
                         className={ classes.confirmBtn }
                     >
                         { ! AUTH.isLoading ? 'Save' : 'Saving...' }

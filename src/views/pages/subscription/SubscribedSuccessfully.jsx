@@ -14,7 +14,8 @@ import PropagateLoader from 'react-spinners/PropagateLoader';
 import Colors from '../../../constants/Colors';
 import { createStructuredSelector } from 'reselect';
 import { selectAuth } from './../../../redux/modules/auth/selector';
-import { connect } from 'react-redux';
+import * as AUTH_ACTION from './../../../redux/modules/auth/actions';
+import { connect, useDispatch } from 'react-redux';
 
 
 
@@ -60,6 +61,7 @@ const SubscribedSuccessfully = ({ AUTH }) =>
 {
     const history = useHistory();
     const { state } = useLocation();
+    const dispatch = useDispatch();
     const classes = subscribedSucessfullyUseStyles();
 
     const [ isLoading, setIsLoading ] = useState(true);
@@ -74,7 +76,12 @@ const SubscribedSuccessfully = ({ AUTH }) =>
     {
         setIsLoading(true);
         try {
-            await SUBSCRIPTION_API.storeAsync({ user_email: userEmail, type, payment_method: paymentMethod });
+            const { data } = await SUBSCRIPTION_API.storeAsync({ user_email: userEmail, type, payment_method: paymentMethod });
+            
+            dispatch(AUTH_ACTION.updateSubscriptionDetails({
+                subscription_details: data
+            }));
+
             setHasError(false);
         } catch (error) {
             console.log(error);
@@ -95,6 +102,7 @@ const SubscribedSuccessfully = ({ AUTH }) =>
 
         return () => {
             setIsLoading(true);
+            setHasError(true);
         }
     }, []);
 
