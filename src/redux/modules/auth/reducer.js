@@ -58,6 +58,8 @@ const {
     SELECT_PROFILE_SUCCESS,
     SELECT_PROFILE_FAILED,
 
+    SET_PROFILE_COUNT_TO_DISABLE,
+
     UPDATE_SUBSCRIPTION_DETAILS,
 
     UPDATE_PAYMENT_AUTHORIZATION_STATUS,
@@ -124,6 +126,7 @@ const initialState =
     selectedProfile: PROFILE_PROPS,
     profile: PROFILE_PROPS,
     profiles: [],
+    profileCountToDisable: 0,
     isLoading: false,
     error: ERROR_DEFAULT,
     role: null
@@ -310,6 +313,14 @@ export default (state = initialState, { type, payload }) =>
                 isLoading,
                 error, 
                 selectedProfile: payload.profile
+            }
+
+        case SET_PROFILE_COUNT_TO_DISABLE:
+            return {
+                ...state,
+                profileCountToDisable: payload.total,
+                isLoading,
+                error,
             }
 
         case UPDATE_USER_DETAILS:

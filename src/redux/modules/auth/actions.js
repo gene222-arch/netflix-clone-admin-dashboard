@@ -58,6 +58,8 @@ const {
     SELECT_PROFILE_SUCCESS,
     SELECT_PROFILE_FAILED,
 
+    SET_PROFILE_COUNT_TO_DISABLE,
+
     UPDATE_USER_DETAILS,
 
     UPDATE_SUBSCRIPTION_DETAILS,
@@ -290,6 +292,12 @@ export const resetPasswordFailed = (payload) => ({
     type: RESET_PASSWORD_FAILED,
     payload
 });
+
+export const setProfileCountToDisable = (payload) => ({
+    type: SET_PROFILE_COUNT_TO_DISABLE,
+    payload
+});
+
 
 export const selectProfileStart = (payload) => ({
     type: SELECT_PROFILE_START,
