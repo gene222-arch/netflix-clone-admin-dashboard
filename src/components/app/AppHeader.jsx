@@ -47,7 +47,7 @@ const AppHeader = ({ AUTH, PAYMENT_AUTH_NOTIFS }) =>
     const classes = appHeaderUseStyles();
     const { pathname } = useLocation();
 
-    const shouldShowNotifAndAvatar = (PATH.USER_PROFILE !== pathname) && (PATH.ADD_PROFILE !== pathname);
+    const shouldHideNotifAndAvatar = ([ PATH.USER_PROFILE, PATH.ADD_PROFILE ].includes(pathname));
 
     const paymentAuthorizationNotifCount = PAYMENT_AUTH_NOTIFS.filter(notif => !notif.read_at).length;
     const [ profileMenu, setProfileMenu ] = useState(null);
@@ -74,7 +74,7 @@ const AppHeader = ({ AUTH, PAYMENT_AUTH_NOTIFS }) =>
                 <Grid item>
                     <Grid container>
                     {
-                        shouldShowNotifAndAvatar && (
+                        shouldHideNotifAndAvatar && (
                             <Grid item className={ classes.notifContainer }>
                                 <IconButton
                                     className={ classes.notifIconButton }
@@ -94,7 +94,7 @@ const AppHeader = ({ AUTH, PAYMENT_AUTH_NOTIFS }) =>
                         }
                         <Grid item>
                         {
-                            shouldShowNotifAndAvatar && (
+                            shouldHideNotifAndAvatar && (
                                 <img 
                                     src={ AUTH.selectedProfile?.avatar || AUTH.user.avatar }
                                     className={ classes.avatar }
