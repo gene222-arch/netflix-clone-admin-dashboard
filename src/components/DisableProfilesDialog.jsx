@@ -8,6 +8,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import { createStructuredSelector } from 'reselect';
 import { connect, useDispatch } from 'react-redux';
 import { selectAuth } from './../redux/modules/auth/selector';
+import * as AUTH_ACTION from './../redux/modules/auth/actions';
 import { makeStyles, Grid, FormControlLabel, Checkbox, Typography } from '@material-ui/core';
 import Colors from './../constants/Colors';
 
@@ -64,8 +65,7 @@ const DisableProfilesDialog = ({ AUTH }) =>
     const handleClose = () => {
     }
 
-    const handleClickConfirm = () => {
-    }
+    const handleClickConfirm = () => dispatch(AUTH_ACTION.disableProfilesStart({ profileIds: selectedIds }));
 
     const handleClickAvatar = (selectedId) => 
     {
