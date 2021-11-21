@@ -130,12 +130,19 @@ const UserProfile = ({ AUTH }) =>
         }
     }
 
-    const handleClickSelectNonPin = (profileId) => dispatch(AUTH_ACTION.selectProfileStart(profileId));
+    const handleClickSelectNonPin = (profileId) => {
+        if (! AUTH.profileCountToDisable) {
+            dispatch(AUTH_ACTION.selectProfileStart(profileId));
+        }
+    }
 
-    const handleClickToggleModal = (pin, profileId) => {
-        setShowInputPin(! showInputPin);
-        setSelectedProfilePin(!selectedProfilePin ? pin : '');
-        setId(!id ? profileId : '');
+    const handleClickToggleModal = (pin, profileId) => 
+    {
+        if (! AUTH.profileCountToDisable) {
+            setShowInputPin(! showInputPin);
+            setSelectedProfilePin(!selectedProfilePin ? pin : '');
+            setId(!id ? profileId : '');
+        }
     }
 
     const onLoadSetProfileLimit = () => 
@@ -194,7 +201,7 @@ const UserProfile = ({ AUTH }) =>
                                                     () => is_profile_locked 
                                                             ? handleClickToggleModal(pin_code, id) 
                                                             : handleClickSelectNonPin(id) 
-                                                    } 
+                                                } 
                                             />
                                         </Grid>
                                         <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
