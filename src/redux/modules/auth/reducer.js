@@ -320,6 +320,7 @@ export default (state = initialState, { type, payload }) =>
             return {
                 ...state,
                 profileCountToDisable: payload.profileCount,
+                selectedProfile: payload.profileCount ? PROFILE_PROPS : state.selectedProfile,
                 isLoading,
                 error,
             }
