@@ -126,7 +126,7 @@ const DisableProfilesDialog = ({ AUTH }) =>
             setShow(false);
             setProfileCountToDisable(0);
         }
-    }, []);
+    }, [AUTH.subscription_details]);
 
     return (
         <div>

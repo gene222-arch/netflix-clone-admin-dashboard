@@ -12,12 +12,13 @@ import ConfirmationDialog from './components/ConfirmationDialog';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { createStructuredSelector } from 'reselect';
 import { selectAuth } from './redux/modules/auth/selector';
-import { connect, useDispatch } from 'react-redux';
+import { connect, useDispatch, batch } from 'react-redux';
 import SecurityLayout from './views/layouts/SecurityLayout';
 import PATH from './routes/path';
 import ECHO_UTIL from './utils/echo'
 import * as AUTH_ACTION from './redux/modules/auth/actions'
 import * as NOTIFICATION_ACTION from './redux/modules/notifications/actions'
+import * as ALERT_ACTION from './redux/modules/alert/actions'
 import * as COOKIES_UTIL from './utils/cookies'
 import { HELP_CENTER_ROUTES } from './routes/index';
 const EmailVerification = lazy(() => import('./views/pages/employee/EmailVerification'));
@@ -37,9 +38,18 @@ const App = ({ AUTH, history }) =>
 			ECHO_UTIL()
 				.private(`payment.authorization.sent.${ AUTH.user.id }`)
 				.listen('PaymentAuthorizationSentEvent', (response) => {
-					dispatch(NOTIFICATION_ACTION.createPaymentAuthNotification({
-						paymentAuthorizationNotification: response.data
-					}));
+					batch(() => {
+						dispatch(NOTIFICATION_ACTION.createPaymentAuthNotification({
+							paymentAuthorizationNotification: response.data
+						}));
+						dispatch(ALERT_ACTION.showAlert({
+							status: 'info',
+							message: 'Your email received a payment authorization notification',
+							vertical: 'bottom',
+							horizontal: 'left',
+							autoHideDuration: 10000
+						}));
+					});
 				});
 
 			ECHO_UTIL()
