@@ -1,19 +1,18 @@
 import React from 'react'
 import Forbidden from '../views/pages/errors/Forbidden';
-
-/** Utils */
 import { createStructuredSelector } from 'reselect';
 import { selectAuth } from '../redux/modules/auth/selector';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
-import * as Cookies from '../utils/cookies'
+import { Redirect, useHistory } from 'react-router-dom';
 import PATH from './path';
 import MainLayout from '../views/layouts/MainLayout';
 import UserLayout from '../views/layouts/UserLayout';
-import * as QueryParams from '../utils/queryParams'
+import UserProfile from './../views/pages/user/UserProfile';
 
 const PrivateRoute = ({ AUTH, Component, access, ...props }) => 
 {
+    const history = useHistory();
+
     if (! AUTH.isAuthenticated) return <Redirect to={ PATH.LOGIN } />
 
     if ( access && ! AUTH.permissions.includes(access) ) return <Forbidden />
@@ -23,6 +22,14 @@ const PrivateRoute = ({ AUTH, Component, access, ...props }) =>
             <MainLayout>
                 <Component { ...props } />
             </MainLayout>
+        )
+    }
+
+    if (AUTH.profileCountToDisable) {
+        return (
+            <UserLayout>
+                <UserProfile { ...props } />
+            </UserLayout>
         )
     }
 

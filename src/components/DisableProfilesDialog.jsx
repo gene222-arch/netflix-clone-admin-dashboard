@@ -102,12 +102,16 @@ const DisableProfilesDialog = ({ AUTH }) =>
 
         if (profileCountToDisable_ === -1) 
         {
-            setProfileCountToDisable(Math.abs(profileCountToDisable_));
+            const profileCountToDisable = Math.abs(profileCountToDisable_);
+
+            dispatch(AUTH_ACTION.setProfileCountToDisable({ profileCount: profileCountToDisable }));
+            setProfileCountToDisable(profileCountToDisable);
             setShow(true);
         }
 
         if (profileCountToDisable_ !== -1) 
         {
+            dispatch(AUTH_ACTION.setProfileCountToDisable({ profileCount: 0 }));
             setProfileCountToDisable(0);
             setShow(false);
         }
@@ -127,7 +131,7 @@ const DisableProfilesDialog = ({ AUTH }) =>
     return (
         <div>
             <Dialog
-                open={ show }
+                open={ Boolean(show || AUTH.profileCountToDisable) }
                 onClose={ handleClose }
                 aria-labelledby='alert-dialog-title'
                 aria-describedby='alert-dialog-description'

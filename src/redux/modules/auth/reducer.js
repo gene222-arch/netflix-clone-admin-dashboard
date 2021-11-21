@@ -260,6 +260,7 @@ export default (state = initialState, { type, payload }) =>
             return {
                 ...state,
                 profiles: filterProfileEnabledProp,
+                profileCountToDisable: 0,
                 isLoading,
                 error
             }
@@ -318,7 +319,7 @@ export default (state = initialState, { type, payload }) =>
         case SET_PROFILE_COUNT_TO_DISABLE:
             return {
                 ...state,
-                profileCountToDisable: payload.total,
+                profileCountToDisable: payload.profileCount,
                 isLoading,
                 error,
             }
