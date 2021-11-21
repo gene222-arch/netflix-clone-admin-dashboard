@@ -83,7 +83,7 @@ const DisableProfilesDialog = ({ AUTH }) =>
         }
     }
 
-    const onLoadCheckProfileCount = () => 
+    const onLoadCheckProfileCountToDisable = () => 
     {
         let profileCountToDisable_ = 0;
         const currentProfileCount = AUTH.profiles.filter(({ enabled }) => enabled).length;
@@ -103,7 +103,7 @@ const DisableProfilesDialog = ({ AUTH }) =>
                 break;
         }
 
-        if (profileCountToDisable_ === -1) 
+        if (Math.sign(profileCountToDisable_) === -1) 
         {
             const profileCountToDisable = Math.abs(profileCountToDisable_);
 
@@ -112,7 +112,7 @@ const DisableProfilesDialog = ({ AUTH }) =>
             setShow(true);
         }
 
-        if (profileCountToDisable_ !== -1) 
+        if (Math.sign(profileCountToDisable_) !== -1) 
         {
             dispatch(AUTH_ACTION.setProfileCountToDisable({ profileCount: 0 }));
             setProfileCountToDisable(0);
@@ -122,7 +122,7 @@ const DisableProfilesDialog = ({ AUTH }) =>
 
     useEffect(() => 
     {
-        onLoadCheckProfileCount();
+        onLoadCheckProfileCountToDisable();
 
         return () => {
             setSelectedIds([]);
