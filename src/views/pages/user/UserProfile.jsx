@@ -9,10 +9,10 @@ import { makeStyles } from '@material-ui/styles';
 import LockIcon from '@material-ui/icons/Lock';
 import InputPinDialog from './InputPinDialog';
 import * as AUTH_ACTION from '../../../redux/modules/auth/actions';
-import { Add, ChildCareRounded } from '@material-ui/icons';
+import { Add, ChildCareRounded, Block } from '@material-ui/icons';
 import { useHistory } from 'react-router';
 import PATH from './../../../routes/path';
-
+import Tooltip from '@material-ui/core/Tooltip';
 
 const userProfileUseStyles = makeStyles(theme => ({
     addIcon: {
@@ -96,6 +96,7 @@ const UserProfile = ({ AUTH }) =>
 {
     const classes = userProfileUseStyles();
     const dispatch = useDispatch();
+    const history = useHistory();
 
     const [ id, setId ] = useState('');
     const [ pin, setPin ] = useState(PIN_PROPS);
@@ -142,6 +143,19 @@ const UserProfile = ({ AUTH }) =>
             setShowInputPin(! showInputPin);
             setSelectedProfilePin(!selectedProfilePin ? pin : '');
             setId(!id ? profileId : '');
+        }
+    }
+
+    const handleClickAvatar = (isProfileLocked, pinCode, enabled, profileId) => 
+    {
+        if (! enabled) {
+            history.push(PATH.UPDATE_SUBSCRIPTION)
+        }
+
+        if (enabled) {
+            isProfileLocked 
+                ? handleClickToggleModal(pinCode, profileId) 
+                : handleClickSelectNonPin(profileId)   
         }
     }
 
@@ -194,18 +208,20 @@ const UserProfile = ({ AUTH }) =>
                                 <Grid key={ index } item xs={ 3 } sm={ 2 } md={ 2 } lg={ 2 } className={ classes.avatarGridContainer }>
                                     <Grid container spacing={ 1 } direction='column' justify='center'>
                                         <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
-                                            <img 
-                                                src={ avatar } 
-                                                className={ classes.avatarImg } 
-                                                style={{ 
-                                                    opacity: !enabled ? 0.7 : 1
-                                                }} 
-                                                onClick={ 
-                                                    () => is_profile_locked 
-                                                            ? handleClickToggleModal(pin_code, id) 
-                                                            : handleClickSelectNonPin(id) 
-                                                } 
-                                            />
+                                            <Tooltip 
+                                                title={ !enabled ? 'Update plan to enable disabled profiles' : '' }
+                                            >
+                                                <img 
+                                                    src={ avatar } 
+                                                    className={ classes.avatarImg } 
+                                                    style={{ 
+                                                        opacity: !enabled ? 0.5 : 1
+                                                    }} 
+                                                    onClick={ 
+                                                        () => handleClickAvatar(is_profile_locked, pin_code, enabled, id)
+                                                    } 
+                                                />
+                                            </Tooltip>
                                         </Grid>
                                         <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
                                             <Typography variant="subtitle1" color="textSecondary" align='center'>
@@ -214,9 +230,12 @@ const UserProfile = ({ AUTH }) =>
                                             <Typography variant="caption" color="textSecondary">
                                                 { !is_for_kids ? <strong>All Maturity Ratings</strong> : <ChildCareRounded /> }
                                             </Typography>
-                                        </Grid>
+                                        </Grid> 
                                         <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
                                             { Boolean(is_profile_locked) && <LockIcon color='disabled' /> }
+                                        </Grid>
+                                        <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
+                                            { Boolean(! enabled) && <Block color='error' /> }
                                         </Grid>
                                     </Grid>     
                                 </Grid>
