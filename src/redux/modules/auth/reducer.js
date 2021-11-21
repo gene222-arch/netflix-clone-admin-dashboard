@@ -98,6 +98,7 @@ const PROFILE_PROPS = {
     avatar: null,
     is_for_kids: false,
     is_profile_locked: false,
+    enabled: 1,
     pin_code: ''
 };
 

@@ -242,7 +242,7 @@ const UserProfile = ({ AUTH }) =>
                             ))
                         }
                         {
-                            profileLimit !== AUTH.profiles.length && <AddProfileCard />
+                            (profileLimit > AUTH.profiles.length) && !AUTH.profileCountToDisable && <AddProfileCard />
                         }
                     </Grid>
                 </Grid>
