@@ -48,7 +48,8 @@ const confirmationDialogUseStyles = makeStyles(theme => ({
         }
     },
     descriptionText: {
-        color: Colors.grey
+        color: Colors.grey,
+        marginBottom: '2rem'
     },
     checkBoxFormControl: {
         marginLeft: '1.25rem'
@@ -147,9 +148,10 @@ const DisableProfilesDialog = ({ AUTH }) =>
                 fullWidth
                 PaperProps={{
                     style: {
-                        height: '50vh'
+                        height: '60vh'
                     },
                 }}
+                maxWidth='md'
             >
                 <DialogTitle id='alert-dialog-title' className={ classes.headerTitle }>
                     <strong>Profiles Exceeded Plan</strong>
@@ -159,8 +161,9 @@ const DisableProfilesDialog = ({ AUTH }) =>
                         id='alert-dialog-description'
                         className={ classes.descriptionText }
                     >
-                        You're profiles exceeded your plan type, please select at least { profileCountToDisable } of profiles to disable for you to continue your subscription.
+                        Your total number of profiles exceeded your current plan type, please select at least { profileCountToDisable } of profiles to disable for you to continue your subscription.
                     </DialogContentText>
+                    <Typography variant="caption" color="initial">Click the image.</Typography>
                 <Grid container spacing={2} justify='center'>
                 {
                     AUTH.profiles.map(({ id, name, avatar, enabled }, index) => 
