@@ -13,6 +13,7 @@ import { Add, ChildCareRounded, Block } from '@material-ui/icons';
 import { useHistory } from 'react-router';
 import PATH from './../../../routes/path';
 import Tooltip from '@material-ui/core/Tooltip';
+import PageLoader from './../../../components/PageLoader';
 
 const userProfileUseStyles = makeStyles(theme => ({
     addIcon: {
@@ -186,6 +187,8 @@ const UserProfile = ({ AUTH }) =>
             cleanUp();
         }
     }, []);
+
+    if (AUTH.isLoading) return <PageLoader />
 
     return (
         <Container maxWidth="md" className={ classes.container }>
