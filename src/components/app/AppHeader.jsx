@@ -25,7 +25,8 @@ const appHeaderUseStyles = makeStyles(theme => ({
     },
     container: {
         backgroundColor: Colors.dark,
-        height: '10vh'
+        height: '10vh',
+        marginBottom: '3rem'
     },
     logo: {
         width: '2.5rem',

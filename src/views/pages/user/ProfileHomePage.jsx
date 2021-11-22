@@ -26,7 +26,7 @@ const NOTIFICATION_DEFAULT_PROPS = {
 
 const profileHomePageUseStyles = makeStyles(theme => ({
     container: {
-        padding: '2rem 0.5rem'
+        padding: '0.5rem'
     },
     divider: {
         marginTop: '1rem',
