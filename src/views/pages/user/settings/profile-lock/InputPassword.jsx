@@ -1,6 +1,10 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Grid, Typography, TextField, Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import VisibilityIcon from '@material-ui/icons/Visibility';
+import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
+import IconButton from '@material-ui/core/IconButton';
 
 const inputPasswordUseStyles = makeStyles(theme => ({
     avatar: {
@@ -22,7 +26,13 @@ const inputPasswordUseStyles = makeStyles(theme => ({
 
 const InputPassword = ({ profileName = '', password = '', setPassword, passwordErrorMessage = '', handleClickContinue, handleClickCancel, isLoading = false }) => 
 {
+    const [ passwordVisibility, setPasswordVisibility ] = useState(false);
+
     const classes = inputPasswordUseStyles();
+
+    const handleClickTogglePasswordVisibility = () => setPasswordVisibility(! passwordVisibility);
+
+    const handleMouseDownPassword = (e) => e.preventDefault();
 
     return (
         <div>
@@ -35,14 +45,27 @@ const InputPassword = ({ profileName = '', password = '', setPassword, passwordE
                             <strong className={ classes.emphasized }> { profileName + "'s" }</strong> profile.
                         </Typography>
                     </Grid>
-                    <Grid item xs={ 12 } sm={ 12 } md={ 4 } lg={ 4 }>
+                    <Grid item xs={ 12 } sm={ 12 } md={ 5 } lg={ 5 }>
                         <TextField
                             variant='filled'
                             fullWidth
                             onChange={ e => setPassword(e.target.value) }
-                            type='password'
+                            type={ !passwordVisibility ? 'password' : '' }
                             error={ Boolean(passwordErrorMessage) }
                             helperText={ passwordErrorMessage }
+                            InputProps={{
+                                endAdornment: (
+                                    <InputAdornment position="end">
+                                        <IconButton
+                                            aria-label="toggle password visibility"
+                                            onClick={ handleClickTogglePasswordVisibility }
+                                            onMouseDown={ handleMouseDownPassword }
+                                        >
+                                        { passwordVisibility ? <VisibilityIcon /> : <VisibilityOffIcon /> }
+                                        </IconButton>
+                                    </InputAdornment>
+                                ),
+                            }}
                         />
                         
                     </Grid>
