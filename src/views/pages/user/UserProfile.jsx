@@ -14,6 +14,8 @@ import { useHistory } from 'react-router';
 import PATH from './../../../routes/path';
 import Tooltip from '@material-ui/core/Tooltip';
 import PageLoader from './../../../components/PageLoader';
+import { Button } from '@material-ui/core'
+import Colors from './../../../constants/Colors';
 
 const userProfileUseStyles = makeStyles(theme => ({
     addIcon: {
@@ -44,11 +46,24 @@ const userProfileUseStyles = makeStyles(theme => ({
         }
     },
     container: {
-        height: '90.2vh'
+        height: '84.3vh'
     },
     headerTitle: {
         marginBottom: '1rem',
         width: '100%'
+    },
+    renewSubscriptionBtn: {
+        color: Colors.white,
+        backgroundColor: Colors.netflixRed,
+        padding: '1rem 0',
+        width: '100%',
+        '&:hover': {
+            color: Colors.netflixRed,
+            backgroundColor: Colors.white,
+        }
+    },
+    renewSubscriptionContainer: {
+        textAlign: 'center'
     },
     subContainer: {
         height: '70vh'
@@ -98,6 +113,8 @@ const UserProfile = ({ AUTH }) =>
     const classes = userProfileUseStyles();
     const dispatch = useDispatch();
     const history = useHistory();
+
+    const isNotSubscribed = [ 'expired', 'cancelled', 'pending' ].includes(AUTH.subscription_details.status);
 
     const [ id, setId ] = useState('');
     const [ pin, setPin ] = useState(PIN_PROPS);
@@ -149,7 +166,11 @@ const UserProfile = ({ AUTH }) =>
 
     const handleClickAvatar = (isProfileLocked, pinCode, enabled, profileId) => 
     {
-        if (! enabled) {
+        if (isNotSubscribed) {
+            history.push(PATH.RENEW_SUBSCRIPTION);
+        }
+
+        if (! enabled && !isNotSubscribed) {
             history.push(PATH.UPDATE_SUBSCRIPTION)
         }
 
@@ -212,7 +233,11 @@ const UserProfile = ({ AUTH }) =>
                                     <Grid container spacing={ 1 } direction='column' justify='center'>
                                         <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
                                             <Tooltip 
-                                                title={ !enabled ? 'Update plan to enable disabled profiles' : '' }
+                                                title={ 
+                                                    !enabled && !isNotSubscribed
+                                                        ? 'Update plan to enable disabled profiles' 
+                                                        : isNotSubscribed ? 'Renew subscription' : '' 
+                                                    }
                                             >
                                                 <img 
                                                     src={ avatar } 
@@ -248,6 +273,22 @@ const UserProfile = ({ AUTH }) =>
                             (profileLimit > AUTH.profiles.length) && !AUTH.profileCountToDisable && <AddProfileCard />
                         }
                     </Grid>
+                </Grid>
+                <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
+                    {
+                        isNotSubscribed && (
+                            <div className={ classes.renewSubscriptionContainer }>
+                                <Button 
+                                    variant="contained" 
+                                    color="default" 
+                                    className={ classes.renewSubscriptionBtn }
+                                    onClick={ () => history.push(PATH.RENEW_SUBSCRIPTION) }
+                                >
+                                    Renew Subscription
+                                </Button>
+                            </div>
+                        )
+                    }
                 </Grid>
             </Grid>
         </Container>
