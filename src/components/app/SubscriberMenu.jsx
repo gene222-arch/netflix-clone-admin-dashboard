@@ -161,7 +161,9 @@ const SubscriberMenu = ({ AUTH, anchorEl, setAnchorEl }) =>
                     AUTH.profiles.length && <MenuItem disabled>Profiles</MenuItem>
                 }
                 {
-                    AUTH.profiles.map((profile, index) => 
+                    AUTH.profiles
+                    .filter(({ enabled }) => enabled)
+                    .map((profile, index) => 
                         AUTH.selectedProfile.id !== profile.id && (
                             <AvatarMenu 
                                 key={ index }
