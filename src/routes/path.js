@@ -52,7 +52,7 @@ const PATH =
     CREATE_TRAILER: '/video-management/coming-soon-movies/:id/create-trailer',
     UPDATE_TRAILER: '/video-management/coming-soon-movies/:id/trailers/:trailerID',
 
-    ADD_PROFILE: '/profiles/create',
+    MANAGE_PROFILE: '/profiles/manage',
     USER_PROFILE: '/profiles',
     PROFILE_HOME_PAGE: '/',
     PROFILE_LOCK: '/settings/lock/:id',

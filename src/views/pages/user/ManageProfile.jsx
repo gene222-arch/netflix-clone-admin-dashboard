@@ -5,13 +5,13 @@ import { Button, Container, FormControlLabel, Switch } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import { createStructuredSelector } from 'reselect';
 import { connect, useDispatch } from 'react-redux';
-import { selectAuth, selectAuthErrorMessages, selectAuthHasErrorMessages } from './../../../redux/modules/auth/selector';
-import * as AUTH_ACTION from './../../../redux/modules/auth/actions';
-import Colors from './../../../constants/Colors';
+import { selectAuth, selectAuthErrorMessages, selectAuthHasErrorMessages } from '../../../redux/modules/auth/selector';
+import * as AUTH_ACTION from '../../../redux/modules/auth/actions';
+import Colors from '../../../constants/Colors';
 import { useLocation } from 'react-router-dom';
 import EditIcon from '@material-ui/icons/Edit';
 import AvatarOptions from './AvatarOptions'
-import GetBack from './../../../components/GetBack';
+import GetBack from '../../../components/GetBack';
 
 
 const updateEmailUseStyles = makeStyles(theme => 

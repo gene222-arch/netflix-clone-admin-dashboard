@@ -107,7 +107,7 @@ const AvatarList = ({ AUTH, id, handleClickSetId, handleChangePinLock }) =>
     }
 
     const handleClickUpdate = (profileId) => {
-        history.push(PATH.ADD_PROFILE, {
+        history.push(PATH.MANAGE_PROFILE, {
             profileId
         });
     }
