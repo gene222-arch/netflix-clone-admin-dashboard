@@ -401,10 +401,14 @@ export default (state = initialState, { type, payload }) =>
             };
 
         case UPDATE_SUBSCRIPTION_DETAILS: 
-            const profiles_ = state.profiles.map(profile => ({
-                ...profile,
-                enabled: 1
-            }));
+            let profiles_ = [ ...state.profiles ];
+
+            if (payload.subscription_details.status !== 'expired') {
+                profiles_ = state.profiles.map(profile => ({
+                    ...profile,
+                    enabled: 1
+                }));
+            }
 
             return {
                 ...state,

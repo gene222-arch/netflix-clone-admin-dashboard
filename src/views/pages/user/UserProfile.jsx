@@ -166,11 +166,7 @@ const UserProfile = ({ AUTH }) =>
 
     const handleClickAvatar = (isProfileLocked, pinCode, enabled, profileId) => 
     {
-        if (isNotSubscribed) {
-            history.push(PATH.RENEW_SUBSCRIPTION);
-        }
-
-        if (! enabled && !isNotSubscribed) {
+        if (! enabled) {
             history.push(PATH.UPDATE_SUBSCRIPTION)
         }
 
@@ -234,9 +230,9 @@ const UserProfile = ({ AUTH }) =>
                                         <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
                                             <Tooltip 
                                                 title={ 
-                                                    !enabled && !isNotSubscribed
+                                                    !enabled
                                                         ? 'Update plan to enable disabled profiles' 
-                                                        : isNotSubscribed ? 'Renew subscription' : '' 
+                                                        : '' 
                                                     }
                                             >
                                                 <img 

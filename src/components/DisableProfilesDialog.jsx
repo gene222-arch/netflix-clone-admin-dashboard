@@ -68,6 +68,7 @@ const DisableProfilesDialog = ({ AUTH }) =>
     const [ profileCountToDisable, setProfileCountToDisable ] = useState(0);
     const [ selectedIds, setSelectedIds ] = useState([]);
     const [ show, setShow ] = useState(false);
+    const isNotSubscribed = [ 'expired', 'cancelled', 'pending' ].includes(AUTH.subscription_details.status);
 
     const handleClose = () => {
     }
@@ -92,38 +93,41 @@ const DisableProfilesDialog = ({ AUTH }) =>
 
     const onLoadCheckProfileCountToDisable = () => 
     {
-        let profileCountToDisable_ = 0;
-        const currentProfileCount = AUTH.profiles.filter(({ enabled }) => enabled).length;
-
-        switch (AUTH.subscription_details.type) 
+        if (! isNotSubscribed) 
         {
-            case 'Premium':
-                profileCountToDisable_ = (5 - currentProfileCount);
-                break;
-        
-            case 'Standard':
-                profileCountToDisable_ = (4 - currentProfileCount);
-                break;
-
-            case 'Basic':
-                profileCountToDisable_ = (2 - currentProfileCount);
-                break;
-        }
-
-        if (Math.sign(profileCountToDisable_) === -1) 
-        {
-            const profileCountToDisable = Math.abs(profileCountToDisable_);
-
-            dispatch(AUTH_ACTION.setProfileCountToDisable({ profileCount: profileCountToDisable }));
-            setProfileCountToDisable(profileCountToDisable);
-            setShow(true);
-        }
-
-        if (Math.sign(profileCountToDisable_) !== -1) 
-        {
-            dispatch(AUTH_ACTION.setProfileCountToDisable({ profileCount: 0 }));
-            setProfileCountToDisable(0);
-            setShow(false);
+            let profileCountToDisable_ = 0;
+            const currentProfileCount = AUTH.profiles.filter(({ enabled }) => enabled).length;
+    
+            switch (AUTH.subscription_details.type) 
+            {
+                case 'Premium':
+                    profileCountToDisable_ = (5 - currentProfileCount);
+                    break;
+            
+                case 'Standard':
+                    profileCountToDisable_ = (4 - currentProfileCount);
+                    break;
+    
+                case 'Basic':
+                    profileCountToDisable_ = (2 - currentProfileCount);
+                    break;
+            }
+    
+            if (Math.sign(profileCountToDisable_) === -1) 
+            {
+                const profileCountToDisable = Math.abs(profileCountToDisable_);
+    
+                dispatch(AUTH_ACTION.setProfileCountToDisable({ profileCount: profileCountToDisable }));
+                setProfileCountToDisable(profileCountToDisable);
+                setShow(true);
+            }
+    
+            if (Math.sign(profileCountToDisable_) !== -1) 
+            {
+                dispatch(AUTH_ACTION.setProfileCountToDisable({ profileCount: 0 }));
+                setProfileCountToDisable(0);
+                setShow(false);
+            }
         }
     }
 
