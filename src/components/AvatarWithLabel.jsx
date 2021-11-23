@@ -4,6 +4,7 @@ import Avatar from '@material-ui/core/Avatar';
 import Grid from '@material-ui/core/Grid'
 import Chip from '@material-ui/core/Chip';
 import { makeStyles } from '@material-ui/core'
+import Colors from './../constants/Colors';
 
 
 const avatarWithLabelUseStyles = makeStyles(theme => ({
@@ -14,9 +15,7 @@ const avatarWithLabelUseStyles = makeStyles(theme => ({
     container: {
         cursor: 'pointer',
         '&:hover': {
-            backgroundColor: '#FFF',
-            color: '#000',
-            borderRadius: 5
+            opacity: 0.3
         }
     },
     chip: {
