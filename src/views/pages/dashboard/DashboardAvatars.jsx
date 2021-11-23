@@ -61,6 +61,7 @@ const DashboardAvatars = ({ DASHBOARD, generalAnalytics }) =>
                         backgroundColor: Colors.darkMode
                     }}
                     onClick={ () => 1 }
+                    onClick={ () => history.push(PATH.EMPLOYEE) }
                 />
             </Grid>
             <Grid item xs={ 12 } sm={ 4 } md={ 4 } lg={ 4 }>
@@ -102,7 +103,7 @@ const DashboardAvatars = ({ DASHBOARD, generalAnalytics }) =>
                     counterStyle={{
                         backgroundColor: Colors.darkMode
                     }}
-                    onClick={ () => 1 }
+                    onClick={ () => history.push(PATH.SUBSCRIPTIONS) }
                 />
             </Grid>
             <Grid item xs={ 12 } sm={ 4 } md={ 4 } lg={ 4 }>
