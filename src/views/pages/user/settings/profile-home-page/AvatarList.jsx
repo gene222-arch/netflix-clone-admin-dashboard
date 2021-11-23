@@ -177,7 +177,9 @@ const AvatarList = ({ AUTH, id, handleClickSetId, handleChangePinLock }) =>
                 handleClickSave={ handleClickSelect }
             />
             {
-                AUTH.profiles.map(({ id: profileId, name, avatar, pin_code, is_profile_locked, is_for_kids }, index) => (
+                AUTH.profiles
+                .filter(({ enabled }) => enabled)
+                .map(({ id: profileId, name, avatar, pin_code, is_profile_locked, is_for_kids }, index) => (
                     <div key={ index }>
                         <List className={classes.profileContainer} onClick={ () => handleClickSetId(profileId) } >
                             <ListItem>
