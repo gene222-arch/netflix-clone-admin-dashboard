@@ -5,8 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const forbiddenUseStyles = makeStyles(theme => ({
     container: {
-        height: 'auto',
-        marginTop: '10vh'
+        height: 'auto'
     }
 }));
 

@@ -12,6 +12,7 @@ import ContinueProfileLock from './ContinueProfileLock';
 import * as AUTH_API from './../../../../../services/auth/auth'
 import * as QueryParams from './../../../../../utils/queryParams'
 import * as Cookies from './../../../../../utils/cookies'
+import Forbidden from './../../../errors/Forbidden';
 
 const profileLockUseStyles = makeStyles(theme => ({
     avatar: {
@@ -20,7 +21,7 @@ const profileLockUseStyles = makeStyles(theme => ({
         marginRight: '1rem'
     },
     container: {
-        height: '91.7vh'
+        height: '84.9vh'
     }
 }));
 
@@ -76,6 +77,14 @@ const ProfileLock = ({ AUTH }) =>
             setContinueProfileLock(false);
         }
     }, []);
+
+    if (! profile.enabled) {
+        return (
+            <Container maxWidth="md" className={ classes.container }>
+                <Forbidden />
+            </Container>
+        )
+    }
 
     return (
         <Container maxWidth="md" className={ classes.container } >

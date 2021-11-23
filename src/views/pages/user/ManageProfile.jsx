@@ -62,7 +62,7 @@ const updateEmailUseStyles = makeStyles(theme =>
 
 const DEFAULT_AVATAR_URL = 'https://upload.wikimedia.org/wikipedia/commons/0/0b/Netflix-avatar.png';
 
-const AddProfile = ({ AUTH, AUTH_ERROR_MESSAGES, AUTH_HAS_ERROR_MESSAGES }) => 
+const ManageProfile = ({ AUTH, AUTH_ERROR_MESSAGES, AUTH_HAS_ERROR_MESSAGES }) => 
 {
     const classes = updateEmailUseStyles();
     const dispatch = useDispatch();
@@ -179,4 +179,4 @@ const mapStateToProps = createStructuredSelector({
     AUTH_HAS_ERROR_MESSAGES: selectAuthHasErrorMessages
 });
 
-export default connect(mapStateToProps)(AddProfile)
+export default connect(mapStateToProps)(ManageProfile)
