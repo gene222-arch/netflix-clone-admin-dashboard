@@ -41,7 +41,7 @@ const Membership = ({ AUTH, paymentAuthorizationNotif }) =>
 
         if (AUTH.subscription_details.status === 'subscribed') return 'Manage Plan';
 
-        if (['expired', 'cancelled'].includes(AUTH.subscription_details.status) && AUTH.payment_authorization_status !== 'sent') {
+        if (['expired', 'cancelled'].includes(AUTH.subscription_details.status)) {
             return 'Renew Subscription';
         }
 
