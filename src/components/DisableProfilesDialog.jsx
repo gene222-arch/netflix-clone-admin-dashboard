@@ -209,8 +209,7 @@ const DisableProfilesDialog = ({ AUTH }) =>
                 <DialogActions>
                     <Button 
                         onClick={ () => selectedIds.length === AUTH.profileCountToDisable && handleClickConfirm() } 
-                        variant='contained' 
-                        autoFocus 
+                        variant='contained'
                         disabled={ AUTH.isLoading || selectedIds.length !== AUTH.profileCountToDisable }
                         className={ classes.confirmBtn }
                     >
