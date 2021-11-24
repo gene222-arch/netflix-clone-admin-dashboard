@@ -10,6 +10,7 @@ import { makeStyles, Typography } from '@material-ui/core';
 import Colors from '../constants/Colors';
 import { useHistory } from 'react-router';
 import PATH from '../routes/path';
+import CloseIcon from '@material-ui/icons/Close';
 
 
 const confirmationDialogUseStyles = makeStyles(theme => ({
@@ -26,6 +27,13 @@ const confirmationDialogUseStyles = makeStyles(theme => ({
         textAlign: 'center',
         padding: '1rem'
     },
+    closeIcon: {
+        textAlign: 'right',
+        '&:hover': {
+            cursor: 'pointer',
+            color: Colors.error
+        }
+    },
     headerTitle: {
         color: Colors.error,
         textAlign: 'center'
@@ -41,14 +49,21 @@ const SubscriptionAlertMessage = ({ AUTH }) =>
 
     const isNotSubscribed = [ 'expired', 'cancelled', 'pending' ].includes(AUTH.subscription_details.status);
 
-    const handleClickRenewSubscription = () => {
+    const handleClose = () => {
+        setIsOpen(false);
+    }
+
+    const handleClickRenewSubscription = () => 
+    {
         setIsOpen(false);
         history.push(PATH.RENEW_SUBSCRIPTION);
     }
 
     useEffect(() => 
     {
-        setIsOpen(isNotSubscribed);
+        window.addEventListener('load', () => {
+            setIsOpen(isNotSubscribed);
+        });
 
         return () => {
             setIsOpen(false);
@@ -64,11 +79,14 @@ const SubscriptionAlertMessage = ({ AUTH }) =>
                 fullWidth
                 PaperProps={{
                     style: {
-                        height: '30vh'
+                        height: '35vh'
                     },
                 }}
                 maxWidth='md'
             >
+                <DialogTitle>
+                    <CloseIcon className={ classes.closeIcon } onClick={ handleClose } />
+                </DialogTitle>
                 <DialogTitle id='alert-dialog-title' className={ classes.headerTitle }>
                     <strong>Update your payment information to continue.</strong>
                 </DialogTitle>
