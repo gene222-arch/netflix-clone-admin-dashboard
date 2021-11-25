@@ -2,7 +2,7 @@ import React, { lazy, useEffect } from 'react'
 import { Route, Switch } from 'react-router-dom'
 import DateFnsUtils from '@date-io/date-fns';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
-import { GLOBAL_ROUTES, PRIVATE_ROUTES, PUBLIC_ROUTES, RenderRoutes, USER_ROUTES, SUBSCRIPTION_ROUTES, FORGOT_PASSWORD_ROUTES } from './routes'
+import { PRIVATE_ROUTES, RenderRoutes, USER_ROUTES, SUBSCRIPTION_ROUTES, FORGOT_PASSWORD_ROUTES } from './routes'
 import AuthLayout from './views/layouts/AuthLayout';
 import NotFound from './views/pages/errors/NotFound';
 import { MuiThemeProvider } from '@material-ui/core/styles';
@@ -20,7 +20,7 @@ import * as AUTH_ACTION from './redux/modules/auth/actions'
 import * as NOTIFICATION_ACTION from './redux/modules/notifications/actions'
 import * as ALERT_ACTION from './redux/modules/alert/actions'
 import * as COOKIES_UTIL from './utils/cookies'
-import { HELP_CENTER_ROUTES, AUTHENTICATION_ROUTES } from './routes/index';
+import { HELP_CENTER_ROUTES, AUTHENTICATION_ROUTES, LEGAL_ROUTES } from './routes/index';
 const EmailVerification = lazy(() => import('./views/pages/employee/EmailVerification'));
 
 const App = ({ AUTH, history }) => 
@@ -100,7 +100,7 @@ const App = ({ AUTH, history }) =>
 					{/* Global  */}
 					<Route path='/legal/:path?' exact>
 						<SecurityLayout>
-							<RenderRoutes routes={ GLOBAL_ROUTES } />
+							<RenderRoutes routes={ LEGAL_ROUTES } />
 						</SecurityLayout>
 					</Route>
 
@@ -123,15 +123,11 @@ const App = ({ AUTH, history }) =>
 					}
 
 					{/* Forgot password routes */}
-					{
-						!AUTH.isAuthenticated && (
-							<Route path='/:path?'>
-								<AuthLayout>
-									<RenderRoutes routes={ FORGOT_PASSWORD_ROUTES } />
-								</AuthLayout>
-							</Route>
-						)
-					}
+					<Route path='/forgot-password/:path?' exact>
+						<AuthLayout>
+							<RenderRoutes routes={ FORGOT_PASSWORD_ROUTES } />
+						</AuthLayout>
+					</Route>
 
 					{/* Subscriber subscription routes */}
 					<Route path='/subscriptions/:path?'>

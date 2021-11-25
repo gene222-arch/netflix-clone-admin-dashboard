@@ -160,7 +160,7 @@ export const FORGOT_PASSWORD_ROUTES = [
     },
 ];
 
-export const GLOBAL_ROUTES = 
+export const LEGAL_ROUTES = 
 [
     {
         path: PATH.PRIVACY_POLICY,
