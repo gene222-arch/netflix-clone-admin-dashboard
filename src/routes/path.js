@@ -8,7 +8,7 @@ const PATH =
     CREATE_ACTIVITY_LOG: '/activity-logs/create',
     UPDATE_ACTIVITY_LOG: '/activity-logs/:id/update',
     DASHBOARD: '/',
-    FORGOT_PASSWORD: '/auth/forgot-password/email',
+    FORGOT_PASSWORD: '/forgot-password/email',
     LOGIN: '/auth/sign-in',
     LOGOUT: '/logout',
     GET_STARTED: '/auth/get-started',
@@ -16,7 +16,7 @@ const PATH =
     UPLOAD_AVATAR: '/auth/avatar',
     SELECT_PLAN: '/auth/planform',
     REGISTER: '/auth/create-an-account',
-    RESET_PASSWORD: '/auth/forgot-password/reset',
+    RESET_PASSWORD: '/forgot-password/reset',
     VERIFIY_EMAIL: '/auth/email/verify-email/:id/:hash',
 
     VIDEO_MANAGEMENT_AUTHOR: '/video-management/authors',

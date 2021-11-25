@@ -71,16 +71,8 @@ const PaymentHistory = lazy(() => import('../views/pages/user/PaymentHistory'))
 const Subscriptions = lazy(() => import('../views/pages/subscription'))
 const HowToChangeYourPlan = lazy(() => import('../views/pages/help-center/HowToChangeYourPlan'))
 
-export const PUBLIC_ROUTES = [
-    {
-        path: PATH.FORGOT_PASSWORD,
-        key: 'ForgotPasswordForm',
-        icon: '',
-        exact: true,
-        component: ForgotPasswordForm,
-        access: '',
-        restricted: false
-    },
+export const AUTHENTICATION_ROUTES = [
+
     {
         path: PATH.LOGIN,
         key: 'LoginForm',
@@ -135,15 +127,7 @@ export const PUBLIC_ROUTES = [
         access: '',
         restricted: false
     },
-    {
-        path: PATH.RESET_PASSWORD,
-        key: 'ResetPasswordForm',
-        icon: '',
-        exact: true,
-        component: ResetPasswordForm,
-        access: '',
-        restricted: false
-    },
+
     {
         path: PATH.VERIFIY_EMAIL,
         key: 'EmailVerifiedMessage',
@@ -153,6 +137,27 @@ export const PUBLIC_ROUTES = [
         access: '',
         restricted: false
     }
+];
+
+export const FORGOT_PASSWORD_ROUTES = [
+    {
+        path: PATH.FORGOT_PASSWORD,
+        key: 'ForgotPasswordForm',
+        icon: '',
+        exact: true,
+        component: ForgotPasswordForm,
+        access: '',
+        restricted: false
+    },
+    {
+        path: PATH.RESET_PASSWORD,
+        key: 'ResetPasswordForm',
+        icon: '',
+        exact: true,
+        component: ResetPasswordForm,
+        access: '',
+        restricted: false
+    },
 ];
 
 export const GLOBAL_ROUTES = 
