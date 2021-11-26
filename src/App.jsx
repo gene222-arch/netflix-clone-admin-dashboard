@@ -112,16 +112,12 @@ const App = ({ AUTH, history }) =>
 					</Route>
 
 					{/* Authentication Routes */}
-					{
-						!AUTH.isAuthenticated && (
-							<Route path='/auth/:path?'>
-								<AuthLayout>
-									<RenderRoutes routes={ AUTHENTICATION_ROUTES } />
-								</AuthLayout>
-							</Route>
-						)
-					}
-
+					<Route path='/auth/:path?'>
+						<AuthLayout>
+							<RenderRoutes routes={ AUTHENTICATION_ROUTES } />
+						</AuthLayout>
+					</Route>
+					
 					{/* Forgot password routes */}
 					<Route path='/forgot-password/:path?' exact>
 						<AuthLayout>
