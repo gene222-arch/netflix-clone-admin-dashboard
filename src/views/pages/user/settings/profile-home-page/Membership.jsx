@@ -4,11 +4,10 @@ import { Grid, Typography, List, ListItem, ListItemAvatar, ListItemText, ListIte
 import StyledNavLink from './../../../../../components/styled-components/StyledNavLink';
 import { createStructuredSelector } from 'reselect';
 import { selectAuth } from './../../../../../redux/modules/auth/selector';
-import { connect, useDispatch } from 'react-redux';
+import { connect } from 'react-redux';
 import PATH from './../../../../../routes/path';
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import LockOpenIcon from '@material-ui/icons/LockOpen';
-import * as USER_ACTION from './../../../../../redux/modules/user/actions'
 import { useTheme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import SubscriptionIcon from '@material-ui/icons/Subscriptions';
@@ -30,7 +29,6 @@ const Membership = ({ AUTH, paymentAuthorizationNotif }) =>
     const theme = useTheme();
 
     const classes = membershipUseStyles();
-    const dispatch = useDispatch();
     const history = useHistory();
 
     const isXs = useMediaQuery(theme.breakpoints.only('xs'));
@@ -78,7 +76,7 @@ const Membership = ({ AUTH, paymentAuthorizationNotif }) =>
             mobileSizeTextContent: 'Change',
             isTextSecondary: true,
             isNavigatable: true,
-            onClick: () => console.log('')
+            onClick: () => 1
         },
         {
             id: 'billing_details',
@@ -89,7 +87,7 @@ const Membership = ({ AUTH, paymentAuthorizationNotif }) =>
             mobileSizeTextContent: billingDetailsActionText().substring(0, 6),
             isTextSecondary: true,
             isNavigatable: [ 'Renew Subscription', 'Manage Plan' ].includes(billingDetailsActionText()),
-            onClick: () => console.log('')
+            onClick: () => 1
         },
         {
             id: 'payment_history',
@@ -100,7 +98,7 @@ const Membership = ({ AUTH, paymentAuthorizationNotif }) =>
             mobileSizeTextContent: 'Payment History',
             isTextSecondary: true,
             isNavigatable: true,
-            onClick: () => console.log('')
+            onClick: () => 1
         },
     ];
 
