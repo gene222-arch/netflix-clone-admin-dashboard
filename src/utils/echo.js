@@ -21,7 +21,7 @@ export default () =>
         wsHost: window.location.hostname,
         wsPort: process.env.REACT_APP_WS_PORT,
         encrypted: true,
-        disableStats: true,
+        enableStats : false,
         enabledTransports: ['ws', 'wss'],
         forceTLS: false,
     });

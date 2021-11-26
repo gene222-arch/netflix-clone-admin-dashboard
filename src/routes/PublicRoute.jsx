@@ -10,13 +10,11 @@ import { connect } from 'react-redux';
 
 const PublicRoute = ({ AUTH, Component, ...props }) => 
 {
-    if (! AUTH.isAuthenticated || ! Cookies.has('access_token')) {
-        return <Component { ...props } />
-    }
-    else {
-        if (AUTH.role === 'Subscriber') return <Redirect to={ PATH.PROFILE_HOME_PAGE } />
-        if (AUTH.role !== 'Subscriber') return <Redirect to={ PATH.DASHBOARD } />
-    }
+    if (! AUTH.isAuthenticated) return <Component { ...props } />
+    
+    if (AUTH.role === 'Subscriber') return <Redirect to={ PATH.PROFILE_HOME_PAGE } />
+    
+    if (AUTH.role !== 'Subscriber') return <Redirect to={ PATH.DASHBOARD } />
 }
 
 const mapStateToProps = createStructuredSelector({
