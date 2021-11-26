@@ -6,15 +6,15 @@ import { createStructuredSelector } from 'reselect';
 import { selectPaymentAuthorizationNotifications } from '../../redux/modules/notifications/selector';
 import { connect, useDispatch } from 'react-redux';
 import Colors from './../../constants/Colors';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid'
 import { Mail, MoreHorizRounded, Notifications } from '@material-ui/icons';
 import { Tooltip, Typography, ListItemText } from '@material-ui/core'
 import CheckIcon from '@material-ui/icons/Check';
-import MoreVert from '@material-ui/icons/MoreVert';
 import DeleteIcon from '@material-ui/icons/Delete';
 import * as NOTIFICATIONS_ACTION from './../../redux/modules/notifications/actions'
 import { selectUnreadPaymentAuthNotifications } from './../../redux/modules/notifications/selector';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 const notificationMenuUseStyles = makeStyles(theme => ({
     emptyNotifText: {
@@ -24,9 +24,6 @@ const notificationMenuUseStyles = makeStyles(theme => ({
     mailIcon: {
         marginRight: '1.5rem',
         fontSize: '0.9rem'
-    },
-    notifMenu: {
-        width: '30rem'
     },
     notifHeaderTitle: {
         fontWeight: 'bold'
@@ -46,10 +43,13 @@ const notificationMenuUseStyles = makeStyles(theme => ({
 
 const NotificationMenu = ({ PAYMENT_AUTH_NOTIFS, UNREAD_PAYMENT_AUTH_NOTIFS, anchorEl, setAnchorEl }) => 
 {
+    const theme = useTheme();
     const classes = notificationMenuUseStyles();
     const dispatch = useDispatch();
 
     const open = Boolean(anchorEl);
+
+    const isXs = useMediaQuery(theme.breakpoints.down('xs'));
 
     const [ moreOptionMenu, setMoreOptionMenu ] = useState(null);
 
@@ -107,8 +107,8 @@ const NotificationMenu = ({ PAYMENT_AUTH_NOTIFS, UNREAD_PAYMENT_AUTH_NOTIFS, anc
                 }}
                 PaperProps={{ 
                     style: {  
-                        width: '15rem',
-                        height: '10rem'
+                        width: isXs ? '100%' : '15rem',
+                        height: isXs ? '30%' : '10rem'
                     } 
                 }}
             >
@@ -131,10 +131,9 @@ const NotificationMenu = ({ PAYMENT_AUTH_NOTIFS, UNREAD_PAYMENT_AUTH_NOTIFS, anc
                 MenuListProps={{
                     'aria-labelledby': 'basic-button',
                 }}
-                className={ classes.notifMenu }
                 PaperProps={{ 
                     style: {  
-                        width: '40rem'
+                        width: isXs ? '100%' : '30rem'
                     } 
                 }}
             >
@@ -175,9 +174,12 @@ const NotificationMenu = ({ PAYMENT_AUTH_NOTIFS, UNREAD_PAYMENT_AUTH_NOTIFS, anc
                                         </Typography>
                                     } 
                                     secondary={
-                                        <small>
-                                            <Typography variant="caption" color="initial" noWrap>
-                                                { data.data.message.substring(0, 60) + '....' }
+                                        <small className={ classes.notifContentContainer }>
+                                            <Typography 
+                                                variant="caption" 
+                                                color="initial"
+                                            >
+                                                { data.data.message.substring(0, isXs ? 45 : 60) + '....' }
                                             </Typography>
                                             <Typography variant="caption" color="initial" className={ classes.timeAgo }>
                                                 { time_ago }
