@@ -14,7 +14,7 @@ export default () =>
     }
 
     const axiosInstance = Axios.create({
-        baseURL: process.env.REACT_APP_API_BASE_URL,
+        baseURL: process.env.REACT_APP_LARAVEL_API_BASE_URL,
         headers
     });
 
