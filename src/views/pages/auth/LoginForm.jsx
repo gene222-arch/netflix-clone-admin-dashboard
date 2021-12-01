@@ -1,13 +1,8 @@
-/** Libraries */
 import React, { useState, useEffect } from 'react';
 import { useDispatch, connect } from 'react-redux'
 import { createStructuredSelector } from 'reselect';
-
-/** Custom Components */
 import Copyright from './../../../components/Copyright';
 import Error from './../../../components/Error';
-
-/** Material UI Components */
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
@@ -21,14 +16,8 @@ import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
-
-/** Material UI Styling */
 import loginFormUseStyles from '../../../assets/js/material-ui/loginFormUseStyles';
-
-/** Actions */
 import * as AUTH_ACTION from '../../../redux/modules/auth/actions'
-
-/** Routes */
 import PATH from './../../../routes/path';
 import { selectAuth, selectAuthErrorMessages, selectAuthHasErrorMessages } from './../../../redux/modules/auth/selector';
 import InputAdornment from '@material-ui/core/InputAdornment'
@@ -38,8 +27,6 @@ import { useHistory } from 'react-router-dom';
 import * as USER_API from './../../../services/users/user'
 import * as QueryParam from './../../../utils/queryParams'
 import * as Cookies from './../../../utils/cookies'
-import PageLoader from './../../../components/PageLoader';
-
 
 
 const LoginForm = ({ AUTH, ERROR_MESSAGE, HAS_ERROR_MESSAGE }) => 
