@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, connect } from 'react-redux'
 import { createStructuredSelector } from 'reselect';
-import Copyright from './../../../components/Copyright';
 import Error from './../../../components/Error';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -10,7 +9,6 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
@@ -23,7 +21,6 @@ import { selectAuth, selectAuthErrorMessages, selectAuthHasErrorMessages } from 
 import InputAdornment from '@material-ui/core/InputAdornment'
 import { IconButton } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
-
 import * as USER_API from './../../../services/users/user'
 import * as QueryParam from './../../../utils/queryParams'
 import * as Cookies from './../../../utils/cookies'
