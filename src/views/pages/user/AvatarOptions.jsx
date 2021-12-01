@@ -9,6 +9,7 @@ import GetBack from './../../../components/GetBack';
 import { createStructuredSelector } from 'reselect';
 import { selectAuth } from './../../../redux/modules/auth/selector';
 import { connect } from 'react-redux';
+import * as DEVICE from './../../../constants/Device'
 
 const avatarOptionsUseStyles = makeStyles(theme => ({
     card: {
@@ -51,17 +52,20 @@ const AvatarOptions = ({ AUTH, profile, setProfile, toggleAvatarList }) =>
         {
             title: 'Avatars',
             actionName: 'avatar',
-            isAvailable: [ 'Basic', 'Standard', 'Premium' ].includes(AUTH.subscription_details.type)
+            isAvailable: [ 'Basic', 'Standard', 'Premium' ].includes(AUTH.subscription_details.type),
+            visible: true
         },
-        {
+        {   
             title: 'Upload Image',
             actionName: 'upload',
-            isAvailable: AUTH.subscription_details.type === 'Premium'
+            isAvailable: AUTH.subscription_details.type === 'Premium',
+            visible: true
         },
         {
             title: 'Use Camera',
             actionName: 'camera',
-            isAvailable: AUTH.subscription_details.type === 'Premium'
+            isAvailable: AUTH.subscription_details.type === 'Premium',
+            visible: !DEVICE.isMobile()
         }
     ];
 
@@ -83,7 +87,7 @@ const AvatarOptions = ({ AUTH, profile, setProfile, toggleAvatarList }) =>
             <Typography variant="h4" color="initial" className={ classes.headerTitle }>Avatar Options</Typography>
             <Grid container spacing={ 3 } alignItems='center' className={ classes.cardGridContainer }>
             {
-                options.map(({ title, actionName, isAvailable }, index) => isAvailable && (
+                options.map(({ title, actionName, isAvailable, isVisible }, index) => (isAvailable && isVisible) && (
                     <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 } key={ index }>
                         <Card className={ classes.card } onClick={ () => setSelectedOption(actionName) }>
                             <CardContent>
