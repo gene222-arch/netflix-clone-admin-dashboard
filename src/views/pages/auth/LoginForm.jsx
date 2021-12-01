@@ -2,14 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, connect } from 'react-redux'
 import { createStructuredSelector } from 'reselect';
 import Error from './../../../components/Error';
-import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import VisibilityIcon from '@material-ui/icons/Visibility';
@@ -97,9 +95,6 @@ const LoginForm = ({ AUTH, ERROR_MESSAGE, HAS_ERROR_MESSAGE }) =>
         <Container maxWidth='xl'>
             <Container component='main' maxWidth='xs' className={ classes.container }>
                 <div className={ classes.paper }>
-                    <Avatar className={ classes.avatar }>
-                        <LockOutlinedIcon className={ classes.lockIcon } />
-                    </Avatar>
                     <Typography component='h1' variant='h5' gutterBottom>
                         <strong>Sign in</strong>
                     </Typography>
@@ -170,14 +165,14 @@ const LoginForm = ({ AUTH, ERROR_MESSAGE, HAS_ERROR_MESSAGE }) =>
                         { !AUTH.isLoading ? 'Sign In' : 'Signing In...' }
                     </Button>
                     <Grid container>
-                        <Grid item xs>
+                        <Grid item xs={ 12 } sm={ 5 } md={ 5 } lg={ 5 }>
                             <Typography variant="subtitle2" color="initial">
                                 <Link href={ PATH.FORGOT_PASSWORD } color='inherit' variant='body2'>
                                     Forgot password?
                                 </Link>
                             </Typography>
                         </Grid>
-                        <Grid item>
+                        <Grid item xs={ 12 } sm={ 7 } md={ 7 } lg={ 7 }>
                         <Typography variant="subtitle2">
                             <Link href={ PATH.GET_STARTED } color='inherit' variant='body2'>
                                 Don't have an account? Sign Up

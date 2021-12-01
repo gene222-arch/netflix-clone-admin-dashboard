@@ -8,20 +8,10 @@ const loginFormUseStyles = makeStyles((theme) => ({
         borderRadius: 10,
         boxShadow: theme.shadows['10']
     },
-    lockIcon: {
-        fontSize: '2.5rem'
-    },
     paper: {
         marginTop: theme.spacing(8),
         display: 'flex',
         flexDirection: 'column'
-    },
-    avatar: {
-        margin: theme.spacing(1),
-        backgroundColor: Colors.netflixRed,
-        alignSelf: 'center',
-        width: '5rem',
-        height: '5rem'
     },
     form: {
         width: '100%', // Fix IE 11 issue.
@@ -40,7 +30,7 @@ const loginFormUseStyles = makeStyles((theme) => ({
         alignSelf: 'flex-start'
     },
     termsAndServices: {
-        marginTop: '3rem',
+        marginTop: '1.5rem',
         width: '100%',
         paddingBottom: '1rem'
     }
