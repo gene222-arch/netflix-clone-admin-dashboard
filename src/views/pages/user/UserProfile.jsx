@@ -77,7 +77,7 @@ const PIN_PROPS = {
     num4: ''
 }
 
-const AddProfileCard = ({ planType, totalProfiles }) => 
+const AddProfileCard = ({ isSubscribed, planType, totalProfiles }) => 
 {
     const classes = userProfileUseStyles();
     const history = useHistory();
@@ -92,11 +92,14 @@ const AddProfileCard = ({ planType, totalProfiles }) =>
         <Grid 
             item xs={ 3 } sm={ 2 } md={ 2 } lg={ 2 } 
             className={ classes.addCardContainer } 
-            onClick={ () => history.push(PATH.MANAGE_PROFILE) }
+            onClick={ () => isSubscribed && history.push(PATH.MANAGE_PROFILE) }
         >
             <Grid container spacing={ 1 } direction='column' justify='center'>
                 <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
-                    <Add className={ classes.addIcon } />
+                    <Add className={ classes.addIcon } style={{
+                        color: isSubscribed ? Colors.white : Colors.grey,
+                        cursor: 'context-menu'
+                    }} />
                 </Grid>
                 <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
                     <Typography variant="subtitle1" color="textSecondary" align='center'>
@@ -266,7 +269,13 @@ const UserProfile = ({ AUTH }) =>
                             ))
                         }
                         {
-                            (profileLimit > AUTH.profiles.length) && !AUTH.profileCountToDisable && <AddProfileCard />
+                            (profileLimit > AUTH.profiles.length) && !AUTH.profileCountToDisable && (
+                                <AddProfileCard 
+                                    isSubscribed={ AUTH.subscription_details.status === 'subscribed' }
+                                    planType={ AUTH.subscription_details.type }
+                                    totalProfiles={ AUTH.profiles.length }
+                                />
+                            )
                         }
                     </Grid>
                 </Grid>
