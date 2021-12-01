@@ -87,7 +87,7 @@ const AvatarOptions = ({ AUTH, profile, setProfile, toggleAvatarList }) =>
             <Typography variant="h4" color="initial" className={ classes.headerTitle }>Avatar Options</Typography>
             <Grid container spacing={ 3 } alignItems='center' className={ classes.cardGridContainer }>
             {
-                options.map(({ title, actionName, isAvailable, isVisible }, index) => (isAvailable && isVisible) && (
+                options.map(({ title, actionName, isAvailable, visible }, index) => (isAvailable && visible) && (
                     <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 } key={ index }>
                         <Card className={ classes.card } onClick={ () => setSelectedOption(actionName) }>
                             <CardContent>

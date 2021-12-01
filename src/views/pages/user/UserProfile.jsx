@@ -92,7 +92,7 @@ const AddProfileCard = ({ planType, totalProfiles }) =>
         <Grid 
             item xs={ 3 } sm={ 2 } md={ 2 } lg={ 2 } 
             className={ classes.addCardContainer } 
-            onClick={ () => history.push(PATH.ADD_PROFILE) }
+            onClick={ () => history.push(PATH.MANAGE_PROFILE) }
         >
             <Grid container spacing={ 1 } direction='column' justify='center'>
                 <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
