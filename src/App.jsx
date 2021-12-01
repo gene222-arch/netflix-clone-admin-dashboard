@@ -36,6 +36,12 @@ const App = ({ AUTH, history }) =>
 				});
 
 			ECHO_UTIL()
+				.private(`subscription.cancelled.${ AUTH.user.id }`)
+				.listen('SubscriptionCancelledEvent', (response) => {
+					dispatch(AUTH_ACTION.updateSubscriptionDetails({ subscription_details: response.data }));
+				});
+
+			ECHO_UTIL()
 				.private(`subscription.expired.${ AUTH.user.id }`)
 				.listen('SubscriptionExpiredEvent', (response) => {
 					dispatch(AUTH_ACTION.updateSubscriptionDetails({ subscription_details: response.data }));
