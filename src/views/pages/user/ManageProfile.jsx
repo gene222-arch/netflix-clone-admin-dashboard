@@ -17,8 +17,8 @@ import GetBack from '../../../components/GetBack';
 const updateEmailUseStyles = makeStyles(theme => 
 ({
     avatar: {
-        width: 300,
-        height: 300,
+        width: '100%',
+        height: '100%',
         borderRadius: 5
     },
     avatarContainer: {
@@ -37,13 +37,13 @@ const updateEmailUseStyles = makeStyles(theme =>
         }
     },
     container: {
-        height: '91vh'
+        height: '84.5vh'
     },
     editIcon: {
         position: 'absolute',
         bottom: -2,
         fontSize: '2.5rem',
-        right: 110,
+        right: -10,
         cursor: 'pointer',
         '&:hover': {
             opacity: 0.8
@@ -124,7 +124,7 @@ const ManageProfile = ({ AUTH, AUTH_ERROR_MESSAGES, AUTH_HAS_ERROR_MESSAGES }) =
         <Container maxWidth="sm" className={ classes.container }>
             <GetBack />
             <Grid container spacing={ 2 } justify='center' alignItems='center'>
-                <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
+                <Grid item xs={ 7 } sm={ 7 } md={ 7 } lg={ 7 }>
                     <div className={ classes.avatarContainer }>
                         <img 
                             src={ profile.avatar }   
