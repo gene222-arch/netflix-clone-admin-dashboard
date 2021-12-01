@@ -7,8 +7,8 @@ const DEFAULT_AVATAR_URL = 'https://upload.wikimedia.org/wikipedia/commons/0/0b/
 
 const avatarListUseStyles = makeStyles(theme => ({
     avatar: {
-        width: 140,
-        height: 140,
+        width: '100%',
+        height: '100%',
         '&:hover': {
             cursor: 'pointer',
             opacity: 0.8,
@@ -28,7 +28,7 @@ const AvatarList = ({ handleClickAvatar }) =>
     const isBelowMd = useMediaQuery(theme.breakpoints.down('sm'));
 
     return (
-        <Container maxWidth="md" className={ classes.container } style={{ height: isBelowMd ? 'auto' : '91.5vh' }}>
+        <Container maxWidth="md" className={ classes.container } style={{ height: '79.5vh' }}>
             <Grid container spacing={ 4 } justify='space-between' alignItems='center'>
             {
                 [1, 2, 3, 4, 5, 6, 7, 8, 9].map(avatar => (
