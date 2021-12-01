@@ -20,12 +20,13 @@ export default () =>
         key: process.env.REACT_APP_PUSHER_APP_KEY,
         auth,
         authEndpoint: process.env.REACT_APP_API_BROADCAST_BASE_URL,
-        encrypted: true,
+        encrypted: false,
         enableStats : false,
         enabledTransports: ['ws', 'wss'],
         forceTLS: false,
         wsHost: window.location.hostname,
         wsPort: process.env.REACT_APP_WS_PORT,
+        wssPort: process.env.REACT_APP_WSS_PORT
     };
 
     return new Echo(options);
