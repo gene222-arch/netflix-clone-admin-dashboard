@@ -1,9 +1,6 @@
 import { makeStyles, Grid, Container } from '@material-ui/core';
 import React from 'react'
-import useMediaQuery from '@material-ui/core/useMediaQuery';
-import { useTheme } from '@material-ui/core/styles';
-
-const DEFAULT_AVATAR_URL = 'https://upload.wikimedia.org/wikipedia/commons/0/0b/Netflix-avatar.png';
+import avatarUris from './../../../services/app-avatar-uris/avatar.uris';
 
 const avatarListUseStyles = makeStyles(theme => ({
     avatar: {
@@ -23,18 +20,16 @@ const avatarListUseStyles = makeStyles(theme => ({
 
 const AvatarList = ({ handleClickAvatar }) => 
 {
-    const theme = useTheme();
     const classes = avatarListUseStyles();
-    const isBelowMd = useMediaQuery(theme.breakpoints.down('sm'));
 
     return (
         <Container maxWidth="md" className={ classes.container } style={{ height: '79.5vh' }}>
             <Grid container spacing={ 4 } justify='space-between' alignItems='center'>
             {
-                [1, 2, 3, 4, 5, 6, 7, 8, 9].map(avatar => (
+                avatarUris.map(avatar => (
                     <Grid item xs={ 4 } sm={ 4 } md={ 4 } lg={ 4 }>
                         <div className={ classes.imgContainer }>
-                            <img src={ DEFAULT_AVATAR_URL } className={ classes.avatar } onClick={ () => handleClickAvatar(DEFAULT_AVATAR_URL) } />
+                            <img src={ avatar } className={ classes.avatar } onClick={ () => handleClickAvatar(avatar) } />
                         </div>
                     </Grid>
                 ))
