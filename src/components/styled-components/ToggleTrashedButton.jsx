@@ -13,7 +13,7 @@ const toggleTrashedButtonUseStyles = makeStyles(theme => ({
 }));
 
 
-const ToggleTrashedButton = ({ title = 'Show deleted items', onClick }) => 
+const ToggleTrashedButton = ({ title = 'Show deleted items', onClick, isLoading = false }) => 
 {
     const classes = toggleTrashedButtonUseStyles();
 
@@ -36,6 +36,7 @@ const ToggleTrashedButton = ({ title = 'Show deleted items', onClick }) =>
                                 onClick(trashedOnly);
                                 setTrashedOnly(! trashedOnly);
                             }}
+                            disabled={ isLoading }
                         />
                     } 
                     label={ 
