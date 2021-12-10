@@ -12,6 +12,7 @@ import MaterialTable from './../../../../components/styled-components/MaterialTa
 import MaterialTableActionButton from './../../../../components/MaterialTableActionButton';
 import Switch from '@material-ui/core/Switch';
 import Container from '@material-ui/core/Container'
+import ToggleTrashedButton from '../../../../components/styled-components/ToggleTrashedButton';
 
 
 const Genre = ({ GENRE }) => 
@@ -46,6 +47,17 @@ const Genre = ({ GENRE }) =>
     ];
 
     const [ ids, setIDs ] = useState([]);
+    const [ areDataTrashed, setAreDataTrashed ] = useState(false);
+
+    const handleClickToggleFilterButton = (trashedOnly) => {
+        setAreDataTrashed(! trashedOnly);
+        dispatch(GENRE_ACTION.fetchAllGenresStart({ trashedOnly: !trashedOnly }));
+    }
+
+    const handleClickRestoreGenres = () => {
+        dispatch(GENRE_ACTION.restoreGenresStart(ids));
+        setIDs([]);
+    }
 
     const handleClickDeleteGenre = () => {
         setIDs([]);
@@ -57,19 +69,22 @@ const Genre = ({ GENRE }) =>
     }
 
     useEffect(() => {
-        dispatch(GENRE_ACTION.fetchAllGenresStart());
+        dispatch(GENRE_ACTION.fetchAllGenresStart({ trashedOnly: areDataTrashed }));
     }, []);
 
     return (
         <Container maxWidth="lg">
+            <ToggleTrashedButton onClick={ handleClickToggleFilterButton } isLoading={ GENRE.isLoading } />
             <MaterialTable 
                 columns={ columns }      
                 data={ GENRE.genres }  
                 title={ 
                     <MaterialTableActionButton
-                        ids={ ids } 
+                        ids={ ids }
+                        areDataTrashed={ areDataTrashed } 
                         addButtonCallback = { () => history.push(PATH.CREATE_GENRE) }
                         deleteButtonCallback={ handleClickDeleteGenre }
+                        restoreButtonCallback={ handleClickRestoreGenres }
                     /> 
                 }
                 isLoading={ GENRE.isLoading }

@@ -40,7 +40,7 @@ export const updateAsync = async (payload) =>
 export const restoreAsync = async (ids) => 
 {
      return await axiosInstance()
-         .put('/casts/genres', { ids })
+         .put('/genres/restore', { ids })
          .then(response => response.data)
          .catch(error => Promise.reject(error.response.data));
 }  

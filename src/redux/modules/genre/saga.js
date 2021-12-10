@@ -94,6 +94,12 @@ function* restoreGenresSaga(payload)
     try {
         const { message, status } = yield call(API.restoreAsync, payload);
 
+        const { data: genres, status: fetchAllStatus } = yield call(API.fetchAllAsync, true);
+
+        if (fetchAllStatus === 'success') {
+            yield put(fetchAllGenresSuccess({ genres }));
+        }
+
         yield put(restoreGenresSuccess());
         yield put(showAlert({ status, message }));
         yield put(push(PATH.VIDEO_MANAGEMENT_GENRE));
