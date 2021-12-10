@@ -40,8 +40,10 @@ const {
 function* fetchAllMoviesSaga(payload)
 {
     try {
-        const { data: movies } = yield call(API.fetchAllAsync, payload.trashedOnly);
-        yield put(fetchAllMoviesSuccess({ movies }));
+        const { data, status } = yield call(API.fetchAllAsync, payload.trashedOnly);
+
+        const movies = { movies: status === 'success' ? data : [] };
+        yield put(fetchAllMoviesSuccess(movies));
     } catch ({ message }) {
         yield put(fetchAllMoviesFailed({ message }));
     }

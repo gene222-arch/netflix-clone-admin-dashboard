@@ -42,8 +42,10 @@ const {
 function* fetchAllGenresSaga(payload)
 {
     try {
-        const { data: genres } = yield call(API.fetchAllAsync, payload.trashedOnly);
-        yield put(fetchAllGenresSuccess({ genres }));
+        const { data, status } = yield call(API.fetchAllAsync, payload.trashedOnly);
+
+        const genres = { genres: status === 'success' ? data : [] };
+        yield put(fetchAllGenresSuccess(genres));
     } catch ({ message }) {
         yield put(fetchAllGenresFailed({ message }));
     }

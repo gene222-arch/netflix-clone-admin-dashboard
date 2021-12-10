@@ -43,8 +43,10 @@ const {
 function* fetchAllDirectorsSaga(payload)
 {
     try {
-        const { data: directors } = yield call(API.fetchAllAsync, payload.trashedOnly);
-        yield put(fetchAllDirectorsSuccess({ directors }));
+        const { data, status } = yield call(API.fetchAllAsync, payload.trashedOnly);
+
+        const directors = { directors: status === 'success' ? data : [] };
+        yield put(fetchAllDirectorsSuccess(directors));
     } catch ({ message }) {
         yield put(fetchAllDirectorsFailed({ message }));
     }

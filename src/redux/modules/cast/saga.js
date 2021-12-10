@@ -43,8 +43,10 @@ const {
 function* fetchAllCastsSaga(payload)
 {
     try {
-        const { data: casts } = yield call(API.fetchAllAsync, payload.trashedOnly);
-        yield put(fetchAllCastsSuccess({ casts }));
+        const { data, status } = yield call(API.fetchAllAsync, payload.trashedOnly);
+
+        const casts = { casts: status === 'success' ? data : [] };
+        yield put(fetchAllCastsSuccess(casts));
     } catch ({ message }) {
         yield put(fetchAllCastsFailed({ message }));
     }

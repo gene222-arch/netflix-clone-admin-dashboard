@@ -42,8 +42,11 @@ const {
 function* fetchAllAuthorsSaga(payload)
 {
     try {
-        const { data: authors } = yield call(API.fetchAllAsync, payload.trashedOnly);
-        yield put(fetchAllAuthorsSuccess({ authors }));
+        const { data, status } = yield call(API.fetchAllAsync, payload.trashedOnly);
+
+        const authors = { authors: status === 'success' ? data : [] };
+        yield put(fetchAllAuthorsSuccess(authors));
+
     } catch ({ message }) {
         yield put(fetchAllAuthorsFailed({ message }));
     }

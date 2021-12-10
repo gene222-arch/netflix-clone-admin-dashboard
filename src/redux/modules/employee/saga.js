@@ -39,10 +39,10 @@ const {
 function* fetchAllEmployeesSaga(payload)
 {
     try {
-        const { data: employees, status } = yield call(API.fetchAllAsync, payload.trashedOnly);
-        const payload = { employees: status === 'success' ? employees : [] };
+        const { data, status } = yield call(API.fetchAllAsync, payload.trashedOnly);
+        const employees = { employees: status === 'success' ? data : [] };
 
-        yield put(fetchAllEmployeesSuccess(payload));
+        yield put(fetchAllEmployeesSuccess(employees));
 
     } catch ({ message }) {
         yield put(fetchAllEmployeesFailed({ message }));
