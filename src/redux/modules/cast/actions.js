@@ -12,6 +12,9 @@ const {
     CREATE_CAST_FAILED,
     UPDATE_CAST_START,
     UPDATE_CAST_SUCCESS,
+    RESTORE_CASTS_START,
+    RESTORE_CASTS_SUCCESS,
+    RESTORE_CASTS_FAILED,
     UPDATE_CAST_FAILED,
     TOGGLE_CAST_ENABLED_START,
     TOGGLE_CAST_ENABLED_SUCCESS,
@@ -86,6 +89,21 @@ export const updateCastSuccess = (payload) => ({
 
 export const updateCastFailed = (payload) => ({
     type: UPDATE_CAST_FAILED,
+    payload
+});
+
+export const restoreCastsStart = (payload) => ({
+    type: RESTORE_CASTS_START,
+    payload
+});
+
+export const restoreCastsSuccess = (payload) => ({
+    type: RESTORE_CASTS_SUCCESS,
+    payload
+});
+
+export const restoreCastsFailed = (payload) => ({
+    type: RESTORE_CASTS_FAILED,
     payload
 });
 

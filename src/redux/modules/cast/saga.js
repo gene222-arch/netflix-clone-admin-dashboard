@@ -15,6 +15,8 @@ import {
     createCastFailed,
     updateCastSuccess,
     updateCastFailed,
+    restoreCastsSuccess,
+    restoreCastsFailed,
     toggleCastEnabledSuccess,
     toggleCastEnabledFailed,
     deleteCastsSuccess,
@@ -30,6 +32,7 @@ const {
     FIND_CAST_BY_ID_START,
     CREATE_CAST_START,
     UPDATE_CAST_START,
+    RESTORE_CASTS_START,
     TOGGLE_CAST_ENABLED_START,
     DELETE_CASTS_START
 }  = ACTION_TYPES;
@@ -83,6 +86,20 @@ function* updateCastSaga(payload)
         yield put(push(PATH.VIDEO_MANAGEMENT_CAST));
     } catch ({ message, status }) {
         yield put(updateCastFailed({ message }));
+        yield put(showAlert({ status, message: ERROR_MESSAGE_ON_UPDATE }));
+    }
+}
+
+function* restoreCastsSaga(payload)
+{
+    try {
+        const { message, status } = yield call(API.restoreAsync, payload);
+
+        yield put(restoreCastsSuccess());
+        yield put(showAlert({ status, message }));
+        yield put(push(PATH.VIDEO_MANAGEMENT_CAST));
+    } catch ({ message, status }) {
+        yield put(restoreCastsFailed({ message }));
         yield put(showAlert({ status, message: ERROR_MESSAGE_ON_UPDATE }));
     }
 }
@@ -152,6 +169,14 @@ function* updateCastWatcher()
     }
 }
 
+function* restoreCastsWatcher()
+{
+    while (true) {
+        const { payload } = yield take(RESTORE_CASTS_START);
+        yield call(restoreCastsSaga, payload);
+    }
+}
+
 function* toggleCastEnabledWatcher()
 {
     while (true) {
@@ -178,6 +203,7 @@ export default function*()
         findCastByIDWatcher(),
         createCastWatcher(),
         updateCastWatcher(),
+        restoreCastsWatcher(),
         toggleCastEnabledWatcher(),
         deleteCastsWatcher()
     ]);
