@@ -178,7 +178,6 @@ export default function*()
         createMovieWatcher(),
         updateMovieWatcher(),
         restoreMoviesWatcher(),
-        restoreMoviesSaga(),
         deleteMoviesWatcher()
     ]);
 }
