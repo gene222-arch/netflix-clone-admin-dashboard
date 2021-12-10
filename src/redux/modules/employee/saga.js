@@ -36,10 +36,10 @@ const {
 /**
  * Sagas
  */
-function* fetchAllEmployeesSaga()
+function* fetchAllEmployeesSaga(payload)
 {
     try {
-        const { data: employees } = yield call(API.fetchAllAsync);
+        const { data: employees } = yield call(API.fetchAllAsync, payload.trashedOnly);
         yield put(fetchAllEmployeesSuccess({ employees }));
     } catch ({ message }) {
         yield put(fetchAllEmployeesFailed({ message }));
@@ -114,8 +114,8 @@ function* verifyEmployeeEmailSaga(payload)
 function* fetchAllEmployeesWatcher()
 {
     while (true) {
-        yield take(FETCH_ALL_EMPLOYEES_START);
-        yield call(fetchAllEmployeesSaga);
+        const { payload } = yield take(FETCH_ALL_EMPLOYEES_START);
+        yield call(fetchAllEmployeesSaga, payload);
     }
 }
 
