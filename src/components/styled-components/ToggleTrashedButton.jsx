@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import Tooltip from '@material-ui/core/Tooltip';
-import { FormControlLabel } from '@material-ui/core';
+import { FormControlLabel, Switch } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 
 
@@ -32,7 +32,10 @@ const ToggleTrashedButton = ({ title = 'Show deleted items', onClick }) =>
                     control={
                         <Switch 
                             checked={ trashedOnly }
-                            onChange={ () => onClick(trashedOnly) }
+                            onChange={ () => {
+                                onClick(trashedOnly);
+                                setTrashedOnly(! trashedOnly);
+                            }}
                         />
                     } 
                     label={ 

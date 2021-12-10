@@ -59,8 +59,10 @@ const Author = ({ AUTHOR }) =>
     ];
 
     const [ ids, setIDs ] = useState([]);
+    const [ areDataTrashed, setAreDataTrashed ] = useState(false);
 
     const handleClickToggleFilterButton = (trashedOnly) => {
+        setAreDataTrashed(! trashedOnly);
         dispatch(AUTHOR_ACTION.fetchAllAuthorsStart({ trashedOnly: !trashedOnly }));
     }
     
@@ -83,6 +85,7 @@ const Author = ({ AUTHOR }) =>
 
         return () => {
             setIDs([]);
+            setAreDataTrashed(false);
         }
     }, []);
 
@@ -95,7 +98,7 @@ const Author = ({ AUTHOR }) =>
                 title={ 
                     <MaterialTableActionButton
                         ids={ ids } 
-                        areDataTrashed={ trashedOnly }
+                        areDataTrashed={ areDataTrashed }
                         addButtonCallback = { () => history.push(PATH.CREATE_AUTHOR) }
                         deleteButtonCallback={ handleClickDeleteAuthor }
                         restoreButtonCallback={ handleClickRestoreAuthors }
