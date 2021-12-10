@@ -39,8 +39,11 @@ const {
 function* fetchAllEmployeesSaga(payload)
 {
     try {
-        const { data: employees } = yield call(API.fetchAllAsync, payload.trashedOnly);
-        yield put(fetchAllEmployeesSuccess({ employees }));
+        const { data: employees, status } = yield call(API.fetchAllAsync, payload.trashedOnly);
+        const payload = { employees: status === 'success' ? employees : [] };
+
+        yield put(fetchAllEmployeesSuccess(payload));
+
     } catch ({ message }) {
         yield put(fetchAllEmployeesFailed({ message }));
     }
@@ -76,6 +79,13 @@ function* restoreEmployeesSaga(payload)
 {
     try {
         const { status, message } = yield call(API.restoreAsync, payload);
+
+        const { data: employees, status: fetchAllStatus } = yield call(API.fetchAllAsync, true);
+        
+        if (fetchAllStatus === 'success') {
+            yield put(fetchAllEmployeesSuccess({ employees }));
+        }
+
         yield put(restoreEmployeesSuccess());
         yield put(ALERT.showAlert({ status, message }));
         yield put(push(PATH.EMPLOYEE));

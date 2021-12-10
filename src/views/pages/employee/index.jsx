@@ -12,6 +12,7 @@ import MaterialTableActionButton from './../../../components/MaterialTableAction
 import { useHistory } from 'react-router-dom';
 import Container from '@material-ui/core/Container'
 import { makeStyles } from '@material-ui/core/styles';
+import ToggleTrashedButton from '../../../components/styled-components/ToggleTrashedButton';
 
 const avatarIndexUseStyles = makeStyles(theme => ({
     avatarImg: {
@@ -58,6 +59,17 @@ const Employee = ({ EMPLOYEE }) =>
     ];
 
     const [ ids, setIds ] = useState([]);
+    const [ areDataTrashed, setAreDataTrashed ] = useState(false);
+
+    const handleClickToggleFilterButton = (trashedOnly) => {
+        setAreDataTrashed(! trashedOnly);
+        dispatch(EMPLOYEE_ACTION.fetchAllEmployeesStart({ trashedOnly: !trashedOnly }));
+    }
+
+    const handleClickRestoreEmployees = () => {
+        dispatch(EMPLOYEE_ACTION.restoreEmployeesStart(ids));
+        setIds([]);
+    }
     
     const handleClickDestroyEmployee = () => {
         setIds([]);
@@ -65,23 +77,27 @@ const Employee = ({ EMPLOYEE }) =>
     }
 
     useEffect(() => {
-        dispatch(EMPLOYEE_ACTION.fetchAllEmployeesStart());
+        dispatch(EMPLOYEE_ACTION.fetchAllEmployeesStart({ trashedOnly: areDataTrashed }));
 
         return () => {
             setIds([]);
+            setAreDataTrashed(false);
         }
     }, []);
 
     return (
         <Container maxWidth="lg">
-            <MaterialTable 
+            <ToggleTrashedButton onClick={ handleClickToggleFilterButton } isLoading={ EMPLOYEE.isLoading } />
+            <MaterialTable
                 columns={ columns }      
                 data={ EMPLOYEE.employees }  
                 title={ 
                     <MaterialTableActionButton
                         ids={ ids } 
+                        areDataTrashed={ areDataTrashed }
                         addButtonCallback = { () => history.push(PATH.CREATE_EMPLOYEE) }
                         deleteButtonCallback={ handleClickDestroyEmployee }
+                        restoreButtonCallback={ handleClickRestoreEmployees }
                     /> 
                 }
                 isLoading={ EMPLOYEE.isLoading }
