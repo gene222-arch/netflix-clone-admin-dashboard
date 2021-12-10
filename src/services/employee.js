@@ -33,6 +33,19 @@ export const updateAsync = async (payload) =>
         .catch(error => Promise.reject(error.response.data));
 }
 
+/**
+ * 
+ * @param {array} ids 
+ * @returns {Promise}
+ */
+ export const restoreAsync = async (ids) => 
+ {
+     return await axiosInstance()
+         .put('/employees/restore', { ids })
+         .then(response => response.data)
+         .catch(error => Promise.reject(error.response.data));
+ }
+
 export const uploadAvatarAsync = async (payload) => 
 {
     return await axiosInstance()

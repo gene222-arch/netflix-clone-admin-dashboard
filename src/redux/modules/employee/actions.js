@@ -13,6 +13,9 @@ const {
     DESTROY_EMPLOYEES_START,
     DESTROY_EMPLOYEES_SUCCESS,
     DESTROY_EMPLOYEES_FAILED,
+    RESTORE_EMPLOYEES_START,
+    RESTORE_EMPLOYEES_SUCCESS,
+    RESTORE_EMPLOYEES_FAILED,
     VERIFY_EMPLOYEE_EMAIL_START,
     VERIFY_EMPLOYEE_EMAIL_SUCCESS,
     VERIFY_EMPLOYEE_EMAIL_FAILED,
@@ -66,6 +69,21 @@ export const updateEmployeeSuccess = (payload) => ({
 
 export const updateEmployeeFailed = (payload) => ({
     type: UPDATE_EMPLOYEE_FAILED,
+    payload
+});
+
+export const restoreEmployeesStart = (payload) => ({
+    type: RESTORE_EMPLOYEES_START,
+    payload
+});
+
+export const restoreEmployeesSuccess = (payload) => ({
+    type: RESTORE_EMPLOYEES_SUCCESS,
+    payload
+});
+
+export const restoreEmployeesFailed = (payload) => ({
+    type: RESTORE_EMPLOYEES_FAILED,
     payload
 });
 

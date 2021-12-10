@@ -13,6 +13,8 @@ import {
     createEmployeeFailed,
     updateEmployeeSuccess,
     updateEmployeeFailed,
+    restoreEmployeesSuccess,
+    restoreEmployeesFailed,
     destroyEmployeesSuccess,
     destroyEmployeesFailed,
     verifyEmployeeEmailSuccess,
@@ -26,6 +28,7 @@ const {
     FETCH_ALL_EMPLOYEES_START,
     CREATE_EMPLOYEE_START,
     UPDATE_EMPLOYEE_START,
+    RESTORE_EMPLOYEES_START,
     DESTROY_EMPLOYEES_START,
     VERIFY_EMPLOYEE_EMAIL_START
 }  = ACTION_TYPES;
@@ -65,7 +68,20 @@ function* updateEmployeeSaga(payload)
         yield put(push(PATH.EMPLOYEE));
     } catch ({ status, message }) {
         yield put(updateEmployeeFailed({ message }));
-        yield put(ALERT.showAlert({ status, message: ERROR_MESSAGE_ON_CREATE }));
+        yield put(ALERT.showAlert({ status, message: ERROR_MESSAGE_ON_UPDATE }));
+    }
+}
+
+function* restoreEmployeesSaga(payload)
+{
+    try {
+        const { status, message } = yield call(API.restoreAsync, payload);
+        yield put(restoreEmployeesSuccess());
+        yield put(ALERT.showAlert({ status, message }));
+        yield put(push(PATH.EMPLOYEE));
+    } catch ({ status, message }) {
+        yield put(restoreEmployeesFailed({ message }));
+        yield put(ALERT.showAlert({ status, message: ERROR_MESSAGE_ON_UPDATE }));
     }
 }
 
@@ -119,6 +135,14 @@ function* updateEmployeeWatcher()
     }
 }
 
+function* restoreEmployeesWatcher()
+{
+    while (true) {
+        const { payload } = yield take(RESTORE_EMPLOYEES_START);
+        yield call(restoreEmployeesSaga, payload);
+    }
+}
+
 function* destroyEmployeesWatcher()
 {
     while (true) {
@@ -144,6 +168,7 @@ export default function*()
         fetchAllEmployeesWatcher(),
         createEmployeeWatcher(),
         updateEmployeeWatcher(),
+        restoreEmployeesWatcher(),
         destroyEmployeesWatcher(),
         verifyEmployeeEmailWatcher()
     ]);

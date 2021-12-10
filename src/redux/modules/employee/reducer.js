@@ -10,6 +10,9 @@ const {
     UPDATE_EMPLOYEE_START,
     UPDATE_EMPLOYEE_SUCCESS,
     UPDATE_EMPLOYEE_FAILED,
+    RESTORE_EMPLOYEES_START,
+    RESTORE_EMPLOYEES_SUCCESS,
+    RESTORE_EMPLOYEES_FAILED,
     DESTROY_EMPLOYEES_START,
     DESTROY_EMPLOYEES_SUCCESS,
     DESTROY_EMPLOYEES_FAILED,
@@ -48,6 +51,7 @@ export default (state = initialState, { type, payload }) =>
         case FETCH_ALL_EMPLOYEES_START:
         case CREATE_EMPLOYEE_START:
         case UPDATE_EMPLOYEE_START:
+        case RESTORE_EMPLOYEES_START:
         case DESTROY_EMPLOYEES_START:
         case VERIFY_EMPLOYEE_EMAIL_START:
             return {
@@ -56,6 +60,7 @@ export default (state = initialState, { type, payload }) =>
             }
 
         case CREATE_EMPLOYEE_SUCCESS:
+        case RESTORE_EMPLOYEES_SUCCESS:
         case UPDATE_EMPLOYEE_SUCCESS:
         case VERIFY_EMPLOYEE_EMAIL_SUCCESS:
             return {
@@ -90,6 +95,7 @@ export default (state = initialState, { type, payload }) =>
         case FETCH_ALL_EMPLOYEES_FAILED:
         case CREATE_EMPLOYEE_FAILED:
         case UPDATE_EMPLOYEE_FAILED:
+        case RESTORE_EMPLOYEES_FAILED:
         case DESTROY_EMPLOYEES_FAILED:
         case VERIFY_EMPLOYEE_EMAIL_FAILED:
             return {
