@@ -40,10 +40,10 @@ const {
 /**
  * Sagas
  */
-function* fetchAllCastsSaga()
+function* fetchAllCastsSaga(payload)
 {
     try {
-        const { data: casts } = yield call(API.fetchAllAsync);
+        const { data: casts } = yield call(API.fetchAllAsync, payload.trashedOnly);
         yield put(fetchAllCastsSuccess({ casts }));
     } catch ({ message }) {
         yield put(fetchAllCastsFailed({ message }));
@@ -140,8 +140,8 @@ function* deleteCastsSaga(payload)
 function* fetchAllCastsWatcher()
 {
     while (true) {
-        yield take(FETCH_ALL_CASTS_START);
-        yield call(fetchAllCastsSaga);
+        const { payload } = yield take(FETCH_ALL_CASTS_START);
+        yield call(fetchAllCastsSaga, payload);
     }
 }
 
