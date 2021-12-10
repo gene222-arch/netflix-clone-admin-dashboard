@@ -39,10 +39,10 @@ const {
 /**
  * Sagas
  */
-function* fetchAllAuthorsSaga()
+function* fetchAllAuthorsSaga(payload)
 {
     try {
-        const { data: authors } = yield call(API.fetchAllAsync);
+        const { data: authors } = yield call(API.fetchAllAsync, payload.trashedOnly);
         yield put(fetchAllAuthorsSuccess({ authors }));
     } catch ({ message }) {
         yield put(fetchAllAuthorsFailed({ message }));
@@ -81,6 +81,7 @@ function* updateAuthorSaga(payload)
         const { message, status } = yield call(API.updateAsync, payload);
 
         yield put(updateAuthorSuccess({ author: payload }));
+        
         yield put(showAlert({ status, message }));
         yield put(push(PATH.VIDEO_MANAGEMENT_AUTHOR));
     } catch ({ message, status }) {
@@ -94,7 +95,13 @@ function* restoreAuthorsSaga(payload)
     try {
         const { message, status } = yield call(API.restoreAsync, payload);
 
-        yield put(restoreAuthorsSuccess({ author: payload }));
+        const { data: authors, status: fetchAllStatus } = yield call(API.fetchAllAsync, true);
+    
+        if (fetchAllStatus === 'success') {
+            yield put(fetchAllAuthorsSuccess({ authors }));
+        }
+
+        yield put(restoreAuthorsSuccess());
         yield put(showAlert({ status, message }));
         yield put(push(PATH.VIDEO_MANAGEMENT_AUTHOR));
     } catch ({ message, status }) {
@@ -139,8 +146,8 @@ function* deleteAuthorsSaga(payload)
 function* fetchAllAuthorsWatcher()
 {
     while (true) {
-        yield take(FETCH_ALL_AUTHORS_START);
-        yield call(fetchAllAuthorsSaga);
+        const { payload } = yield take(FETCH_ALL_AUTHORS_START);
+        yield call(fetchAllAuthorsSaga, payload);
     }
 }
 
@@ -171,7 +178,7 @@ function* updateAuthorWatcher()
 function* restoreAuthorsWatcher()
 {
     while (true) {
-        const { payload } = yield take(UPDATE_AUTHOR_START);
+        const { payload } = yield take(RESTORE_AUTHORS_START);
         yield call(restoreAuthorsSaga, payload);
     }
 }

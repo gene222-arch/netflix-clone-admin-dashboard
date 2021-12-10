@@ -13,10 +13,16 @@ import { useHistory } from 'react-router-dom';
 import Switch from '@material-ui/core/Switch';
 import Container from '@material-ui/core/Container'
 import { makeStyles } from '@material-ui/core/styles';
+import { FormControlLabel, Tooltip } from '@material-ui/core';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 const avatarIndexUseStyles = makeStyles(theme => ({
     avatarImg: {
         objectFit: 'contain'
+    },
+    toggleTrashedContainer: {
+        textAlign: 'right',
+        padding: '1rem'
     }
 }));
 
@@ -54,11 +60,22 @@ const Author = ({ AUTHOR }) =>
     ];
 
     const [ ids, setIDs ] = useState([]);
+    const [ trashedOnly, setTrashedOnly ] = useState(false);
 
+    const handleClickToggleFilterButton = () => 
+    {
+        dispatch(AUTHOR_ACTION.fetchAllAuthorsStart({ trashedOnly: !trashedOnly }));
+        setTrashedOnly(! trashedOnly);
+    }
     
     const handleClickDeleteAuthor = () => {
-        setIDs([]);
         dispatch(AUTHOR_ACTION.deleteAuthorsStart({ ids }));
+        setIDs([]);
+    }
+
+    const handleClickRestoreAuthors = () => {
+        dispatch(AUTHOR_ACTION.restoreAuthorsStart(ids));
+        setIDs([]);
     }
 
     const handleClickEnabled = (id) => {
@@ -66,19 +83,43 @@ const Author = ({ AUTHOR }) =>
     }
 
     useEffect(() => {
-        dispatch(AUTHOR_ACTION.fetchAllAuthorsStart());
+        dispatch(AUTHOR_ACTION.fetchAllAuthorsStart({ trashedOnly }));
+
+        return () => {
+            setIDs([]);
+            setTrashedOnly(false);
+        }
     }, []);
 
     return (
         <Container maxWidth="lg">
+            <div className={ classes.toggleTrashedContainer }>
+                <Tooltip title='Show deleted items'>
+                    <FormControlLabel 
+                        control={
+                            <Switch 
+                                checked={ trashedOnly }
+                                onChange={ handleClickToggleFilterButton }
+                            />
+                        } 
+                        label={ 
+                            <DeleteIcon 
+                                color={ `${ trashedOnly ? 'error' : 'disabled' }` }
+                            /> 
+                        } 
+                    />
+                </Tooltip>
+            </div>
             <MaterialTable 
                 columns={ columns }      
                 data={ AUTHOR.authors }  
                 title={ 
                     <MaterialTableActionButton
                         ids={ ids } 
+                        areDataTrashed={ trashedOnly }
                         addButtonCallback = { () => history.push(PATH.CREATE_AUTHOR) }
                         deleteButtonCallback={ handleClickDeleteAuthor }
+                        restoreButtonCallback={ handleClickRestoreAuthors }
                     /> 
                 }
                 isLoading={ AUTHOR.isLoading }
