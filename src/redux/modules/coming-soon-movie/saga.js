@@ -222,14 +222,6 @@ function* updateComingSoonMovieWatcher()
     }
 }
 
-function* updateComingSoonMovieWatcher()
-{
-    while (true) {
-        const { payload } = yield take(UPDATE_COMING_SOON_MOVIE_START);
-        yield call(updateComingSoonMovieSaga, payload);
-    }
-}
-
 function* restoreComingSoonMoviesWatcher()
 {
     while (true) {

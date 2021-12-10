@@ -104,20 +104,6 @@ function* restoreDirectorsSaga(payload)
     }
 }
 
-function* updateDirectorSaga(payload)
-{
-    try {
-        const { message, status } = yield call(API.restoreAsync, payload);
-
-        yield put(updateDirectorSuccess({ director: payload }));
-        yield put(showAlert({ status, message }));
-        yield put(push(PATH.VIDEO_MANAGEMENT_DIRECTOR));
-    } catch ({ message, status }) {
-        yield put(updateDirectorFailed({ message }));
-        yield put(showAlert({ status, message: ERROR_MESSAGE_ON_UPDATE }));
-    }
-}
-
 function* toggleDirectorEnabledSaga(payload)
 {
     try {
