@@ -8,10 +8,10 @@ const config = {
 };
 
 
-export const fetchAllAsync = async (payload) => 
+export const fetchAllAsync = async (trashedOnly = false) => 
 {
     return await axiosInstance()
-        .get('/casts')
+        .get(`/casts?trashedOnly=${ trashedOnly }`)
         .then(response => response.data)
         .catch(error => Promise.reject(error.response.data));
 }

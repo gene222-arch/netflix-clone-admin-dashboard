@@ -7,11 +7,6 @@ const config = {
     }
 };
 
-/**
- * 
- * @param {boolean} trashedOnly 
- * @returns {Promise}
- */
 export const fetchAllAsync = async (trashedOnly = false) => 
 {
     return await axiosInstance()

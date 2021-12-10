@@ -7,10 +7,10 @@ const config = {
     }
 };
 
-export const fetchAllAsync = async (payload) => 
+export const fetchAllAsync = async (trashedOnly = false) => 
 {
     return await axiosInstance()
-        .get('/directors')
+        .get(`/directors?trashedOnly=${ trashedOnly }`)
         .then(response => response.data)
         .catch(error => Promise.reject(error.response.data));
 }
