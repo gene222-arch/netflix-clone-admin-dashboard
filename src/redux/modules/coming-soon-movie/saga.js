@@ -49,10 +49,10 @@ const {
 /**
  * Sagas
  */
-function* fetchAllComingSoonMoviesSaga()
+function* fetchAllComingSoonMoviesSaga(payload)
 {
     try {
-        const { data: comingSoonMovies } = yield call(API.fetchAllAsync);
+        const { data: comingSoonMovies } = yield call(API.fetchAllAsync, payload.trashedOnly);
         yield put(fetchAllComingSoonMoviesSuccess({ comingSoonMovies }));
     } catch ({ message }) {
         yield put(fetchAllComingSoonMoviesFailed({ message }));
@@ -193,8 +193,8 @@ function* deleteTrailerSaga(payload)
 function* fetchAllComingSoonMoviesWatcher()
 {
     while (true) {
-        yield take(FETCH_ALL_COMING_SOON_MOVIES_START);
-        yield call(fetchAllComingSoonMoviesSaga);
+        const { payload } = yield take(FETCH_ALL_COMING_SOON_MOVIES_START);
+        yield call(fetchAllComingSoonMoviesSaga, payload);
     }
 }
 
