@@ -104,6 +104,12 @@ function* restoreComingSoonMoviesSaga(payload)
     try {
         const { message, status } = yield call(API.restoreAsync, payload);
 
+        const { data: comingSoonMovies, status: fetchAllStatus } = yield call(API.fetchAllAsync, true);
+
+        if (fetchAllStatus === 'success') {
+            yield put(fetchAllComingSoonMoviesSuccess({ comingSoonMovies }));
+        }
+
         yield put(restoreComingSoonMoviesSuccess());
         yield put(showAlert({ status, message }));
         yield put(push(PATH.VIDEO_MANAGEMENT_COMING_SOON_MOVIES));
