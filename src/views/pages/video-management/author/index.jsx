@@ -13,8 +13,7 @@ import { useHistory } from 'react-router-dom';
 import Switch from '@material-ui/core/Switch';
 import Container from '@material-ui/core/Container'
 import { makeStyles } from '@material-ui/core/styles';
-import { FormControlLabel, Tooltip } from '@material-ui/core';
-import DeleteIcon from '@material-ui/icons/Delete';
+import ToggleTrashedButton from './../../../../components/styled-components/ToggleTrashedButton';
 
 const avatarIndexUseStyles = makeStyles(theme => ({
     avatarImg: {
@@ -60,12 +59,9 @@ const Author = ({ AUTHOR }) =>
     ];
 
     const [ ids, setIDs ] = useState([]);
-    const [ trashedOnly, setTrashedOnly ] = useState(false);
 
-    const handleClickToggleFilterButton = () => 
-    {
+    const handleClickToggleFilterButton = (trashedOnly) => {
         dispatch(AUTHOR_ACTION.fetchAllAuthorsStart({ trashedOnly: !trashedOnly }));
-        setTrashedOnly(! trashedOnly);
     }
     
     const handleClickDeleteAuthor = () => {
@@ -83,33 +79,16 @@ const Author = ({ AUTHOR }) =>
     }
 
     useEffect(() => {
-        dispatch(AUTHOR_ACTION.fetchAllAuthorsStart({ trashedOnly }));
+        dispatch(AUTHOR_ACTION.fetchAllAuthorsStart());
 
         return () => {
             setIDs([]);
-            setTrashedOnly(false);
         }
     }, []);
 
     return (
         <Container maxWidth="lg">
-            <div className={ classes.toggleTrashedContainer }>
-                <Tooltip title='Show deleted items'>
-                    <FormControlLabel 
-                        control={
-                            <Switch 
-                                checked={ trashedOnly }
-                                onChange={ handleClickToggleFilterButton }
-                            />
-                        } 
-                        label={ 
-                            <DeleteIcon 
-                                color={ `${ trashedOnly ? 'error' : 'disabled' }` }
-                            /> 
-                        } 
-                    />
-                </Tooltip>
-            </div>
+            <ToggleTrashedButton onClick={ handleClickToggleFilterButton } />
             <MaterialTable 
                 columns={ columns }      
                 data={ AUTHOR.authors }  

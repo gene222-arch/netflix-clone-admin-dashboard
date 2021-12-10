@@ -32,7 +32,7 @@ const ToggleTrashedButton = ({ title = 'Show deleted items', onClick }) =>
                     control={
                         <Switch 
                             checked={ trashedOnly }
-                            onChange={ onClick }
+                            onChange={ () => onClick(trashedOnly) }
                         />
                     } 
                     label={ 
