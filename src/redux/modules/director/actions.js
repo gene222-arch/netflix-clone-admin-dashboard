@@ -13,6 +13,9 @@ const {
     UPDATE_DIRECTOR_START,
     UPDATE_DIRECTOR_SUCCESS,
     UPDATE_DIRECTOR_FAILED,
+    RESTORE_DIRECTORS_START,
+    RESTORE_DIRECTORS_SUCCESS,
+    RESTORE_DIRECTORS_FAILED,
     TOGGLE_DIRECTOR_ENABLED_START,
     TOGGLE_DIRECTOR_ENABLED_SUCCESS,
     TOGGLE_DIRECTOR_ENABLED_FAILED,
@@ -86,6 +89,21 @@ export const updateDirectorSuccess = (payload) => ({
 
 export const updateDirectorFailed = (payload) => ({
     type: UPDATE_DIRECTOR_FAILED,
+    payload
+});
+
+export const restoreDirectorsStart = (payload) => ({
+    type: RESTORE_DIRECTORS_START,
+    payload
+});
+
+export const restoreDirectorsSuccess = (payload) => ({
+    type: RESTORE_DIRECTORS_SUCCESS,
+    payload
+});
+
+export const restoreDirectorsFailed = (payload) => ({
+    type: RESTORE_DIRECTORS_FAILED,
     payload
 });
 

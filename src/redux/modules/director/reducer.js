@@ -13,6 +13,9 @@ const {
     UPDATE_DIRECTOR_START,
     UPDATE_DIRECTOR_SUCCESS,
     UPDATE_DIRECTOR_FAILED,
+    RESTORE_DIRECTORS_START,
+    RESTORE_DIRECTORS_SUCCESS,
+    RESTORE_DIRECTORS_FAILED,
     TOGGLE_DIRECTOR_ENABLED_START,
     TOGGLE_DIRECTOR_ENABLED_SUCCESS,
     TOGGLE_DIRECTOR_ENABLED_FAILED,
@@ -61,6 +64,7 @@ export default (state = initialState, { type, payload }) =>
         case FIND_DIRECTOR_BY_ID_START:
         case CREATE_DIRECTOR_START:
         case UPDATE_DIRECTOR_START:
+        case RESTORE_DIRECTORS_START:
         case TOGGLE_DIRECTOR_ENABLED_START:
         case DELETE_DIRECTORS_START:
             return {
@@ -114,6 +118,13 @@ export default (state = initialState, { type, payload }) =>
                 error
             }
 
+        case RESTORE_DIRECTORS_SUCCESS:
+            return {
+                ...state,
+                isLoading,
+                error
+            }
+
         case TOGGLE_DIRECTOR_ENABLED_SUCCESS:
 
             UPDATED_DIRECTORS = directors.map(director => {
@@ -150,6 +161,7 @@ export default (state = initialState, { type, payload }) =>
         case FIND_DIRECTOR_BY_ID_FAILED:
         case CREATE_DIRECTOR_FAILED:
         case UPDATE_DIRECTOR_FAILED:
+        case RESTORE_DIRECTORS_FAILED:
         case TOGGLE_DIRECTOR_ENABLED_FAILED:
         case DELETE_DIRECTORS_FAILED:
             return {

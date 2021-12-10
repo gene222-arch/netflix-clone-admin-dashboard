@@ -15,6 +15,8 @@ import {
     createDirectorFailed,
     updateDirectorSuccess,
     updateDirectorFailed,
+    restoreDirectorsSuccess,
+    restoreDirectorsFailed,
     toggleDirectorEnabledSuccess,
     toggleDirectorEnabledFailed,
     deleteDirectorsSuccess,
@@ -30,6 +32,7 @@ const {
     FIND_DIRECTOR_BY_ID_START,
     CREATE_DIRECTOR_START,
     UPDATE_DIRECTOR_START,
+    RESTORE_DIRECTORS_START,
     TOGGLE_DIRECTOR_ENABLED_START,
     DELETE_DIRECTORS_START
 }  = ACTION_TYPES;
@@ -87,6 +90,33 @@ function* updateDirectorSaga(payload)
     }
 }
 
+function* restoreDirectorsSaga(payload)
+{
+    try {
+        const { message, status } = yield call(API.restoreAsync, payload);
+
+        yield put(restoreDirectorsSuccess());
+        yield put(showAlert({ status, message }));
+        yield put(push(PATH.VIDEO_MANAGEMENT_DIRECTOR));
+    } catch ({ message, status }) {
+        yield put(restoreDirectorsFailed({ message }));
+        yield put(showAlert({ status, message: ERROR_MESSAGE_ON_UPDATE }));
+    }
+}
+
+function* updateDirectorSaga(payload)
+{
+    try {
+        const { message, status } = yield call(API.restoreAsync, payload);
+
+        yield put(updateDirectorSuccess({ director: payload }));
+        yield put(showAlert({ status, message }));
+        yield put(push(PATH.VIDEO_MANAGEMENT_DIRECTOR));
+    } catch ({ message, status }) {
+        yield put(updateDirectorFailed({ message }));
+        yield put(showAlert({ status, message: ERROR_MESSAGE_ON_UPDATE }));
+    }
+}
 
 function* toggleDirectorEnabledSaga(payload)
 {
@@ -153,6 +183,14 @@ function* updateDirectorWatcher()
     }
 }
 
+function* restoreDirectorsWatcher()
+{
+    while (true) {
+        const { payload } = yield take(RESTORE_DIRECTORS_START);
+        yield call(restoreDirectorsSaga, payload);
+    }
+}
+
 function* toggleDirectorEnabledWatcher()
 {
     while (true) {
@@ -179,6 +217,7 @@ export default function*()
         findDirectorByIDWatcher(),
         createDirectorWatcher(),
         updateDirectorWatcher(),
+        restoreDirectorsWatcher(),
         toggleDirectorEnabledWatcher(),
         deleteDirectorsWatcher()
     ]);
