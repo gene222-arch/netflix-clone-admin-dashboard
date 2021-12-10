@@ -13,6 +13,9 @@ const {
     UPDATE_GENRE_START,
     UPDATE_GENRE_SUCCESS,
     UPDATE_GENRE_FAILED,
+    RESTORE_GENRES_START,
+    RESTORE_GENRES_SUCCESS,
+    RESTORE_GENRES_FAILED,
     TOGGLE_GENRE_ENABLED_START,
     TOGGLE_GENRE_ENABLED_SUCCESS,
     TOGGLE_GENRE_ENABLED_FAILED,
@@ -86,6 +89,21 @@ export const updateGenreSuccess = (payload) => ({
 
 export const updateGenreFailed = (payload) => ({
     type: UPDATE_GENRE_FAILED,
+    payload
+});
+
+export const restoreGenresStart = (payload) => ({
+    type: RESTORE_GENRES_START,
+    payload
+});
+
+export const restoreGenresSuccess = (payload) => ({
+    type: RESTORE_GENRES_SUCCESS,
+    payload
+});
+
+export const restoreGenresFailed = (payload) => ({
+    type: RESTORE_GENRES_FAILED,
     payload
 });
 

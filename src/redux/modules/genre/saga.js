@@ -15,6 +15,8 @@ import {
     createGenreFailed,
     updateGenreSuccess,
     updateGenreFailed,
+    restoreGenresSuccess,
+    restoreGenresFailed,
     toggleGenreEnabledSuccess,
     toggleGenreEnabledFailed,
     deleteGenresSuccess,
@@ -29,6 +31,7 @@ const {
     FIND_GENRE_BY_ID_START,
     CREATE_GENRE_START,
     UPDATE_GENRE_START,
+    RESTORE_GENRES_START,
     TOGGLE_GENRE_ENABLED_START,
     DELETE_GENRES_START
 }  = ACTION_TYPES;
@@ -82,6 +85,20 @@ function* updateGenreSaga(payload)
         yield put(push(PATH.VIDEO_MANAGEMENT_GENRE));
     } catch ({ message, status }) {
         yield put(updateGenreFailed({ message }));
+        yield put(showAlert({ status, message: ERROR_MESSAGE_ON_UPDATE }));
+    }
+}
+
+function* restoreGenresSaga(payload)
+{
+    try {
+        const { message, status } = yield call(API.restoreAsync, payload);
+
+        yield put(restoreGenresSuccess());
+        yield put(showAlert({ status, message }));
+        yield put(push(PATH.VIDEO_MANAGEMENT_GENRE));
+    } catch ({ message, status }) {
+        yield put(restoreGenresFailed({ message }));
         yield put(showAlert({ status, message: ERROR_MESSAGE_ON_UPDATE }));
     }
 }
@@ -151,6 +168,14 @@ function* updateGenreWatcher()
     }
 }
 
+function* restoreGenresWatcher()
+{
+    while (true) {
+        const { payload } = yield take(RESTORE_GENRES_START);
+        yield call(restoreGenresSaga, payload);
+    }
+}
+
 function* toggleGenreEnabledWatcher()
 {
     while (true) {
@@ -177,6 +202,7 @@ export default function*()
         findGenreByIDWatcher(),
         createGenreWatcher(),
         updateGenreWatcher(),
+        restoreGenresWatcher(),
         toggleGenreEnabledWatcher(),
         deleteGenresWatcher()
     ]);

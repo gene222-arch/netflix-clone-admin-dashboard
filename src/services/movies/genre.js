@@ -32,6 +32,19 @@ export const updateAsync = async (payload) =>
         .catch(error => Promise.reject(error.response.data));
 }
 
+/**
+ * 
+ * @param {array} ids 
+ * @returns {Promise}
+ */
+export const restoreAsync = async (ids) => 
+{
+     return await axiosInstance()
+         .put('/casts/genres', { ids })
+         .then(response => response.data)
+         .catch(error => Promise.reject(error.response.data));
+}  
+
 export const updateEnabledStatusAsync = async (id) => 
 {
     return await axiosInstance()

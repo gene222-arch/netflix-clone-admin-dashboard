@@ -13,6 +13,9 @@ const {
     UPDATE_GENRE_START,
     UPDATE_GENRE_SUCCESS,
     UPDATE_GENRE_FAILED,
+    RESTORE_GENRES_START,
+    RESTORE_GENRES_SUCCESS,
+    RESTORE_GENRES_FAILED,
     TOGGLE_GENRE_ENABLED_START,
     TOGGLE_GENRE_ENABLED_SUCCESS,
     TOGGLE_GENRE_ENABLED_FAILED,
@@ -53,6 +56,7 @@ export default (state = initialState, { type, payload }) =>
         case FIND_GENRE_BY_ID_START:
         case CREATE_GENRE_START:
         case UPDATE_GENRE_START:
+        case RESTORE_GENRES_START:
         case TOGGLE_GENRE_ENABLED_START:
         case DELETE_GENRES_START:
             return {
@@ -121,6 +125,13 @@ export default (state = initialState, { type, payload }) =>
                 error
             }            
 
+        case RESTORE_GENRES_SUCCESS:
+            return {
+                ...state,
+                isLoading,
+                error
+            }
+
         case DELETE_GENRES_SUCCESS:
 
             UPDATED_GENRES = genres.filter(({ id }) => !payload.ids.includes(id));
@@ -142,6 +153,7 @@ export default (state = initialState, { type, payload }) =>
         case FIND_GENRE_BY_ID_FAILED:
         case CREATE_GENRE_FAILED:
         case UPDATE_GENRE_FAILED:
+        case RESTORE_GENRES_FAILED:
         case TOGGLE_GENRE_ENABLED_FAILED:
         case DELETE_GENRES_FAILED:
             return {
