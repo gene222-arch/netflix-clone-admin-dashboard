@@ -92,6 +92,12 @@ function* restoreMoviesSaga(payload)
     try {
         const { message, status } = yield call(API.restoreAsync, payload);
 
+        const { data: movies, status: fetchAllStatus } = yield call(API.fetchAllAsync, true);
+        
+        if (fetchAllStatus === 'success') {
+            yield put(fetchAllMoviesSuccess({ movies }));
+        }
+
         yield put(restoreMoviesSuccess());
         yield put(showAlert({ status, message }));
         yield put(push(PATH.VIDEO_MANAGEMENT_MOVIES));

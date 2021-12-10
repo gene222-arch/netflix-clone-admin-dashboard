@@ -70,6 +70,11 @@ const Genre = ({ GENRE }) =>
 
     useEffect(() => {
         dispatch(GENRE_ACTION.fetchAllGenresStart({ trashedOnly: areDataTrashed }));
+
+        return () => {
+            setIDs([]);
+            setAreDataTrashed(false);
+        }
     }, []);
 
     return (

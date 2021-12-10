@@ -11,6 +11,7 @@ import PATH from '../../../../routes/path';
 import MaterialTable from '../../../../components/styled-components/MaterialTable';
 import MaterialTableActionButton from '../../../../components/MaterialTableActionButton';
 import Container from '@material-ui/core/Container'
+import ToggleTrashedButton from './../../../../components/styled-components/ToggleTrashedButton';
 
 
 const Movie = ({ MOVIE }) => 
@@ -55,6 +56,17 @@ const Movie = ({ MOVIE }) =>
     ];
 
     const [ ids, setIDs ] = useState([]);
+    const [ areDataTrashed, setAreDataTrashed ] = useState(false);
+
+    const handleClickToggleFilterButton = (trashedOnly) => {
+        setAreDataTrashed(! trashedOnly);
+        dispatch(MOVIE_ACTION.fetchAllMoviesStart({ trashedOnly: !trashedOnly }));
+    }
+
+    const handleClickRestoreMovies = () => {
+        dispatch(MOVIE_ACTION.restoreMoviesStart(ids));
+        setIDs([]);
+    }
 
     const handleClickDeleteMovie = () => {
         setIDs([]);
@@ -62,19 +74,27 @@ const Movie = ({ MOVIE }) =>
     }
 
     useEffect(() => {
-        dispatch(MOVIE_ACTION.fetchAllMoviesStart());
+        dispatch(MOVIE_ACTION.fetchAllMoviesStart({ trashedOnly: areDataTrashed }));
+
+        return () => {
+            setIDs([]);
+            setAreDataTrashed(false);
+        }
     }, []);
 
     return (
         <Container maxWidth="lg">
+            <ToggleTrashedButton onClick={ handleClickToggleFilterButton } isLoading={ MOVIE.isLoading } />
             <MaterialTable 
                 columns={ columns }      
                 data={ MOVIE.movies }  
                 title={ 
                     <MaterialTableActionButton
                         ids={ ids } 
+                        areDataTrashed={ areDataTrashed } 
                         addButtonCallback = { () => history.push(PATH.CREATE_MOVIE, { actionName: 'Create Movie' }) }
                         deleteButtonCallback={ handleClickDeleteMovie }
+                        restoreButtonCallback={ handleClickRestoreMovies }
                     /> 
                 }
                 isLoading={ MOVIE.isLoading }
