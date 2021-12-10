@@ -18,10 +18,6 @@ import ToggleTrashedButton from './../../../../components/styled-components/Togg
 const avatarIndexUseStyles = makeStyles(theme => ({
     avatarImg: {
         objectFit: 'contain'
-    },
-    toggleTrashedContainer: {
-        textAlign: 'right',
-        padding: '1rem'
     }
 }));
 
@@ -91,7 +87,7 @@ const Author = ({ AUTHOR }) =>
 
     return (
         <Container maxWidth="lg">
-            <ToggleTrashedButton onClick={ handleClickToggleFilterButton } />
+            <ToggleTrashedButton onClick={ handleClickToggleFilterButton } isLoading={ AUTHOR.isLoading } />
             <MaterialTable 
                 columns={ columns }      
                 data={ AUTHOR.authors }  
