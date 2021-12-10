@@ -15,6 +15,8 @@ import {
     createMovieFailed,
     updateMovieSuccess,
     updateMovieFailed,
+    restoreMoviesSuccess,
+    restoreMoviesFailed,
     deleteMoviesSuccess,
     deleteMoviesFailed
 } from './actions';
@@ -27,6 +29,7 @@ const {
     FIND_MOVIE_BY_ID_START,
     CREATE_MOVIE_START,
     UPDATE_MOVIE_START,
+    RESTORE_MOVIES_START,
     TOGGLE_MOVIE_ENABLED_START,
     DELETE_MOVIES_START
 }  = ACTION_TYPES;
@@ -84,6 +87,20 @@ function* updateMovieSaga(payload)
     }
 }
 
+function* restoreMoviesSaga(payload)
+{
+    try {
+        const { message, status } = yield call(API.restoreAsync, payload);
+
+        yield put(restoreMoviesSuccess());
+        yield put(showAlert({ status, message }));
+        yield put(push(PATH.VIDEO_MANAGEMENT_MOVIES));
+    } catch ({ message, status }) {
+        yield put(restoreMoviesFailed({ message }));
+        yield put(showAlert({ status, message: ERROR_MESSAGE_ON_UPDATE }));
+    }
+}
+
 function* deleteMoviesSaga(payload)
 {
     try {
@@ -134,6 +151,14 @@ function* updateMovieWatcher()
     }
 }
 
+function* restoreMoviesWatcher()
+{
+    while (true) {
+        const { payload } = yield take(RESTORE_MOVIES_START);
+        yield call(restoreMoviesSaga, payload);
+    }
+}
+
 function* deleteMoviesWatcher()
 {
     while (true) {
@@ -152,6 +177,8 @@ export default function*()
         findMovieByIDWatcher(),
         createMovieWatcher(),
         updateMovieWatcher(),
+        restoreMoviesWatcher(),
+        restoreMoviesSaga(),
         deleteMoviesWatcher()
     ]);
 }

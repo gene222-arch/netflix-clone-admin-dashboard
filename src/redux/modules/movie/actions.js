@@ -13,6 +13,9 @@ const {
     UPDATE_MOVIE_START,
     UPDATE_MOVIE_SUCCESS,
     UPDATE_MOVIE_FAILED,
+    RESTORE_MOVIES_START,
+    RESTORE_MOVIES_SUCCESS,
+    RESTORE_MOVIES_FAILED,
     DELETE_MOVIES_START,
     DELETE_MOVIES_SUCCESS,
     DELETE_MOVIES_FAILED,
@@ -84,6 +87,21 @@ export const updateMovieSuccess = (payload) => ({
 
 export const updateMovieFailed = (payload) => ({
     type: UPDATE_MOVIE_FAILED,
+    payload
+});
+
+export const restoreMoviesStart = (payload) => ({
+    type: RESTORE_MOVIES_START,
+    payload
+});
+
+export const restoreMoviesSuccess = (payload) => ({
+    type: RESTORE_MOVIES_SUCCESS,
+    payload
+});
+
+export const restoreMoviesFailed = (payload) => ({
+    type: RESTORE_MOVIES_FAILED,
     payload
 });
 

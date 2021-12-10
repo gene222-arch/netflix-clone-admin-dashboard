@@ -14,6 +14,9 @@ const {
     UPDATE_MOVIE_START,
     UPDATE_MOVIE_SUCCESS,
     UPDATE_MOVIE_FAILED,
+    RESTORE_MOVIES_START,
+    RESTORE_MOVIES_SUCCESS,
+    RESTORE_MOVIES_FAILED,
     DELETE_MOVIES_START,
     DELETE_MOVIES_SUCCESS,
     DELETE_MOVIES_FAILED,
@@ -73,6 +76,7 @@ export default (state = initialState, { type, payload }) =>
         case FIND_MOVIE_BY_ID_START:
         case CREATE_MOVIE_START:
         case UPDATE_MOVIE_START:
+        case RESTORE_MOVIES_START:
         case DELETE_MOVIES_START:
             return {
                 ...state,
@@ -151,10 +155,18 @@ export default (state = initialState, { type, payload }) =>
                 }
             }
 
+        case RESTORE_MOVIES_SUCCESS:
+            return {
+                ...state,
+                isLoading,
+                error
+            }
+
         case FETCH_ALL_MOVIES_FAILED:
         case FIND_MOVIE_BY_ID_FAILED:
         case CREATE_MOVIE_FAILED:
         case UPDATE_MOVIE_FAILED:
+        case RESTORE_MOVIES_FAILED:
         case DELETE_MOVIES_FAILED:
             return {
                 ...state,
