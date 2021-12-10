@@ -40,10 +40,10 @@ const {
 /**
  * Sagas
  */
-function* fetchAllDirectorsSaga()
+function* fetchAllDirectorsSaga(payload)
 {
     try {
-        const { data: directors } = yield call(API.fetchAllAsync);
+        const { data: directors } = yield call(API.fetchAllAsync, payload.trashedOnly);
         yield put(fetchAllDirectorsSuccess({ directors }));
     } catch ({ message }) {
         yield put(fetchAllDirectorsFailed({ message }));
@@ -140,8 +140,8 @@ function* deleteDirectorsSaga(payload)
 function* fetchAllDirectorsWatcher()
 {
     while (true) {
-        yield take(FETCH_ALL_DIRECTORS_START);
-        yield call(fetchAllDirectorsSaga);
+        const { payload } = yield take(FETCH_ALL_DIRECTORS_START);
+        yield call(fetchAllDirectorsSaga, payload);
     }
 }
 
