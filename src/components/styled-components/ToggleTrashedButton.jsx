@@ -27,7 +27,7 @@ const ToggleTrashedButton = ({ title = 'Show deleted items', onClick }) =>
 
     return (
         <div className={ classes.toggleTrashedContainer }>
-            <Tooltip title='Show deleted items'>
+            <Tooltip title={ title }>
                 <FormControlLabel 
                     control={
                         <Switch 
