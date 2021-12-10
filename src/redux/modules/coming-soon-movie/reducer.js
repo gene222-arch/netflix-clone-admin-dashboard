@@ -19,6 +19,9 @@ const {
     UPDATE_TRAILER_START,
     UPDATE_TRAILER_SUCCESS,
     UPDATE_TRAILER_FAILED,
+    RESTORE_COMING_SOON_MOVIES_START,
+    RESTORE_COMING_SOON_MOVIES_SUCCESS,
+    RESTORE_COMING_SOON_MOVIES_FAILED,
     DELETE_COMING_SOON_MOVIES_START,
     DELETE_COMING_SOON_MOVIES_SUCCESS,
     DELETE_COMING_SOON_MOVIES_FAILED,
@@ -101,6 +104,7 @@ export default (state = initialState, { type, payload }) =>
         case CREATE_COMING_SOON_MOVIE_START:
         case CREATE_TRAILER_START:
         case UPDATE_COMING_SOON_MOVIE_START:
+        case RESTORE_COMING_SOON_MOVIES_START:
         case DELETE_COMING_SOON_MOVIES_START:
         case DELETE_TRAILER_START:
         case TOGGLE_COMING_SOON_MOVIE_RELEASE_START:
@@ -240,6 +244,13 @@ export default (state = initialState, { type, payload }) =>
                 }
             }
 
+        case RESTORE_COMING_SOON_MOVIES_SUCCESS:
+            return {
+                ...state,
+                isLoading,
+                error
+            }
+
         case UPDATE_TRAILER_FAILED:
         case CREATE_TRAILER_FAILED:
             return {
@@ -252,6 +263,7 @@ export default (state = initialState, { type, payload }) =>
         case FIND_COMING_SOON_MOVIE_BY_ID_FAILED:
         case CREATE_COMING_SOON_MOVIE_FAILED:
         case UPDATE_COMING_SOON_MOVIE_FAILED:
+        case RESTORE_COMING_SOON_MOVIES_FAILED:
         case DELETE_COMING_SOON_MOVIES_FAILED:
         case DELETE_TRAILER_FAILED:
         case TOGGLE_COMING_SOON_MOVIE_RELEASE_FAILED:

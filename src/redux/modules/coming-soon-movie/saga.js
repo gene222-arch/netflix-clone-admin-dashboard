@@ -19,6 +19,8 @@ import {
     updateComingSoonMovieFailed,
     updateTrailerSuccess,
     updateTrailerFailed,
+    restoreComingSoonMoviesSuccess,
+    restoreComingSoonMoviesFailed,
     deleteComingSoonMoviesSuccess,
     deleteComingSoonMoviesFailed,
     deleteTrailerSuccess,
@@ -38,6 +40,7 @@ const {
     CREATE_TRAILER_START,
     UPDATE_COMING_SOON_MOVIE_START,
     UPDATE_TRAILER_START,
+    RESTORE_COMING_SOON_MOVIES_START,
     TOGGLE_COMING_SOON_MOVIE_RELEASE_START,
     DELETE_COMING_SOON_MOVIES_START,
     DELETE_TRAILER_START
@@ -92,6 +95,20 @@ function* updateComingSoonMovieSaga(payload)
         yield put(push(PATH.VIDEO_MANAGEMENT_COMING_SOON_MOVIES));
     } catch ({ message, status }) {
         yield put(updateComingSoonMovieFailed({ message }));
+        yield put(showAlert({ status, message: ERROR_MESSAGE_ON_UPDATE }));
+    }
+}
+
+function* restoreComingSoonMoviesSaga(payload)
+{
+    try {
+        const { message, status } = yield call(API.restoreAsync, payload);
+
+        yield put(restoreComingSoonMoviesSuccess());
+        yield put(showAlert({ status, message }));
+        yield put(push(PATH.VIDEO_MANAGEMENT_COMING_SOON_MOVIES));
+    } catch ({ message, status }) {
+        yield put(restoreComingSoonMoviesFailed({ message }));
         yield put(showAlert({ status, message: ERROR_MESSAGE_ON_UPDATE }));
     }
 }
@@ -205,6 +222,22 @@ function* updateComingSoonMovieWatcher()
     }
 }
 
+function* updateComingSoonMovieWatcher()
+{
+    while (true) {
+        const { payload } = yield take(UPDATE_COMING_SOON_MOVIE_START);
+        yield call(updateComingSoonMovieSaga, payload);
+    }
+}
+
+function* restoreComingSoonMoviesWatcher()
+{
+    while (true) {
+        const { payload } = yield take(RESTORE_COMING_SOON_MOVIES_START);
+        yield call(restoreComingSoonMoviesSaga, payload);
+    }
+}
+
 function* deleteComingSoonMoviesWatcher()
 {
     while (true) {
@@ -257,6 +290,7 @@ export default function*()
         createComingSoonMovieWatcher(),
         updateComingSoonMovieWatcher(),
         updateTrailerWatcher(),
+        restoreComingSoonMoviesWatcher(),
         deleteComingSoonMoviesWatcher(),
         deleteTrailerWatcher(),
         toggleComingSoonMovieReleaseWatcher(),

@@ -63,6 +63,19 @@ export const updateStatusAsync = async ({ id, ...rest }) =>
         .catch(error => Promise.reject(error.response.data));
 }
 
+/**
+ * 
+ * @param {array} ids 
+ * @returns {Promise}
+ */
+ export const restoreAsync = async (ids) => 
+ {
+     return await axiosInstance()
+         .put('/coming-soon-movies/restore', { ids })
+         .then(response => response.data)
+         .catch(error => Promise.reject(error.response.data));
+ }
+
 export const updateTrailerAsync = async (payload) => 
 {
     return await axiosInstance()

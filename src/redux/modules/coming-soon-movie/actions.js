@@ -19,6 +19,9 @@ const {
     UPDATE_TRAILER_START,
     UPDATE_TRAILER_SUCCESS,
     UPDATE_TRAILER_FAILED,
+    RESTORE_COMING_SOON_MOVIES_START,
+    RESTORE_COMING_SOON_MOVIES_SUCCESS,
+    RESTORE_COMING_SOON_MOVIES_FAILED,
     DELETE_COMING_SOON_MOVIES_START,
     DELETE_COMING_SOON_MOVIES_SUCCESS,
     DELETE_COMING_SOON_MOVIES_FAILED,
@@ -98,6 +101,21 @@ export const updateComingSoonMovieSuccess = (payload) => ({
 
 export const updateComingSoonMovieFailed = (payload) => ({
     type: UPDATE_COMING_SOON_MOVIE_FAILED,
+    payload
+});
+
+export const restoreComingSoonMoviesStart = (payload) => ({
+    type: RESTORE_COMING_SOON_MOVIES_START,
+    payload
+});
+
+export const restoreComingSoonMoviesSuccess = (payload) => ({
+    type: RESTORE_COMING_SOON_MOVIES_SUCCESS,
+    payload
+});
+
+export const restoreComingSoonMoviesFailed = (payload) => ({
+    type: RESTORE_COMING_SOON_MOVIES_FAILED,
     payload
 });
 
