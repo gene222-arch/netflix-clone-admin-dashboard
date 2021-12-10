@@ -12,6 +12,9 @@ const {
     CREATE_AUTHOR_FAILED,
     UPDATE_AUTHOR_START,
     UPDATE_AUTHOR_SUCCESS,
+    RESTORE_AUTHORS_START,
+    RESTORE_AUTHORS_SUCCESS,
+    RESTORE_AUTHORS_FAILED,
     TOGGLE_AUTHOR_ENABLED_START,
     TOGGLE_AUTHOR_ENABLED_SUCCESS,
     TOGGLE_AUTHOR_ENABLED_FAILED,
@@ -86,6 +89,22 @@ export const updateAuthorSuccess = (payload) => ({
 
 export const updateAuthorFailed = (payload) => ({
     type: UPDATE_AUTHOR_FAILED,
+    payload
+});
+
+
+export const restoreAuthorsStart = (payload) => ({
+    type: RESTORE_AUTHORS_START,
+    payload
+});
+
+export const restoreAuthorsSuccess = (payload) => ({
+    type: RESTORE_AUTHORS_SUCCESS,
+    payload
+});
+
+export const restoreAuthorsFailed = (payload) => ({
+    type: RESTORE_AUTHORS_FAILED,
     payload
 });
 

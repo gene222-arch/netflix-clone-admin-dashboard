@@ -13,6 +13,9 @@ const {
     UPDATE_AUTHOR_START,
     UPDATE_AUTHOR_SUCCESS,
     UPDATE_AUTHOR_FAILED,
+    RESTORE_AUTHORS_START,
+    RESTORE_AUTHORS_SUCCESS,
+    RESTORE_AUTHORS_FAILED,
     TOGGLE_AUTHOR_ENABLED_START,
     TOGGLE_AUTHOR_ENABLED_SUCCESS,
     TOGGLE_AUTHOR_ENABLED_FAILED,
@@ -62,6 +65,7 @@ export default (state = initialState, { type, payload }) =>
         case FIND_AUTHOR_BY_ID_START:
         case CREATE_AUTHOR_START:
         case UPDATE_AUTHOR_START:
+        case RESTORE_AUTHORS_START:
         case TOGGLE_AUTHOR_ENABLED_START:
         case DELETE_AUTHORS_START:
             return {
@@ -115,6 +119,13 @@ export default (state = initialState, { type, payload }) =>
                 error
             }
 
+        case RESTORE_AUTHORS_SUCCESS:
+            return {
+                ...state,
+                isLoading,
+                error
+            }
+
         case TOGGLE_AUTHOR_ENABLED_SUCCESS:
 
             UPDATED_AUTHORS = authors.map(author => {
@@ -151,6 +162,7 @@ export default (state = initialState, { type, payload }) =>
         case FIND_AUTHOR_BY_ID_FAILED:
         case CREATE_AUTHOR_FAILED:
         case UPDATE_AUTHOR_FAILED:
+        case RESTORE_AUTHORS_FAILED:
         case TOGGLE_AUTHOR_ENABLED_FAILED:
         case DELETE_AUTHORS_FAILED:
             return {

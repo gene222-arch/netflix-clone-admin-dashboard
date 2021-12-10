@@ -15,6 +15,8 @@ import {
     createAuthorFailed,
     updateAuthorSuccess,
     updateAuthorFailed,
+    restoreAuthorsSuccess,
+    restoreAuthorsFailed,
     toggleAuthorEnabledFailed, 
     toggleAuthorEnabledSuccess,
     deleteAuthorsSuccess,
@@ -29,9 +31,10 @@ const {
     FIND_AUTHOR_BY_ID_START,
     CREATE_AUTHOR_START,
     UPDATE_AUTHOR_START,
+    RESTORE_AUTHORS_START,
     TOGGLE_AUTHOR_ENABLED_START,
     DELETE_AUTHORS_START
-}  = ACTION_TYPES;
+} = ACTION_TYPES;
 
 /**
  * Sagas
@@ -82,6 +85,20 @@ function* updateAuthorSaga(payload)
         yield put(push(PATH.VIDEO_MANAGEMENT_AUTHOR));
     } catch ({ message, status }) {
         yield put(updateAuthorFailed({ message }));
+        yield put(showAlert({ status, message: ERROR_MESSAGE_ON_UPDATE }));
+    }
+}
+
+function* restoreAuthorsSaga(payload)
+{
+    try {
+        const { message, status } = yield call(API.restoreAsync, payload);
+
+        yield put(restoreAuthorsSuccess({ author: payload }));
+        yield put(showAlert({ status, message }));
+        yield put(push(PATH.VIDEO_MANAGEMENT_AUTHOR));
+    } catch ({ message, status }) {
+        yield put(restoreAuthorsFailed({ message }));
         yield put(showAlert({ status, message: ERROR_MESSAGE_ON_UPDATE }));
     }
 }
@@ -151,6 +168,14 @@ function* updateAuthorWatcher()
     }
 }
 
+function* restoreAuthorsWatcher()
+{
+    while (true) {
+        const { payload } = yield take(UPDATE_AUTHOR_START);
+        yield call(restoreAuthorsSaga, payload);
+    }
+}
+
 function* toggleAuthorEnabledWatcher()
 {
     while (true) {
@@ -177,6 +202,7 @@ export default function*()
         findAuthorByIDWatcher(),
         createAuthorWatcher(),
         updateAuthorWatcher(),
+        restoreAuthorsWatcher(),
         toggleAuthorEnabledWatcher(),
         deleteAuthorsWatcher()
     ]);
