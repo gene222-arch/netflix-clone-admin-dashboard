@@ -13,6 +13,7 @@ import { useHistory } from 'react-router-dom';
 import Switch from '@material-ui/core/Switch';
 import Container from '@material-ui/core/Container'
 import { makeStyles } from '@material-ui/core/styles';
+import ToggleTrashedButton from './../../../../components/styled-components/ToggleTrashedButton';
 
 const avatarIndexUseStyles = makeStyles(theme => ({
     avatarImg: {
@@ -54,7 +55,18 @@ const Cast = ({ CAST }) =>
     ];
 
     const [ ids, setIDs ] = useState([]);
-    
+    const [ areDataTrashed, setAreDataTrashed ] = useState(false);
+
+    const handleClickToggleFilterButton = (trashedOnly) => {
+        setAreDataTrashed(! trashedOnly);
+        dispatch(CAST_ACTION.fetchAllCastsStart({ trashedOnly: !trashedOnly }));
+    }
+
+    const handleClickRestoreCasts = () => {
+        dispatch(CAST_ACTION.restoreCastsStart(ids));
+        setIDs([]);
+    }
+
     const handleClickDeleteCast = () => {
         setIDs([]);
         dispatch(CAST_ACTION.deleteCastsStart({ ids }));
@@ -65,19 +77,27 @@ const Cast = ({ CAST }) =>
     }
 
     useEffect(() => {
-        dispatch(CAST_ACTION.fetchAllCastsStart());
+        dispatch(CAST_ACTION.fetchAllCastsStart({ trashedOnly: areDataTrashed }));
+
+        return () => {
+            setIDs([]);
+            setAreDataTrashed(false);
+        }
     }, []);
 
     return (
         <Container maxWidth="lg">
+            <ToggleTrashedButton onClick={ handleClickToggleFilterButton } isLoading={ CAST.isLoading } />
             <MaterialTable 
                 columns={ columns }      
                 data={ CAST.casts }  
                 title={ 
                     <MaterialTableActionButton
                         ids={ ids } 
+                        areDataTrashed={ areDataTrashed }
                         addButtonCallback = { () => history.push(PATH.CREATE_CAST) }
                         deleteButtonCallback={ handleClickDeleteCast }
+                        restoreButtonCallback={ handleClickRestoreCasts }
                     /> 
                 }
                 isLoading={ CAST.isLoading }
