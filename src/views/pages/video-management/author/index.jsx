@@ -81,7 +81,7 @@ const Author = ({ AUTHOR }) =>
     }
 
     useEffect(() => {
-        dispatch(AUTHOR_ACTION.fetchAllAuthorsStart());
+        dispatch(AUTHOR_ACTION.fetchAllAuthorsStart({ trashedOnly: areDataTrashed }));
 
         return () => {
             setIDs([]);
