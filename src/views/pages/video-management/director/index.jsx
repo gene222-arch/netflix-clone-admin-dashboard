@@ -13,6 +13,7 @@ import { useHistory } from 'react-router-dom';
 import Switch from '@material-ui/core/Switch';
 import Container from '@material-ui/core/Container'
 import { makeStyles } from '@material-ui/core/styles';
+import ToggleTrashedButton from '../../../../components/styled-components/ToggleTrashedButton';
 
 const avatarIndexUseStyles = makeStyles(theme => ({
     avatarImg: {
@@ -54,6 +55,17 @@ const Director = ({ DIRECTOR }) =>
     ];
 
     const [ ids, setIDs ] = useState([]);
+    const [ areDataTrashed, setAreDataTrashed ] = useState(false);
+
+    const handleClickToggleFilterButton = (trashedOnly) => {
+        setAreDataTrashed(! trashedOnly);
+        dispatch(DIRECTOR_ACTION.fetchAllDirectorsStart({ trashedOnly: !trashedOnly }));
+    }
+
+    const handleClickRestoreDirectors = () => {
+        dispatch(DIRECTOR_ACTION.restoreDirectorsStart(ids));
+        setIDs([]);
+    }
 
     const handleClickDeleteDirector = () => {
         setIDs([]);
@@ -65,19 +77,27 @@ const Director = ({ DIRECTOR }) =>
     }
 
     useEffect(() => {
-        dispatch(DIRECTOR_ACTION.fetchAllDirectorsStart());
+        dispatch(DIRECTOR_ACTION.fetchAllDirectorsStart({ trashedOnly: areDataTrashed }));
+
+        return () => {
+            setIDs([]);
+            setAreDataTrashed(false);
+        }
     }, []);
 
     return (
         <Container maxWidth="lg">
+            <ToggleTrashedButton onClick={ handleClickToggleFilterButton } isLoading={ DIRECTOR.isLoading } />
             <MaterialTable 
                 columns={ columns }      
                 data={ DIRECTOR.directors }  
                 title={ 
                     <MaterialTableActionButton
                         ids={ ids } 
+                        areDataTrashed={ areDataTrashed }
                         addButtonCallback = { () => history.push(PATH.CREATE_DIRECTOR) }
                         deleteButtonCallback={ handleClickDeleteDirector }
+                        restoreButtonCallback={ handleClickRestoreDirectors }
                     /> 
                 }
                 isLoading={ DIRECTOR.isLoading }

@@ -95,6 +95,12 @@ function* restoreDirectorsSaga(payload)
     try {
         const { message, status } = yield call(API.restoreAsync, payload);
 
+        const { data: directors, status: fetchAllStatus } = yield call(API.fetchAllAsync, true);
+        
+        if (fetchAllStatus === 'success') {
+            yield put(fetchAllDirectorsSuccess({ directors }));
+        }
+
         yield put(restoreDirectorsSuccess());
         yield put(showAlert({ status, message }));
         yield put(push(PATH.VIDEO_MANAGEMENT_DIRECTOR));
