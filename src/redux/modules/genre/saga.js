@@ -39,10 +39,10 @@ const {
 /**
  * Sagas
  */
-function* fetchAllGenresSaga()
+function* fetchAllGenresSaga(payload)
 {
     try {
-        const { data: genres } = yield call(API.fetchAllAsync);
+        const { data: genres } = yield call(API.fetchAllAsync, payload.trashedOnly);
         yield put(fetchAllGenresSuccess({ genres }));
     } catch ({ message }) {
         yield put(fetchAllGenresFailed({ message }));
@@ -139,8 +139,8 @@ function* deleteGenresSaga(payload)
 function* fetchAllGenresWatcher()
 {
     while (true) {
-        yield take(FETCH_ALL_GENRES_START);
-        yield call(fetchAllGenresSaga);
+        const { payload } = yield take(FETCH_ALL_GENRES_START);
+        yield call(fetchAllGenresSaga, payload);
     }
 }
 
