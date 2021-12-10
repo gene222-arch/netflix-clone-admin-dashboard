@@ -37,10 +37,10 @@ const {
 /**
  * Sagas
  */
-function* fetchAllMoviesSaga()
+function* fetchAllMoviesSaga(payload)
 {
     try {
-        const { data: movies } = yield call(API.fetchAllAsync);
+        const { data: movies } = yield call(API.fetchAllAsync, payload.trashedOnly);
         yield put(fetchAllMoviesSuccess({ movies }));
     } catch ({ message }) {
         yield put(fetchAllMoviesFailed({ message }));
@@ -122,8 +122,8 @@ function* deleteMoviesSaga(payload)
 function* fetchAllMoviesWatcher()
 {
     while (true) {
-        yield take(FETCH_ALL_MOVIES_START);
-        yield call(fetchAllMoviesSaga);
+        const { payload } = yield take(FETCH_ALL_MOVIES_START);
+        yield call(fetchAllMoviesSaga, payload);
     }
 }
 
