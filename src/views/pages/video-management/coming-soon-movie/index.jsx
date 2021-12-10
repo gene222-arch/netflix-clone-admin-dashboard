@@ -16,6 +16,7 @@ import comingSoonMovieUseStyles from './../../../../assets/js/material-ui/coming
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import Tooltip from '@material-ui/core/Tooltip';
 import VideoPreviewDialog from '../../../../components/VideoPreviewDialog';
+import ToggleTrashedButton from '../../../../components/styled-components/ToggleTrashedButton';
 
 const DATA_PROPS = {
     id: '',
@@ -107,6 +108,17 @@ const ComingSoonMovie = ({ COMING_SOON_MOVIE, COMING_SOON_MOVIE_HAS_ERRORS }) =>
     const [ ids, setIds ] = useState([]);
     const [ data, setData ] = useState(DATA_PROPS);
     const [ open, setOpen ] = useState(false);
+    const [ areDataTrashed, setAreDataTrashed ] = useState(false);
+
+    const handleClickToggleFilterButton = (trashedOnly) => {
+        setAreDataTrashed(! trashedOnly);
+        dispatch(COMING_SOON_MOVIE_ACTION.fetchAllComingSoonMoviesStart({ trashedOnly: !trashedOnly }));
+    }
+    
+    const handleClickRestoreComingSoonMovies = () => {
+        dispatch(COMING_SOON_MOVIE_ACTION.restoreComingSoonMoviesStart(ids));
+        setIds([]);
+    }
 
     const handleClickRelease = (movieId, status) => {
         setData({ ...data, status, id: movieId });
@@ -128,7 +140,7 @@ const ComingSoonMovie = ({ COMING_SOON_MOVIE, COMING_SOON_MOVIE_HAS_ERRORS }) =>
     }
 
     useEffect(() => {
-        dispatch(COMING_SOON_MOVIE_ACTION.fetchAllComingSoonMoviesStart());
+        dispatch(COMING_SOON_MOVIE_ACTION.fetchAllComingSoonMoviesStart({ trashedOnly: areDataTrashed }));
 
         return () => {
             setIds([]);
@@ -154,14 +166,17 @@ const ComingSoonMovie = ({ COMING_SOON_MOVIE, COMING_SOON_MOVIE_HAS_ERRORS }) =>
                 onCancel={ handleClickCancelUpdateStatus }
             />
             <Container maxWidth="lg">
+                <ToggleTrashedButton onClick={ handleClickToggleFilterButton } isLoading={ COMING_SOON_MOVIE.isLoading } />
                 <MaterialTable 
                     columns={ columns }      
                     data={ COMING_SOON_MOVIE.comingSoonMovies }  
                     title={ 
                         <MaterialTableActionButton
                             ids={ ids } 
+                            areDataTrashed={ areDataTrashed }
                             addButtonCallback = { () => history.push(PATH.CREATE_COMING_SOON_MOVIE, { actionName: 'Create Movie' }) }
                             deleteButtonCallback={ handleClickDeleteComingSoonMovie }
+                            restoreButtonCallback={ handleClickRestoreComingSoonMovies }
                         /> 
                     }
                     isLoading={ COMING_SOON_MOVIE.isLoading }
