@@ -3,7 +3,6 @@ import AddButton from './styled-components/AddButton';
 import DeleteButton from './styled-components/DeleteButton';
 import RestoreButton from './styled-components/RestoreButton';
 
-
 const MaterialTableActionButton = ({ ids = [], areDataTrashed = false, addButtonCallback, deleteButtonCallback, restoreButtonCallback }) => 
 {
     if (areDataTrashed) {

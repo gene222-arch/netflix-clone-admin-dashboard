@@ -1,6 +1,4 @@
 import React from 'react'
-
-/** Material UI Icons */
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 

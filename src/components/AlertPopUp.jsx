@@ -1,10 +1,6 @@
 import React from 'react';
-
-/** Material UI Components */
 import Snackbar from '@material-ui/core/Snackbar';
 import { makeStyles } from '@material-ui/core/styles';
-
-/** Components */
 import MuiAlert from './MuiAlert'
 import { createStructuredSelector } from 'reselect';
 import { selectAlert } from '../redux/modules/alert/selector';

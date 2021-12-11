@@ -10,8 +10,6 @@ import Divider from '@material-ui/core/Divider';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-
-/** Components */
 import SaveCancelButtons from './SaveCancelButtons';
 import ImageWithPreview from './ImageWithPreview';
 import { makeStyles } from '@material-ui/core/styles';
