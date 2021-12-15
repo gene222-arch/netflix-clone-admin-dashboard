@@ -163,11 +163,16 @@ export default (state = initialState, { type, payload }) =>
             };
 
         case ADD_PROFILE_SUCCESS:
+            const createdProfile = {
+                ...PROFILE_PROPS,
+                ...payload.profile 
+            };
+
             return {
                 ...state,
                 profiles: [
                     ...state.profiles,
-                    payload.profile
+                    createdProfile
                 ],
                 isLoading,
                 error
