@@ -106,11 +106,11 @@ function* restoreComingSoonMoviesSaga(payload)
     try {
         const { message, status } = yield call(API.restoreAsync, payload);
 
-        const { data: comingSoonMovies, status: fetchAllStatus } = yield call(API.fetchAllAsync, true);
+        const { data, status: fetchAllStatus } = yield call(API.fetchAllAsync, true);
 
-        if (fetchAllStatus === 'success') {
-            yield put(fetchAllComingSoonMoviesSuccess({ comingSoonMovies }));
-        }
+        yield put(fetchAllComingSoonMoviesSuccess({ 
+            comingSoonMovies: fetchAllStatus === 'success' ? data : [] 
+        }));
 
         yield put(restoreComingSoonMoviesSuccess());
         yield put(showAlert({ status, message }));
