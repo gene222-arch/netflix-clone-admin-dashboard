@@ -222,13 +222,11 @@ function* loginSaga (payload)
         }
 
     } catch ({ message, status }) {
-
         yield put(loginFailed({
             errorMessages: message
         }));
 
-        yield put(ALERT.showAlert({ status, message: message.email || message }));
-
+        yield put(ALERT.showAlert({ status, message: message.email || message.password || message }));
     }
 }
 
