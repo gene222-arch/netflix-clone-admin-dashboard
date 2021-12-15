@@ -44,10 +44,7 @@ const ForgotPasswordForm = ({ AUTH, AUTH_HAS_ERROR_MESSAGE, AUTH_ERROR_MESSAGE }
 
     const handleChangeMail = (e) => setEmail(e.target.value);
     
-    const handleClickForgotPassword = (e) => {
-        e.preventDefault();
-        dispatch(AUTH_ACTION.forgotPassword({ email }));
-    }
+    const handleClickForgotPassword = () => dispatch(AUTH_ACTION.forgotPassword({ email }));
 
 
     useEffect(() => {

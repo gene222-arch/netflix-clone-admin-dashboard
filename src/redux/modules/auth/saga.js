@@ -183,6 +183,8 @@ function* forgotPasswordSaga (payload)
 
         yield put(forgotPasswordSuccess());
 
+        yield put(push(PATH.LOGIN));
+
         yield put(ALERT.showAlert({
             status: 'success',
             message
