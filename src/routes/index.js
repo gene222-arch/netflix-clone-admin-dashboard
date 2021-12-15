@@ -676,7 +676,7 @@ export const RenderRoutes = ({ routes }) =>
                             {
                                 return (
                                     restricted 
-                                        ? <PrivateRoute Component={ Component } access={ access } { ...props }/>
+                                        ? <PrivateRoute Component={ Component } access={ access } path={ path } { ...props }/>
                                         : <PublicRoute Component={ Component } { ...props } />
                                 )
                             }
