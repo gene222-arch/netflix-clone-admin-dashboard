@@ -24,7 +24,7 @@ const DashboardAvatars = ({ DASHBOARD, generalAnalytics }) =>
             <Grid container spacing={ 10 } justify='center' alignItems='center'>
                 {
                     [0, 1, 2, 3, 4, 5].map(loading => (
-                        <Grid item xs={ 12 } sm={ 4 } md={ 4 } lg={ 4 }>
+                        <Grid key={ loading } item xs={ 12 } sm={ 4 } md={ 4 } lg={ 4 }>
                             <BoxContentLoader width={ '100%' } height={ 200 } />
                         </Grid>
                     ))
