@@ -28,7 +28,7 @@ const App = ({ AUTH, history }) =>
 	const dispatch = useDispatch();
 
 	useEffect(() => {
-		if (COOKIES_UTIL.get('access_token') && AUTH.isAuthenticated) {
+		if (COOKIES_UTIL.get('access_token') && AUTH.isAuthenticated && AUTH.role === 'Subscriber') {
 			ECHO_UTIL()
 				.private(`subscribed.successfully.${ AUTH.user.id }`)
 				.listen('SubscribedSuccessfullyEvent', (response) => {
