@@ -41,7 +41,7 @@ const PLAN_TYPES =
 const plantTypeListUseStyles = makeStyles(theme => ({
     card: {
         marginBottom: theme.spacing(2),
-        height: '26.8vh',
+        height: '40vh',
         cursor: 'pointer'
     },
     cardContainer: {
