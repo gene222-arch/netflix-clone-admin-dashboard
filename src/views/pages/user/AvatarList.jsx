@@ -27,7 +27,7 @@ const AvatarList = ({ handleClickAvatar }) =>
             <Grid container spacing={ 4 } justify='space-between' alignItems='center'>
             {
                 avatarUris.map(avatar => (
-                    <Grid item xs={ 4 } sm={ 4 } md={ 4 } lg={ 4 }>
+                    <Grid key={ avatar } item xs={ 4 } sm={ 4 } md={ 4 } lg={ 4 }>
                         <div className={ classes.imgContainer }>
                             <img src={ avatar } className={ classes.avatar } onClick={ () => handleClickAvatar(avatar) } />
                         </div>
