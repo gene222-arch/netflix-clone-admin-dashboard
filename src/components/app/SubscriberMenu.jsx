@@ -158,7 +158,7 @@ const SubscriberMenu = ({ AUTH, anchorEl, setAnchorEl }) =>
                 }}
             >
                 {
-                    AUTH.profiles.length && <MenuItem disabled>Profiles</MenuItem>
+                    Boolean(AUTH.profiles.length) && <MenuItem disabled>Profiles</MenuItem>
                 }
                 {
                     AUTH.profiles

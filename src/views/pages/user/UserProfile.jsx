@@ -126,7 +126,6 @@ const UserProfile = ({ AUTH }) =>
     const [ showInputPin, setShowInputPin ] = useState(false);
     const [ profileLimit, setProfileLimit ] = useState(2);
 
-
     const cleanUp = () => {
         setShowInputPin(false);
         setPin(PIN_PROPS);
@@ -271,7 +270,7 @@ const UserProfile = ({ AUTH }) =>
                         {
                             (profileLimit > AUTH.profiles.length) && !AUTH.profileCountToDisable && (
                                 <AddProfileCard 
-                                    isSubscribed={ AUTH.subscription_details.status === 'subscribed' }
+                                    isSubscribed={ !isNotSubscribed }
                                     planType={ AUTH.subscription_details.type }
                                     totalProfiles={ AUTH.profiles.length }
                                 />

@@ -29,7 +29,7 @@ const PrivateRoute = ({ AUTH, Component, access, ...props }) =>
 
     /** Subscriber */
 
-    if (AUTH.profileCountToDisable || !AUTH.selectedProfile.id) {
+    if (AUTH.profileCountToDisable || (!AUTH.selectedProfile.id && AUTH.profiles.length)) {
         return (
             <UserLayout>
                 <UserProfile { ...props } />
