@@ -1,7 +1,4 @@
-/** Libraries */
 import Echo from "laravel-echo"
-
-/** Utils */
 import * as Cookies from './cookies'
 
 window.Pusher = require('pusher-js');
