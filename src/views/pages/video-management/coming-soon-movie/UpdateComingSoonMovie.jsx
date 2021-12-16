@@ -24,7 +24,7 @@ const UpdateComingSoonMovie = ({ COMING_SOON_MOVIE, AUTHOR_NAMES, CAST_NAMES, DI
     const handleClickUpdateComingSoonMovie = () => 
     {
         const comingSoonMovieOrigData = comingSoonMovie;
-        const { authors, casts, directors, genres, country, language, video_size_in_mb, ...rest } = comingSoonMovie;
+        const { authors, casts, directors, genres, country, language, video_size_in_mb } = comingSoonMovie;
         
         const comingSoonMovie_ = {
             ...comingSoonMovieOrigData, 

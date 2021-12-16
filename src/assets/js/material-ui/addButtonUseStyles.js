@@ -1,5 +1,4 @@
 import { makeStyles } from '@material-ui/core';
-import { green } from '@material-ui/core/colors';
 import Colors from './../../../constants/Colors';
 
 const addButtonUseStyles = makeStyles(theme => ({

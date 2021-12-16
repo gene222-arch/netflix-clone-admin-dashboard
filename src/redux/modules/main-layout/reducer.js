@@ -68,8 +68,7 @@ export default (state = initialState, { type, payload }) =>
     const { 
         currentSelectedItem, 
         currentSelectedDropdown, 
-        currentSelectedDropdownItem, 
-        subscripions,
+        currentSelectedDropdownItem,
         drawer, 
         videoManagement, 
         videoManagementAuthors,

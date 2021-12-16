@@ -1,10 +1,6 @@
 import { all, call, take, put } from 'redux-saga/effects'
 import { push } from 'connected-react-router';
-
-/** Async functions */
 import * as API from './../../../services/movies/movie';
-
-/** Actions and types */
 import ACTION_TYPES from './action.types'
 import { 
     fetchAllMoviesSuccess,
@@ -30,7 +26,6 @@ const {
     CREATE_MOVIE_START,
     UPDATE_MOVIE_START,
     RESTORE_MOVIES_START,
-    TOGGLE_MOVIE_ENABLED_START,
     DELETE_MOVIES_START
 }  = ACTION_TYPES;
 

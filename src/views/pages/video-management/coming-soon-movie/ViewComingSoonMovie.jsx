@@ -3,8 +3,8 @@ import Container from '@material-ui/core/Container'
 import { useParams, useHistory } from 'react-router-dom';
 import { createStructuredSelector } from 'reselect';
 import { selectComingSoonMovie } from './../../../../redux/modules/coming-soon-movie/selector';
-import { connect, batch, useDispatch } from 'react-redux';
-import { Paper, Grid } from '@material-ui/core';
+import { connect, useDispatch } from 'react-redux';
+import { Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core';
 import * as COMING_SOON_MOVIE_API from '../../../../services/movies/coming.soon.movie';
 import ComingSoonMovieAccordion from '../../../../components/ComingSoonMovieAccordion';

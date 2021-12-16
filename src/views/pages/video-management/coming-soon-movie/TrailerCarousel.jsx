@@ -4,13 +4,12 @@ import EditIcon from '@material-ui/icons/Edit';
 import { Typography, IconButton, AppBar, Toolbar } from '@material-ui/core';
 import DeleteOutlinedIcon from '@material-ui/icons/DeleteOutlined';
 import trailerCarouselUseStyles from './../../../../assets/js/material-ui/trailerCarouselUseStyles';
-import ConfirmationDialog from './../../../../components/ConfirmationDialog';
 import * as CONFIRM_ACTION from './../../../../redux/modules/confirm/actions'
 import { useDispatch, connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { selectComingSoonMovie } from '../../../../redux/modules/coming-soon-movie/selector';
 
-const TrailerCarousel = ({ COMING_SOON_MOVIE, id, trailers, handleClickEdit, handleClickDelete, ...props }) =>
+const TrailerCarousel = ({ COMING_SOON_MOVIE, id, trailers, handleClickEdit, handleClickDelete }) =>
 {
     const classes = trailerCarouselUseStyles();
     const dispatch = useDispatch();

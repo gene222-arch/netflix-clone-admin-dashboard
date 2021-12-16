@@ -1,10 +1,6 @@
 import { all, call, take, put } from 'redux-saga/effects'
 import { push } from 'connected-react-router';
-
-/** Async functions */
 import * as API from './../../../services/movies/genre';
-
-/** Actions and types */
 import ACTION_TYPES from './action.types'
 import { 
     fetchAllGenresSuccess,
@@ -200,9 +196,6 @@ function* deleteGenresWatcher()
     }
 }
 
-/**
- * 
- */
 export default function*()
 {
     yield all([

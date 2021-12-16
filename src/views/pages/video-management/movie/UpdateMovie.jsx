@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useState, useEffect } from 'react'
 import MovieInputFields from '../../../../components/movie-input-fields/MovieInputFields';
 import { useDispatch, connect } from 'react-redux';
 import { selectMovie } from './../../../../redux/modules/movie/selector';
@@ -28,7 +28,7 @@ const UpdateMovie = ({ MOVIE, AUTHOR_NAMES, CAST_NAMES, DIRECTOR_NAMES, GENRE_NA
     const handleClickUpdateMovie = () => 
     {
         const movieOrigData = movie;
-        const { authors, casts, directors, genres, country, language, video_size_in_mb, ...rest } = movie;
+        const { authors, casts, directors, genres, country, language, video_size_in_mb } = movie;
         
         const movie_ = {
             ...movieOrigData, 

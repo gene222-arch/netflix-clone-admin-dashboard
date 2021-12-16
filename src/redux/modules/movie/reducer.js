@@ -1,5 +1,4 @@
 import ACTION_TYPES from './action.types';
-import * as DATE from './../../../utils/date'
 
 const {
     FETCH_ALL_MOVIES_START,

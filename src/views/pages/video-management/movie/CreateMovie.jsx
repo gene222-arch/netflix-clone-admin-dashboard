@@ -15,7 +15,7 @@ const CreateMovie = ({ MOVIE }) =>
     const handleClickCreateMovie = () => 
     {
         const movieOrigData = movie;
-        const { authors, casts, directors, genres, country, language, ...rest } = movie;
+        const { authors, casts, directors, genres, country, language } = movie;
 
         const movie_ = {
             ...movieOrigData, 

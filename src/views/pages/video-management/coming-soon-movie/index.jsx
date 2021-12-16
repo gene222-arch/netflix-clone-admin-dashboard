@@ -1,10 +1,8 @@
-import React,{ useState, useEffect, useMemo } from 'react'
+import React,{ useState, useEffect } from 'react'
 import clsx from 'clsx'
 import { useHistory } from 'react-router-dom';
 import { useDispatch, connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-
-/** Actions */
 import * as COMING_SOON_MOVIE_ACTION from './../../../../redux/modules/coming-soon-movie/actions'; 
 import { selectComingSoonMovie, selectComingSoonMovieHasErrorMessages } from './../../../../redux/modules/coming-soon-movie/selector';
 import StyledNavLink from '../../../../components/styled-components/StyledNavLink';
