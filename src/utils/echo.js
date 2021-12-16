@@ -15,8 +15,6 @@ export default () =>
         },
     };
 
-    window.Pusher.logToConsole = true;
-
     const options = {
         broadcaster: process.env.REACT_APP_BROADCASTER,
         key: process.env.REACT_APP_PUSHER_APP_KEY,
