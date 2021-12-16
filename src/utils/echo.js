@@ -24,8 +24,8 @@ export default () =>
         enableStats : false,
         enabledTransports: ['ws', 'wss'],
         forceTLS: false,
-        wsHost: 'socket.flicklify.com',
-        wsPort: 6001,
+        wsHost: process.env.REACT_APP_WS_HOST,
+        wsPort: process.env.REACT_APP_WS_PORT,
     };
 
     return new Echo(options);
