@@ -60,7 +60,7 @@ const rootReducer = (state, action) =>
 {
     if (action.type === 'LOGOUT_SUCCESS') {
         storage.removeItem('persist:root');
-        return appReducer(undefined, action);
+        // return appReducer(undefined, action);
     }
     
     return appReducer(state, action);
