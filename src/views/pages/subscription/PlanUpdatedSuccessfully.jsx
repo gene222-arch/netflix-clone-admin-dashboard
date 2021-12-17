@@ -138,7 +138,7 @@ const PlanUpdatedSuccessfully = ({ AUTH }) =>
                     {
                         (!isLoading && !hasError) && (
                             <>
-                                <Typography variant="h4" color="initial" gutterBottom>
+                                <Typography variant="h4" color="initial" gutterBottom align='center'>
                                     Account Subscription Updated Successfully
                                 </Typography>
                                 <Button 

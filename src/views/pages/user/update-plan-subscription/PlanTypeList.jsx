@@ -45,7 +45,10 @@ const plantTypeListUseStyles = makeStyles(theme => ({
     card: {
         marginBottom: theme.spacing(2),
         height: '40vh',
-        cursor: 'pointer'
+        cursor: 'pointer',
+        [theme.breakpoints.down('sm')]: {
+            height: '55vh'
+        }
     },
     cardContainer: {
         marginBlock: theme.spacing(2)

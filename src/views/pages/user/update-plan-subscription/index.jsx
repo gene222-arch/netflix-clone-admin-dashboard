@@ -19,7 +19,11 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
 const updatePlanSubscriptionStyles = makeStyles(theme => ({
     container: {
-        marginTop: '1vh'
+        marginTop: '1vh',
+        height: '114vh',
+        [theme.breakpoints.down('sm')]: {
+            height: 'auto'
+        }
     },
     currentSubscriptionType: {
         color: Colors.info
@@ -43,9 +47,9 @@ const updatePlanSubscriptionStyles = makeStyles(theme => ({
 }));
 
 const planTypes = {
-  basic: 0,
-  standard: 1,
-  premium: 2  
+    basic: 0,
+    standard: 1,
+    premium: 2  
 };
 
 const UpdatePlanSubscription = ({ AUTH }) => 
@@ -145,7 +149,7 @@ const UpdatePlanSubscription = ({ AUTH }) =>
     }
 
     return (
-        <Container maxWidth="md" className={ classes.container } style={{ height: '114vh' }}>
+        <Container maxWidth="md" className={ classes.container }>
             <Grid container spacing={ 3 }>
                 <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
                     <Grid container spacing={1}>
