@@ -111,7 +111,7 @@ const UpdatePassword = ({ USER, USER_HAS_ERROR_MESSAGE, USER_ERROR_MESSAGE }) =>
                 <Grid item xs={ 12 } sm={ 12 } md={ 7 } lg={ 7 }>
                     <TextField
                         name='password'
-                        label="New password (6-60 characters)"
+                        label="New password (8-60 characters)"
                         variant='outlined'
                         type={ !showPassword ? 'password' : '' }
                         value={ passwords.password }
