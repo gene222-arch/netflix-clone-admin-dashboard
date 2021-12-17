@@ -14,7 +14,10 @@ import { useHistory } from 'react-router';
 
 const paymentHistoryUseStyles = makeStyles(theme => ({
     container: {
-        height: '83vh'
+        height: '83vh',
+        [theme.breakpoints.down('sm')]: {
+            height: '100vh'
+        }
     },
     goBackButtonContainer: {
         marginTop: '3.5rem'
