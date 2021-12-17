@@ -5,27 +5,49 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import { makeStyles, Grid, Typography } from '@material-ui/core';
+import { makeStyles, Grid, Typography, useTheme } from '@material-ui/core';
 import Colors from './../../../constants/Colors';
 import StyledNavLink from './../../../components/styled-components/StyledNavLink';
 import PATH from './../../../routes/path';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 const inputDialogUseStyles = makeStyles(theme => ({
     container: {
         width: '100%'
     },
+    dialog: {
+        height: '100vh'
+    },
     dialogContainer: {
         width: '100%',
-        height: '25vh'
+        height: '30vh',
+        [theme.breakpoints.down('sm')]: {
+            height: '40vh',
+            padding: 0
+        }
+    },
+    dialogPaper: {
+        height: '50vh',
+        padding: '2rem',
+        [theme.breakpoints.down('sm')]: {
+            padding: '0 1rem',
+            width: '100vw'
+        }
     },
     dialogTitle: {
         textAlign: 'center',
-        color: theme.palette.text.disabled
+        color: theme.palette.text.disabled,
+        [theme.breakpoints.down('sm')]: {
+            fontSize: '1rem'
+        }
     },
     directionText: {
         color: '#FFF',
         fontWeight: 'bold',
-        fontSize: '2rem'
+        fontSize: '2rem',
+        [theme.breakpoints.down('sm')]: {
+            fontSize: '1rem'
+        }
     },
     inputContainer: {
         fontSize: '1rem'
@@ -36,7 +58,10 @@ const inputDialogUseStyles = makeStyles(theme => ({
     wrongPinText: {
         color: Colors.warning,
         fontWeight: 'bold',
-        fontSize: '2rem'
+        fontSize: '2rem',
+        [theme.breakpoints.down('sm')]: {
+            fontSize: '1rem'
+        }
     }
 }));
 
@@ -50,6 +75,8 @@ const DEFAULT_PIN = {
 const InputPinDialog = ({ id, open, pin, setPin, handleClickToggleModal, handleClickSave, handleClickCancel, isIncorrectPin = false }) => 
 {
     const classes = inputDialogUseStyles();
+    const theme = useTheme();
+    const isXs = useMediaQuery(theme.breakpoints.only('xs'));
 
     const handleOnKeyPressDown = (e) => {
         if (e.keyCode == 8) {
@@ -91,14 +118,17 @@ const InputPinDialog = ({ id, open, pin, setPin, handleClickToggleModal, handleC
                 open={ open } 
                 onClose={ handleClickToggleModal } 
                 aria-labelledby="form-dialog-title"
-                maxWidth='md'
+                maxWidth={ isXs ? 'xl' : 'md' }
                 fullWidth
                 className={ classes.dialog }
                 disableBackdropClick
+                classes={{ 
+                    paper: classes.dialogPaper
+                 }}
             >
                 <DialogTitle id="form-dialog-title" className={ classes.dialogTitle }>Profile Lock is currently on</DialogTitle>
                 <DialogContent className={ classes.dialogContainer }>
-                    <Grid container spacing={1} direction='column' justify='center' alignItems='center'>
+                    <Grid container direction='column' justify='center' alignItems='center'>
                         <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
                             {
                                 !isIncorrectPin
