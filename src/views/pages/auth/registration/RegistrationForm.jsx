@@ -1,29 +1,16 @@
-/** Libraries */
 import React, { useState, useEffect } from 'react';
 import { useDispatch, connect } from 'react-redux'
 import { createStructuredSelector } from 'reselect';
-
-/** Material UI Components */
-import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
-
-/** Custom Components */
 import Error from '../../../../components/Error';
-
-/** Custom material ui styling */
 import registrationFormUseStlyes from '../../../../assets/js/material-ui/registrationFormUseStyles';
-
-/** Actions */
 import * as AUTH_ACTION from '../../../../redux/modules/auth/actions'
-
-/** selectors */
 import { selectAuth, selectAuthErrorMessages, selectAuthHasErrorMessages } from '../../../../redux/modules/auth/selector';
-import AuthLayoutHeader from '../../../../components/app/AuthLayoutHeader';
 import { useLocation } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
 import { CircularProgress } from '@material-ui/core';
@@ -42,7 +29,6 @@ const RegistrationForm = ({ AUTH, AUTH_ERROR_MESSAGES, AUTH_HAS_ERROR_MESSAGES }
 {
     const dispatch = useDispatch();
     const classes = registrationFormUseStlyes();
-    const history = useHistory();
     const { state } = useLocation();
 
     const credentialsDefaultValue = { 
