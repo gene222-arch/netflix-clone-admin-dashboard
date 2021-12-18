@@ -27,7 +27,7 @@ const Introduction = () =>
             </Grid>
             <Grid item>
                 <Typography variant="body1" color="textSecondary">
-                    These terms and conditions outline the rules and regulations for the use of Flicklify Organization's Website, located at <Link className={ classes.link } color='primary' href='https://flicklify.com'>https://flicklify.com</Link>.
+                    These terms and conditions outline the rules and regulations for the use of Flicklify Organization's Website, located at <Link className={ classes.link } color='primary' target='_blank' href='https://flicklify.netlify.app'>https://flicklify.netlify.app</Link>.
                 </Typography>
             </Grid>
             <Grid item>

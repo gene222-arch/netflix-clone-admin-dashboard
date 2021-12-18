@@ -18,7 +18,7 @@ const Introduction = () =>
             <Grid item>
                 <Typography variant="body1" color="textSecondary">
                     At Flicklify, accessible from 
-                    <Link className={ classes.link } color='primary' href='https://flicklify.com'>https://flicklify.com</Link>
+                    <Link className={ classes.link } color='primary' target='_blank' href='https://flicklify.netlify.app'>https://flicklify.netlify.app</Link>
                     , one of our main priorities is the privacy of our visitors. This Privacy Policy document contains types of information that is collected and recorded by flicklify and how we use it.
                 </Typography>
             </Grid>
