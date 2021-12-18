@@ -26,8 +26,8 @@ const PIN_PROPS = {
 
 const avatarListUseStyles = makeStyles(theme => ({
     avatar: {
-        width: '4rem',
-        height: '5rem',
+        width: '90%',
+        height: '10vh',
         borderRadius: 5,
         marginRight: '1rem'
     },
@@ -177,61 +177,62 @@ const AvatarList = ({ AUTH, id, handleClickSetId, handleChangePinLock }) =>
                 handleClickSave={ handleClickSelect }
             />
             {
-                AUTH.profiles
-                .filter(({ enabled }) => enabled)
-                .map(({ id: profileId, name, avatar, pin_code, is_profile_locked, is_for_kids }, index) => (
-                    <div key={ index }>
-                        <List className={classes.profileContainer} onClick={ () => handleClickSetId(profileId) } >
-                            <ListItem>
-                                <ListItemAvatar>
-                                    <img src={ avatar } className={ classes.avatar } />
-                                </ListItemAvatar>
-                                <ListItemText primary={ name.toUpperCase() } secondary={
-                                    !is_for_kids ? "All Maturity Ratings" : <ChildCareRounded /> 
-                                }/>
-                                {
-                                    id === profileId 
-                                        ? <ExpandLessIcon className={ classes.expandIcon }/> 
-                                        : <ExpandMoreIcon className={ classes.expandIcon }/>
-                                }
-                            </ListItem>
-                        </List>
-                        <Collapse in={ id === profileId } timeout="auto" unmountOnExit className={ classes.collapse }>
-                            <List component="div" disablePadding>
-                                <ListItem button onClick={ handleChangePinLock }>
-                                    <ListItemText primary="Profile Lock" secondary={ !is_profile_locked ? 'Off' : 'On' } />
-                                    <ListItemSecondaryAction>
-                                        <StyledNavLink 
-                                            to={ PATH.PROFILE_LOCK.replace(':id', id) }
-                                            text={ 'Change' }
-                                        />
-                                    </ListItemSecondaryAction>
-                                </ListItem>
+                AUTH
+                    .profiles
+                    .filter(({ enabled }) => enabled)
+                    .map(({ id: profileId, name, avatar, pin_code, is_profile_locked, is_for_kids }, index) => (
+                        <div key={ index }>
+                            <List className={classes.profileContainer} onClick={ () => handleClickSetId(profileId) } >
                                 <ListItem>
-                                    <ListItemText primary="Delete" />
-                                    <ListItemSecondaryAction onClick={ 
-                                        () => is_profile_locked
-                                            ? handleClickToggleModal(pin_code, profileId, name, 'DELETE')
-                                            : handleDeleteConfirmation(profileId, name) 
-                                    }>
-                                        <DeleteIcon className={ classes.deleteIcon } />
-                                    </ListItemSecondaryAction>
-                                </ListItem>
-                                <ListItem>
-                                    <ListItemText primary="Update Profile" />
-                                    <ListItemSecondaryAction onClick={ 
-                                        () => is_profile_locked
-                                            ? handleClickToggleModal(pin_code, profileId, name, 'UPDATE')
-                                            : handleClickUpdate(profileId)
-                                     }>
-                                        <EditIcon className={ classes.updateIcon } />
-                                    </ListItemSecondaryAction>
+                                    <ListItemAvatar>
+                                        <img src={ avatar } className={ classes.avatar } />
+                                    </ListItemAvatar>
+                                    <ListItemText primary={ name.toUpperCase() } secondary={
+                                        !is_for_kids ? "All Maturity Ratings" : <ChildCareRounded /> 
+                                    }/>
+                                    {
+                                        id === profileId 
+                                            ? <ExpandLessIcon className={ classes.expandIcon }/> 
+                                            : <ExpandMoreIcon className={ classes.expandIcon }/>
+                                    }
                                 </ListItem>
                             </List>
-                        </Collapse>
-                        <Divider className={ classes.divider } />
-                    </div>
-                ))
+                            <Collapse in={ id === profileId } timeout="auto" unmountOnExit className={ classes.collapse }>
+                                <List component="div" disablePadding>
+                                    <ListItem button onClick={ handleChangePinLock }>
+                                        <ListItemText primary="Profile Lock" secondary={ !is_profile_locked ? 'Off' : 'On' } />
+                                        <ListItemSecondaryAction>
+                                            <StyledNavLink 
+                                                to={ PATH.PROFILE_LOCK.replace(':id', id) }
+                                                text={ 'Change' }
+                                            />
+                                        </ListItemSecondaryAction>
+                                    </ListItem>
+                                    <ListItem>
+                                        <ListItemText primary="Delete" />
+                                        <ListItemSecondaryAction onClick={ 
+                                            () => is_profile_locked
+                                                ? handleClickToggleModal(pin_code, profileId, name, 'DELETE')
+                                                : handleDeleteConfirmation(profileId, name) 
+                                        }>
+                                            <DeleteIcon className={ classes.deleteIcon } />
+                                        </ListItemSecondaryAction>
+                                    </ListItem>
+                                    <ListItem>
+                                        <ListItemText primary="Update Profile" />
+                                        <ListItemSecondaryAction onClick={ 
+                                            () => is_profile_locked
+                                                ? handleClickToggleModal(pin_code, profileId, name, 'UPDATE')
+                                                : handleClickUpdate(profileId)
+                                        }>
+                                            <EditIcon className={ classes.updateIcon } />
+                                        </ListItemSecondaryAction>
+                                    </ListItem>
+                                </List>
+                            </Collapse>
+                            <Divider className={ classes.divider } />
+                        </div>
+                    ))
             }
         </List>
     )
