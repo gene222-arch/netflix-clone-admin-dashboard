@@ -7,7 +7,6 @@ import { useHistory, useLocation } from 'react-router-dom';
 import PATH from './../../../../routes/path';
 import Button from '@material-ui/core/Button'
 import { Container } from '@material-ui/core';
-import AuthLayoutHeader from './../../../../components/app/AuthLayoutHeader';
 import Colors from './../../../../constants/Colors';
 import Typography from '@material-ui/core/Typography';
 import PersonIcon from '@material-ui/icons/Person';
@@ -21,7 +20,8 @@ const uploadAvatarUseStyles = makeStyles(theme => ({
     avatarImg: {
         height: '50vh',
         width: '100%',
-        marginBottom: '1rem'
+        marginBottom: '1rem',
+        borderRadius: 30
     },
     btn: {
         backgroundColor: Colors.white,
