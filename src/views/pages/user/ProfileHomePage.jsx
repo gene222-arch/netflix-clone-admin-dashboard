@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { createStructuredSelector } from 'reselect';
 import { selectAuth } from './../../../redux/modules/auth/selector';
-import * as AUTH_ACTION from './../../../redux/modules/auth/actions';
 import { connect, useDispatch } from 'react-redux';
 import Container from '@material-ui/core/Container'
 import Typography from '@material-ui/core/Typography'
@@ -14,7 +13,6 @@ import AvatarList from './settings/profile-home-page/AvatarList';
 import Membership from './settings/profile-home-page/Membership';
 import * as NOTIFICATIONS_ACTION from './../../../redux/modules/notifications/actions'
 import * as NOTIFICATION_API from './../../../services/notification'
-import { selectNotification } from './../../../redux/modules/notifications/selector';
 
 const NOTIFICATION_DEFAULT_PROPS = {
     type: '',
@@ -41,7 +39,7 @@ const profileHomePageUseStyles = makeStyles(theme => ({
     }
 }));
 
-const ProfileHomePage = ({ AUTH, NOTIFICATIONS }) => 
+const ProfileHomePage = ({ AUTH }) => 
 {
     const classes = profileHomePageUseStyles();
     const dispatch = useDispatch();
@@ -128,8 +126,7 @@ const ProfileHomePage = ({ AUTH, NOTIFICATIONS }) =>
 }
 
 const mapStateToProps = createStructuredSelector({
-    AUTH: selectAuth,
-    NOTIFICATIONS: selectNotification
+    AUTH: selectAuth
 });
 
 export default connect(mapStateToProps)(ProfileHomePage)
