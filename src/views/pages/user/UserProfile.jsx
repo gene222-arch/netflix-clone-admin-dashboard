@@ -34,8 +34,8 @@ const userProfileUseStyles = makeStyles(theme => ({
         marginRight: '1.5rem',
     },
     avatarImg: {
-        height: '10vw',
-        width: '10vw',
+        height: '100%',
+        width: '100%',
         maxHeight: 200,
         maxWidth: 200,
         minHeight: 84,
@@ -49,8 +49,9 @@ const userProfileUseStyles = makeStyles(theme => ({
         height: '84.3vh'
     },
     headerTitle: {
-        marginBottom: '1rem',
-        width: '100%'
+        marginBottom: '2rem',
+        width: '100%',
+        textAlign: 'center'
     },
     renewSubscriptionBtn: {
         color: Colors.white,
@@ -223,12 +224,12 @@ const UserProfile = ({ AUTH }) =>
             />
             <Grid container justify='center' alignItems='center' className={ classes.subContainer }>
                 <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
-                    <Typography variant="h3" color="initial" align='center' className={ classes.headerTitle }>Who's Watching?</Typography>
-                    <Grid container spacing={3} justify='center' className={ classes.avatarContainer }>
+                    <Typography variant="h3" color="initial" align='center' className={ classes.headerTitle }>Select Profile</Typography>
+                    <Grid container spacing={3} justify='space-evenly' className={ classes.avatarContainer }>
                         {
                             AUTH.profiles.map(({ id, name, avatar, is_profile_locked, pin_code, is_for_kids, enabled }, index) => (
                                 <Grid key={ index } item xs={ 3 } sm={ 2 } md={ 2 } lg={ 2 } className={ classes.avatarGridContainer }>
-                                    <Grid container spacing={ 1 } direction='column' justify='center'>
+                                    <Grid container spacing={ 1 } direction='column' alignItems='center'>
                                         <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
                                             <Tooltip 
                                                 title={ 
