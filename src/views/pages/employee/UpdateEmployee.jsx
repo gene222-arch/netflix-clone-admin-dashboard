@@ -26,7 +26,7 @@ const UpdateEmployee = ({ EMPLOYEE }) =>
     const onClickSave = () => {
         dispatch(EMPLOYEE_ACTION.updateEmployeeStart({
             ...employee,
-            role_id: employee?.role?.value,
+            role_id: employee.role.value,
             pin_code: Object.values(pin).join('')
         }));
     }
@@ -36,17 +36,17 @@ const UpdateEmployee = ({ EMPLOYEE }) =>
         try {
             const { 
                     data: { 
-                        employee: employeeData, role: roleName 
+                        employee: employeeData, role 
                     } 
                 } = await EMPLOYEE_API.findByIDAsync(id);
                 
             const [ num1, num2, num3, num4 ] = employeeData.pin_code.split('');
-            
+
             setEmployee({
                 ...employeeData,
                 role: {
-                    label: roleName,
-                    value: roleName
+                    label: role.name,
+                    value: role.id
                 }
             });
 
