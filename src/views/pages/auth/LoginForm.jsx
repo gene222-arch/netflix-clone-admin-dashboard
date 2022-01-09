@@ -79,7 +79,7 @@ const LoginForm = ({ AUTH, ERROR_MESSAGE, HAS_ERROR_MESSAGE }) =>
         const token = QueryParam.get('token');
         const profileId = QueryParam.get('profileId');
 
-        if (!Cookies.has('access_token') && token)
+        if (! Cookies.has('access_token') && token)
         {
             Cookies.set('access_token', token);
             loginUserViaToken(profileId, path);
