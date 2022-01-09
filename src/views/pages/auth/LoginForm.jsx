@@ -61,7 +61,7 @@ const LoginForm = ({ AUTH, ERROR_MESSAGE, HAS_ERROR_MESSAGE }) =>
 
             Cookies.set('access_token', token);
 
-            dispatch(AUTH_ACTION.loginViaToken({ ...userData, selectedProfile }));
+            dispatch(AUTH_ACTION.loginViaToken({ ...userData, selectedProfile, path }));
 
             if (path === 'profile-lock') {
                 history.push(PATH.PROFILE_LOCK.replace(':id', profileId));
