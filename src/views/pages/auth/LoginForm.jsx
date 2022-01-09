@@ -79,6 +79,10 @@ const LoginForm = ({ AUTH, ERROR_MESSAGE, HAS_ERROR_MESSAGE }) =>
         const token = QueryParam.get('token');
         const profileId = QueryParam.get('profileId');
 
+        if (path && token && profileId && AUTH.isAuthenticated) {
+            history.push(PATH.PROFILE_LOCK.replace(':id', profileId));
+        }
+
         if (! Cookies.has('access_token') && token)
         {
             Cookies.set('access_token', token);
