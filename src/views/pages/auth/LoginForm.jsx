@@ -63,7 +63,7 @@ const LoginForm = ({ AUTH, ERROR_MESSAGE, HAS_ERROR_MESSAGE }) =>
 
             dispatch(AUTH_ACTION.loginViaToken({ ...userData, selectedProfile }));
 
-            if (! path) {
+            if (path === 'profile-lock') {
                 history.push(PATH.PROFILE_LOCK.replace(':id', profileId));
             } 
 
