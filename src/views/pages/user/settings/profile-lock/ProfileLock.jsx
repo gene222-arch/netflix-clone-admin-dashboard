@@ -10,7 +10,6 @@ import { makeStyles } from '@material-ui/styles';
 import InputPassword from './InputPassword';
 import ContinueProfileLock from './ContinueProfileLock';
 import * as AUTH_API from './../../../../../services/auth/auth'
-import * as QueryParams from './../../../../../utils/queryParams'
 import * as Cookies from './../../../../../utils/cookies'
 import Forbidden from './../../../errors/Forbidden';
 
@@ -29,7 +28,6 @@ const ProfileLock = ({ AUTH }) =>
 {
     const { id } = useParams();
     const classes = profileLockUseStyles();
-    const dispatch = useDispatch();
     const history = useHistory();
 
     const [ isLoading, setIsLoading ] = useState(false);
@@ -61,12 +59,6 @@ const ProfileLock = ({ AUTH }) =>
 
     useEffect(() => 
     {
-        const token = QueryParams.get('token');
-
-        if (token) {
-            Cookies.set('access_token', token);
-        }
-
         onLoadFetchProfile();
 
         return () => {
