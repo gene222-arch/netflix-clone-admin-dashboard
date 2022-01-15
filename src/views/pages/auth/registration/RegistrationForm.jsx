@@ -54,10 +54,10 @@ const RegistrationForm = ({ AUTH, AUTH_ERROR_MESSAGES, AUTH_HAS_ERROR_MESSAGES }
     }, []);
 
     return (
-        <Container component="main" maxWidth="xl">
+        <Container component="main" maxWidth="xl" className={ classes.container }>
             <CssBaseline />
             <div className={classes.paper}>
-                <div className={ classes.description }>
+                <div>
                     <Typography variant="subtitle2">Step 4 of 4</Typography>
                     <Typography component="h1" variant="h5">Joining Flicklify is Easy.</Typography>
                     <Typography variant="subtitle1" gutterBottom className={ classes.headerLabel}>

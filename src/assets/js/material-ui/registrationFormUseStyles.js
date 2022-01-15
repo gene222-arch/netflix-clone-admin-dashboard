@@ -2,8 +2,11 @@ import { makeStyles } from '@material-ui/core/styles';
 import Colors from './../../../constants/Colors';
 
 const registrationFormUseStlyes = makeStyles((theme) => ({
-    description: {
-        width: '30rem',
+    container: {
+        height: '110vh',
+        [theme.breakpoints.up('sm')]: {
+            height: '81.5vh'
+        }
     },
     headerLabel: {
         marginBottom: '2rem'
@@ -13,8 +16,10 @@ const registrationFormUseStlyes = makeStyles((theme) => ({
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        width: '30rem',
-        margin: 'auto'
+        margin: 'auto',
+        [theme.breakpoints.up('sm')]: {
+            width: '30rem'
+        }
     },
     avatar: {
         margin: theme.spacing(1),

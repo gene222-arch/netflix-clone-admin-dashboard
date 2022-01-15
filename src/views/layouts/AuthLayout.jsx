@@ -21,7 +21,8 @@ const AuthLayout = ({ children }) =>
     const { pathname } = useLocation();
     const classes = authLayoutUseStyles();
 
-    const height = PATH.SELECT_PLAN === pathname ? 'auto' : '100vh';
+    let height = PATH.SELECT_PLAN === pathname ? 'auto' : '100vh';
+    height = PATH.REGISTER === pathname ? 'auto' : '100vh';
 
     if (PATH.LOGIN !== pathname) 
     {
