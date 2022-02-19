@@ -99,7 +99,7 @@ function* restoreDirectorsSaga(payload)
 
         const { data: directors, status: fetchAllStatus } = yield call(API.fetchAllAsync, true);
         
-        if (fetchAllStatus === 'success') {
+        if (fetchAllStatus === 'success' || !fetchAllStatus) {
             yield put(fetchAllDirectorsSuccess({ directors }));
         }
 

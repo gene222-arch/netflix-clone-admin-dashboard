@@ -98,7 +98,7 @@ function* restoreCastsSaga(payload)
         const { message, status } = yield call(API.restoreAsync, payload);
         const { data: casts, status: fetchAllStatus } = yield call(API.fetchAllAsync, true);
         
-        if (fetchAllStatus === 'success') {
+        if (fetchAllStatus === 'success' || !fetchAllStatus) {
             yield put(fetchAllCastsSuccess({ casts }));
         }
 

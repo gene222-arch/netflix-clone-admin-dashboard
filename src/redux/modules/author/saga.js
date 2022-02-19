@@ -99,8 +99,8 @@ function* restoreAuthorsSaga(payload)
         const { message, status } = yield call(API.restoreAsync, payload);
 
         const { data: authors, status: fetchAllStatus } = yield call(API.fetchAllAsync, true);
-    
-        if (fetchAllStatus === 'success') {
+
+        if (fetchAllStatus === 'success' || !fetchAllStatus) {
             yield put(fetchAllAuthorsSuccess({ authors }));
         }
 
