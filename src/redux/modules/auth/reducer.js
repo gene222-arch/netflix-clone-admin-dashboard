@@ -196,7 +196,7 @@ export default (state = initialState, { type, payload }) =>
 
 
         case BROADCAST_CREATE_PROFILE:
-            currentProfiles = [ ...state.profiles, payload.profile ];
+            currentProfiles = [ ...state.profiles, { ...payload.profile, enabled: 1 } ];
 
             return {
                 ...state,
