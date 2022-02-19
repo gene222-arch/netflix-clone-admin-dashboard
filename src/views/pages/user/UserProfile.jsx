@@ -119,6 +119,7 @@ const UserProfile = ({ AUTH }) =>
     const history = useHistory();
 
     const isNotSubscribed = [ 'expired', 'cancelled', 'pending' ].includes(AUTH.subscription_details.status);
+    const totalProfiles = [ ...AUTH.profiles ].filter(prof => prof.enabled).length;
 
     const [ id, setId ] = useState('');
     const [ pin, setPin ] = useState(PIN_PROPS);
@@ -269,11 +270,11 @@ const UserProfile = ({ AUTH }) =>
                             ))
                         }
                         {
-                            (profileLimit > AUTH.profiles.length) && !AUTH.profileCountToDisable && (
+                            ((profileLimit > totalProfiles) && !AUTH.profileCountToDisable) && (
                                 <AddProfileCard 
                                     isSubscribed={ !isNotSubscribed }
                                     planType={ AUTH.subscription_details.type }
-                                    totalProfiles={ AUTH.profiles.length }
+                                    totalProfiles={ totalProfiles }
                                 />
                             )
                         }
