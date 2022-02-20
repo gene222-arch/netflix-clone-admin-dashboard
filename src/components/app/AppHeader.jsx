@@ -50,7 +50,7 @@ const AppHeader = ({ AUTH, PAYMENT_AUTH_NOTIFS }) =>
 
     const shouldHideNotifAndAvatar = ([ PATH.USER_PROFILE, PATH.ADD_PROFILE ].includes(pathname)) || !AUTH.selectedProfile.id;
 
-    const paymentAuthorizationNotifCount = PAYMENT_AUTH_NOTIFS.filter(notif => !notif.read_at).length;
+    const paymentAuthorizationNotifCount = PAYMENT_AUTH_NOTIFS?.filter(notif => !notif.read_at).length || 0;
     const [ profileMenu, setProfileMenu ] = useState(null);
     const [ notifMenu, setNotifMenu ] = useState(null);
 
