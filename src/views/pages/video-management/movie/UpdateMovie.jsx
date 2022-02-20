@@ -44,7 +44,7 @@ const UpdateMovie = ({ MOVIE, AUTHOR_NAMES, CAST_NAMES, DIRECTOR_NAMES, GENRE_NA
             genre_ids: getValuesFromOptions(genres, GENRE_NAMES),
             video_size_in_mb: parseFloat(video_size_in_mb)
         }
-
+        
         dispatch(MOVIE_ACTION.updateMovieStart(movie_));
     }
 
@@ -83,7 +83,7 @@ const UpdateMovie = ({ MOVIE, AUTHOR_NAMES, CAST_NAMES, DIRECTOR_NAMES, GENRE_NA
                 casts: getOptionsFromString(casts, CAST_NAMES),
                 directors: getOptionsFromString(directors, DIRECTOR_NAMES),
                 genres: getOptionsFromString(genres, GENRE_NAMES),
-                similar_movies: similar_movies?.map(({ movie_id, movie }) => ({ value: movie_id, label: movie.title })) ?? []
+                similar_movies: similar_movies?.map(({ movie }) => ({ value: movie.id, label: movie.title })) ?? []
             }
 
             setMovie(movie_);
