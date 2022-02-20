@@ -39,6 +39,9 @@ const paymentMethodUseStyles = makeStyles(theme => ({
         },
         marginBottom: '1rem'
     },
+    container: {
+        height: '84vh'
+    },
     propagateLoader: {
         color: Colors.white
     },
@@ -247,7 +250,7 @@ const PaymentMethod = ({ planType, amount }) =>
     }
 
     return (
-        <Container maxWidth='xl'>
+        <Container maxWidth='xl'className={ classes.container }>
             <Container maxWidth='md'>
                 <Grid container spacing={1} justify='center'>
                     <Grid item xs={ 12 } sm={ 12 } md={ 12 } lg={ 12 }>
