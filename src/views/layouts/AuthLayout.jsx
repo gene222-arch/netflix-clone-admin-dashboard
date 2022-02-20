@@ -23,6 +23,7 @@ const AuthLayout = ({ children }) =>
 
     let height = PATH.SELECT_PLAN === pathname ? 'auto' : '100vh';
     height = PATH.REGISTER === pathname ? 'auto' : '100vh';
+    height = PATH.SELECT_PLAN === pathname ? 'auto' : '100vh';
 
     if (PATH.LOGIN !== pathname) 
     {
