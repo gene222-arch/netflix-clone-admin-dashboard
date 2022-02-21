@@ -7,6 +7,7 @@ import restoreButtonUseStyles from './../../assets/js/material-ui/restoreButtonU
 import { createStructuredSelector } from 'reselect';
 import { selectConfirm } from './../../redux/modules/confirm/selector';
 import { useDispatch, connect } from 'react-redux';
+import { Tooltip, Typography } from '@material-ui/core';
 
 
 const RestoreButton = ({ actionName = null, color = 'default', variant = 'text', hasItemsSelected = false, restoreButtonCallback }) => 
@@ -24,14 +25,16 @@ const RestoreButton = ({ actionName = null, color = 'default', variant = 'text',
     }
 
     return (
-        <Button 
-            variant={ variant } 
-            color={ color } 
-            className={ classes.restoreBtn }
-            onClick={ handleClickConfirmation }
-        > 
-            { actionName ?? <RestoreFromTrashIcon color={ hasItemsSelected ? 'action' : 'disabled' } /> } 
-        </Button>
+        <Tooltip title={ <Typography variant="subtitle1">Recover data</Typography> }>
+            <Button 
+                variant={ variant } 
+                color={ color } 
+                className={ classes.restoreBtn }
+                onClick={ handleClickConfirmation }
+            > 
+                { actionName ?? <RestoreFromTrashIcon color={ hasItemsSelected ? 'action' : 'disabled' } /> } 
+            </Button>
+        </Tooltip>
     )
 }
 

@@ -7,6 +7,7 @@ import deleteButtonUseStyles from './../../assets/js/material-ui/deleteButtonUse
 import { createStructuredSelector } from 'reselect';
 import { selectConfirm } from './../../redux/modules/confirm/selector';
 import { useDispatch, connect } from 'react-redux';
+import { Tooltip, Typography } from '@material-ui/core';
 
 
 const DeleteButton = ({ actionName = null, color = 'default', variant = 'text', onClickEventCallback }) => 
@@ -24,14 +25,16 @@ const DeleteButton = ({ actionName = null, color = 'default', variant = 'text', 
     }
 
     return (
-        <Button 
-            variant={ variant } 
-            color={ color } 
-            className={ classes.deleteBtn }
-            onClick={ handleClickConfirmation }
-        > 
-            { actionName ?? <DeleteIcon /> } 
-        </Button>
+        <Tooltip title={ <Typography variant="subtitle1">Delete</Typography> }>
+            <Button 
+                variant={ variant } 
+                color={ color } 
+                className={ classes.deleteBtn }
+                onClick={ handleClickConfirmation }
+            > 
+                { actionName ?? <DeleteIcon /> } 
+            </Button>
+        </Tooltip>
     )
 }
 

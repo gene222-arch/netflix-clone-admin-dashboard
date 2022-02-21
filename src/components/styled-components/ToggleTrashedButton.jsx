@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { makeStyles } from '@material-ui/core/styles';
 import Tooltip from '@material-ui/core/Tooltip';
-import { FormControlLabel, Switch } from '@material-ui/core';
+import { FormControlLabel, Switch, Typography } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 
 
@@ -27,7 +27,7 @@ const ToggleTrashedButton = ({ title = 'Show deleted items', onClick, isLoading 
 
     return (
         <div className={ classes.toggleTrashedContainer }>
-            <Tooltip title={ title }>
+            <Tooltip title={ <Typography variant="subtitle1" style={{ color: '#FFFFFF' }}>{title}</Typography> }>
                 <FormControlLabel 
                     control={
                         <Switch 
