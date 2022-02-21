@@ -1,15 +1,7 @@
 import React from 'react'
 import Typography from '@material-ui/core/Typography'
 import { Grid, List, ListItem, ListItemText, ListItemIcon } from '@material-ui/core'
-import CloseIcon from '@material-ui/icons/Close';
 import CheckIcon from '@material-ui/icons/Check';
-
-const mustNots = [
-    'Republish material from Flicklify',
-    'Sell, rent or sub-license material from Flicklify',
-    'Reproduce, duplicate or copy material from Flicklify',
-    'Redistribute content from Flicklify'
-];
 
 const warrantAndPresents = [
     'You are entitled to post the Comments on our website and have all necessary licenses and consents to do so;',
@@ -26,25 +18,9 @@ const License = () =>
                 <Typography variant="h6" color="initial"><strong>License</strong></Typography>
             </Grid>
             <Grid item>
-                <Typography variant="body1" color="textSecondary">
-                    Unless otherwise stated, Flicklify Organization and/or its licensors own the intellectual property rights for all material on Flicklify. All intellectual property rights are reserved. You may access this from Flicklify for your own personal use subjected to restrictions set in these terms and conditions.
+                <Typography variant="h6" color="error">
+                    Flicklify Organization does not own the intellectual property rights for all material on Flicklify.
                 </Typography>
-            </Grid>
-            <Grid item>
-                <List>
-                    {
-                        mustNots.map((mustNot, index) => (
-                            <ListItem key={ index }>
-                                <ListItemIcon>
-                                    <CloseIcon />
-                                </ListItemIcon>
-                                <ListItemText primary={
-                                    <Typography variant="body2" color="textSecondary">{ mustNot }</Typography>
-                                }/>
-                            </ListItem>
-                        ))
-                    }
-                </List>
             </Grid>
             <Grid item>
                 <Typography variant="body1" color="textSecondary">
